@@ -939,7 +939,7 @@
         return `<li><span class="d"></span>${formatDateLabel(d)}${timeLabel}</li>`;
       }).join('');
       const moreNote = dateOrder.length > 3
-        ? `<p class="flexi">還有 ${dateOrder.length - 3} 個日期，詳情請洽官方 LINE。</p>` : '';
+        ? `<p class="flexi">還有 ${dateOrder.length - 3} 個日期，詳情請看下方開課日曆，或私訊官方 LINE 詢問。</p>` : '';
       // 台中場次多、時間彈性，額外補充一段小字說明
       const taichungNote = city === '台中'
         ? `<p class="flexi">場次多、時間彈性，<strong>1 人即可開班</strong>。詳細時間請 <a href="https://forms.gle/okEULz6aVJifkEdX8" target="_blank" rel="noopener">點此查看報名表</a> 或私訊官方 LINE 詢問。</p>`

@@ -283,6 +283,7 @@
   .city-card{
     padding:9px 0; border-bottom:1px solid var(--line);
   }
+  .city-card.full{ grid-column:1 / -1; }
   .city-card .city-head{ display:flex; align-items:center; gap:6px; margin-bottom:5px; flex-wrap:wrap; line-height:1.2; }
   .city-card .city-head .flag{
     padding:2px 8px; border-radius:6px; background:var(--rose-soft); color:#fff;
@@ -730,7 +731,7 @@
 
       <div class="city-panel">
         <div class="city-grid" id="cityGrid">
-          <div class="city-card">
+          <div class="city-card full">
             <div class="city-head"><span class="flag flag-台中">台中</span></div>
             <ul class="date-list">
               <li><span class="d"></span>8/8（六）早班 09:00–12:30</li>
@@ -747,6 +748,10 @@
             </ul>
           </div>
           <div class="city-card">
+            <div class="city-head"><span class="flag flag-新北">新北</span></div>
+            <p class="flexi">尚無場次公告，歡迎私訊官方 LINE 詢問。</p>
+          </div>
+          <div class="city-card">
             <div class="city-head">
               <span class="flag flag-桃園">桃園</span>
               <a class="venue-address-inline" href="#" target="_blank" rel="noopener">📍 地址待補上</a>
@@ -754,6 +759,18 @@
             <ul class="date-list">
               <li><span class="d"></span>8/15（六）時間洽詢</li>
             </ul>
+          </div>
+          <div class="city-card">
+            <div class="city-head"><span class="flag flag-新竹">新竹</span></div>
+            <p class="flexi">尚無場次公告，歡迎私訊官方 LINE 詢問。</p>
+          </div>
+          <div class="city-card">
+            <div class="city-head"><span class="flag flag-嘉義">嘉義</span></div>
+            <p class="flexi">尚無場次公告，歡迎私訊官方 LINE 詢問。</p>
+          </div>
+          <div class="city-card">
+            <div class="city-head"><span class="flag flag-台南">台南</span></div>
+            <p class="flexi">尚無場次公告，歡迎私訊官方 LINE 詢問。</p>
           </div>
           <div class="city-card">
             <div class="city-head">
@@ -918,6 +935,9 @@
   }
 
   // ---------- 各縣市場次總覽：依 Google Sheet 即時資料動態產生 ----------
+  // 固定版位：台中獨自一列（滿版），其餘縣市兩兩一列並排；
+  // 高雄目前右側欄位保留空白，新竹目前沒有場次也保留欄位待補。
+  const CITY_LAYOUT = ['台中', '台北', '新北', '桃園', '新竹', '嘉義', '台南', '高雄'];
   function renderCityOverview(sessions){
     const grid = document.getElementById('cityGrid');
     if(!grid) return;
@@ -928,22 +948,21 @@
       if(!groups[city]) groups[city] = [];
       groups[city].push(s);
     });
-    const cityNames = Object.keys(groups);
-    if(!cityNames.length) return; // 沒抓到即時資料就保留原本寫死的卡片，不覆蓋
+    if(!Object.keys(groups).length) return; // 沒抓到即時資料就保留原本寫死的卡片，不覆蓋
 
-    const CITY_ORDER = ['台中','台北','新北','桃園','嘉義','台南','高雄'];
-    cityNames.sort((a,b) => {
-      const ia = CITY_ORDER.indexOf(a), ib = CITY_ORDER.indexOf(b);
-      if(ia !== -1 && ib !== -1) return ia - ib;
-      if(ia !== -1) return -1;
-      if(ib !== -1) return 1;
-      const da = groups[a].slice().sort((x,y)=>x.date.localeCompare(y.date))[0].date;
-      const db = groups[b].slice().sort((x,y)=>x.date.localeCompare(y.date))[0].date;
-      return da.localeCompare(db);
-    });
+    function buildCard(city){
+      const list = (groups[city] || []).slice().sort((a,b)=>a.date.localeCompare(b.date));
+      const label = CITY_LABELS[city] || city;
+      const address = CITY_ADDRESSES[city];
+      const addressHtml = address
+        ? `<a class="venue-address-inline" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}" target="_blank" rel="noopener">📍 ${address}</a>`
+        : '';
+      const fullClass = city === '台中' ? ' full' : '';
 
-    const cardsHtml = cityNames.map(city => {
-      const list = groups[city].slice().sort((a,b)=>a.date.localeCompare(b.date));
+      if(!list.length){
+        return `<div class="city-card${fullClass}"><div class="city-head"><span class="flag flag-${city}">${label}</span>${addressHtml}</div><p class="flexi">尚無場次公告，歡迎私訊官方 LINE 詢問。</p></div>`;
+      }
+
       // 以「日期」為單位彙整（同一天可能有早／中／晚多個場次，只算一筆日期）
       const dateOrder = [];
       const byDate = {};
@@ -967,13 +986,12 @@
       const taichungNote = city === '台中'
         ? `<p class="flexi">場次多、時間彈性，<strong>1 人即可開班</strong>。詳細時間請 <a href="https://forms.gle/okEULz6aVJifkEdX8" target="_blank" rel="noopener">點此查看報名表</a> 或私訊官方 LINE 詢問。</p>`
         : '';
-      const label = CITY_LABELS[city] || city;
-      const address = CITY_ADDRESSES[city];
-      const addressHtml = address
-        ? `<a class="venue-address-inline" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}" target="_blank" rel="noopener">📍 ${address}</a>`
-        : '';
-      return `<div class="city-card"><div class="city-head"><span class="flag flag-${city}">${label}</span>${addressHtml}</div><ul class="date-list">${dateItems}</ul>${moreNote}${taichungNote}</div>`;
-    }).join('');
+      return `<div class="city-card${fullClass}"><div class="city-head"><span class="flag flag-${city}">${label}</span>${addressHtml}</div><ul class="date-list">${dateItems}</ul>${moreNote}${taichungNote}</div>`;
+    }
+
+    const laidOutCities = new Set(CITY_LAYOUT);
+    const extraCities = Object.keys(groups).filter(c => !laidOutCities.has(c));
+    const cardsHtml = CITY_LAYOUT.map(buildCard).join('') + extraCities.map(buildCard).join('');
 
     grid.innerHTML = cardsHtml;
   }

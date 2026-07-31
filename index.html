@@ -1386,6 +1386,8 @@
     let cursor = new Date((sessions[0] && sessions[0].date) || new Date());
     cursor.setDate(1);
     let selectedKey = null;
+    let selectedRangeStart = null;
+    let selectedRangeEnd = null;
 
     let selectedSessionIndex = null;
 
@@ -1450,7 +1452,7 @@
             countBadge.className = 'count-badge';
             cell.appendChild(countBadge);
           }
-          if(dateStr === selectedKey) cell.classList.add('selected');
+          if(selectedRangeStart && dateStr >= selectedRangeStart && dateStr <= selectedRangeEnd) cell.classList.add('selected');
           cell.addEventListener('click', () => selectDate(dateStr));
         }
         grid.appendChild(cell);
@@ -1480,8 +1482,16 @@
     function selectDate(dateStr){
       selectedKey = dateStr;
       selectedSessionIndex = null;
-      render();
       const daySessions = sessionMap[dateStr] || [];
+      // 多日場次（例如師資班連續兩天）綁定在一起，點選其中一天要讓整個區間都圈選起來
+      if(daySessions.length){
+        selectedRangeStart = daySessions[0].date;
+        selectedRangeEnd = daySessions[0].endDate || daySessions[0].date;
+      } else {
+        selectedRangeStart = null;
+        selectedRangeEnd = null;
+      }
+      render();
       if(!daySessions.length) return;
 
       document.getElementById(cfg.detailLocationId).textContent = `上課地點：${daySessions[0].location}`;

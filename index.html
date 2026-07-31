@@ -225,6 +225,38 @@
   .price-card .price{ font-family:'Noto Serif TC',serif; font-size:44px; color:var(--clay); margin:10px 0; }
   .price-card .note{ font-size:13px; color:#7a6a58; }
 
+  /* ---------- 課程方案比較（零基礎班／兩日師資班） ---------- */
+  .plan-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:44px; align-items:start; }
+  .plan-card{
+    position:relative; background:var(--card); border:1px solid var(--line); border-radius:20px;
+    padding:36px 28px 32px; text-align:center; transition:border-color .25s ease, box-shadow .25s ease;
+  }
+  .plan-card.active-plan{
+    border:2px solid var(--clay); box-shadow:0 18px 40px rgba(142,95,62,.16);
+  }
+  .plan-card .plan-badge{
+    position:absolute; top:-14px; left:50%; transform:translateX(-50%);
+    background:var(--clay); color:#fff; font-size:11px; font-weight:700;
+    padding:5px 16px; border-radius:999px; letter-spacing:.06em; white-space:nowrap;
+    opacity:0; transition:opacity .25s ease;
+  }
+  .plan-card.active-plan .plan-badge{ opacity:1; }
+  .plan-card .plan-tagline{ font-size:12.5px; letter-spacing:.14em; color:var(--rose); text-transform:uppercase; font-weight:700; }
+  .plan-card .plan-name{ font-family:'Noto Serif TC',serif; font-weight:700; font-size:22px; margin-top:8px; }
+  .plan-card .plan-price{ font-family:'Noto Serif TC',serif; font-size:36px; color:var(--clay); margin:14px 0 2px; }
+  .plan-card .plan-price .unit{ font-size:14px; color:#7a6a58; font-weight:400; }
+  .plan-card .plan-note{ font-size:13px; color:#7a6a58; margin-bottom:20px; }
+  .plan-card .plan-cta{ padding:13px 32px; }
+  .plan-card .plan-section{ margin-top:24px; padding-top:20px; border-top:1px solid var(--line); text-align:left; }
+  .plan-card .plan-section h4{ font-size:13.5px; color:var(--plum); font-weight:700; margin-bottom:10px; letter-spacing:.03em; }
+  .plan-card .plan-section ul{ list-style:none; display:grid; gap:7px; }
+  .plan-card .plan-section li{
+    font-size:13.5px; color:#3a2e22; display:flex; gap:8px; align-items:flex-start; line-height:1.5;
+  }
+  .plan-card .plan-section li::before{ content:'✓'; color:var(--clay); flex-shrink:0; font-weight:700; }
+  .plan-card .plan-section.muted p{ font-size:13px; color:#9a8a78; font-style:italic; line-height:1.5; }
+  @media (max-width:640px){ .plan-grid{ grid-template-columns:1fr; } }
+
   /* ---------- FEATURE GRID (師資班亮點) ---------- */
   .feature-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:44px; }
   .feature-card{
@@ -588,34 +620,7 @@
   </div>
 </section>
 
-<!-- ================= 贈品/價格：零基礎班 ================= -->
-<section class="section-pad gift" data-course="beginner">
-  <div class="wrap">
-    <p class="eyebrow">報名就送</p>
-    <h2 class="serif section-title">專屬工具大禮包</h2>
-    <div class="gift-box">
-      <div class="gift-box-head">🎁 大禮包內容物</div>
-      <ul class="gift-checklist">
-        <li><span class="check">✓</span>13 支專用工具筆</li>
-        <li><span class="check">✓</span>專用定位打稿版・15cm 曼陀羅專用卡紙</li>
-        <li><span class="check">✓</span>×3 10cm 圓形黑色畫卡</li>
-        <li><span class="check">✓</span>×4 六角型磁鐵</li>
-        <li><span class="check">✓</span>9 色無毒丙烯顏料</li>
-        <li><span class="check">✓</span>×1 工具收納盒</li>
-        <li><span class="check">✓</span>×1 筆架</li>
-        <li><span class="check">✓</span>×1 木質小畫架</li>
-      </ul>
-    </div>
-
-    <div class="price-card">
-      <div class="eyebrow" style="justify-content:center;">滿載而歸超值價</div>
-      <div class="price">$3,500</div>
-      <p class="note">✨ 兩人一起報名 $6,666</p>
-    </div>
-  </div>
-</section>
-
-<!-- ================= 課程亮點/價格：兩日師資班 ================= -->
+<!-- ================= 課程亮點：兩日師資班 ================= -->
 <section class="section-pad gift" data-course="teacher" style="display:none;">
   <div class="wrap">
     <p class="eyebrow">課程亮點</p>
@@ -629,11 +634,94 @@
       <div class="feature-card"><span class="t">進階構圖技巧</span><p>提供多種構圖思路，告別單純的同心圓構圖，讓作品看起來更多層次。</p></div>
     </div>
     <p class="works-note">💥 兩日會完成 4 件最終成品：15cm 厚木板・竹製杯墊・立體石膏燭台・30cm 圓形畫布，體驗 4 種不同材質的繪畫與色彩碰撞</p>
+  </div>
+</section>
 
-    <div class="price-card">
-      <div class="eyebrow" style="justify-content:center;">全修暖心價</div>
-      <div class="price">$26,800</div>
-      <p style="color:#4a3a2c;font-size:14px;">兩日完整課程（含兩日午餐＆兩日下午茶飲品一杯）</p>
+<!-- ================= 課程方案比較：零基礎班／兩日師資班 ================= -->
+<section class="section-pad plan-compare">
+  <div class="wrap">
+    <p class="eyebrow" style="justify-content:center;">課程方案</p>
+    <h2 class="serif section-title" style="text-align:center;">選擇屬於你的課程</h2>
+    <p style="text-align:center;color:#7a6a58;font-size:14px;margin-top:10px;">目前所選的課程會以外框標示，切換上方頁籤即可查看另一個方案</p>
+
+    <div class="plan-grid">
+      <div class="plan-card" data-plan="beginner">
+        <span class="plan-badge">目前瀏覽</span>
+        <div class="plan-tagline">沉浸式繪畫體驗</div>
+        <div class="plan-name">零基礎班</div>
+        <div class="plan-price">$3,500<span class="unit">／人</span></div>
+        <p class="plan-note">✨ 兩人一起報名 $6,666</p>
+        <a href="#signup" class="btn plan-cta">立即報名</a>
+
+        <div class="plan-section">
+          <h4>課程時長</h4>
+          <ul><li>3.5 小時完整課程</li></ul>
+        </div>
+        <div class="plan-section">
+          <h4>教學重點</h4>
+          <ul>
+            <li>卡牌破冰、工具盤點與介紹</li>
+            <li>圖形組合練習</li>
+            <li>色彩與構圖思維</li>
+            <li>進入創作心流，完成專屬作品</li>
+          </ul>
+        </div>
+        <div class="plan-section">
+          <h4>附贈材料</h4>
+          <ul>
+            <li>13 支專用工具筆</li>
+            <li>專用定位打稿版・15cm 曼陀羅專用卡紙</li>
+            <li>×3 10cm 圓形黑色畫卡</li>
+            <li>×4 六角型磁鐵</li>
+            <li>9 色無毒丙烯顏料</li>
+            <li>×1 工具收納盒</li>
+            <li>×1 筆架</li>
+            <li>×1 木質小畫架</li>
+          </ul>
+        </div>
+        <div class="plan-section">
+          <h4>課程最終作品</h4>
+          <ul><li>×1 15cm 圓形黑色曼陀羅畫卡</li></ul>
+        </div>
+      </div>
+
+      <div class="plan-card" data-plan="teacher">
+        <span class="plan-badge">目前瀏覽</span>
+        <div class="plan-tagline">全修進階培訓</div>
+        <div class="plan-name">兩日師資班</div>
+        <div class="plan-price">$26,800<span class="unit">／人</span></div>
+        <p class="plan-note">含兩日午餐＆兩日下午茶飲品一杯</p>
+        <a href="#signup" class="btn plan-cta">立即報名</a>
+
+        <div class="plan-section">
+          <h4>課程時長</h4>
+          <ul><li>兩日完整課程（09:00－17:00 ×2）</li></ul>
+        </div>
+        <div class="plan-section">
+          <h4>教學重點</h4>
+          <ul>
+            <li>多元材質</li>
+            <li>立體創作</li>
+            <li>多媒介混合運用</li>
+            <li>找圓心</li>
+            <li>進階筆刷</li>
+            <li>進階構圖技巧</li>
+          </ul>
+        </div>
+        <div class="plan-section muted">
+          <h4>附贈材料</h4>
+          <p>材料清單整理中，詳情請洽官方 LINE。</p>
+        </div>
+        <div class="plan-section">
+          <h4>課程最終作品</h4>
+          <ul>
+            <li>15cm 厚木板｜可換底色</li>
+            <li>竹製杯墊｜搭配環氧樹脂封層</li>
+            <li>立體石膏燭台｜可換底色</li>
+            <li>30cm 圓形畫布含框｜可換底色</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1351,6 +1439,9 @@
     });
     document.querySelectorAll('.toggle-btn').forEach(b => {
       b.classList.toggle('active', b.dataset.track === track);
+    });
+    document.querySelectorAll('.plan-card').forEach(c => {
+      c.classList.toggle('active-plan', c.dataset.plan === track);
     });
     document.getElementById('course').value = track;
     resetSessionSelection();

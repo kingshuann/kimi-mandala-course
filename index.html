@@ -295,7 +295,7 @@
   .city-card .city-head .flag.flag-桃園{ background:#BC8A5C; }
   .city-card .city-head .flag.flag-新竹{ background:#B3A15E; }
   .city-card .city-head .flag.flag-台中{ background:#8FA888; }
-  .city-card .city-head .flag.flag-嘉義{ background:#7C97A3; }
+  .city-card .city-head .flag.flag-嘉義{ background:#C0A857; }
   .city-card .city-head .flag.flag-台南{ background:#7A7FA0; }
   .city-card .city-head .flag.flag-高雄{ background:#9A82A0; }
   .city-card .city-head .name{ font-family:'Noto Serif TC',serif; font-weight:700; font-size:13px; }
@@ -331,9 +331,9 @@
   .cal-grid{ display:grid; grid-template-columns:repeat(7, minmax(0,1fr)); gap:6px; min-width:0; }
   .cal-dow{ text-align:center; font-size:12px; color:#8a7a68; padding-bottom:6px; }
   .cal-cell{
-    aspect-ratio:1/1.21; display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+    min-height:76px; height:auto; display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
     border-radius:8px; font-size:13px; color:#b8ab9c; position:relative; background:transparent;
-    min-width:0; overflow:hidden; padding:10px 2px 16px;
+    min-width:0; overflow:visible; padding:10px 2px 14px;
   }
   .cal-cell.pad{ visibility:hidden; }
   .cal-cell.has-session{
@@ -350,8 +350,10 @@
     position:absolute; top:0; right:0; width:0; height:0;
     border-style:solid; border-width:0 16px 16px 0; border-color:transparent var(--plum) transparent transparent;
   }
-  .cal-cell.selected{ background:var(--rose-soft); box-shadow:0 10px 22px rgba(142,95,62,.2); }
-  .cal-cell.selected .loc-tag{ border:2px solid var(--plum); box-shadow:0 0 0 1px var(--plum); }
+  .cal-cell.selected{
+    background:var(--rose-soft); box-shadow:0 10px 22px rgba(142,95,62,.2);
+    border:2px solid var(--plum);
+  }
 
   .session-detail{
     margin-top:20px; background:var(--paper-warm); border-radius:16px; padding:20px 22px;
@@ -890,7 +892,7 @@
     '桃園': '#BC8A5C', // 橙
     '新竹': '#B3A15E', // 黃
     '台中': '#8FA888', // 綠
-    '嘉義': '#7C97A3', // 藍
+    '嘉義': '#C0A857', // 莫蘭迪黃
     '台南': '#7A7FA0', // 靛
     '高雄': '#9A82A0', // 紫
   };

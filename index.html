@@ -296,14 +296,14 @@
     display:flex; align-items:center; justify-content:center; color:var(--clay);
   }
   .plan-card .highlight-icon svg{ width:20px; height:20px; }
-  .plan-card .highlight-row .text{ font-size:13.5px; color:#3a2e22; line-height:1.4; }
+  .plan-card .highlight-row .text{ font-size:15.5px; color:#3a2e22; line-height:1.4; }
   .plan-card:not(.active-plan) .highlight-row .text{ color:#a89a8c !important; }
   .plan-card:not(.active-plan) .highlight-icon{ color:#a89a8c; }
   .plan-card .plan-section{ margin-top:24px; padding-top:20px; border-top:1px solid var(--line); text-align:left; }
-  .plan-card .plan-section h4{ font-size:13.5px; color:var(--plum); font-weight:700; margin-bottom:10px; letter-spacing:.03em; }
+  .plan-card .plan-section h4{ font-size:15.5px; color:var(--plum); font-weight:700; margin-bottom:10px; letter-spacing:.03em; }
   .plan-card .plan-section ul{ list-style:none; display:grid; gap:7px; }
   .plan-card .plan-section li{
-    font-size:13.5px; color:#3a2e22; display:flex; gap:8px; align-items:flex-start; line-height:1.5;
+    font-size:15.5px; color:#3a2e22; display:flex; gap:8px; align-items:flex-start; line-height:1.5;
   }
   .plan-card .plan-section li::before{
     content:''; display:inline-block; width:15px; height:15px; margin-top:1px; flex-shrink:0;
@@ -347,15 +347,15 @@
     .plan-card .plan-cta{ padding:10px 14px; font-size:13px; }
     .plan-card:not(.active-plan) .plan-cta{ padding:8px 10px; font-size:11px; }
     .plan-card .plan-section{ margin-top:16px; padding-top:14px; }
-    .plan-card .plan-section h4{ font-size:12px; }
-    .plan-card .plan-section li{ font-size:12px; }
+    .plan-card .plan-section h4{ font-size:14px; }
+    .plan-card .plan-section li{ font-size:14px; }
     .plan-card:not(.active-plan) .plan-section h4{ font-size:10.5px; }
     .plan-card:not(.active-plan) .plan-section li{ font-size:10.5px; }
     .plan-card .plan-badge{ font-size:9.5px; padding:4px 10px; top:-11px; }
     .plan-card .highlight-list{ margin-top:14px; gap:9px; }
     .plan-card .highlight-icon{ width:16px; height:16px; }
     .plan-card .highlight-icon svg{ width:16px; height:16px; }
-    .plan-card .highlight-row .text{ font-size:12px; }
+    .plan-card .highlight-row .text{ font-size:14px; }
   }
 
   /* ---------- FEATURE GRID (師資班亮點) ---------- */
@@ -442,7 +442,7 @@
   .city-card .city-head .flag.flag-高雄{ background:#B8A6CC; }
   .city-card .city-head .name{ font-family:'Noto Serif TC',serif; font-weight:700; font-size:16px; }
   .city-card .city-head .venue-address-inline{
-    font-size:13px; color:var(--clay); text-decoration:underline; text-underline-offset:2px; line-height:1.3;
+    font-size:13px; color:var(--clay); text-decoration:none; line-height:1.3;
   }
   .city-card .date-list{ list-style:none; display:grid; gap:2px; }
   .city-card .date-list li{
@@ -1080,7 +1080,6 @@
           <div class="row"><span class="ico">📍</span><span id="detailLocation"></span></div>
           <div class="row"><span class="ico">🕐</span><span id="detailTime"></span></div>
           <div class="slot-picker" id="slotPicker"></div>
-          <button type="button" class="confirm-btn" id="confirmSessionBtn">我要報名這個場次</button>
         </div>
       </div>
     </div>
@@ -1098,7 +1097,6 @@
           <div class="row"><span class="ico">📍</span><span id="tDetailLocation"></span></div>
           <div class="row"><span class="ico">🕐</span><span id="tDetailTime"></span></div>
           <div class="slot-picker" id="tSlotPicker"></div>
-          <button type="button" class="confirm-btn" id="tConfirmSessionBtn">我要報名這個場次</button>
         </div>
       </div>
     </div>
@@ -1132,6 +1130,17 @@
       <div class="field">
         <label for="lineName">LINE 名稱（顯示名稱，方便小幫手確認是你） <span class="req">*</span></label>
         <input type="text" id="lineName" name="lineName" required>
+      </div>
+
+      <div class="field">
+        <label for="partySize">報名人數 <span class="req">*</span></label>
+        <select id="partySize" name="partySize" required>
+          <option value="" disabled selected>請選擇人數</option>
+          <option value="1人">1人</option>
+          <option value="2人">2人</option>
+          <option value="3人">3人</option>
+          <option value="多人包班">多人包班</option>
+        </select>
       </div>
 
       <div class="field">
@@ -1448,79 +1457,12 @@
       }
     }
 
-    function selectDate(dateStr){
-      selectedKey = dateStr;
-      selectedSessionIndex = null;
-      render();
-      const daySessions = sessionMap[dateStr] || [];
-      if(!daySessions.length) return;
-
-      document.getElementById(cfg.detailLocationId).textContent = `上課地點：${daySessions[0].location}`;
-      const timeEl = document.getElementById(cfg.detailTimeId);
-      const slotWrap = document.getElementById(cfg.slotPickerId);
-      const btn = document.getElementById(cfg.confirmBtnId);
-      btn.textContent = '我要報名這個場次';
-      btn.classList.remove('picked');
-
-      if(daySessions.length > 1){
-        // 同一天有多個班次（例如早／中／晚班），先讓使用者挑一個時段才能送出
-        timeEl.textContent = `${formatDateLabel(daySessions[0].date)}｜請選擇時段：`;
-        slotWrap.style.display = 'flex';
-        slotWrap.innerHTML = daySessions.map((s, i) =>
-          `<button type="button" class="slot-btn" data-idx="${i}">${s.time}</button>`
-        ).join('');
-        slotWrap.querySelectorAll('.slot-btn').forEach(b => {
-          b.addEventListener('click', () => {
-            slotWrap.querySelectorAll('.slot-btn').forEach(x => x.classList.remove('active'));
-            b.classList.add('active');
-            selectedSessionIndex = Number(b.dataset.idx);
-            btn.disabled = false;
-          });
-        });
-        btn.disabled = true;
-      } else {
-        selectedSessionIndex = 0;
-        slotWrap.style.display = 'none';
-        slotWrap.innerHTML = '';
-        btn.disabled = false;
-        const session = daySessions[0];
-        const isRange = session.endDate && session.endDate !== session.date;
-        const timeLabel = isRange
-          ? `${formatDateLabel(session.date)} ～ ${formatDateLabel(session.endDate)}（${session.time}）`
-          : `${formatDateLabel(session.date)}（${session.time}）`;
-        timeEl.textContent = `時間：${timeLabel}`;
-      }
-
-      const detail = document.getElementById(cfg.detailWrapId);
-      detail.classList.add('show');
-      requestAnimationFrame(()=> requestAnimationFrame(()=> detail.classList.add('in')));
-
-      // 手機上選完日期後，確保「選這個時間」按鈕會捲動進畫面，不用使用者自己往下找
-      setTimeout(()=>{
-        detail.scrollIntoView({behavior:'smooth', block:'nearest'});
-      }, 320);
-    }
-
-    document.getElementById(cfg.prevId).addEventListener('click', ()=>{
-      cursor.setMonth(cursor.getMonth()-1);
-      render();
-    });
-    document.getElementById(cfg.nextId).addEventListener('click', ()=>{
-      cursor.setMonth(cursor.getMonth()+1);
-      render();
-    });
-
-    document.getElementById(cfg.confirmBtnId).addEventListener('click', ()=>{
-      const daySessions = sessionMap[selectedKey];
-      if(!daySessions || !daySessions.length) return;
-      if(selectedSessionIndex === null) return; // 有多個班次時，要先選時段才能送出
-      const session = daySessions[selectedSessionIndex];
-      if(!session) return;
+    function applySession(session){
       const isRange = session.endDate && session.endDate !== session.date;
       const sessionValue = isRange ? `${session.date}~${session.endDate}` : session.date;
       const label = isRange
-        ? `${formatDateLabel(session.date)} ～ ${formatDateLabel(session.endDate)}（${session.time}）・${session.location}`
-        : `${formatDateLabel(session.date)}（${session.time}）・${session.location}`;
+        ? `${formatDateLabel(session.date)} ～ ${formatDateLabel(session.endDate)} ${session.time}・${session.location}`
+        : `${formatDateLabel(session.date)} ${session.time}・${session.location}`;
 
       document.getElementById('session').value = sessionValue;
       document.getElementById('sessionLocation').value = session.location || '';
@@ -1533,12 +1475,74 @@
       chosen.textContent = label;
       chosen.style.color = 'var(--ink)';
       chosen.style.background = 'var(--rose-soft)';
+    }
 
-      const btn = document.getElementById(cfg.confirmBtnId);
-      btn.textContent = '✓ 已選擇這個時間';
-      btn.classList.add('picked');
+    function selectDate(dateStr){
+      selectedKey = dateStr;
+      selectedSessionIndex = null;
+      render();
+      const daySessions = sessionMap[dateStr] || [];
+      if(!daySessions.length) return;
 
-      document.getElementById('name').scrollIntoView({behavior:'smooth', block:'center'});
+      document.getElementById(cfg.detailLocationId).textContent = `上課地點：${daySessions[0].location}`;
+      const timeEl = document.getElementById(cfg.detailTimeId);
+      const slotWrap = document.getElementById(cfg.slotPickerId);
+
+      if(daySessions.length > 1){
+        // 同一天有多個班次（例如早／中／晚班），先讓使用者挑一個時段，選好立即更新已選場次
+        timeEl.textContent = `${formatDateLabel(daySessions[0].date)}｜請選擇時段：`;
+        slotWrap.style.display = 'flex';
+        slotWrap.innerHTML = daySessions.map((s, i) =>
+          `<button type="button" class="slot-btn" data-idx="${i}">${s.time}</button>`
+        ).join('');
+        slotWrap.querySelectorAll('.slot-btn').forEach(b => {
+          b.addEventListener('click', () => {
+            slotWrap.querySelectorAll('.slot-btn').forEach(x => x.classList.remove('active'));
+            b.classList.add('active');
+            selectedSessionIndex = Number(b.dataset.idx);
+            applySession(daySessions[selectedSessionIndex]);
+          });
+        });
+
+        // 切換到多時段日期時，先清空已選場次，提示使用者選時段
+        document.getElementById('session').value = '';
+        document.getElementById('sessionLocation').value = '';
+        document.getElementById('sessionTime').value = '';
+        document.getElementById('sessionDateLabel').value = '';
+        const chosen = document.getElementById('chosenSessionLabel');
+        chosen.textContent = '請先在上方選擇時段';
+        chosen.style.color = '#7a6a58';
+        chosen.style.background = 'var(--paper-warm)';
+      } else {
+        selectedSessionIndex = 0;
+        slotWrap.style.display = 'none';
+        slotWrap.innerHTML = '';
+        const session = daySessions[0];
+        const isRange = session.endDate && session.endDate !== session.date;
+        const timeLabel = isRange
+          ? `${formatDateLabel(session.date)} ～ ${formatDateLabel(session.endDate)}（${session.time}）`
+          : `${formatDateLabel(session.date)}（${session.time}）`;
+        timeEl.textContent = `時間：${timeLabel}`;
+        applySession(session);
+      }
+
+      const detail = document.getElementById(cfg.detailWrapId);
+      detail.classList.add('show');
+      requestAnimationFrame(()=> requestAnimationFrame(()=> detail.classList.add('in')));
+
+      // 手機上選完日期後，確保已選場次區塊會捲動進畫面，不用使用者自己往下找
+      setTimeout(()=>{
+        detail.scrollIntoView({behavior:'smooth', block:'nearest'});
+      }, 320);
+    }
+
+    document.getElementById(cfg.prevId).addEventListener('click', ()=>{
+      cursor.setMonth(cursor.getMonth()-1);
+      render();
+    });
+    document.getElementById(cfg.nextId).addEventListener('click', ()=>{
+      cursor.setMonth(cursor.getMonth()+1);
+      render();
     });
 
     render();
@@ -1643,6 +1647,7 @@
       name: document.getElementById('name').value,
       phone: document.getElementById('phone').value,
       lineName: document.getElementById('lineName').value,
+      partySize: document.getElementById('partySize').value,
       paymentMethod: document.getElementById('paymentMethod').value,
       submittedAt: new Date().toISOString(),
     };

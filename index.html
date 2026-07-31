@@ -267,18 +267,22 @@
   }
   .plan-card.active-plan .plan-badge{ opacity:1; }
   .plan-card .plan-tagline{ font-size:12.5px; letter-spacing:.14em; color:var(--rose); text-transform:uppercase; font-weight:700; }
-  .plan-card[data-plan="beginner"] .plan-tagline{ font-size:15.5px; }
+  .plan-card[data-plan="beginner"] .plan-tagline,
+  .plan-card[data-plan="teacher"] .plan-tagline{ font-size:15.5px; }
   .plan-card .plan-name{ font-family:'Noto Serif TC',serif; font-weight:700; font-size:22px; margin-top:8px; }
   .plan-card[data-plan="beginner"] .plan-name{ font-size:28.3px; }
+  .plan-card[data-plan="teacher"] .plan-name{ font-size:25px; }
   .plan-card .plan-price-tag{
     font-size:12.5px; font-weight:700; color:var(--rose); letter-spacing:.06em; margin-top:14px;
   }
   .plan-card[data-plan="beginner"] .plan-price-tag{ font-size:15.5px; }
   .plan-card .plan-price{ font-family:'Noto Serif TC',serif; font-size:36px; color:var(--clay); margin:2px 0 2px; }
-  .plan-card[data-plan="beginner"] .plan-price{ font-size:39px; }
+  .plan-card[data-plan="beginner"] .plan-price,
+  .plan-card[data-plan="teacher"] .plan-price{ font-size:39px; }
   .plan-card .plan-price .unit{ font-size:14px; color:#7a6a58; font-weight:400; }
   .plan-card .plan-note{ font-size:13px; color:#7a6a58; margin-bottom:20px; }
-  .plan-card[data-plan="beginner"] .plan-note{ font-size:16px; }
+  .plan-card[data-plan="beginner"] .plan-note,
+  .plan-card[data-plan="teacher"] .plan-note{ font-size:16px; }
   .plan-card .plan-cta{ padding:13px 32px; }
   .plan-card .highlight-list{ margin-top:24px; padding-top:20px; border-top:1px solid var(--line); text-align:left; display:grid; gap:13px; }
   .plan-card .highlight-row{ display:flex; align-items:center; gap:12px; }
@@ -312,16 +316,20 @@
     .plan-card:not(.active-plan)::after{ height:100px; }
     .plan-card .plan-name{ font-size:17px; }
     .plan-card[data-plan="beginner"] .plan-name{ font-size:22.5px; }
+    .plan-card[data-plan="teacher"] .plan-name{ font-size:20px; }
     .plan-card .plan-tagline{ font-size:10.5px; letter-spacing:.08em; }
-    .plan-card[data-plan="beginner"] .plan-tagline{ font-size:13.5px; }
+    .plan-card[data-plan="beginner"] .plan-tagline,
+    .plan-card[data-plan="teacher"] .plan-tagline{ font-size:13.5px; }
     .plan-card .plan-price-tag{ font-size:10.5px; margin-top:10px; }
     .plan-card[data-plan="beginner"] .plan-price-tag{ font-size:13.5px; }
     .plan-card .plan-price{ font-size:24px; }
-    .plan-card[data-plan="beginner"] .plan-price{ font-size:27px; }
+    .plan-card[data-plan="beginner"] .plan-price,
+    .plan-card[data-plan="teacher"] .plan-price{ font-size:27px; }
     .plan-card:not(.active-plan) .plan-price{ font-size:17px; }
     .plan-card .plan-price .unit{ font-size:11px; }
     .plan-card .plan-note{ font-size:11px; margin-bottom:14px; }
-    .plan-card[data-plan="beginner"] .plan-note{ font-size:14px; }
+    .plan-card[data-plan="beginner"] .plan-note,
+    .plan-card[data-plan="teacher"] .plan-note{ font-size:14px; }
     .plan-card .plan-cta{ padding:10px 14px; font-size:13px; }
     .plan-card:not(.active-plan) .plan-cta{ padding:8px 10px; font-size:11px; }
     .plan-card .plan-section{ margin-top:16px; padding-top:14px; }

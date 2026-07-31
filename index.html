@@ -1663,7 +1663,7 @@
         body: JSON.stringify(payload)
       });
       status.style.color = '#4a7a5e';
-      status.innerHTML = '－ 報名表已送出 －<br><strong>⚠️ 提醒：您尚未報名成功，請加官方 LINE 完成報名！</strong>';
+      status.innerHTML = '－ 報名表已送出 －<br><strong style="color:#C1613F;">⚠️ 提醒：您尚未報名成功，請加官方 LINE 完成報名！</strong>';
       e.target.reset();
       resetSessionSelection();
     }catch(err){

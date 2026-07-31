@@ -298,10 +298,12 @@
   }
   .city-card .date-list{ list-style:none; display:grid; gap:8px; }
   .city-card .date-list li{
-    display:flex; align-items:center; gap:8px; font-size:13.5px; color:#3a2e22;
+    display:flex; align-items:flex-start; gap:8px; font-size:13.5px; color:#3a2e22;
     background:var(--paper); border-radius:9px; padding:8px 12px;
   }
-  .city-card .date-list li .d{ width:6px; height:6px; border-radius:50%; background:var(--clay); flex-shrink:0; }
+  .city-card .date-list li .d{ width:6px; height:6px; border-radius:50%; background:var(--clay); flex-shrink:0; margin-top:6px; }
+  .city-card .date-list li .day-times{ display:flex; flex-direction:column; gap:4px; }
+  .city-card .date-list li .day-times .time-line{ color:#7a6a5a; font-size:13px; }
   .city-card .flexi{ font-size:13px; color:#7a6a5a; line-height:1.6; margin-top:10px; }
   .city-card .flexi a{ color:var(--clay); text-decoration:underline; text-underline-offset:3px; }
   @media (max-width:600px){ .city-grid{ grid-template-columns:1fr; } }
@@ -929,7 +931,11 @@
       const shownDates = dateOrder.slice(0,3);
       const dateItems = shownDates.map(d => {
         const sessionsOnDate = byDate[d];
-        const timeLabel = sessionsOnDate.length > 1 ? '' : (sessionsOnDate[0].time ? ' ' + sessionsOnDate[0].time : '');
+        if(sessionsOnDate.length > 1){
+          const timesHtml = sessionsOnDate.map(s => `<div class="time-line">${s.time || ''}</div>`).join('');
+          return `<li><span class="d"></span><div class="day-times"><span>${formatDateLabel(d)}</span>${timesHtml}</div></li>`;
+        }
+        const timeLabel = sessionsOnDate[0].time ? ' ' + sessionsOnDate[0].time : '';
         return `<li><span class="d"></span>${formatDateLabel(d)}${timeLabel}</li>`;
       }).join('');
       const moreNote = dateOrder.length > 3

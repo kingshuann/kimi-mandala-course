@@ -277,10 +277,11 @@
   .city-card{
     background:var(--card); border:1px solid var(--line); border-radius:18px; padding:22px 22px 20px;
   }
-  .city-card .city-head{ display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+  .city-card .city-head{ display:flex; align-items:center; gap:10px; margin-bottom:14px; flex-wrap:wrap; }
   .city-card .city-head .flag{
-    width:38px; height:38px; border-radius:11px; background:var(--rose-soft); color:#fff;
-    display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:700; flex-shrink:0;
+    padding:6px 13px; border-radius:9px; background:var(--rose-soft); color:#fff;
+    display:inline-flex; align-items:center; justify-content:center; font-size:13.5px; font-weight:700;
+    flex-shrink:0; white-space:nowrap;
   }
   /* 各縣市代表色（與月曆標籤一致的莫蘭迪色系） */
   .city-card .city-head .flag.flag-台北{ background:#B9766D; }
@@ -292,16 +293,17 @@
   .city-card .city-head .flag.flag-台南{ background:#7A7FA0; }
   .city-card .city-head .flag.flag-高雄{ background:#9A82A0; }
   .city-card .city-head .name{ font-family:'Noto Serif TC',serif; font-weight:700; font-size:16px; }
+  .city-card .city-head .venue-address-inline{
+    font-size:12.5px; color:var(--clay); text-decoration:underline; text-underline-offset:3px;
+  }
   .city-card .date-list{ list-style:none; display:grid; gap:8px; }
   .city-card .date-list li{
     display:flex; align-items:center; gap:8px; font-size:13.5px; color:#3a2e22;
     background:var(--paper); border-radius:9px; padding:8px 12px;
   }
   .city-card .date-list li .d{ width:6px; height:6px; border-radius:50%; background:var(--clay); flex-shrink:0; }
-  .city-card .flexi{ font-size:13px; color:#7a6a5a; line-height:1.6; }
+  .city-card .flexi{ font-size:13px; color:#7a6a5a; line-height:1.6; margin-top:10px; }
   .city-card .flexi a{ color:var(--clay); text-decoration:underline; text-underline-offset:3px; }
-  .city-card .venue-address{ margin-top:8px; font-size:13px; }
-  .city-card .venue-address a{ color:var(--clay); text-decoration:underline; text-underline-offset:3px; }
   @media (max-width:600px){ .city-grid{ grid-template-columns:1fr; } }
 
   /* ---------- SESSION CALENDAR ---------- */
@@ -346,6 +348,13 @@
   .session-detail.in{ opacity:1; transform:translateY(0) scale(1); }
   .session-detail .row{ display:flex; align-items:center; gap:10px; font-size:14px; margin-bottom:8px; color:#3a2e22; }
   .session-detail .row .ico{ width:26px; height:26px; border-radius:50%; background:var(--rose-soft); display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0; }
+  .slot-picker{ display:none; flex-wrap:wrap; gap:8px; margin-top:2px; }
+  .slot-picker .slot-btn{
+    padding:9px 16px; border-radius:8px; border:1px solid var(--line); background:#fff;
+    color:var(--ink); font-size:13px; font-weight:600; cursor:pointer; transition:background .2s ease, border-color .2s ease;
+  }
+  .slot-picker .slot-btn:hover{ border-color:var(--clay); }
+  .slot-picker .slot-btn.active{ background:var(--rose-soft); border-color:var(--clay); color:var(--plum); }
   .session-detail .confirm-btn{
     margin-top:14px; width:100%; padding:12px; border-radius:8px; border:none; background:var(--rose-soft);
     color:var(--plum); font-weight:700; font-size:14px; cursor:pointer; transition:transform .2s ease;
@@ -353,6 +362,7 @@
   }
   .session-detail .confirm-btn:hover{ transform:translateY(-1px); }
   .session-detail .confirm-btn.picked{ background:#CFE0C9; color:#3E5A38; }
+  .session-detail .confirm-btn:disabled{ opacity:.45; cursor:not-allowed; transform:none; }
   .signup{ background:var(--paper-warm); }
   .form-card{
     max-width:560px; margin:44px auto 0; background:var(--paper);
@@ -697,29 +707,38 @@
 
       <div class="city-grid" id="cityGrid">
         <div class="city-card">
-          <div class="city-head"><span class="flag flag-台中">中</span></div>
-          <p class="flexi">場次多、時間彈性，<strong>1 人即可開班</strong>。<br>詳細時間請 <a href="https://forms.gle/okEULz6aVJifkEdX8" target="_blank" rel="noopener">點此查看報名表</a> 或私訊官方 LINE 詢問。</p>
+          <div class="city-head"><span class="flag flag-台中">台中</span></div>
+          <ul class="date-list">
+            <li><span class="d"></span>8/8（六）早班 09:00–12:30</li>
+          </ul>
+          <p class="flexi">場次多、時間彈性，<strong>1 人即可開班</strong>。詳細時間請 <a href="https://forms.gle/okEULz6aVJifkEdX8" target="_blank" rel="noopener">點此查看報名表</a> 或私訊官方 LINE 詢問。</p>
         </div>
         <div class="city-card">
-          <div class="city-head"><span class="flag flag-台北">北</span></div>
+          <div class="city-head">
+            <span class="flag flag-台北">台北</span>
+            <a class="venue-address-inline" href="https://www.google.com/maps/search/?api=1&query=%E5%8F%B0%E5%8C%97%E5%B8%82%E4%B8%AD%E5%B1%B1%E5%8D%80%E5%BB%BA%E5%9C%8B%E5%8D%97%E8%B7%AF%E4%B8%80%E6%AE%B514%E8%99%9F12%E6%A8%93" target="_blank" rel="noopener">📍 台北市中山區建國南路一段14號12樓</a>
+          </div>
           <ul class="date-list">
             <li><span class="d"></span>8/16（日）12:00–15:30</li>
           </ul>
-          <p class="venue-address"><a href="#" target="_blank" rel="noopener">📍 地址待補上</a></p>
         </div>
         <div class="city-card">
-          <div class="city-head"><span class="flag flag-桃園">桃</span></div>
+          <div class="city-head">
+            <span class="flag flag-桃園">桃園</span>
+            <a class="venue-address-inline" href="#" target="_blank" rel="noopener">📍 地址待補上</a>
+          </div>
           <ul class="date-list">
             <li><span class="d"></span>8/15（六）時間洽詢</li>
           </ul>
-          <p class="venue-address"><a href="#" target="_blank" rel="noopener">📍 地址待補上</a></p>
         </div>
         <div class="city-card">
-          <div class="city-head"><span class="flag flag-高雄">高</span></div>
+          <div class="city-head">
+            <span class="flag flag-高雄">高雄</span>
+            <a class="venue-address-inline" href="#" target="_blank" rel="noopener">📍 地址待補上</a>
+          </div>
           <ul class="date-list">
             <li><span class="d"></span>8/22（六）時間洽詢</li>
           </ul>
-          <p class="venue-address"><a href="#" target="_blank" rel="noopener">📍 地址待補上</a></p>
         </div>
       </div>
 
@@ -743,6 +762,7 @@
         <div class="session-detail" id="sessionDetail">
           <div class="row"><span class="ico">📍</span><span id="detailLocation"></span></div>
           <div class="row"><span class="ico">🕐</span><span id="detailTime"></span></div>
+          <div class="slot-picker" id="slotPicker"></div>
           <button type="button" class="confirm-btn" id="confirmSessionBtn">我要報名這個場次</button>
         </div>
       </div>
@@ -760,6 +780,7 @@
         <div class="session-detail" id="tSessionDetail">
           <div class="row"><span class="ico">📍</span><span id="tDetailLocation"></span></div>
           <div class="row"><span class="ico">🕐</span><span id="tDetailTime"></span></div>
+          <div class="slot-picker" id="tSlotPicker"></div>
           <button type="button" class="confirm-btn" id="tConfirmSessionBtn">我要報名這個場次</button>
         </div>
       </div>
@@ -857,8 +878,12 @@
     return matchKey ? CITY_COLORS[matchKey] : '#8E5F3E';
   }
   const CITY_LABELS = {
-    '台北': '北', '新北': '新北', '桃園': '桃', '新竹': '竹',
-    '台中': '中', '嘉義': '嘉', '台南': '南', '高雄': '高',
+    '台北': '台北', '新北': '新北', '桃園': '桃園', '新竹': '新竹',
+    '台中': '台中', '嘉義': '嘉義', '台南': '台南', '高雄': '高雄',
+  };
+  // 各場地地址（有地址的城市會在圖示旁顯示 Google Map 連結；還沒提供的先留空）
+  const CITY_ADDRESSES = {
+    '台北': '台北市中山區建國南路一段14號12樓',
   };
   function cityBaseName(loc){
     if(!loc) return loc;
@@ -867,16 +892,14 @@
     return matchKey || loc;
   }
 
-  // ---------- 各縣市場次總覽：依 Google Sheet 即時資料動態產生（台中彈性開班卡片固定保留） ----------
+  // ---------- 各縣市場次總覽：依 Google Sheet 即時資料動態產生 ----------
   function renderCityOverview(sessions){
     const grid = document.getElementById('cityGrid');
     if(!grid) return;
-    const taichungCard = grid.querySelector('.city-card'); // 第一張固定是台中彈性開班卡片，原樣保留
     const upcoming = filterPastSessions(sessions || []);
     const groups = {};
     upcoming.forEach(s => {
       const city = cityBaseName(s.location);
-      if(city === '台中') return; // 台中已有專屬的彈性開班卡片，不重複列出
       if(!groups[city]) groups[city] = [];
       groups[city].push(s);
     });
@@ -897,11 +920,19 @@
       ).join('');
       const moreNote = list.length > 3
         ? `<p class="flexi">還有 ${list.length - 3} 場，詳情請洽官方 LINE。</p>` : '';
-      const label = CITY_LABELS[city] || city.slice(0,2);
-      return `<div class="city-card"><div class="city-head"><span class="flag flag-${city}">${label}</span></div><ul class="date-list">${dateItems}</ul>${moreNote}</div>`;
+      // 台中場次多、時間彈性，額外補充一段小字說明
+      const taichungNote = city === '台中'
+        ? `<p class="flexi">場次多、時間彈性，<strong>1 人即可開班</strong>。詳細時間請 <a href="https://forms.gle/okEULz6aVJifkEdX8" target="_blank" rel="noopener">點此查看報名表</a> 或私訊官方 LINE 詢問。</p>`
+        : '';
+      const label = CITY_LABELS[city] || city;
+      const address = CITY_ADDRESSES[city];
+      const addressHtml = address
+        ? `<a class="venue-address-inline" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}" target="_blank" rel="noopener">📍 ${address}</a>`
+        : '';
+      return `<div class="city-card"><div class="city-head"><span class="flag flag-${city}">${label}</span>${addressHtml}</div><ul class="date-list">${dateItems}</ul>${moreNote}${taichungNote}</div>`;
     }).join('');
 
-    grid.innerHTML = (taichungCard ? taichungCard.outerHTML : '') + cardsHtml;
+    grid.innerHTML = cardsHtml;
   }
 
   // ========================================================================
@@ -960,6 +991,8 @@
     cursor.setDate(1);
     let selectedKey = null;
 
+    let selectedSessionIndex = null;
+
     function rebuildMap(){
       sessionMap = {};
       sessions.forEach(s => {
@@ -969,7 +1002,9 @@
         const endD = new Date(end + 'T00:00:00');
         while(d <= endD){
           const key = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
-          sessionMap[key] = s;
+          // 同一天可能有多個班次（例如台中早／中／晚班），用陣列存起來
+          if(!sessionMap[key]) sessionMap[key] = [];
+          sessionMap[key].push(s);
           d.setDate(d.getDate()+1);
         }
       });
@@ -1006,13 +1041,13 @@
         cell.className = 'cal-cell';
         cell.textContent = d;
 
-        const session = sessionMap[dateStr];
-        if(session){
+        const daySessions = sessionMap[dateStr];
+        if(daySessions && daySessions.length){
           cell.classList.add('has-session');
           const tag = document.createElement('span');
           tag.className = 'loc-tag';
-          tag.textContent = session.location;
-          tag.style.background = cityColor(session.location);
+          tag.textContent = daySessions.length > 1 ? `${daySessions[0].location} ×${daySessions.length}` : daySessions[0].location;
+          tag.style.background = cityColor(daySessions[0].location);
           cell.appendChild(tag);
           if(dateStr === selectedKey) cell.classList.add('selected');
           cell.addEventListener('click', () => selectDate(dateStr));
@@ -1023,18 +1058,46 @@
 
     function selectDate(dateStr){
       selectedKey = dateStr;
+      selectedSessionIndex = null;
       render();
-      const session = sessionMap[dateStr];
-      const isRange = session.endDate && session.endDate !== session.date;
-      const timeLabel = isRange
-        ? `${formatDateLabel(session.date)} ～ ${formatDateLabel(session.endDate)}（${session.time}）`
-        : `${formatDateLabel(session.date)}（${session.time}）`;
+      const daySessions = sessionMap[dateStr] || [];
+      if(!daySessions.length) return;
 
-      document.getElementById(cfg.detailLocationId).textContent = `上課地點：${session.location}`;
-      document.getElementById(cfg.detailTimeId).textContent = `時間：${timeLabel}`;
+      document.getElementById(cfg.detailLocationId).textContent = `上課地點：${daySessions[0].location}`;
+      const timeEl = document.getElementById(cfg.detailTimeId);
+      const slotWrap = document.getElementById(cfg.slotPickerId);
       const btn = document.getElementById(cfg.confirmBtnId);
       btn.textContent = '我要報名這個場次';
       btn.classList.remove('picked');
+
+      if(daySessions.length > 1){
+        // 同一天有多個班次（例如早／中／晚班），先讓使用者挑一個時段才能送出
+        timeEl.textContent = '請選擇時段：';
+        slotWrap.style.display = 'flex';
+        slotWrap.innerHTML = daySessions.map((s, i) =>
+          `<button type="button" class="slot-btn" data-idx="${i}">${s.time}</button>`
+        ).join('');
+        slotWrap.querySelectorAll('.slot-btn').forEach(b => {
+          b.addEventListener('click', () => {
+            slotWrap.querySelectorAll('.slot-btn').forEach(x => x.classList.remove('active'));
+            b.classList.add('active');
+            selectedSessionIndex = Number(b.dataset.idx);
+            btn.disabled = false;
+          });
+        });
+        btn.disabled = true;
+      } else {
+        selectedSessionIndex = 0;
+        slotWrap.style.display = 'none';
+        slotWrap.innerHTML = '';
+        btn.disabled = false;
+        const session = daySessions[0];
+        const isRange = session.endDate && session.endDate !== session.date;
+        const timeLabel = isRange
+          ? `${formatDateLabel(session.date)} ～ ${formatDateLabel(session.endDate)}（${session.time}）`
+          : `${formatDateLabel(session.date)}（${session.time}）`;
+        timeEl.textContent = `時間：${timeLabel}`;
+      }
 
       const detail = document.getElementById(cfg.detailWrapId);
       detail.classList.add('show');
@@ -1056,7 +1119,10 @@
     });
 
     document.getElementById(cfg.confirmBtnId).addEventListener('click', ()=>{
-      const session = sessionMap[selectedKey];
+      const daySessions = sessionMap[selectedKey];
+      if(!daySessions || !daySessions.length) return;
+      if(selectedSessionIndex === null) return; // 有多個班次時，要先選時段才能送出
+      const session = daySessions[selectedSessionIndex];
       if(!session) return;
       const isRange = session.endDate && session.endDate !== session.date;
       const sessionValue = isRange ? `${session.date}~${session.endDate}` : session.date;
@@ -1095,14 +1161,14 @@
     sessions: SESSIONS,
     gridId: 'calGrid', monthLabelId: 'calMonthLabel', prevId: 'calPrev', nextId: 'calNext',
     detailWrapId: 'sessionDetail', detailLocationId: 'detailLocation', detailTimeId: 'detailTime',
-    confirmBtnId: 'confirmSessionBtn', courseValue: 'beginner',
+    slotPickerId: 'slotPicker', confirmBtnId: 'confirmSessionBtn', courseValue: 'beginner',
   });
 
   const teacherCal = makeCalendar({
     sessions: TEACHER_SESSIONS,
     gridId: 'tCalGrid', monthLabelId: 'tCalMonthLabel', prevId: 'tCalPrev', nextId: 'tCalNext',
     detailWrapId: 'tSessionDetail', detailLocationId: 'tDetailLocation', detailTimeId: 'tDetailTime',
-    confirmBtnId: 'tConfirmSessionBtn', courseValue: 'teacher',
+    slotPickerId: 'tSlotPicker', confirmBtnId: 'tConfirmSessionBtn', courseValue: 'teacher',
   });
 
   // 若有設定 APPS_SCRIPT_URL，改用 Google Sheets 的即時場次資料覆蓋上面的示範資料

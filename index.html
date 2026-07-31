@@ -1595,6 +1595,11 @@
 
   let currentTrack = 'beginner';
 
+  // 保留中租分期 <option> 的參照：iOS Safari 對 <option style="display:none"> 支援不佳，
+  // 所以改用「直接把 option 節點加入／移出 DOM」的方式來控制是否顯示這個選項
+  const installmentOptionEl = document.getElementById('paymentInstallmentOption');
+  const paymentMethodSelectEl = document.getElementById('paymentMethod');
+
   function setTrack(track){
     currentTrack = track;
     document.querySelectorAll('[data-course]').forEach(el => {
@@ -1610,13 +1615,20 @@
     if(planGridEl) planGridEl.setAttribute('data-active', track);
     document.getElementById('course').value = track;
 
-    // 中租分期僅開放兩日師資班選擇；零基礎班切換時隱藏此選項並清除已選值
-    const installmentOption = document.getElementById('paymentInstallmentOption');
-    if(installmentOption){
-      installmentOption.style.display = (track === 'teacher') ? '' : 'none';
-      const paymentSelect = document.getElementById('paymentMethod');
-      if(track === 'beginner' && paymentSelect.value === 'installment'){
-        paymentSelect.value = '';
+    // 中租分期僅開放兩日師資班選擇；零基礎班切換時把這個 <option> 整個從 DOM 移除
+    // （手機版 Safari 對 option 的 display:none 支援不佳，用移除節點的方式才能保證不會顯示出來）
+    if(installmentOptionEl && paymentMethodSelectEl){
+      if(track === 'teacher'){
+        if(!paymentMethodSelectEl.contains(installmentOptionEl)){
+          paymentMethodSelectEl.appendChild(installmentOptionEl);
+        }
+      } else {
+        if(paymentMethodSelectEl.contains(installmentOptionEl)){
+          paymentMethodSelectEl.removeChild(installmentOptionEl);
+        }
+        if(paymentMethodSelectEl.value === 'installment'){
+          paymentMethodSelectEl.value = '';
+        }
       }
     }
 

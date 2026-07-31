@@ -342,6 +342,11 @@
     border-radius:6px; padding:1px 6px; margin-top:3px; letter-spacing:.02em;
     max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; box-sizing:border-box;
   }
+  .cal-cell .count-badge{
+    position:absolute; top:-4px; right:-4px; min-width:15px; height:15px; padding:0 3px;
+    border-radius:50%; background:var(--plum); color:#fff; font-size:9px; font-weight:700;
+    display:flex; align-items:center; justify-content:center; line-height:1; box-shadow:0 1px 3px rgba(0,0,0,.25);
+  }
   .cal-cell.selected{ background:var(--rose-soft); box-shadow:0 10px 22px rgba(142,95,62,.2); }
   .cal-cell.selected .loc-tag{ border:2px solid var(--plum); box-shadow:0 0 0 1px var(--plum); }
 
@@ -416,6 +421,10 @@
     .cal-grid{ gap:4px; }
     .cal-cell{ font-size:12px; }
     .cal-cell.has-session .loc-tag{ font-size:9px; padding:1px 4px; margin-top:2px; }
+    .topnav{ padding:12px 16px; gap:8px 10px; }
+    .topnav .brand{ font-size:14px; gap:6px; }
+    .topnav .brand .mark{ width:26px; height:26px; }
+    .topnav .cta-mini{ padding:7px 13px; font-size:10.5px; }
   }
   @media (max-width:380px){
     .hero h1{ font-size:26px; }
@@ -424,6 +433,9 @@
     .cal-cell{ font-size:11px; }
     .cal-cell.has-session .loc-tag{ font-size:8px; padding:0 3px; }
     .course-toggle .toggle-btn{ padding:11px 16px; font-size:13px; }
+    .topnav .brand{ font-size:12.5px; }
+    .topnav .brand .mark{ width:22px; height:22px; }
+    .topnav .cta-mini{ padding:6px 10px; font-size:10px; }
   }
   @media (prefers-reduced-motion: reduce){
     * { animation: none !important; transition: none !important; }
@@ -1070,9 +1082,15 @@
           cell.classList.add('has-session');
           const tag = document.createElement('span');
           tag.className = 'loc-tag';
-          tag.textContent = daySessions.length > 1 ? `${daySessions[0].location} ×${daySessions.length}` : daySessions[0].location;
+          tag.textContent = daySessions[0].location;
           tag.style.background = cityColor(daySessions[0].location);
           cell.appendChild(tag);
+          if(daySessions.length > 1){
+            const countBadge = document.createElement('span');
+            countBadge.className = 'count-badge';
+            countBadge.textContent = daySessions.length;
+            cell.appendChild(countBadge);
+          }
           if(dateStr === selectedKey) cell.classList.add('selected');
           cell.addEventListener('click', () => selectDate(dateStr));
         }

@@ -327,9 +327,9 @@
   .cal-grid{ display:grid; grid-template-columns:repeat(7, minmax(0,1fr)); gap:6px; min-width:0; }
   .cal-dow{ text-align:center; font-size:12px; color:#8a7a68; padding-bottom:6px; }
   .cal-cell{
-    aspect-ratio:1/1.1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    aspect-ratio:1/1.21; display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
     border-radius:8px; font-size:13px; color:#b8ab9c; position:relative; background:transparent;
-    min-width:0;
+    min-width:0; overflow:hidden; padding:10px 2px 16px;
   }
   .cal-cell.pad{ visibility:hidden; }
   .cal-cell.has-session{
@@ -338,15 +338,13 @@
   }
   .cal-cell.has-session:hover{ transform:translateY(-2px) scale(1.04); box-shadow:0 8px 18px rgba(142,95,62,.18); }
   .cal-cell.has-session .loc-tag{
-    font-size:10px; font-weight:700; color:#fff; background:var(--clay);
-    border-radius:6px; padding:1px 6px; margin-top:3px; letter-spacing:.02em;
+    font-size:12px; font-weight:700; color:#fff; background:var(--clay);
+    border-radius:6px; padding:1px 6px; margin-top:5px; letter-spacing:.02em;
     max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; box-sizing:border-box;
   }
   .cal-cell .count-badge{
-    position:absolute; top:3px; right:3px; min-width:16px; height:16px; padding:0 3px;
-    border-radius:50%; background:var(--plum); color:#fff; font-size:10px; font-weight:700;
-    display:flex; align-items:center; justify-content:center; line-height:1; box-shadow:0 1px 3px rgba(0,0,0,.25);
-    box-sizing:border-box;
+    position:absolute; top:0; right:0; width:0; height:0;
+    border-style:solid; border-width:0 16px 16px 0; border-color:transparent var(--plum) transparent transparent;
   }
   .cal-cell.selected{ background:var(--rose-soft); box-shadow:0 10px 22px rgba(142,95,62,.2); }
   .cal-cell.selected .loc-tag{ border:2px solid var(--plum); box-shadow:0 0 0 1px var(--plum); }
@@ -421,7 +419,7 @@
     .cal-card{ padding:20px 14px 22px; }
     .cal-grid{ gap:4px; }
     .cal-cell{ font-size:12px; }
-    .cal-cell.has-session .loc-tag{ font-size:9px; padding:1px 4px; margin-top:2px; }
+    .cal-cell.has-session .loc-tag{ font-size:11px; padding:1px 4px; margin-top:3px; }
     .topnav{ padding:12px 16px; gap:8px 10px; }
     .topnav .brand{ font-size:14px; gap:6px; }
     .topnav .brand .mark{ width:26px; height:26px; }
@@ -432,7 +430,7 @@
     .cal-card{ padding:16px 10px 18px; }
     .cal-grid{ gap:3px; }
     .cal-cell{ font-size:11px; }
-    .cal-cell.has-session .loc-tag{ font-size:8px; padding:0 3px; }
+    .cal-cell.has-session .loc-tag{ font-size:10px; padding:0 3px; }
     .course-toggle .toggle-btn{ padding:11px 16px; font-size:13px; }
     .topnav .brand{ font-size:12.5px; }
     .topnav .brand .mark{ width:22px; height:22px; }
@@ -1089,7 +1087,6 @@
           if(daySessions.length > 1){
             const countBadge = document.createElement('span');
             countBadge.className = 'count-badge';
-            countBadge.textContent = daySessions.length;
             cell.appendChild(countBadge);
           }
           if(dateStr === selectedKey) cell.classList.add('selected');

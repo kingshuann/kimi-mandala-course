@@ -226,14 +226,32 @@
   .price-card .note{ font-size:13px; color:#7a6a58; }
 
   /* ---------- 課程方案比較（零基礎班／兩日師資班） ---------- */
-  .plan-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:44px; align-items:start; }
+  .plan-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:44px; align-items:start;
+    transition:grid-template-columns .35s ease;
+  }
+  .plan-grid[data-active="beginner"]{ grid-template-columns:1.35fr 0.75fr; }
+  .plan-grid[data-active="teacher"]{ grid-template-columns:0.75fr 1.35fr; }
   .plan-card{
     position:relative; background:var(--card); border:1px solid var(--line); border-radius:20px;
-    padding:36px 28px 32px; text-align:center; transition:border-color .25s ease, box-shadow .25s ease;
+    padding:36px 28px 32px; text-align:center; min-width:0;
+    transition:border-color .3s ease, box-shadow .3s ease, opacity .3s ease, filter .3s ease, transform .3s ease, padding .3s ease;
   }
   .plan-card.active-plan{
     border:2px solid var(--clay); box-shadow:0 18px 40px rgba(142,95,62,.16);
   }
+  .plan-card:not(.active-plan){
+    opacity:.5; filter:grayscale(.4); transform:scale(.96);
+    padding:28px 16px 24px; pointer-events:none; user-select:none;
+  }
+  .plan-card:not(.active-plan) .plan-name,
+  .plan-card:not(.active-plan) .plan-tagline,
+  .plan-card:not(.active-plan) .plan-price,
+  .plan-card:not(.active-plan) .plan-note,
+  .plan-card:not(.active-plan) .plan-section h4,
+  .plan-card:not(.active-plan) .plan-section li,
+  .plan-card:not(.active-plan) .plan-section li::before{ color:#a89a8c !important; }
+  .plan-card:not(.active-plan) .plan-cta{ background:#d9cfc2; color:#fff; cursor:not-allowed; }
   .plan-card .plan-badge{
     position:absolute; top:-14px; left:50%; transform:translateX(-50%);
     background:var(--clay); color:#fff; font-size:11px; font-weight:700;
@@ -255,7 +273,28 @@
   }
   .plan-card .plan-section li::before{ content:'✓'; color:var(--clay); flex-shrink:0; font-weight:700; }
   .plan-card .plan-section.muted p{ font-size:13px; color:#9a8a78; font-style:italic; line-height:1.5; }
-  @media (max-width:640px){ .plan-grid{ grid-template-columns:1fr; } }
+
+  @media (max-width:640px){
+    .plan-grid{ gap:10px; }
+    .plan-grid[data-active="beginner"]{ grid-template-columns:1.5fr 0.6fr; }
+    .plan-grid[data-active="teacher"]{ grid-template-columns:0.6fr 1.5fr; }
+    .plan-card{ padding:22px 14px 20px; border-radius:16px; }
+    .plan-card:not(.active-plan){ padding:16px 8px 14px; }
+    .plan-card .plan-name{ font-size:17px; }
+    .plan-card .plan-tagline{ font-size:10.5px; letter-spacing:.08em; }
+    .plan-card .plan-price{ font-size:24px; }
+    .plan-card:not(.active-plan) .plan-price{ font-size:17px; }
+    .plan-card .plan-price .unit{ font-size:11px; }
+    .plan-card .plan-note{ font-size:11px; margin-bottom:14px; }
+    .plan-card .plan-cta{ padding:10px 14px; font-size:13px; }
+    .plan-card:not(.active-plan) .plan-cta{ padding:8px 10px; font-size:11px; }
+    .plan-card .plan-section{ margin-top:16px; padding-top:14px; }
+    .plan-card .plan-section h4{ font-size:12px; }
+    .plan-card .plan-section li{ font-size:12px; }
+    .plan-card:not(.active-plan) .plan-section h4{ font-size:10.5px; }
+    .plan-card:not(.active-plan) .plan-section li{ font-size:10.5px; }
+    .plan-card .plan-badge{ font-size:9.5px; padding:4px 10px; top:-11px; }
+  }
 
   /* ---------- FEATURE GRID (師資班亮點) ---------- */
   .feature-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:44px; }
@@ -1443,6 +1482,8 @@
     document.querySelectorAll('.plan-card').forEach(c => {
       c.classList.toggle('active-plan', c.dataset.plan === track);
     });
+    const planGridEl = document.querySelector('.plan-grid');
+    if(planGridEl) planGridEl.setAttribute('data-active', track);
     document.getElementById('course').value = track;
     resetSessionSelection();
     // 切換課程時直接跳回頁面最上方（不使用平滑捲動動畫）

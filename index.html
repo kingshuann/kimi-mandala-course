@@ -22,7 +22,7 @@
     --line:rgba(58,42,30,0.12);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth; overflow-x:hidden;}
+  html{scroll-behavior:smooth; overflow-x:clip;}
   body{
     font-family:'Noto Sans TC', sans-serif;
     color:var(--ink);
@@ -30,7 +30,7 @@
     line-height:1.85;
     font-weight:400;
     -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
+    overflow-x:clip;
     max-width:100vw;
   }
   h1,h2,h3,.serif{ font-family:'Noto Serif TC', serif; }
@@ -218,11 +218,12 @@
     margin-top:1px;
   }
   .price-card{
-    max-width:420px; margin:44px auto 0; background:var(--ink); color:var(--paper);
-    border-radius:20px; padding:36px 32px; text-align:center;
+    max-width:420px; margin:44px auto 0; background:var(--card); color:var(--ink);
+    border:1px solid var(--line); border-radius:20px; padding:36px 32px; text-align:center;
+    box-shadow:0 18px 40px rgba(58,42,30,0.06);
   }
-  .price-card .price{ font-family:'Noto Serif TC',serif; font-size:44px; color:#E6C79A; margin:10px 0; }
-  .price-card .note{ font-size:13px; color:rgba(247,241,228,.75); }
+  .price-card .price{ font-family:'Noto Serif TC',serif; font-size:44px; color:var(--clay); margin:10px 0; }
+  .price-card .note{ font-size:13px; color:#7a6a58; }
 
   /* ---------- FEATURE GRID (師資班亮點) ---------- */
   .feature-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:44px; }
@@ -289,7 +290,7 @@
   .city-card .city-head{ display:flex; align-items:center; gap:6px; margin-bottom:5px; flex-wrap:wrap; line-height:1.2; }
   .city-card .city-head .flag{
     padding:2px 8px; border-radius:6px; background:var(--rose-soft); color:#fff;
-    display:inline-flex; align-items:center; justify-content:center; font-size:12px; font-weight:700;
+    display:inline-flex; align-items:center; justify-content:center; font-size:14px; font-weight:700;
     flex-shrink:0; white-space:nowrap;
   }
   /* 各縣市代表色（與月曆標籤一致的莫蘭迪色系） */
@@ -298,24 +299,24 @@
   .city-card .city-head .flag.flag-桃園{ background:#BC8A5C; }
   .city-card .city-head .flag.flag-新竹{ background:#B3A15E; }
   .city-card .city-head .flag.flag-台中{ background:#8FA888; }
-  .city-card .city-head .flag.flag-嘉義{ background:#C0A857; }
+  .city-card .city-head .flag.flag-嘉義{ background:#DCC050; }
   .city-card .city-head .flag.flag-台南{ background:#7A7FA0; }
-  .city-card .city-head .flag.flag-高雄{ background:#9A82A0; }
-  .city-card .city-head .name{ font-family:'Noto Serif TC',serif; font-weight:700; font-size:14px; }
+  .city-card .city-head .flag.flag-高雄{ background:#B8A6CC; }
+  .city-card .city-head .name{ font-family:'Noto Serif TC',serif; font-weight:700; font-size:16px; }
   .city-card .city-head .venue-address-inline{
-    font-size:11px; color:var(--clay); text-decoration:underline; text-underline-offset:2px; line-height:1.3;
+    font-size:13px; color:var(--clay); text-decoration:underline; text-underline-offset:2px; line-height:1.3;
   }
   .city-card .date-list{ list-style:none; display:grid; gap:2px; }
   .city-card .date-list li{
-    display:flex; align-items:flex-start; gap:5px; font-size:12.5px; color:#3a2e22;
+    display:flex; align-items:flex-start; gap:5px; font-size:14.5px; color:#3a2e22;
     line-height:1.35; padding:1px 0;
   }
   .city-card .date-list li .d{ width:4px; height:4px; border-radius:50%; background:var(--clay); flex-shrink:0; margin-top:5px; }
   .city-card .date-list li .day-times{ display:flex; flex-direction:column; gap:0; }
-  .city-card .date-list li .day-times .time-line{ color:#7a6a5a; font-size:11.5px; margin-left:10px; line-height:1.35; }
-  .city-card .flexi{ font-size:11.5px; color:#7a6a5a; line-height:1.4; margin-top:4px; }
+  .city-card .date-list li .day-times .time-line{ color:#7a6a5a; font-size:13.5px; margin-left:10px; line-height:1.35; }
+  .city-card .flexi{ font-size:13.5px; color:#7a6a5a; line-height:1.4; margin-top:4px; }
   .city-card .flexi a{ color:var(--clay); text-decoration:underline; text-underline-offset:2px; }
-  .city-card .slot-legend{ font-size:11.5px; color:#7a6a5a; line-height:1.4; margin-bottom:6px; }
+  .city-card .slot-legend{ font-size:13.5px; color:#7a6a5a; line-height:1.4; margin-bottom:6px; }
   @media (max-width:600px){ .city-grid{ grid-template-columns:1fr; } .city-card-blank{ display:none; } }
 
   /* ---------- SESSION CALENDAR ---------- */
@@ -335,7 +336,7 @@
   .cal-grid{ display:grid; grid-template-columns:repeat(7, minmax(0,1fr)); gap:6px; min-width:0; }
   .cal-dow{ text-align:center; font-size:12px; color:#8a7a68; padding-bottom:6px; }
   .cal-cell{
-    min-height:76px; height:auto; display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+    min-height:68px; height:auto; display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
     border-radius:8px; font-size:13px; color:#b8ab9c; position:relative; background:transparent;
     min-width:0; overflow:visible; padding:10px 2px 14px;
   }
@@ -607,10 +608,9 @@
     </div>
 
     <div class="price-card">
-      <div class="eyebrow" style="justify-content:center;color:var(--rose-soft);">滿載而歸超值價</div>
-      <div class="price">$3,333</div>
-      <p style="color:rgba(246,239,228,.85);font-size:14px;">3.5 小時完整課程</p>
-      <p class="note">✨ 兩人以上同行，每人再折 $100</p>
+      <div class="eyebrow" style="justify-content:center;">滿載而歸超值價</div>
+      <div class="price">$3,500</div>
+      <p class="note">✨ 兩人一起報名 $6,666</p>
     </div>
   </div>
 </section>
@@ -631,9 +631,9 @@
     <p class="works-note">💥 兩日會完成 4 件最終成品：15cm 厚木板・竹製杯墊・立體石膏燭台・30cm 圓形畫布，體驗 4 種不同材質的繪畫與色彩碰撞</p>
 
     <div class="price-card">
-      <div class="eyebrow" style="justify-content:center;color:var(--rose-soft);">全修暖心價</div>
+      <div class="eyebrow" style="justify-content:center;">全修暖心價</div>
       <div class="price">$26,800</div>
-      <p style="color:rgba(246,239,228,.85);font-size:14px;">兩日完整課程（含兩日午餐＆兩日下午茶飲品一杯）</p>
+      <p style="color:#4a3a2c;font-size:14px;">兩日完整課程（含兩日午餐＆兩日下午茶飲品一杯）</p>
     </div>
   </div>
 </section>
@@ -678,9 +678,7 @@
   <div class="wrap">
     <div class="info-grid">
       <div class="info-card">
-        <h3>📍 上課地點</h3>
-        <p>台北市中山區建國南路一段14號12樓<br>（忠孝新生捷運站附近）</p>
-        <h3 style="margin-top:28px;">攜帶物品</h3>
+        <h3>攜帶物品</h3>
         <p>帶著一顆開心的心來就可以了！中間無特定用餐時間，可以自己帶水、飲料、零食，也能叫外送，不要讓自己餓到喔。</p>
       </div>
       <div class="info-card">
@@ -795,9 +793,31 @@
       <div class="dot-divider"><span></span><span></span><span></span></div>
     </div>
 
+    <!-- 開課時間一覽：僅兩日師資班 -->
+    <div data-course="teacher" style="display:none;">
+      <p class="eyebrow" style="justify-content:center;">兩日師資班</p>
+      <h2 class="serif section-title" style="text-align:center;">開課時間一覽</h2>
+      <p style="text-align:center;color:#7a6a58;font-size:14px;margin-top:10px;">目前僅開放「桃園場」，名額有限，額滿為止</p>
+
+      <div class="city-panel">
+        <div class="city-grid" id="teacherCityGrid">
+          <div class="city-card full">
+            <div class="city-head">
+              <span class="flag flag-桃園">桃園</span>
+              <a class="venue-address-inline" href="https://www.google.com/maps/search/?api=1&query=%E6%A1%83%E5%9C%92%E5%B8%82%E6%A1%83%E5%9C%92%E5%8D%80%E6%96%B0%E6%B0%91%E8%A1%9798%E8%99%9F2%E6%A8%93" target="_blank" rel="noopener">📍 桃園區新民街98號2樓</a>
+            </div>
+            <ul class="date-list">
+              <li><span class="d"></span>8/20（四）～8/21（五）　09:00－17:00（兩日課程）</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="dot-divider"><span></span><span></span><span></span></div>
+    </div>
+
     <p class="eyebrow" style="justify-content:center;">立即報名</p>
     <h2 class="serif section-title" style="text-align:center;">點選一個屬於你的時間</h2>
-    <p data-course="beginner" style="text-align:center;color:#7a6a58;font-size:14px;margin-top:10px;">目前月曆顯示台北／桃園／高雄已確定場次；台中場請洽上方連結</p>
     <p data-course="teacher" style="display:none;text-align:center;color:#7a6a58;font-size:14px;margin-top:10px;">兩日師資班目前僅開放「桃園場」8/20（四）～8/21（五），點選日期即可報名</p>
 
     <!-- 零基礎班月曆 -->
@@ -917,9 +937,9 @@
     '桃園': '#BC8A5C', // 橙
     '新竹': '#B3A15E', // 黃
     '台中': '#8FA888', // 綠
-    '嘉義': '#C0A857', // 莫蘭迪黃
+    '嘉義': '#DCC050', // 莫蘭迪黃
     '台南': '#7A7FA0', // 靛
-    '高雄': '#9A82A0', // 紫
+    '高雄': '#B8A6CC', // 紫
   };
   function cityColor(name){
     if(CITY_COLORS[name]) return CITY_COLORS[name];
@@ -993,7 +1013,7 @@
           return `<li><span class="d"></span>${formatDateLabel(d)}${slotLabels ? '　' + slotLabels : ''}</li>`;
         }).join('');
         const moreNote = dateOrder.length > 3
-          ? `<p class="flexi">還有 ${dateOrder.length - 3} 個日期。<br>詳情請看下方開課日曆，或私訊官方 LINE 詢問。</p>` : '';
+          ? `<p class="flexi">還有 ${dateOrder.length - 3} 個開課日期。<br>詳情請看下方開課日曆，或私訊官方 LINE 詢問。</p>` : '';
         return `<div class="city-card${fullClass}"><div class="city-head"><span class="flag flag-${city}">${label}</span>${addressHtml}</div>${slotLegend}<ul class="date-list">${dateItems}</ul>${moreNote}</div>`;
       }
 
@@ -1007,13 +1027,46 @@
         return `<li><span class="d"></span>${formatDateLabel(d)}${timeLabel}</li>`;
       }).join('');
       const moreNote = dateOrder.length > 3
-        ? `<p class="flexi">還有 ${dateOrder.length - 3} 個日期。<br>詳情請看下方開課日曆，或私訊官方 LINE 詢問。</p>` : '';
+        ? `<p class="flexi">還有 ${dateOrder.length - 3} 個開課日期。<br>詳情請看下方開課日曆，或私訊官方 LINE 詢問。</p>` : '';
       return `<div class="city-card${fullClass}"><div class="city-head"><span class="flag flag-${city}">${label}</span>${addressHtml}</div><ul class="date-list">${dateItems}</ul>${moreNote}</div>`;
     }
 
     const laidOutCities = new Set(CITY_LAYOUT.filter(Boolean));
     const extraCities = Object.keys(groups).filter(c => !laidOutCities.has(c));
     const cardsHtml = CITY_LAYOUT.map(buildCard).join('') + extraCities.map(buildCard).join('');
+
+    grid.innerHTML = cardsHtml;
+  }
+
+  // ---------- 開課時間一覽：兩日師資班（依 Google Sheet 即時資料動態產生） ----------
+  function renderTeacherCityOverview(sessions){
+    const grid = document.getElementById('teacherCityGrid');
+    if(!grid) return;
+    const upcoming = filterPastSessions(sessions || []);
+    if(!upcoming.length) return; // 沒抓到即時資料就保留原本寫死的卡片，不覆蓋
+
+    const groups = {};
+    upcoming.forEach(s => {
+      const city = cityBaseName(s.location);
+      if(!groups[city]) groups[city] = [];
+      groups[city].push(s);
+    });
+
+    const cardsHtml = Object.keys(groups).map(city => {
+      const list = groups[city].slice().sort((a,b)=>a.date.localeCompare(b.date));
+      const label = CITY_LABELS[city] || city;
+      const address = CITY_ADDRESSES[city];
+      const addressHtml = address
+        ? `<a class="venue-address-inline" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}" target="_blank" rel="noopener">📍 ${address.replace(/^[^市]+市/, '')}</a>`
+        : '';
+      const dateItems = list.map(s => {
+        const rangeLabel = s.endDate
+          ? `${formatDateLabel(s.date)}～${formatDateLabel(s.endDate)}`
+          : formatDateLabel(s.date);
+        return `<li><span class="d"></span>${rangeLabel}${s.time ? '　' + s.time : ''}</li>`;
+      }).join('');
+      return `<div class="city-card full"><div class="city-head"><span class="flag flag-${city}">${label}</span>${addressHtml}</div><ul class="date-list">${dateItems}</ul></div>`;
+    }).join('');
 
     grid.innerHTML = cardsHtml;
   }
@@ -1047,7 +1100,7 @@
   ];
 
   const dow = ['日','一','二','三','四','五','六']; // 星期文字對照（維持原本 getDay() 索引，週日=0）
-  const dowMonFirst = ['一','二','三','四','五','六','日']; // 月曆表頭顯示順序：週一為第一天
+  const dowMonFirst = ['㊀','㊁','㊂','㊃','㊄','㊅','㊆']; // 月曆表頭顯示順序：週一為第一天（以圈圈數字呈現）
   function pad(n){ return String(n).padStart(2,'0'); }
 
   function formatDateLabel(dateStr){
@@ -1274,7 +1327,7 @@
     }
   }
   loadSessionsFromSheet(SESSIONS_FETCH_URL, beginnerCal, renderCityOverview);
-  loadSessionsFromSheet(TEACHER_SESSIONS_FETCH_URL, teacherCal);
+  loadSessionsFromSheet(TEACHER_SESSIONS_FETCH_URL, teacherCal, renderTeacherCityOverview);
 
   // ---------- 課程切換（零基礎班／師資班） ----------
   function resetSessionSelection(){

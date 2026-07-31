@@ -1149,7 +1149,7 @@
           <option value="" disabled selected>請選擇付款方式</option>
           <option value="transfer">轉帳</option>
           <option value="linepay">LINE Pay 刷卡</option>
-          <option value="installment">中租分期</option>
+          <option value="installment" id="paymentInstallmentOption">中租分期</option>
         </select>
         <small>送出報名後，小幫手會透過 LINE 提供匯款帳號、刷卡連結或分期資訊。</small>
       </div>
@@ -1520,8 +1520,8 @@
         const session = daySessions[0];
         const isRange = session.endDate && session.endDate !== session.date;
         const timeLabel = isRange
-          ? `${formatDateLabel(session.date)} ～ ${formatDateLabel(session.endDate)}（${session.time}）`
-          : `${formatDateLabel(session.date)}（${session.time}）`;
+          ? `${formatDateLabel(session.date)} ～ ${formatDateLabel(session.endDate)} ${session.time}`
+          : `${formatDateLabel(session.date)} ${session.time}`;
         timeEl.textContent = `時間：${timeLabel}`;
         applySession(session);
       }
@@ -1617,6 +1617,17 @@
     const planGridEl = document.querySelector('.plan-grid');
     if(planGridEl) planGridEl.setAttribute('data-active', track);
     document.getElementById('course').value = track;
+
+    // 中租分期僅開放兩日師資班選擇；零基礎班切換時隱藏此選項並清除已選值
+    const installmentOption = document.getElementById('paymentInstallmentOption');
+    if(installmentOption){
+      installmentOption.style.display = (track === 'teacher') ? '' : 'none';
+      const paymentSelect = document.getElementById('paymentMethod');
+      if(track === 'beginner' && paymentSelect.value === 'installment'){
+        paymentSelect.value = '';
+      }
+    }
+
     resetSessionSelection();
     // 切換課程時直接跳回頁面最上方（不使用平滑捲動動畫）
     window.scrollTo({ top: 0, behavior: 'auto' });
@@ -1627,6 +1638,12 @@
   });
 
   setTrack('beginner');
+
+  const PAYMENT_METHOD_LABELS = {
+    transfer: '轉帳',
+    linepay: 'LINE Pay 刷卡',
+    installment: '中租分期',
+  };
 
   document.getElementById('signupForm').addEventListener('submit', async function(e){
     e.preventDefault();
@@ -1648,7 +1665,7 @@
       phone: document.getElementById('phone').value,
       lineName: document.getElementById('lineName').value,
       partySize: document.getElementById('partySize').value,
-      paymentMethod: document.getElementById('paymentMethod').value,
+      paymentMethod: PAYMENT_METHOD_LABELS[document.getElementById('paymentMethod').value] || document.getElementById('paymentMethod').value,
       submittedAt: new Date().toISOString(),
     };
 

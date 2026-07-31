@@ -906,7 +906,12 @@
     const cityNames = Object.keys(groups);
     if(!cityNames.length) return; // 沒抓到即時資料就保留原本寫死的卡片，不覆蓋
 
+    const CITY_ORDER = ['台中','台北','新北','桃園','嘉義','台南','高雄'];
     cityNames.sort((a,b) => {
+      const ia = CITY_ORDER.indexOf(a), ib = CITY_ORDER.indexOf(b);
+      if(ia !== -1 && ib !== -1) return ia - ib;
+      if(ia !== -1) return -1;
+      if(ib !== -1) return 1;
       const da = groups[a].slice().sort((x,y)=>x.date.localeCompare(y.date))[0].date;
       const db = groups[b].slice().sort((x,y)=>x.date.localeCompare(y.date))[0].date;
       return da.localeCompare(db);
@@ -914,12 +919,21 @@
 
     const cardsHtml = cityNames.map(city => {
       const list = groups[city].slice().sort((a,b)=>a.date.localeCompare(b.date));
-      const shown = list.slice(0,3);
-      const dateItems = shown.map(s =>
-        `<li><span class="d"></span>${formatDateLabel(s.date)}${s.time ? ' ' + s.time : ''}</li>`
-      ).join('');
-      const moreNote = list.length > 3
-        ? `<p class="flexi">還有 ${list.length - 3} 場，詳情請洽官方 LINE。</p>` : '';
+      // 以「日期」為單位彙整（同一天可能有早／中／晚多個場次，只算一筆日期）
+      const dateOrder = [];
+      const byDate = {};
+      list.forEach(s => {
+        if(!byDate[s.date]){ byDate[s.date] = []; dateOrder.push(s.date); }
+        byDate[s.date].push(s);
+      });
+      const shownDates = dateOrder.slice(0,3);
+      const dateItems = shownDates.map(d => {
+        const sessionsOnDate = byDate[d];
+        const timeLabel = sessionsOnDate.length > 1 ? '' : (sessionsOnDate[0].time ? ' ' + sessionsOnDate[0].time : '');
+        return `<li><span class="d"></span>${formatDateLabel(d)}${timeLabel}</li>`;
+      }).join('');
+      const moreNote = dateOrder.length > 3
+        ? `<p class="flexi">還有 ${dateOrder.length - 3} 個日期，詳情請洽官方 LINE。</p>` : '';
       // 台中場次多、時間彈性，額外補充一段小字說明
       const taichungNote = city === '台中'
         ? `<p class="flexi">場次多、時間彈性，<strong>1 人即可開班</strong>。詳細時間請 <a href="https://forms.gle/okEULz6aVJifkEdX8" target="_blank" rel="noopener">點此查看報名表</a> 或私訊官方 LINE 詢問。</p>`

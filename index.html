@@ -1464,7 +1464,7 @@
 
       if(daySessions.length > 1){
         // 同一天有多個班次（例如早／中／晚班），先讓使用者挑一個時段才能送出
-        timeEl.textContent = '請選擇時段：';
+        timeEl.textContent = `${formatDateLabel(daySessions[0].date)}｜請選擇時段：`;
         slotWrap.style.display = 'flex';
         slotWrap.innerHTML = daySessions.map((s, i) =>
           `<button type="button" class="slot-btn" data-idx="${i}">${s.time}</button>`

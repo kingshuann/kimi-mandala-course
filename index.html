@@ -282,6 +282,8 @@
   .plan-card[data-plan="teacher"] .plan-price{ font-size:39px; }
   .plan-card .plan-price .unit{ font-size:14px; color:#7a6a58; font-weight:400; }
   .plan-card .plan-note{ font-size:13px; color:#7a6a58; margin-bottom:20px; }
+  .gift-icon{ display:inline-block; animation:giftGlow 1.4s ease-in-out infinite; }
+  @keyframes giftGlow{ 0%,100%{ transform:scale(1); filter:drop-shadow(0 0 0px rgba(255,190,90,0)); } 50%{ transform:scale(1.2); filter:drop-shadow(0 0 6px rgba(255,190,90,.9)); } }
   .plan-card[data-plan="beginner"].active-plan .plan-note{ font-size:16px; }
   .plan-card[data-plan="beginner"]:not(.active-plan) .plan-note{ font-size:13px; }
   .plan-card[data-plan="teacher"] .plan-note{ font-size:16px; }
@@ -898,7 +900,7 @@
           <ul><li>3.5 小時完整課程</li></ul>
         </div>
         <div class="plan-section">
-          <h4>附贈材料</h4>
+          <h4><span class="gift-icon">🎁</span> 工具大禮包</h4>
           <ul>
             <li>13 支專用工具筆＆筆架</li>
             <li>專用定位打稿版</li>

@@ -227,11 +227,16 @@
 
   /* ---------- 課程方案比較（零基礎班／兩日師資班） ---------- */
   .plan-grid{
-    display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:44px; align-items:start;
-    transition:grid-template-columns .35s ease;
+    display:flex; gap:24px; margin-top:44px; align-items:start;
+    overflow-x:auto; scroll-behavior:smooth; -webkit-overflow-scrolling:touch;
+    scroll-snap-type:x proximity; padding-bottom:10px; cursor:grab;
   }
-  .plan-grid[data-active="beginner"]{ grid-template-columns:1.35fr 0.75fr; }
-  .plan-grid[data-active="teacher"]{ grid-template-columns:0.75fr 1.35fr; }
+  .plan-grid.dragging{ scroll-snap-type:none; cursor:grabbing; }
+  .plan-grid .plan-card{ flex:0 0 62%; scroll-snap-align:start; }
+  .plan-grid[data-active="beginner"] .plan-card[data-plan="beginner"]{ order:1; }
+  .plan-grid[data-active="beginner"] .plan-card[data-plan="teacher"]{ order:2; }
+  .plan-grid[data-active="teacher"] .plan-card[data-plan="teacher"]{ order:1; }
+  .plan-grid[data-active="teacher"] .plan-card[data-plan="beginner"]{ order:2; }
   .plan-card{
     position:relative; background:var(--card); border:1px solid var(--line); border-radius:20px;
     padding:36px 28px 32px; text-align:center; min-width:0;
@@ -317,9 +322,8 @@
   }
 
   @media (max-width:640px){
-    .plan-grid{ gap:10px; }
-    .plan-grid[data-active="beginner"]{ grid-template-columns:1.5fr 0.6fr; }
-    .plan-grid[data-active="teacher"]{ grid-template-columns:0.6fr 1.5fr; }
+    .plan-grid{ gap:14px; }
+    .plan-grid .plan-card{ flex:0 0 86%; }
     .plan-card{ padding:22px 14px 20px; border-radius:16px; }
     .plan-card:not(.active-plan){ padding:16px 8px 14px; max-height:520px; }
     .plan-card:not(.active-plan)::after{ height:100px; }
@@ -1648,7 +1652,7 @@
       c.classList.toggle('active-plan', c.dataset.plan === track);
     });
     const planGridEl = document.querySelector('.plan-grid');
-    if(planGridEl) planGridEl.setAttribute('data-active', track);
+    if(planGridEl){ planGridEl.setAttribute('data-active', track); planGridEl.scrollLeft = 0; }
     document.getElementById('course').value = track;
 
     // 中租分期僅開放兩日師資班選擇；零基礎班切換時把這個 <option> 整個從 DOM 移除
@@ -1742,5 +1746,27 @@
   });
 </script>
 
+<script>
+(function(){
+  document.querySelectorAll('.plan-grid').forEach(function(grid){
+    let isDown=false, startX=0, startScroll=0, moved=false;
+    grid.addEventListener('pointerdown', function(e){
+      isDown=true; moved=false; grid.setPointerCapture(e.pointerId);
+      startX=e.clientX; startScroll=grid.scrollLeft; grid.classList.add('dragging');
+    });
+    grid.addEventListener('pointermove', function(e){
+      if(!isDown) return;
+      const dx = e.clientX - startX;
+      if(Math.abs(dx) > 3) moved = true;
+      grid.scrollLeft = startScroll - dx;
+    });
+    function end(){ isDown=false; grid.classList.remove('dragging'); }
+    grid.addEventListener('pointerup', end);
+    grid.addEventListener('pointercancel', end);
+    grid.addEventListener('pointerleave', end);
+    grid.addEventListener('click', function(e){ if(moved){ e.preventDefault(); e.stopPropagation(); } }, true);
+  });
+})();
+</script>
 </body>
 </html>

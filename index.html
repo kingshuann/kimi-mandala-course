@@ -2630,14 +2630,17 @@ document.addEventListener('click', function(e){
         const daySessions = sessionMap[dateStr];
         if(daySessions && daySessions.length){
           cell.classList.add('has-session');
-          const dotsWrap = document.createElement('span');
-          dotsWrap.className = 'sched-cell-dots';
-          Array.from(new Set(daySessions.map(s => s.course))).forEach(c => {
-            const dot = document.createElement('span');
-            dot.className = 'sched-tag ' + ((COURSE_META[c]||{}).dotClass || '');
-            dotsWrap.appendChild(dot);
-          });
-          cell.appendChild(dotsWrap);
+          // 與「零基礎課程」月曆一致：格子內直接標示縣市名稱
+          const tag = document.createElement('span');
+          tag.className = 'loc-tag';
+          tag.textContent = daySessions[0].location;
+          tag.style.background = cityColor(daySessions[0].location);
+          cell.appendChild(tag);
+          if(daySessions.length > 1){
+            const countBadge = document.createElement('span');
+            countBadge.className = 'count-badge';
+            cell.appendChild(countBadge);
+          }
           cell.addEventListener('click', () => {
             grid.querySelectorAll('.cal-cell.selected').forEach(c => c.classList.remove('selected'));
             cell.classList.add('selected');

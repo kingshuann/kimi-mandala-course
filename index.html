@@ -1109,8 +1109,8 @@
   .sched-legend{ display:flex; justify-content:center; gap:20px; margin-bottom:20px; flex-wrap:wrap; }
   .sched-legend-item{ display:inline-flex; align-items:center; gap:6px; font-size:13px; color:#7a6a58; }
   .sched-tag{ width:9px; height:9px; border-radius:50%; display:inline-block; margin-right:2px; vertical-align:middle; }
-  .sched-tag-beginner{ background:#C96E2C; }
-  .sched-tag-teacher{ background:var(--sage-deep); }
+  .sched-tag-beginner{ background:var(--sage-deep); }
+  .sched-tag-teacher{ background:#C96E2C; }
   .sched-toggle{
     display:flex; justify-content:center; gap:4px; margin:0 auto 32px;
     background:var(--paper-warm); border:1px solid var(--line); border-radius:999px; padding:4px; width:fit-content;
@@ -2677,7 +2677,7 @@ document.addEventListener('click', function(e){
         const rangeLabel = (s.endDate && s.endDate !== s.date)
           ? `${formatDateLabel(s.date)}～${formatDateLabel(s.endDate)}`
           : formatDateLabel(s.date);
-        return `<li class="sched-date-list" data-go-course="${s.course}"><span class="d"></span><span class="sched-tag ${meta.dotClass||''}"></span>${rangeLabel}${s.time ? '　' + s.time : ''}<span class="sched-course-label">${meta.label||''}</span></li>`;
+        return `<li class="sched-date-list" data-go-course="${s.course}"><span class="d"></span>${rangeLabel}${s.time ? '　' + s.time : ''}<span class="sched-course-label">${meta.label||''}</span></li>`;
       }).join('');
       const moreNote = list.length > 4
         ? `<p class="flexi">還有 ${list.length - 4} 個場次，詳情請私訊官方 LINE 詢問。</p>` : '';

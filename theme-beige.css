@@ -1,0 +1,26 @@
+/* 米白皮膚：放在頁面最後載入 */
+:root{
+  --ink:#38322B; --ink-soft:#6A6156; --muted:#A0968A;
+  --plum:#9A8B76; --plum-deep:#463E35;
+  --rose:#9C8668; --rose-soft:#F1EBE1;
+  --gold:#C4AF8B; --gold-soft:#F6F1E7;
+  --sage:#C9BBA4; --sage-deep:#7A6852; --sage-soft:#EBE3D6;
+  --paper:#FFFFFF; --paper-warm:#F9F6F0; --card:#FFFFFF;
+  --line:rgba(56,50,43,.09); --shadow:0 6px 20px rgba(56,50,43,.07);
+}
+body{background:#EFEAE1}
+.rbtn{border-color:#D6CBBA}
+.tabbar button{color:#A69C90}
+.city,.date,.slotc{border-color:#E6DED1}
+.slotc .radio{border-color:#D6CBBA}
+.date.on.wkend .w{color:#EFE0C6}
+.regbar .btn[disabled],.dock .btn[disabled]{background:#D6CBBA}
+.field input,.field select{border-color:#E6DED1}
+.hv-chip{border-color:#E6DED1}
+.hv-off,.hv-extra{color:#8C7550 !important}
+.hero4::after{background:linear-gradient(180deg,rgba(36,30,24,0) 35%,rgba(36,30,24,.70))}
+.sheet-bg{background:rgba(36,30,24,.45)}
+.toast{background:var(--plum-deep)}
+.rv2 .s{color:#C4A877}
+.subtabs,.jump{box-shadow:none}
+

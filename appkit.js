@@ -162,14 +162,17 @@ function stickSubtabs() {
   fix(); window.addEventListener('resize', fix); document.addEventListener('click', function () { setTimeout(fix, 20); });
 }
 
-// 防止一行只剩一兩個字：每段文字的最後 4 個字綁在一起不換行
+// 防止一行只剩一兩個字：每段文字的最後 3 個字綁在一起不換行（不用 text-wrap:pretty，iPhone 會把每行縮短）
 (function () {
   var SEL = 'p, li, dd, h1, h2, h3, .rv2, .rows li span:last-child, .cmp2-r span';
-  var KEEP = 4;
+  var KEEP = 3;
   function fixText(t) {
     var s = t.nodeValue, trimmed = s.replace(/\s+$/, '');
-    if (trimmed.length <= KEEP) return;
-    var head = trimmed.slice(0, trimmed.length - KEEP), tail = trimmed.slice(-KEEP);
+    // 結尾的標點不算字數，確保最後一行至少有 3 個真正的字
+    var punct = (trimmed.match(/[。，、！？；：…）」』～!?.,)]+$/) || [''])[0].length;
+    var n = KEEP + punct;
+    if (trimmed.length <= n) return;
+    var head = trimmed.slice(0, trimmed.length - n), tail = trimmed.slice(-n);
     var span = document.createElement('em');
     span.className = 'nowrap'; span.textContent = tail;
     t.nodeValue = head;
@@ -192,7 +195,7 @@ function stickSubtabs() {
     (root.querySelectorAll ? root : document).querySelectorAll(SEL).forEach(fixEl);
   }
   var st = document.createElement('style');
-  st.textContent = 'em.nowrap{white-space:nowrap;font-style:normal;color:inherit;font-weight:inherit}p,li,dd,h1,h2,h3{text-wrap:pretty}';
+  st.textContent = 'em.nowrap{white-space:nowrap;font-style:normal;color:inherit;font-weight:inherit}';
   document.head.appendChild(st);
   document.addEventListener('DOMContentLoaded', function () {
     run(document);

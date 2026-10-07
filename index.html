@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Kimi 點點曼陀羅課程｜零基礎班・兩日師資班</title>
-<meta name="description" content="透過繪畫創作，打造高質感生活。Kimi 點點曼陀羅零基礎班與兩日師資班，全台巡迴小班教學，線上選場次報名。">
+<meta name="description" content="用繪畫創作，打造高質感生活。Kimi 點點曼陀羅零基礎班與兩日師資班，全台巡迴小班教學，線上選場次報名。">
 <meta property="og:title" content="Kimi 點點曼陀羅課程">
-<meta property="og:description" content="透過繪畫創作，打造高質感生活。零基礎班・兩日師資班，線上選場次報名。">
+<meta property="og:description" content="用繪畫創作，打造高質感生活。零基礎班・兩日師資班，線上選場次報名。">
 <meta property="og:image" content="https://www.imikdots.com/img/kimi-hero.jpg">
 <meta property="og:url" content="https://www.imikdots.com/">
 <meta property="og:type" content="website">
@@ -14,8 +14,8 @@
 <link rel="icon" href="img/logo-brown.png">
 <link rel="apple-touch-icon" href="img/logo-brown.png">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&family=Noto+Serif+TC:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="base.css?v=20261008">
-<link rel="stylesheet" href="app.css?v=20261008">
+<link rel="stylesheet" href="base.css?v=20261008d">
+<link rel="stylesheet" href="app.css?v=20261008d">
 <style>
 /* 首頁 */
 .hero4{position:relative;height:300px;overflow:hidden;color:#fff}
@@ -24,6 +24,7 @@
 .hero4 .in{position:absolute;left:16px;right:16px;bottom:16px;z-index:1}
 .hero4 h1{font-family:'Noto Sans TC',sans-serif;font-weight:700;font-size:23px;line-height:1.45;letter-spacing:.02em}
 .hero4 p{font-size:13px;opacity:.9}
+.hero4 h1 .h1b{display:block;font-size:min(18px,5.2vw);letter-spacing:.04em;margin-top:2px;white-space:nowrap}
 .hero4 p.tagline{font-size:15.5px;opacity:1;font-weight:500;margin:4px 0 6px;letter-spacing:.03em}
 .paths{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:16px 16px 0}
 .path{border-radius:16px;padding:14px;text-align:left;background:var(--rose-soft)}
@@ -43,9 +44,10 @@
 .cpage .head .pn{font-size:12.5px;color:var(--muted)}
 .eb{font-size:11px !important;letter-spacing:.18em;color:var(--gold) !important;font-weight:700;margin-bottom:2px}
 .intro2{display:flex;gap:14px;align-items:stretch}
-.intro2 img{width:42%;max-width:160px;height:auto;align-self:stretch;border-radius:12px;object-fit:cover;flex-shrink:0}
-.intro2 p{min-width:0}
+.intro2 img{width:38%;max-width:150px;height:auto;align-self:stretch;border-radius:12px;object-fit:cover;flex-shrink:0}
+.intro2 p{min-width:0;overflow-wrap:anywhere}
 .intro2 b{color:var(--rose)}
+.intro2 .nb{display:inline-block}
 .gain{list-style:none}
 .gain li{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--line)}
 .gain li:last-child{border-bottom:0}
@@ -53,6 +55,7 @@
 .gain .gic svg{width:100%;height:100%}
 .gain b{display:block;font-size:16px;margin-bottom:4px}
 .gain p{font-size:13.5px;line-height:1.7}
+.gain li>div{padding-right:32px;min-width:0}
 .easy2{border-top:8px solid var(--paper-warm);margin-top:14px;padding-top:24px}
 .easy2>p{margin:-4px 0 12px}
 .easy2 ul{list-style:none;display:grid;gap:8px;font-size:14.5px;margin-bottom:4px}
@@ -152,10 +155,10 @@
   <!-- 1. 首頁：老師介紹＋聯繫方式 -->
   <section class="page on" data-page="home">
     <div class="tp"></div>
-    <div class="hero4"><img src="img/kimi-hero.jpg" alt="Kimi"><div class="in"><h1>透過繪畫創作，<br>打造高質感生活</h1><p>Kimi 點點曼陀羅・零基礎班／師資培訓／線上課</p></div></div>
+    <div class="hero4"><img src="img/kimi-hero.jpg" alt="Kimi"><div class="in"><h1>Kimi曼陀羅繪畫<span class="h1b">用繪畫創作，打造高質感生活</span></h1><p>零基礎班／師資培訓／線上課</p></div></div>
     <nav class="jump jump5"><a href="#home-what" class="on">這是什麼</a><a href="#home-works">作品欣賞</a><a href="#home-loc">上課地點</a><a href="#home-faq">課前問答</a></nav>
     <div id="home-what" class="anchor"></div>
-    <section class="hs"><p class="eb">WHAT IS DOT MANDALA</p><h2>什麼是點點曼陀羅？</h2><div class="intro2"><img src="img/mandala-beige.jpg" alt="點點曼陀羅作品"><p>點點曼陀羅（Dot Mandala）是一種<b>直覺創作</b>。用顏料、圓點與線條，一點一點堆疊出一幅作品。<br><br>不需要繪畫基礎，也沒有固定範本與規則，跟著自己的感覺選顏色，然後點下每一個點就好。</p></div></section>
+    <section class="hs"><p class="eb">WHAT IS DOT MANDALA</p><h2>什麼是點點曼陀羅？</h2><div class="intro2"><img src="img/mandala-beige.jpg" alt="點點曼陀羅作品"><p>點點曼陀羅<span class="nb">（Dot Mandala）</span>是一種<b>直覺創作</b>。用顏料、圓點與線條，一點一點堆疊出一幅作品。<br><br>不需要繪畫基礎，也沒有固定範本與規則，跟著自己的感覺選顏色，然後點下每一個點就好。</p></div></section>
     <section class="hs"><h2>來上一堂課，你會帶走什麼？</h2><ul class="gain"><li><span class="gic">☕</span><div><b>一個被好好陪伴的下午</b><p>跟著老師一起畫，從抽一張卡牌、聊聊最近的自己開始。有人陪你、聽你說話，不用急也不用跟誰比，只要專心把時間留給自己。</p></div></li><li><span class="gic">🖼️</span><div><b>家裡多一件你親手畫的作品</b><p>畫好的作品擺在書桌、玄關或床頭，每天看到心情都會變好。一幅屬於自己的畫，就能讓家裡的質感跟著提升。</p></div></li><li><span class="gic">🎁</span><div><b>送出一份買不到的心意</b><p>學會之後，筆記本、馬克杯、書籤、卡片都能畫。生日、節日親手畫一份送給重要的人，比買來的禮物更有溫度。</p></div></li><li><span class="gic">🌱</span><div><b>把喜歡變成一份小副業</b><p>畫上癮了，作品也有機會販售、接客製訂單，慢慢發展成自己的手作品牌。想走得更遠，還有師資班陪你開課。</p></div></li></ul></section>
     <section class="hs"><h2>不會畫畫？完全沒關係</h2><p class="lead">這堂課就是為「從來沒畫過畫」的你設計的。</p><ul class="dots"><li>零基礎、手殘也 OK，3.5 小時完整教會基本功</li><li>工具全部幫你準備好，什麼都不用帶</li><li>不是臨摹，而是畫出屬於你自己的作品</li><li>學完回家還能自己畫 10 件作品</li></ul></section>
     <div id="home-works" class="anchor"></div><section class="hs"><h2>學員作品</h2><p class="lead">每一幅都是零基礎的同學在課堂上完成的唷❤️</p><div class="grid3 bleed" id="worksGrid"></div></section>
@@ -194,11 +197,11 @@
   </nav>
 </div>
 
-<script src="data.js?v=20261008"></script>
-<script src="ui.js?v=20261008"></script>
-<script src="appkit.js?v=20261008"></script>
+<script src="data.js?v=20261008d"></script>
+<script src="ui.js?v=20261008d"></script>
+<script src="appkit.js?v=20261008d"></script>
 <script>var HEAD_VARIANT = 3;</script>
-<script src="head-variants.js?v=20261008"></script>
+<script src="head-variants.js?v=20261008d"></script>
 <script>
 document.querySelectorAll('.tp').forEach(function (e) { e.outerHTML = topBar(); });
 document.querySelectorAll('.ic').forEach(function (e) { e.outerHTML = ICON[e.dataset.i]; });
@@ -222,7 +225,7 @@ document.querySelectorAll('.cpage').forEach(function (host) {
     '<div id="' + k + '-info" class="anchor"></div>' + body[0] +
     '<div class="divider"></div><div id="' + k + '-content" class="anchor"></div><div class="sect"><h2>課程內容</h2>' + body[1] +
     '<div class="divider"></div><div id="' + k + '-notes" class="anchor"></div><div class="sect"><h2>報名須知</h2><h3>攜帶物品</h3><p>' + c.bring + '</p><h3>注意事項</h3><ol class="notes2">' + NOTES.map(function (n) { return '<li>' + n + '</li>'; }).join('') + '</ol></div>' +
-    (k === 'teacher' ? '<div class="cond">🌿 報名條件：需要上過零基礎課程（上過其他老師的零基礎班也可以唷！）。送出報名後用 LINE 傳一張過去作品給 Kimi 即可。</div>' : '') +
+    (k === 'teacher' ? '<div class="cond">🌿 報名條件：必須上過「零基礎課程」<br>其他老師的零基礎班也可以唷<br>送出報名後用 LINE 傳一張過去作品給 Kimi 即可。</div>' : '') +
     '<div class="reg-pad"></div>' +
     '<div class="regbar"><div class="sel"><b>' + c.priceText + '<span style="font-weight:400;font-size:12px"> ／人</span></b></div><button class="btn" onclick="goReg(\'' + k + '\')">報名這堂課</button></div>';
 });
@@ -238,7 +241,7 @@ document.querySelectorAll('#seg button').forEach(function (b) { b.onclick = func
 function same(a, b) { return a && b && a.date === b.date && a.time === b.time && a.location === b.location; }
 function render() {
   var L = upcoming(SESSIONS[st.k]), c = COURSES[st.k];
-  document.getElementById('cond').innerHTML = st.k === 'teacher' ? '<div class="cond">🌿 需要上過零基礎課程（上過其他老師的零基礎班也可以唷！），送出後用 LINE 傳一張過去作品即可。</div>' : '';
+  document.getElementById('cond').innerHTML = st.k === 'teacher' ? '<div class="cond">🌿 報名條件：必須上過「零基礎課程」<br>其他老師的零基礎班也可以唷<br>送出報名後用 LINE 傳一張過去作品給 Kimi 即可。</div>' : '';
   var counts = {}; L.forEach(function (s) { counts[s.location] = (counts[s.location] || 0) + 1; });
   if (!st.city || !counts[st.city]) st.city = Object.keys(counts)[0] || null;
   document.getElementById('cities').innerHTML = ALL_CITIES.map(function (ct) {
@@ -306,6 +309,7 @@ loadLiveSessions(render);
   document.addEventListener('click', function () { setTimeout(fix, 30); });
 })();
 </script>
-<link rel="stylesheet" href="theme-beige.css?v=20261008">
+<link rel="stylesheet" href="theme-beige.css?v=20261008d">
+<link rel="stylesheet" href="font-huninn.css?v=20261008d">
 </body>
 </html>

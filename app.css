@@ -55,6 +55,7 @@ body{background:#EFE8DF}
 .srow2 .act{border-bottom:1px solid var(--line);align-self:stretch;display:flex;align-items:center}
 .book{height:40px;padding:0 18px;border-radius:999px;border:1.5px solid var(--ink);font-size:14.5px;font-weight:500;background:#fff}
 .book.tch{border-color:var(--sage-deep);color:var(--sage-deep)}
+.book.priv{display:inline-flex;align-items:center;border-color:var(--line);color:var(--muted);background:transparent;cursor:default}
 .empty-note{padding:30px 24px;text-align:center;color:var(--muted);font-size:13.5px}
 
 /* 一般內容區 */

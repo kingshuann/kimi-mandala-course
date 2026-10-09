@@ -67,7 +67,7 @@ function sessionRows(items) {
       '<div class="bd"><div class="tm">' + s.time.replace('－', ' - ') + (x.k === 'teacher' ? '（兩天）' : '') + '</div>' +
       '<div class="nm">' + c.short + (x.k === 'teacher' ? '' : '・' + slotName(s.time)) + '</div>' +
       '<div class="mt">' + s.location + '・' + (x.k === 'teacher' ? md(s.date) + '–' + md(s.endDate || s.date) : '3.5 小時') + ' / ' + c.priceText + '</div></div>' +
-      '<div class="act"><button class="book' + (x.k === 'teacher' ? ' tch' : '') + '" data-book="' + id + '">預約</button></div></div>';
+      '<div class="act">' + (isPrivate(s) ? '<span class="book priv">包班</span>' : '<button class="book' + (x.k === 'teacher' ? ' tch' : '') + '" data-book="' + id + '">預約</button>') + '</div></div>';
   });
   return html;
 }

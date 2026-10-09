@@ -14,8 +14,8 @@
 <link rel="icon" href="img/logo-brown.png">
 <link rel="apple-touch-icon" href="img/logo-brown.png">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&family=Noto+Serif+TC:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="base.css?v=20261008d">
-<link rel="stylesheet" href="app.css?v=20261008d">
+<link rel="stylesheet" href="base.css?v=20261010a">
+<link rel="stylesheet" href="app.css?v=20261010a">
 <style>
 /* 首頁 */
 .hero4{position:relative;height:300px;overflow:hidden;color:#fff}
@@ -139,6 +139,8 @@
 .slotc .radio{width:22px;height:22px;border-radius:50%;border:2px solid #d6cbc0;flex-shrink:0}
 .slotc.on{border-color:var(--rose);background:var(--rose-soft)}
 .slotc.on .radio{border:7px solid var(--rose)}
+.slotc.priv{opacity:.6;cursor:default}
+.slotc.priv .tag{font-size:12px;border:1.5px solid var(--muted);color:var(--muted);border-radius:999px;padding:2px 10px;flex-shrink:0}
 .empty{background:var(--paper-warm);border-radius:14px;padding:16px;text-align:center;font-size:13.5px;color:var(--ink-soft)}
 .regbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(62px + env(safe-area-inset-bottom));width:100%;max-width:480px;z-index:35;background:rgba(255,255,255,.97);border-top:1px solid var(--line);padding:10px 16px;display:flex;gap:10px;align-items:center}
 .regbar .sel{flex:1;font-size:12px;line-height:1.35;color:var(--muted);min-width:0}
@@ -197,11 +199,11 @@
   </nav>
 </div>
 
-<script src="data.js?v=20261008d"></script>
-<script src="ui.js?v=20261008d"></script>
-<script src="appkit.js?v=20261008d"></script>
+<script src="data.js?v=20261010a"></script>
+<script src="ui.js?v=20261010a"></script>
+<script src="appkit.js?v=20261010a"></script>
 <script>var HEAD_VARIANT = 3;</script>
-<script src="head-variants.js?v=20261008d"></script>
+<script src="head-variants.js?v=20261010a"></script>
 <script>
 document.querySelectorAll('.tp').forEach(function (e) { e.outerHTML = topBar(); });
 document.querySelectorAll('.ic').forEach(function (e) { e.outerHTML = ICON[e.dataset.i]; });
@@ -275,9 +277,10 @@ function render() {
   var icons = { '早班': '☀️', '午班': '☕', '晚班': '🌙', '時間洽詢': '💬' };
   document.getElementById('slots').innerHTML = day.length ? day.map(function (s, i) {
     var nm = st.k === 'teacher' ? '兩日課程' : slotName(s.time);
+    if (isPrivate(s)) return '<div class="slotc priv"><span class="ic">🔒</span><span class="t"><b>' + nm + '　' + s.time + '</b><span>' + dateLabel(s) + '・' + s.location + '・包班，不開放預約</span></span><span class="tag">包班</span></div>';
     return '<button class="slotc' + (same(st.pick, s) ? ' on' : '') + '" data-i="' + i + '"><span class="ic">' + (st.k === 'teacher' ? '🎓' : icons[nm]) + '</span><span class="t"><b>' + nm + '　' + s.time + '</b><span>' + dateLabel(s) + '・' + s.location + '</span></span><span class="radio"></span></button>';
   }).join('') : '<div class="empty">目前沒有公告場次，歡迎私訊官方 LINE 詢問 🙌</div>';
-  document.querySelectorAll('#slots .slotc').forEach(function (b) { b.onclick = function () { st.pick = day[+b.dataset.i]; render(); }; });
+  document.querySelectorAll('#slots button.slotc').forEach(function (b) { b.onclick = function () { st.pick = day[+b.dataset.i]; render(); }; });
   var sel = document.getElementById('regSel'), btn = document.getElementById('regBtn');
   if (st.pick) { sel.innerHTML = '<b>' + st.pick.location + '・' + dateLabel(st.pick) + '</b>' + c.short + '・' + st.pick.time; btn.removeAttribute('disabled'); }
   else { sel.innerHTML = '<b>' + c.priceText + '<span style="font-weight:400;font-size:12px"> ／人</span></b>請先選擇時段'; btn.setAttribute('disabled', ''); }
@@ -309,7 +312,7 @@ loadLiveSessions(render);
   document.addEventListener('click', function () { setTimeout(fix, 30); });
 })();
 </script>
-<link rel="stylesheet" href="theme-beige.css?v=20261008d">
-<link rel="stylesheet" href="font-huninn.css?v=20261008d">
+<link rel="stylesheet" href="theme-beige.css?v=20261010a">
+<link rel="stylesheet" href="font-huninn.css?v=20261010a">
 </body>
 </html>

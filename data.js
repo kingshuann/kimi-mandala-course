@@ -83,6 +83,14 @@ function md(s) { var p = s.split('-'); return (+p[1]) + '/' + (+p[2]); }
 function wd(s) { return WEEK[new Date(s + 'T00:00:00').getDay()]; }
 function dateLabel(s) { var t = md(s.date) + '（' + wd(s.date) + '）'; if (s.endDate) t += '～' + md(s.endDate) + '（' + wd(s.endDate) + '）'; return t; }
 function slotName(t) { var h = parseInt(t, 10); if (isNaN(h)) return '時間洽詢'; return h < 12 ? '早班' : h < 18 ? '午班' : '晚班'; }
+// 包班（私人包場）：照樣顯示在場次裡，但不開放預約。之後有新的包班就加在這裡
+var PRIVATE_SESSIONS = [
+  { date: '2026-10-24', location: '台北' }
+];
+function isPrivate(s) {
+  if (/包班/.test((s.location || '') + (s.time || ''))) return true;
+  return PRIVATE_SESSIONS.some(function (p) { return p.date === s.date && (!p.location || p.location === s.location); });
+}
 function upcoming(list) { var t = todayStr(); return list.filter(function (s) { return s.date >= t; }); }
 
 // 讀後台即時場次（Google Sheet）；讀得到就以後台為準，讀不到才用上面的快照

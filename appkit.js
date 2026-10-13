@@ -21,15 +21,30 @@ function topBar(extraClass) {
 }
 
 // ---------- 底部分頁 ----------
+// 每個分頁有自己的網址：imikdots.com/#beginner、#teacher、#booking（首頁不帶 #）
+var TAB_URL = { home: '', beginner: 'beginner', teacher: 'teacher', reg: 'booking' };
+function tabFromHash() {
+  var h = location.hash.replace('#', '');
+  for (var k in TAB_URL) if (TAB_URL[k] && TAB_URL[k] === h) return k;
+  return h ? null : 'home';
+}
 function setupTabs(onChange) {
   var btns = Array.from(document.querySelectorAll('.tabbar button'));
-  window.goTab = function (name) {
+  window.goTab = function (name, fromUrl) {
     btns.forEach(function (b) { b.classList.toggle('on', b.dataset.tab === name); });
     document.querySelectorAll('.page').forEach(function (p) { p.classList.toggle('on', p.dataset.page === name); });
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    // 換分頁時網址跟著換，手機按「上一頁」可以回到前一個分頁
+    if (!fromUrl && tabFromHash() !== name) {
+      history.pushState(null, '', TAB_URL[name] ? '#' + TAB_URL[name] : location.pathname + location.search);
+    }
     if (onChange) onChange(name);
   };
   btns.forEach(function (b) { b.onclick = function () { goTab(b.dataset.tab); }; });
+  function follow() { var t = tabFromHash(); if (t) goTab(t, true); }
+  window.addEventListener('popstate', follow);
+  // 等頁面其他程式都跑完，再依網址打開對應分頁
+  setTimeout(function () { if (tabFromHash() !== 'home') follow(); }, 0);
 }
 function setupSubtabs(root) {
   root.querySelectorAll('.subtabs').forEach(function (bar) {

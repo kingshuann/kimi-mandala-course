@@ -14,8 +14,8 @@
 <link rel="icon" href="img/logo-brown.png">
 <link rel="apple-touch-icon" href="img/logo-brown.png">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&family=Noto+Serif+TC:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="base.css?v=20261014">
-<link rel="stylesheet" href="app.css?v=20261014">
+<link rel="stylesheet" href="base.css?v=20261023">
+<link rel="stylesheet" href="app.css?v=20261023">
 <style>
 /* 首頁 */
 .hero4{position:relative;height:300px;overflow:hidden;color:#fff}
@@ -118,6 +118,11 @@
 .city.has span{color:var(--rose);font-weight:700}
 .city.on{border-color:var(--rose);background:var(--rose-soft)}
 .city.none{opacity:.5}
+.city.online{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:10px}
+.city.online b{display:inline}
+.months{display:flex;gap:6px;margin-bottom:10px}
+.mon{height:30px;padding:0 14px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font-size:13px;font-weight:700;color:var(--ink-soft)}
+.mon.on{background:var(--ink);border-color:var(--ink);color:#fff}
 .dates{display:flex;gap:8px;overflow-x:auto;padding:2px 16px 6px;margin:0 -16px;scrollbar-width:none;scroll-padding-inline:16px}
 .dates::-webkit-scrollbar{display:none}
 .date{flex:0 0 62px;border:1.5px solid var(--line);border-radius:14px;padding:8px 0 7px;text-align:center;background:#fff}
@@ -167,7 +172,7 @@
     <section class="hs"><h2>同學怎麼說</h2><div id="reviews"></div></section>
     <div id="home-about" class="anchor"></div><section class="hs"><h2>關於 Kimi</h2><div id="about" class="bleed"></div></section>
     <section class="hs"><h2>聯繫方式</h2><div class="contact2"><a class="cbtn ig" href="https://www.instagram.com/imikdots" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".7"/></svg><b>Instagram</b><span>@imikdots</span></a><a class="cbtn ln" href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 4C7 4 3 7.2 3 11.2c0 3.6 3.2 6.5 7.5 7.1l-.4 2.7 3.6-2.8c3.9-.6 7.3-3.4 7.3-7 0-4-4-7.2-9-7.2z"/></svg><b>官方 LINE</b><span>場次・報名・諮詢</span></a></div></section>
-    <div id="home-loc" class="anchor"></div><section class="hs"><h2>上課地點</h2><p class="lead">以下是固定配合的教室地點。如果交通上不方便、想換其他地點上課，都歡迎私訊官方 LINE 跟我討論 🙌</p><div class="locs"><a class="loc" href="https://www.google.com/maps/search/?api=1&query=%E5%8F%B0%E5%8C%97%E5%B8%82%E4%BF%A1%E7%BE%A9%E5%8D%80%E5%B4%87%E5%BE%B7%E8%A1%9738%E5%B7%B713%E8%99%9F1%E6%A8%93" target="_blank" rel="noopener"><b>台北</b><span>📍 台北市信義區崇德街38巷13號1樓</span></a><a class="loc" href="https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%96%B0%E8%8E%8A%E5%8D%80%E6%96%B0%E8%8E%8A%E8%B7%AF209%E8%99%9F2%E6%A8%93" target="_blank" rel="noopener"><b>新北</b><span>📍 新北市新莊區新莊路209號2樓</span></a><a class="loc" href="https://www.google.com/maps/search/?api=1&query=%E6%A1%83%E5%9C%92%E5%B8%82%E6%A1%83%E5%9C%92%E5%8D%80%E6%96%B0%E6%B0%91%E8%A1%9798%E8%99%9F2%E6%A8%93" target="_blank" rel="noopener"><b>桃園</b><span>📍 桃園市桃園區新民街98號2樓</span></a><a class="loc" href="https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E7%AB%B9%E5%B8%82%E5%8C%97%E5%8D%80%E5%8C%97%E9%96%80%E8%A1%9721%E8%99%9F2%E6%A8%93" target="_blank" rel="noopener"><b>新竹</b><span>📍 新竹市北區北門街21號2樓</span></a><a class="loc" href="https://www.google.com/maps/search/?api=1&query=%E5%8F%B0%E4%B8%AD%E5%B8%82%E5%8C%97%E5%B1%AF%E5%8D%80%E5%8C%97%E5%B1%AF%E8%B7%AF240%E5%B7%B715%E8%99%9F" target="_blank" rel="noopener"><b>台中</b><span>📍 台中市北屯區北屯路240巷15號</span></a><a class="loc" href="https://www.google.com/maps/search/?api=1&query=%E9%AB%98%E9%9B%84%E5%B8%82%E8%8B%93%E9%9B%85%E5%8D%80%E4%B8%AD%E6%AD%A3%E4%BA%8C%E8%B7%AF89%E8%99%9F6%E6%A8%93%E4%B9%8B5" target="_blank" rel="noopener"><b>高雄</b><span>📍 高雄市苓雅區中正二路89號6樓之5</span></a></div></section>
+    <div id="home-loc" class="anchor"></div><section class="hs"><h2>上課地點</h2><p class="lead">以下是固定配合的教室地點。如果交通上不方便、想換其他地點上課，都歡迎私訊官方 LINE 跟我討論 🙌</p><div class="locs"><a class="loc" href="https://www.google.com/maps/search/?api=1&query=%E5%8F%B0%E5%8C%97%E5%B8%82%E4%BF%A1%E7%BE%A9%E5%8D%80%E5%B4%87%E5%BE%B7%E8%A1%9738%E5%B7%B713%E8%99%9F1%E6%A8%93" target="_blank" rel="noopener"><b>台北</b><span>📍 台北市信義區崇德街38巷13號1樓</span></a><a class="loc" href="https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E6%96%B0%E8%8E%8A%E5%8D%80%E6%96%B0%E8%8E%8A%E8%B7%AF209%E8%99%9F2%E6%A8%93" target="_blank" rel="noopener"><b>新北</b><span>📍 新北市新莊區新莊路209號2樓</span></a><a class="loc" href="https://www.google.com/maps/search/?api=1&query=%E6%A1%83%E5%9C%92%E5%B8%82%E6%A1%83%E5%9C%92%E5%8D%80%E6%96%B0%E6%B0%91%E8%A1%9798%E8%99%9F2%E6%A8%93" target="_blank" rel="noopener"><b>桃園</b><span>📍 桃園市桃園區新民街98號2樓</span></a><a class="loc" href="https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E7%AB%B9%E5%B8%82%E5%8C%97%E5%8D%80%E5%8C%97%E9%96%80%E8%A1%9721%E8%99%9F2%E6%A8%93" target="_blank" rel="noopener"><b>新竹</b><span>📍 新竹市北區北門街21號2樓</span></a><a class="loc" href="https://www.google.com/maps/search/?api=1&query=%E5%8F%B0%E4%B8%AD%E5%B8%82%E5%8C%97%E5%B1%AF%E5%8D%80%E5%8C%97%E5%B1%AF%E8%B7%AF240%E5%B7%B715%E8%99%9F" target="_blank" rel="noopener"><b>台中</b><span>📍 台中市北屯區北屯路240巷15號</span></a><a class="loc" href="https://www.google.com/maps/search/?api=1&query=%E9%AB%98%E9%9B%84%E5%B8%82%E8%8B%93%E9%9B%85%E5%8D%80%E4%B8%AD%E6%AD%A3%E4%BA%8C%E8%B7%AF89%E8%99%9F6%E6%A8%93%E4%B9%8B5" target="_blank" rel="noopener"><b>高雄</b><span>📍 高雄市苓雅區中正二路89號6樓之5</span></a><div class="loc"><b>線上</b><span>💻 在家視訊上課，工具材料包寄到家（NT$3,000／人）</span></div></div></section>
     <div id="home-faq" class="anchor"></div><section class="hs"><h2>課前問答</h2><div id="faq"></div></section>
     <div style="height:20px"></div>
   </section>
@@ -185,7 +190,7 @@
     </div></div>
     <div id="cond"></div>
     <section class="step"><h2><span class="n">1</span>選地區<span class="hint" id="cityHint"></span></h2><div class="cities" id="cities"></div></section>
-    <section class="step"><h2><span class="n">2</span>選日期<span class="hint">左右滑動看更多 →</span></h2><div class="dates" id="dates"></div></section>
+    <section class="step"><h2><span class="n">2</span>選日期<span class="hint">左右滑動看更多 →</span></h2><div class="months" id="months"></div><div class="dates" id="dates"></div></section>
     <section class="step"><h2><span class="n">3</span>選時段</h2><div class="slots" id="slots"></div></section>
     <div class="reg-pad"></div>
   </section>
@@ -199,11 +204,11 @@
   </nav>
 </div>
 
-<script src="data.js?v=20261014"></script>
-<script src="ui.js?v=20261014"></script>
-<script src="appkit.js?v=20261014"></script>
+<script src="data.js?v=20261023"></script>
+<script src="ui.js?v=20261023"></script>
+<script src="appkit.js?v=20261023"></script>
 <script>var HEAD_VARIANT = 3;</script>
-<script src="head-variants.js?v=20261014"></script>
+<script src="head-variants.js?v=20261023"></script>
 <script>
 document.querySelectorAll('.tp').forEach(function (e) { e.outerHTML = topBar(); });
 document.querySelectorAll('.ic').forEach(function (e) { e.outerHTML = ICON[e.dataset.i]; });
@@ -215,7 +220,7 @@ document.getElementById('reviews').innerHTML = reviewsHtml();
 document.getElementById('faq').innerHTML = faqHtml();
 
 // 課程頁：介紹｜內容｜須知
-var NOTES = ['台中班 1 人就開班，時間可討論；台中以外的縣市滿 3 人才開班。最晚於開課前一週通知，未成功開班全額退費，也可延期或轉讓。', '完成匯款後如因個人因素無法參加，可延期補課或轉讓他人，恕不退費。', '大人與小朋友同價，歡迎攜伴，請家長協助照顧。', '課堂中老師會側拍作品分享到 IG，不想入鏡請告訴老師。'];
+var NOTES = ['台中班、線上課 1 人就開班，時間可討論；台中以外的縣市滿 3 人才開班。最晚於開課前一週通知，未成功開班全額退費，也可延期或轉讓。', '完成匯款後如因個人因素無法參加，可延期補課或轉讓他人，恕不退費。', '大人與小朋友同價，歡迎攜伴，請家長協助照顧。', '課堂中老師會側拍作品分享到 IG，不想入鏡請告訴老師。'];
 document.querySelectorAll('.cpage').forEach(function (host) {
   var k = host.dataset.k, c = COURSES[k];
   var body = courseBody(k).split('<div class="sect"><h2>課程內容</h2>');
@@ -235,7 +240,7 @@ document.querySelectorAll('.cpage').forEach(function (host) {
 setupTabs(function (t) { if (t === 'reg') render(); });
 
 // 課程報名
-var ALL_CITIES = ['台北', '新北', '桃園', '新竹', '台中', '嘉義', '台南', '高雄'];
+var ALL_CITIES = ['台北', '新北', '桃園', '新竹', '台中', '嘉義', '台南', '高雄', '線上'];
 var st = { k: 'beginner', city: null, date: null, pick: null };
 function goReg(k) { st = { k: k, city: null, date: null, pick: null }; syncSeg(); goTab('reg'); }
 function syncSeg() { document.querySelectorAll('#seg button').forEach(function (x) { x.classList.toggle('on', x.dataset.k === st.k); }); }
@@ -246,11 +251,13 @@ function render() {
   document.getElementById('cond').innerHTML = st.k === 'teacher' ? '<div class="cond">🌿 報名條件：必須上過「零基礎課程」<br>其他老師的零基礎班也可以唷<br>送出報名後用 LINE 傳一張過去作品給 Kimi 即可。</div>' : '';
   var counts = {}; L.forEach(function (s) { counts[s.location] = (counts[s.location] || 0) + 1; });
   if (!st.city || !counts[st.city]) st.city = Object.keys(counts)[0] || null;
-  document.getElementById('cities').innerHTML = ALL_CITIES.map(function (ct) {
+  // 線上只屬於零基礎班（師資班不顯示）
+  document.getElementById('cities').innerHTML = ALL_CITIES.filter(function (ct) { return !(isOnline(ct) && st.k === 'teacher'); }).map(function (ct) {
     var n = counts[ct] || 0;
-    return '<button class="city ' + (n ? 'has' : 'none') + (ct === st.city ? ' on' : '') + '" data-c="' + ct + '"><b>' + ct + '</b><span>' + (n ? n + ' 場' : '私訊開班') + '</span></button>';
+    var label = isOnline(ct) ? '💻 線上・在家上課' : ct;
+    return '<button class="city ' + (n ? 'has' : 'none') + (isOnline(ct) ? ' online' : '') + (ct === st.city ? ' on' : '') + '" data-c="' + ct + '"><b>' + label + '</b><span>' + (n ? n + ' 場' : (isOnline(ct) ? '敬請期待' : '私訊開班')) + '</span></button>';
   }).join('');
-  document.getElementById('cityHint').textContent = st.city && VENUES[st.city] ? '📍 ' + VENUES[st.city] : '';
+  document.getElementById('cityHint').textContent = isOnline(st.city) ? '📦 ' + ONLINE.hint : (st.city && VENUES[st.city] ? '📍 ' + VENUES[st.city] : '');
   document.querySelectorAll('#cities .city').forEach(function (b) {
     b.onclick = function () {
       if (!counts[b.dataset.c]) { toast(b.dataset.c + ' 目前沒有場次，歡迎私訊 LINE 開班 🙌'); return; }
@@ -258,7 +265,17 @@ function render() {
     };
   });
   var inCity = L.filter(function (s) { return s.location === st.city; });
-  var dates = []; inCity.forEach(function (s) { if (dates.indexOf(s.date) < 0) dates.push(s.date); });
+  var allDates = []; inCity.forEach(function (s) { if (allDates.indexOf(s.date) < 0) allDates.push(s.date); });
+  // 月份篩選：全部／10月／11月…（只有一個月份時不顯示）
+  var months = []; allDates.forEach(function (d) { var ym = d.slice(0, 7); if (months.indexOf(ym) < 0) months.push(ym); });
+  months.sort();
+  if (!st.month || months.indexOf(st.month) < 0) st.month = 'all';
+  document.getElementById('months').innerHTML = months.length > 1 ? ['all'].concat(months).map(function (ym) {
+    return '<button class="mon' + (ym === st.month ? ' on' : '') + '" data-ym="' + ym + '">' + (ym === 'all' ? '全部' : (+ym.slice(5)) + '月') + '</button>';
+  }).join('') : '';
+  document.getElementById('months').style.display = months.length > 1 ? '' : 'none';
+  document.querySelectorAll('#months .mon').forEach(function (b) { b.onclick = function () { st.month = b.dataset.ym; st.date = null; st.pick = null; render(); document.getElementById('dates').scrollLeft = 0; }; });
+  var dates = allDates.filter(function (d) { return st.month === 'all' || d.slice(0, 7) === st.month; });
   if (!st.date || dates.indexOf(st.date) < 0) st.date = dates[0] || null;
   document.getElementById('dates').innerHTML = dates.map(function (d) {
     var day = new Date(d + 'T00:00:00').getDay(), p = d.split('-');
@@ -282,8 +299,9 @@ function render() {
   }).join('') : '<div class="empty">目前沒有公告場次，歡迎私訊官方 LINE 詢問 🙌</div>';
   document.querySelectorAll('#slots button.slotc').forEach(function (b) { b.onclick = function () { st.pick = day[+b.dataset.i]; render(); }; });
   var sel = document.getElementById('regSel'), btn = document.getElementById('regBtn');
-  if (st.pick) { sel.innerHTML = '<b>' + st.pick.location + '・' + dateLabel(st.pick) + '</b>' + c.short + '・' + st.pick.time; btn.removeAttribute('disabled'); }
-  else { sel.innerHTML = '<b>' + c.priceText + '<span style="font-weight:400;font-size:12px"> ／人</span></b>請先選擇時段'; btn.setAttribute('disabled', ''); }
+  var pText = priceTextFor(st.k, st.city);
+  if (st.pick) { sel.innerHTML = '<b>' + st.pick.location + '・' + dateLabel(st.pick) + '</b>' + c.short + '・' + st.pick.time + (isOnline(st.pick.location) ? '・' + pText : ''); btn.removeAttribute('disabled'); }
+  else { sel.innerHTML = '<b>' + pText + '<span style="font-weight:400;font-size:12px"> ／人</span></b>請先選擇時段'; btn.setAttribute('disabled', ''); }
 }
 document.getElementById('regBtn').onclick = function () { if (st.pick) openSheet(st.k, st.pick); };
 render();
@@ -312,7 +330,7 @@ loadLiveSessions(render);
   document.addEventListener('click', function () { setTimeout(fix, 30); });
 })();
 </script>
-<link rel="stylesheet" href="theme-beige.css?v=20261014">
-<link rel="stylesheet" href="font-huninn.css?v=20261014">
+<link rel="stylesheet" href="theme-beige.css?v=20261023">
+<link rel="stylesheet" href="font-huninn.css?v=20261023">
 </body>
 </html>

@@ -87,6 +87,7 @@ var LINE_URL = 'https://lin.ee/5rqtuQw';
     var c = COURSES[courseKey];
     var t = '<b>' + c.short + '</b>';
     t += session ? '　' + session.location + '・' + dateLabel(session) + '・' + session.time : '　（請先選擇場次）';
+    if (session && courseKey === 'beginner' && isOnline(session.location)) t += '<br>💻 線上課 ' + ONLINE.priceText + '／人・' + ONLINE.hint;
     document.getElementById('sheetPicked').innerHTML = t;
     // 中租分期只給師資班；iOS 下拉選單藏不住 option，所以整個重建
     document.getElementById('sheetPay').innerHTML = '<option value="transfer">轉帳</option><option value="linepay">LINE Pay 刷卡</option>' + (courseKey === 'teacher' ? '<option value="installment">中租分期</option>' : '');

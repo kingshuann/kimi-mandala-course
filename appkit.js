@@ -81,7 +81,7 @@ function sessionRows(items) {
     html += '<div class="srow2"><div class="' + dcls + '">週' + wd(s.date) + '<b>' + md(s.date) + '</b></div>' +
       '<div class="bd"><div class="tm">' + s.time.replace('－', ' - ') + (x.k === 'teacher' ? '（兩天）' : '') + '</div>' +
       '<div class="nm">' + c.short + (x.k === 'teacher' ? '' : '・' + slotName(s.time)) + '</div>' +
-      '<div class="mt">' + s.location + '・' + (x.k === 'teacher' ? md(s.date) + '–' + md(s.endDate || s.date) : '3.5 小時') + ' / ' + c.priceText + '</div></div>' +
+      '<div class="mt">' + s.location + '・' + (x.k === 'teacher' ? md(s.date) + '–' + md(s.endDate || s.date) : '3.5 小時') + ' / ' + priceTextFor(x.k, s.location) + '</div></div>' +
       '<div class="act">' + (isPrivate(s) ? '<span class="book priv">包班</span>' : '<button class="book' + (x.k === 'teacher' ? ' tch' : '') + '" data-book="' + id + '">預約</button>') + '</div></div>';
   });
   return html;
@@ -151,8 +151,9 @@ function reviewsHtml() { return REVIEWS.map(function (r) { return '<div class="r
 var FAQ = [
   ['需要帶什麼嗎？', '零基礎課程什麼都不用帶，開心來就好！師資班請自備「平頭筆」及「點珠筆」。'],
   ['完全沒畫過畫可以嗎？', '可以！零基礎課程就是為新手設計的，3.5 小時完整教會基本功。'],
-  ['人數不夠會開班嗎？', '台中班 1 人就開班，時間可討論；台中以外的縣市滿 3 人才開班。最晚於開課前一週通知，未成功開班全額退費，也可延期或轉讓。'],
+  ['人數不夠會開班嗎？', '台中班、線上課 1 人就開班，時間可討論；台中以外的縣市滿 3 人才開班。最晚於開課前一週通知，未成功開班全額退費，也可延期或轉讓。'],
   ['臨時不能來怎麼辦？', '完成匯款後如因個人因素無法參加，可延期補課或轉讓他人，恕不退費。'],
+  ['有線上課嗎？', '有！選地區時點「線上」就能看到線上場次。報名後會把工具材料包寄到家，上課時在家透過視訊跟著老師一起畫，上課連結會在課前傳給你。線上課 1 人就開班，每人 NT$3,000，已含材料包與運費。'],
   ['可以帶小朋友嗎？', '大人與小朋友同價，歡迎攜伴，但請家長協助照顧。'],
   ['師資班可以分期嗎？', '可以，師資班提供中租分期，送出報名後小幫手會用 LINE 提供分期資訊。']
 ];

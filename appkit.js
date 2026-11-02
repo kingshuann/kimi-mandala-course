@@ -16,9 +16,14 @@ var ICON = {
 };
 
 function topBar(extraClass) {
-  return '<header class="top ' + (extraClass || '') + '"><img class="logo" src="img/logo-brown.png" alt="">' +
+  return '<header class="top ' + (extraClass || '') + '" style="cursor:pointer" role="link" aria-label="回到首頁"><img class="logo" src="img/logo-brown.png" alt="">' +
     '<div class="nm"><b>Kimi 點點曼陀羅課程</b></div></header>';
 }
+// 點最上面的 logo／課程名稱 → 回到首頁
+document.addEventListener('click', function (e) {
+  if (!e.target.closest('header.top')) return;
+  if (window.goTab) goTab('home'); else location.href = '/';
+});
 
 // ---------- 底部分頁 ----------
 // 每個分頁有自己的網址：imikdots.com/#beginner、#teacher、#booking（首頁不帶 #）
@@ -153,7 +158,7 @@ var FAQ = [
   ['完全沒畫過畫可以嗎？', '可以！零基礎課程就是為新手設計的，3.5 小時完整教會基本功。'],
   ['人數不夠會開班嗎？', '台中班、線上課 1 人就開班，時間可討論；台中以外的縣市滿 3 人才開班。最晚於開課前一週通知，未成功開班全額退費，也可延期或轉讓。'],
   ['臨時不能來怎麼辦？', '完成匯款後如因個人因素無法參加，可延期補課或轉讓他人，恕不退費。'],
-  ['有線上課嗎？', '有！選地區時點「線上」就能看到線上場次。報名後會把工具材料包寄到家，上課時在家透過視訊跟著老師一起畫，上課連結會在課前傳給你。線上課 1 人就開班，每人 NT$3,000，已含材料包與運費。'],
+  ['有線上課嗎？', '有！選地區時點「線上」，填好報名資料送出，我們會用 LINE 跟你約上課時間。報名後會把工具材料包寄到家，上課時在家透過視訊跟著老師一起畫，上課連結會在課前傳給你。線上課 1 人就開班，每人 NT$3,333，已含材料包與運費。'],
   ['可以帶小朋友嗎？', '大人與小朋友同價，歡迎攜伴，但請家長協助照顧。'],
   ['師資班可以分期嗎？', '可以，師資班提供中租分期，送出報名後小幫手會用 LINE 提供分期資訊。']
 ];

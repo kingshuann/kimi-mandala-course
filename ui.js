@@ -59,8 +59,8 @@ var LINE_URL = 'https://lin.ee/5rqtuQw';
     err.textContent = '';
     var payload = {
       course: last.k,
-      session: isRange(s) ? s.date + '~' + s.endDate : s.date,
-      dateLabel: isRange(s) ? fmt(s.date) + ' ～ ' + fmt(s.endDate) : fmt(s.date),
+      session: s.flex ? '時間另約' : isRange(s) ? s.date + '~' + s.endDate : s.date,
+      dateLabel: s.flex ? '時間另約' : isRange(s) ? fmt(s.date) + ' ～ ' + fmt(s.endDate) : fmt(s.date),
       location: s.location || '',
       time: s.time || '',
       name: name,
@@ -86,7 +86,7 @@ var LINE_URL = 'https://lin.ee/5rqtuQw';
     last = { k: courseKey, s: session };
     var c = COURSES[courseKey];
     var t = '<b>' + c.short + '</b>';
-    t += session ? '　' + session.location + '・' + dateLabel(session) + '・' + session.time : '　（請先選擇場次）';
+    t += session ? (session.flex ? '　線上・上課時間報名後用 LINE 約定' : '　' + session.location + '・' + dateLabel(session) + '・' + session.time) : '　（請先選擇場次）';
     if (session && courseKey === 'beginner' && isOnline(session.location)) t += '<br>💻 線上課 ' + ONLINE.priceText + '／人・' + ONLINE.hint;
     document.getElementById('sheetPicked').innerHTML = t;
     // 中租分期只給師資班；iOS 下拉選單藏不住 option，所以整個重建

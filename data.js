@@ -77,8 +77,10 @@ var SESSIONS = {
   teacher: [{"date":"2026-11-14","location":"台中","time":"09:00－17:00","endDate":"2026-11-15"},{"date":"2026-11-19","location":"台中","time":"09:00－17:00","endDate":"2026-11-20"},{"date":"2026-12-23","location":"台中","time":"09:00－17:00","endDate":"2026-12-24"}]
 };
 
-// 線上課：零基礎班的一個「地區」，月曆地點填「線上」就會出現；材料包寄到家，價格固定每人 3,000（無多人優惠）
-var ONLINE = { name: '線上', price: 3000, priceText: 'NT$3,000', hint: '材料包寄到家・在家視訊上課' };
+// 線上課：零基礎班的一個「地區」，月曆地點填「線上」就會出現；材料包寄到家，價格固定每人 3,333（無多人優惠）
+var ONLINE = { name: '線上', price: 3333, priceText: 'NT$3,333', hint: '材料包寄到家・在家視訊上課' };
+// 線上課沒排場次時用的「時間另約」場次：不選日期時段，直接填報名資料
+var ONLINE_FLEX = { date: '', location: '線上', time: '時間另約', flex: true };
 function isOnline(loc) { return /線上/.test(loc || ''); }
 function priceTextFor(k, loc) { return k === 'beginner' && isOnline(loc) ? ONLINE.priceText : COURSES[k].priceText; }
 

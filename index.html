@@ -14,8 +14,8 @@
 <link rel="icon" href="img/logo-brown.png">
 <link rel="apple-touch-icon" href="img/logo-brown.png">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&family=Noto+Serif+TC:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="base.css?v=20261023">
-<link rel="stylesheet" href="app.css?v=20261023">
+<link rel="stylesheet" href="base.css?v=20261102">
+<link rel="stylesheet" href="app.css?v=20261102">
 <style>
 /* 首頁 */
 .hero4{position:relative;height:300px;overflow:hidden;color:#fff}
@@ -204,11 +204,11 @@
   </nav>
 </div>
 
-<script src="data.js?v=20261023"></script>
-<script src="ui.js?v=20261023"></script>
-<script src="appkit.js?v=20261023"></script>
+<script src="data.js?v=20261102"></script>
+<script src="ui.js?v=20261102"></script>
+<script src="appkit.js?v=20261102"></script>
 <script>var HEAD_VARIANT = 3;</script>
-<script src="head-variants.js?v=20261023"></script>
+<script src="head-variants.js?v=20261102"></script>
 <script>
 document.querySelectorAll('.tp').forEach(function (e) { e.outerHTML = topBar(); });
 document.querySelectorAll('.ic').forEach(function (e) { e.outerHTML = ICON[e.dataset.i]; });
@@ -267,14 +267,14 @@ function render() {
   });
   var inCity = L.filter(function (s) { return s.location === st.city; });
   var allDates = []; inCity.forEach(function (s) { if (allDates.indexOf(s.date) < 0) allDates.push(s.date); });
-  // 月份篩選：全部／10月／11月…（只有一個月份時不顯示）
+  // 月份篩選：全部／10月／11月…（只要有場次就顯示，零基礎班、師資班一致）
   var months = []; allDates.forEach(function (d) { var ym = d.slice(0, 7); if (months.indexOf(ym) < 0) months.push(ym); });
   months.sort();
   if (!st.month || months.indexOf(st.month) < 0) st.month = 'all';
-  document.getElementById('months').innerHTML = months.length > 1 ? ['all'].concat(months).map(function (ym) {
+  document.getElementById('months').innerHTML = months.length ? ['all'].concat(months).map(function (ym) {
     return '<button class="mon' + (ym === st.month ? ' on' : '') + '" data-ym="' + ym + '">' + (ym === 'all' ? '全部' : (+ym.slice(5)) + '月') + '</button>';
   }).join('') : '';
-  document.getElementById('months').style.display = months.length > 1 ? '' : 'none';
+  document.getElementById('months').style.display = months.length ? '' : 'none';
   document.querySelectorAll('#months .mon').forEach(function (b) { b.onclick = function () { st.month = b.dataset.ym; st.date = null; st.pick = null; render(); document.getElementById('dates').scrollLeft = 0; }; });
   var dates = allDates.filter(function (d) { return st.month === 'all' || d.slice(0, 7) === st.month; });
   if (!st.date || dates.indexOf(st.date) < 0) st.date = dates[0] || null;
@@ -331,7 +331,7 @@ loadLiveSessions(render);
   document.addEventListener('click', function () { setTimeout(fix, 30); });
 })();
 </script>
-<link rel="stylesheet" href="theme-beige.css?v=20261023">
-<link rel="stylesheet" href="font-huninn.css?v=20261023">
+<link rel="stylesheet" href="theme-beige.css?v=20261102">
+<link rel="stylesheet" href="font-huninn.css?v=20261102">
 </body>
 </html>

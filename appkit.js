@@ -121,11 +121,11 @@ function courseRows(onClick) {
 function courseBody(k) {
   var c = COURSES[k];
   return '<div class="sect"><h2>課程資訊</h2><ul class="rows">' + c.info.map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('') + '</ul></div>' +
-    '<div class="sect"><h2>' + (k === 'teacher' ? '不只教你畫，更陪你開課' : '並非臨摹，而是 0 到 1 獨立創作') + '</h2><ul class="bullets">' + c.compare.map(function (r) { return '<li><b>' + r[0] + '：</b>' + r[2] + '</li>'; }).join('') + '</ul></div>' +
+    '<div class="sect"><h2>' + (k === 'teacher' ? '不只教你畫，更陪你開課' : '並非臨摹，而是 0 到 1 獨立創作') + '</h2>' + (c.compare.length === 1 ? '<p><b>' + c.compare[0][0] + '：</b>' + c.compare[0][2] + '</p>' : '<ul class="bullets">' + c.compare.map(function (r) { return '<li><b>' + r[0] + '：</b>' + r[2] + '</li>'; }).join('') + '</ul>') + '</div>' +
     '<div class="sect"><h2>課程內容</h2>' + c.lessons.map(function (l, i) { return '<h3 class="unit-h"><span class="unit">主題' + '一二三四五六七八'[i] + '</span>' + l[0] + '</h3><ul class="bullets">' + l[1].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>'; }).join('') + '</div>' +
     '<div class="sect"><h2>' + (k === 'teacher' ? '附贈材料' : '工具大禮包') + '</h2><ul class="bullets">' + c.kit.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>' +
     '<img src="' + c.finalImg + '" alt="" style="border-radius:12px;margin-top:14px"></div>' +
-    '<div class="sect"><h2>適合這樣的你</h2><ul class="bullets">' + c.who.map(function (w) { return '<li>' + w + '</li>'; }).join('') + '</ul></div>';
+    '<div class="sect"><h2>誰適合這堂課？</h2><ul class="bullets">' + c.who.map(function (w) { return '<li>' + w + '</li>'; }).join('') + '</ul></div>';
 }
 function courseHead(k) {
   var c = COURSES[k];

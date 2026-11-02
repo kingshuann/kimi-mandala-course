@@ -161,7 +161,7 @@ function faqHtml() { return '<div class="qa">' + FAQ.map(function (q) { return '
 function aboutHtml() {
   return '<div class="sect" style="display:flex;gap:14px;align-items:center"><img src="img/kimi-portrait.jpg" alt="" style="width:84px;height:84px;border-radius:50%;object-fit:cover">' +
     '<div><h2 style="margin:0">Kimi 老師</h2><p style="color:var(--rose);font-weight:700;font-size:13px">從事各產業教職事業6年・學生 300+</p><p style="font-size:13px">曼陀羅老師／美業老師／影音創作者</p></div></div>' +
-    '<div class="sect" style="padding-top:4px"><p>中興大學科管所畢業，做過廣告、行銷、美業創業，後來轉身走進療癒繪畫教學。希望陪你在忙碌的世界裡，慢慢找回屬於自己的節奏。</p></div>';
+    '<div class="sect" style="padding-top:4px"><p>國立高雄科技大學行銷系畢業、國立中興大學科技管理研究所畢業。曾任職於廣告業、電商行銷產業與美業創業8年，後來轉身走進療癒繪畫教學。希望陪你在忙碌的世界裡，慢慢找回屬於自己的節奏。</p></div>';
 }
 function venuesHtml() {
   return '<ul class="rows">' + Object.keys(VENUES).map(function (c) { return '<li><span>' + c + '</span><span>📍 ' + VENUES[c] + '</span></li>'; }).join('') + '</ul>';

@@ -14,8 +14,8 @@
 <link rel="icon" href="img/logo-brown.png">
 <link rel="apple-touch-icon" href="img/logo-brown.png">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&family=Noto+Serif+TC:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="base.css?v=20261102c">
-<link rel="stylesheet" href="app.css?v=20261102c">
+<link rel="stylesheet" href="base.css?v=20261102d">
+<link rel="stylesheet" href="app.css?v=20261102d">
 <style>
 /* 首頁 */
 .hero4{position:relative;height:300px;overflow:hidden;color:#fff}
@@ -65,6 +65,7 @@
 .jump a{flex:1;text-align:center;padding:12px 2px 10px;font-size:14px;white-space:nowrap;color:var(--muted);border-bottom:2.5px solid transparent;margin-bottom:-1px}
 .jump a.on{color:var(--ink);font-weight:700;border-color:var(--rose)}
 .anchor{position:relative;top:-1px}
+.to-content{color:var(--rose);text-decoration:underline;text-underline-offset:3px}
 .jump5{padding:0 8px}
 .jump5 a{font-size:13.5px;padding-left:0;padding-right:0}
 /* 首頁各段：統一「小英文＋標題」 */
@@ -204,11 +205,11 @@
   </nav>
 </div>
 
-<script src="data.js?v=20261102c"></script>
-<script src="ui.js?v=20261102c"></script>
-<script src="appkit.js?v=20261102c"></script>
+<script src="data.js?v=20261102d"></script>
+<script src="ui.js?v=20261102d"></script>
+<script src="appkit.js?v=20261102d"></script>
 <script>var HEAD_VARIANT = 3;</script>
-<script src="head-variants.js?v=20261102c"></script>
+<script src="head-variants.js?v=20261102d"></script>
 <script>
 document.querySelectorAll('.tp').forEach(function (e) { e.outerHTML = topBar(); });
 document.querySelectorAll('.ic').forEach(function (e) { e.outerHTML = ICON[e.dataset.i]; });
@@ -315,10 +316,10 @@ loadLiveSessions(render);
   function fix() { document.querySelectorAll('.jump').forEach(function (j) { j.style.top = topH() + 'px'; }); }
   fix(); window.addEventListener('resize', fix);
   document.addEventListener('click', function (e) {
-    var a = e.target.closest('.jump a'); if (!a) return;
+    var a = e.target.closest('.jump a, a.to-content'); if (!a) return; // 課程資訊裡的「4 大主題・8 個單元」也用同一套跳轉
     e.preventDefault();
     var el = document.querySelector(a.getAttribute('href'));
-    var j = a.parentElement;
+    var j = a.classList.contains('to-content') ? document.querySelector('.page.on .jump') : a.parentElement;
     var y = el.getBoundingClientRect().top + window.pageYOffset - topH() - j.offsetHeight + 1;
     window.scrollTo({ top: y, behavior: 'smooth' });
   });
@@ -331,7 +332,7 @@ loadLiveSessions(render);
   document.addEventListener('click', function () { setTimeout(fix, 30); });
 })();
 </script>
-<link rel="stylesheet" href="theme-beige.css?v=20261102c">
-<link rel="stylesheet" href="font-huninn.css?v=20261102c">
+<link rel="stylesheet" href="theme-beige.css?v=20261102d">
+<link rel="stylesheet" href="font-huninn.css?v=20261102d">
 </body>
 </html>

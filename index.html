@@ -255,11 +255,12 @@ function render() {
   document.getElementById('cities').innerHTML = ALL_CITIES.filter(function (ct) { return !(isOnline(ct) && st.k === 'teacher'); }).map(function (ct) {
     var n = counts[ct] || 0;
     var label = isOnline(ct) ? '💻 線上・在家上課' : ct;
-    return '<button class="city ' + (n ? 'has' : 'none') + (isOnline(ct) ? ' online' : '') + (ct === st.city ? ' on' : '') + '" data-c="' + ct + '"><b>' + label + '</b><span>' + (n ? n + ' 場' : (isOnline(ct) ? '敬請期待' : '私訊開班')) + '</span></button>';
+    return '<button class="city ' + (n || isOnline(ct) ? 'has' : 'none') + (isOnline(ct) ? ' online' : '') + (ct === st.city ? ' on' : '') + '" data-c="' + ct + '"><b>' + label + '</b><span>' + (n ? n + ' 場' : (isOnline(ct) ? '歡迎私訊約課' : '私訊開班')) + '</span></button>';
   }).join('');
   document.getElementById('cityHint').textContent = isOnline(st.city) ? '📦 ' + ONLINE.hint : (st.city && VENUES[st.city] ? '📍 ' + VENUES[st.city] : '');
   document.querySelectorAll('#cities .city').forEach(function (b) {
     b.onclick = function () {
+      if (!counts[b.dataset.c] && isOnline(b.dataset.c)) { window.open(LINE_URL, '_blank', 'noopener'); return; } // 線上沒場次：直接開 LINE 約課
       if (!counts[b.dataset.c]) { toast(b.dataset.c + ' 目前沒有場次，歡迎私訊 LINE 開班 🙌'); return; }
       st.city = b.dataset.c; st.date = null; st.pick = null; render();
     };

@@ -206,6 +206,7 @@ function renderCkPay() {
   var hasC = S.cart.some(function (x) { return !x.prod; }), hasP = S.cart.some(function (x) { return x.prod; });
   var tot = (document.querySelector('[data-total]') || {}).textContent || '';
   if (btn && hasC && S.payPicked) btn.textContent = S.pay === 'transfer' ? '③ 已匯款，送出報名' : S.pay === 'linepay' ? '③ 已付款，送出報名' : hasP ? btn.textContent : '送出報名';
+  var sel = document.querySelector('[data-pg="cart"] [data-pay="' + S.pay + '"]'); if (sel && S.payPicked && sel.nextElementSibling !== box) sel.after(box); // 資訊放在選中的付款方式正下方
   var key = hasC && S.payPicked ? S.pay + '|' + tot : '';
   if (box._key === key) return; box._key = key;
   box.hidden = true; box.innerHTML = '';

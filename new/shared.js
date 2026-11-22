@@ -23,6 +23,30 @@ var EXTRA = { online: { key: 'online', short: '線上課', name: '點點曼陀�
 function C(k) { return COURSES[k] || EXTRA[k]; }
 function money(n) { return 'NT$' + n.toLocaleString('en-US'); }
 
+// ---- 訪客分析：拿到 ID 後貼在引號裡（空白就不啟用） ----
+var TRACK = {
+  clarity: '',   // Microsoft Clarity 的 Project ID
+  ga4: ''        // Google Analytics 的評估 ID，G- 開頭
+};
+(function () {
+  if (TRACK.clarity) {
+    (function (c, l, a, r, i, t, y) { c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+      t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i; y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+    })(window, document, 'clarity', 'script', TRACK.clarity);
+  }
+  if (TRACK.ga4) {
+    var g = document.createElement('script'); g.async = 1; g.src = 'https://www.googletagmanager.com/gtag/js?id=' + TRACK.ga4; document.head.appendChild(g);
+    window.dataLayer = window.dataLayer || []; window.gtag = function () { dataLayer.push(arguments); };
+    gtag('js', new Date()); gtag('config', TRACK.ga4, { send_page_view: false });
+  }
+})();
+// 記一個事件（GA4 和 Clarity 都收）
+function trk(name, params) {
+  try { if (window.gtag && TRACK.ga4) gtag('event', name, params || {}); } catch (e) {}
+  try { if (window.clarity && TRACK.clarity) clarity('event', name); } catch (e) {}
+}
+var PG_NAME = { home: '首頁', shop: '課程介紹', course: '課程內頁', goods: '商店', cart: '結帳', done: '完成', works: '點點月刊' };
+
 // ---- 收款資訊：Kimi 自己把 ★ 的地方換成真的資料 ----
 var PAYINFO = {
   bank: '台新銀行 (812）',
@@ -80,6 +104,9 @@ function go(p) {
   document.body.classList.remove('dopen');
   if (location.hash.slice(1) !== p) history.replaceState(null, '', '#' + p);
   window.scrollTo(0, 0);
+  var vp = page === 'course' ? 'course/' + S.k : page;
+  if (window._lastVp !== vp) { window._lastVp = vp; trk('page_view', { page_title: (PG_NAME[page] || page) + (page === 'course' ? '｜' + S.k : ''), page_location: location.origin + location.pathname + '#' + vp }); }
+  if (page === 'cart') trk('begin_checkout', {});
   if (anc) setTimeout(function () { var el = document.getElementById(anc); if (el && window.bookTo && window.bookTo(el)) return; if (el) window.scrollTo({ top: el.getBoundingClientRect().top + pageYOffset - 70, behavior: 'smooth' }); }, 50);
 }
 
@@ -126,7 +153,7 @@ function renderPick() {
   de._list = ds;
   // 直接綁在每顆按鈕上（不靠整頁的點擊判斷），第一個場次也點得到
   ce.querySelectorAll('[data-city]').forEach(function (btn) { btn.onclick = function (ev) { ev.stopPropagation(); S.city = btn.dataset.city; S.sess = null; renderPick(); }; });
-  de.querySelectorAll('[data-si]').forEach(function (btn) { btn.onclick = function (ev) { ev.stopPropagation(); S.sess = ds[+btn.dataset.si]; renderPick(); }; });
+  de.querySelectorAll('[data-si]').forEach(function (btn) { btn.onclick = function (ev) { ev.stopPropagation(); S.sess = ds[+btn.dataset.si]; renderPick(); trk('select_session', { course: S.k, city: S.city }); }; });
 }
 function addToCart() {
   if (!S.sess) { toast('先選地區和場次喔'); var p = document.querySelector('[data-cities]'); if (p) window.scrollTo({ top: p.getBoundingClientRect().top + pageYOffset - 140, behavior: 'smooth' }); return; }
@@ -141,11 +168,8 @@ function updateCount() { var n = S.cart.reduce(function (a, x) { return a + x.qt
 function renderCart() {
   var host = document.querySelector('[data-items]'); if (!host) return;
   var tpl = document.getElementById('tpl-item').innerHTML;
-  if (!S.cart.length) { // 預覽用：沒有東西時先放一筆示範
-    var L = sessionsFor('beginner');
-    S.cart = [{ k: 'beginner', demo: 1, s: L[0] || { date: '2026-12-06', location: '台中', time: '13:30－17:00' }, qty: 1, price: 3500 }];
-    updateCount();
-  }
+  var ck = host.closest('.ck2'); if (ck) ck.classList.toggle('empty', !S.cart.length);
+  if (!S.cart.length) { host.innerHTML = '<p class="ck-empty">報名清單還是空的，先去挑一堂課吧 🌿</p><button class="btn full" data-go="shop">看課程</button>'; ckSave(); return; }
   host.innerHTML = S.cart.map(function (x, i) {
     if (x.prod) return tpl.replace(/{img}/g, x.img).replace(/{name}/g, x.prod.name).replace(/{meta}/g, x.opt).replace(/{price}/g, money(x.price * x.qty)).replace(/{qty}/g, x.qty).replace(/{i}/g, i);
     var c = C(x.k);
@@ -172,9 +196,64 @@ function renderCart() {
   document.querySelectorAll('[data-pay]').forEach(function (e) { e.classList.toggle('on', e.dataset.pay === S.pay); });
   var hasT = S.cart.some(function (x) { return x.k === 'teacher'; });
   document.querySelectorAll('[data-pay="installment"]').forEach(function (e) { e.style.display = hasT ? '' : 'none'; });
+  renderCkPay(); ckSave();
 }
 
-// ---- 報名完成頁：匯款資訊＋後五碼、LINE Pay 條碼 ----
+
+// ---- 結帳頁：選了付款方式就先顯示匯款資訊／LINE Pay 條碼，付完才能送出 ----
+function renderCkPay() {
+  var box = document.getElementById('ckPay'), btn = document.getElementById('ckBtn'); if (!box) return;
+  var hasC = S.cart.some(function (x) { return !x.prod; }), hasP = S.cart.some(function (x) { return x.prod; });
+  var tot = (document.querySelector('[data-total]') || {}).textContent || '';
+  if (btn && hasC && S.payPicked) btn.textContent = S.pay === 'transfer' ? '③ 已匯款，送出報名' : S.pay === 'linepay' ? '③ 已付款，送出報名' : hasP ? btn.textContent : '送出報名';
+  var key = hasC && S.payPicked ? S.pay + '|' + tot : '';
+  if (box._key === key) return; box._key = key;
+  box.hidden = true; box.innerHTML = '';
+  if (!hasC || !S.payPicked) { if (btn && !hasP) btn.textContent = '送出報名'; return; }
+  if (S.pay === 'transfer') {
+    box.innerHTML = '<p class="pi-t">① 先匯款</p>' +
+      '<div class="pi-row"><span>金額</span><b>' + tot + '</b></div>' +
+      '<div class="pi-row"><span>銀行</span><b>' + PAYINFO.bank + '</b></div>' +
+      '<div class="pi-row"><span>帳號</span><b id="piAcc">' + PAYINFO.account + '</b><button class="pi-cp" id="piCopy">複製</button></div>' +
+      '<div class="pi-row"><span>戶名</span><b>' + PAYINFO.holder + '</b></div>' +
+      '<p class="pi-t" style="margin-top:14px">② 匯完填帳號後五碼</p>' +
+      '<div class="pi-l5"><input id="ckL5" inputmode="numeric" maxlength="5" placeholder="帳號後五碼" value="' + (S.l5 || '') + '"></div>' +
+      '<p class="pi-n">去銀行 App 匯款再回來，填好的資料都會留著</p>';
+    if (btn) btn.textContent = '③ 已匯款，送出報名';
+  } else if (S.pay === 'linepay') {
+    box.innerHTML = '<p class="pi-t">① 用 LINE Pay 付款　' + tot + '</p>' +
+      '<img class="pi-qr" src="' + PAYINFO.linepayQR + '" alt="LINE Pay 收款條碼">' +
+      '<p class="pi-n">用手機報名的話：長按條碼存到相簿，打開 LINE →「錢包」→「掃描」→ 右上角從相簿選這張圖</p>' +
+      '<label class="pi-ck"><input type="checkbox" id="ckLp"' + (S.lp ? ' checked' : '') + '> ② 我已完成 LINE Pay 付款</label>';
+    if (btn) btn.textContent = '③ 已付款，送出報名';
+  } else { if (btn && !hasP) btn.textContent = '送出報名'; return; }
+  box.hidden = false;
+}
+document.addEventListener('input', function (e) {
+  if (e.target.id === 'ckL5') { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 5); S.l5 = e.target.value; }
+  if (/^su(Name|Phone|Line)$/.test(e.target.id)) S['f_' + e.target.id] = e.target.value;
+  ckSave();
+});
+document.addEventListener('change', function (e) { if (e.target.id === 'ckLp') { S.lp = e.target.checked; ckSave(); } });
+
+// ---- 切去銀行 App 再回來，報名清單和填好的資料不會消失（存在這支手機，1 天後清掉） ----
+var CK_KEY = 'imk_checkout';
+function ckSave() { try { localStorage.setItem(CK_KEY, JSON.stringify({ t: Date.now(), cart: S.cart, pay: S.pay, picked: S.payPicked, l5: S.l5, lp: S.lp, n: S.f_suName, p: S.f_suPhone, l: S.f_suLine })); } catch (e) {} }
+function ckClear() { try { localStorage.removeItem(CK_KEY); } catch (e) {} S.lp = false; S.f_suName = S.f_suPhone = S.f_suLine = ''; ['suName', 'suPhone', 'suLine'].forEach(function (id) { var el = document.getElementById(id); if (el) el.value = ''; }); }
+(function () {
+  try {
+    var v = JSON.parse(localStorage.getItem(CK_KEY) || 'null');
+    if (!v || Date.now() - v.t > 864e5) return;
+    S.cart = (v.cart || []).filter(function (x) { return !x.demo; }); S.cart.forEach(function (x) { x.touched = 1; });
+    S.pay = v.pay || S.pay; S.payPicked = v.picked; S.l5 = v.l5 || ''; S.lp = !!v.lp; S.f_suName = v.n || ''; S.f_suPhone = v.p || ''; S.f_suLine = v.l || '';
+  } catch (e) {}
+})();
+document.addEventListener('DOMContentLoaded', function () {
+  [['suName', 'f_suName'], ['suPhone', 'f_suPhone'], ['suLine', 'f_suLine']].forEach(function (a) { var el = document.getElementById(a[0]); if (el && S[a[1]]) el.value = S[a[1]]; });
+  updateCount();
+});
+
+// ---- 報名完成頁（舊版，保留備用）：匯款資訊＋後五碼、LINE Pay 條碼 ----
 function showPayInfo(pay, tot) {
   var box = document.getElementById('dnPay'), msg = document.getElementById('dnMsg');
   if (!box) return;
@@ -212,7 +291,7 @@ document.addEventListener('click', function (e) {
     var who = S.lastSign || {};
     fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify({ action: 'last5', name: who.name || '', phone: who.phone || '', last5: v, submittedAt: new Date().toISOString() }) })
-      .then(function () { document.querySelector('.pi-l5').innerHTML = '<p class="pi-ok">已收到後五碼 ' + v + '，對完帳會在 LINE 通知妳 ✓</p>'; document.getElementById('l5Msg').remove(); })
+      .then(function () { trk('submit_last5', {}); document.querySelector('.pi-l5').innerHTML = '<p class="pi-ok">已收到後五碼 ' + v + '，對完帳會在 LINE 通知妳 ✓</p>'; document.getElementById('l5Msg').remove(); })
       .catch(function () { b.disabled = false; b.textContent = '送出'; toast('送出失敗，請直接在官方 LINE 告訴我們後五碼'); });
   }
 });
@@ -247,11 +326,11 @@ document.addEventListener('DOMContentLoaded', function () {
     else if ('soon' in d) toast('即將推出，敬請期待');
     else if ('back' in d) go(S.page === 'course' ? 'shop' : 'home');
     else if (d.city) { S.city = d.city; S.sess = null; renderPick(); }
-    else if (d.si != null) { S.sess = document.querySelector('[data-dates]')._list[+d.si]; renderPick(); }
-    else if ('add' in d) addToCart();
+    else if (d.si != null) { S.sess = document.querySelector('[data-dates]')._list[+d.si]; renderPick(); trk('select_session', { course: S.k, city: S.city }); }
+    else if ('add' in d) { addToCart(); trk('add_to_cart', { course: S.k }); }
     else if (d.q) { var x = S.cart[+d.i]; x.qty = Math.max(1, Math.min(x.prod ? (x.prod.stock || 9) : 4, x.qty + (+d.q))); updateCount(); renderCart(); }
     else if (d.del) { S.cart.splice(+d.del, 1); updateCount(); renderCart(); }
-    else if (d.pay) { S.pay = d.pay; S.payPicked = 1; renderCart(); }
+    else if (d.pay) { S.pay = d.pay; S.payPicked = 1; renderCart(); trk('select_payment', { method: d.pay }); }
     else if ('submit' in d) {
       var courses = S.cart.filter(function (x) { return !x.prod; });
       if (courses.length) {
@@ -259,24 +338,32 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!nm || !ph || !ln) { toast('姓名、手機、LINE 名稱都要填寫喔'); document.getElementById('suName').focus(); return; }
         if (!S.payPicked) { toast('請選擇付款方式'); return; }
         var PAYL = { transfer: '轉帳', linepay: 'LINE Pay 掃碼', installment: '中租分期', card: '信用卡' };
-        var payNow = S.pay, totNow = (document.querySelector('[data-total]') || {}).textContent || ''; S.lastSign = { name: nm, phone: ph };
+        var l5 = '';
+        if (S.pay === 'transfer') { l5 = (document.getElementById('ckL5') || {}).value || ''; l5 = l5.trim(); if (!/^\d{5}$/.test(l5)) { toast('匯款完成後，請填帳號後五碼（5 個數字）'); var li = document.getElementById('ckL5'); if (li) { li.focus(); li.scrollIntoView({ block: 'center', behavior: 'smooth' }); } return; } }
+        if (S.pay === 'linepay' && !(document.getElementById('ckLp') || {}).checked) { toast('LINE Pay 付款完成後，請勾選「我已完成付款」'); return; }
+        var payNow = S.pay; S.lastSign = { name: nm, phone: ph };
         var btn = document.getElementById('ckBtn'); btn.disabled = true; btn.textContent = '送出中…';
-        Promise.all(courses.map(function (x) {
+        function post(o) { return fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(o) }); }
+        // 一筆一筆送，避免同時寫入同一列；轉帳的話每筆報名再補上後五碼
+        courses.reduce(function (p, x) {
           var s = x.s || {}, rng = s.endDate && s.endDate !== s.date;
           var payload = { course: x.k === 'online' ? 'beginner' : x.k, session: s.flex ? '時間另約' : rng ? s.date + '~' + s.endDate : s.date,
             dateLabel: s.flex ? '時間另約' : dateLabel(s), location: s.location || (x.k === 'online' ? '線上' : ''), time: s.time || '',
-            name: nm, phone: ph, lineName: ln, partySize: x.qty + '人', paymentMethod: PAYL[S.pay] || S.pay, submittedAt: new Date().toISOString() };
-          return fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(payload) });
-        })).then(function () {
-          document.querySelector('[data-pg="done"] h1').textContent = '報名已送出';
+            name: nm, phone: ph, lineName: ln, partySize: x.qty + '人', paymentMethod: (PAYL[S.pay] || S.pay) + (payNow === 'linepay' ? '（已勾選付款完成）' : ''), submittedAt: new Date().toISOString() };
+          return p.then(function () { return post(payload); }).then(function () { if (l5) return post({ action: 'last5', name: nm, phone: ph, last5: l5, submittedAt: new Date().toISOString() }); });
+        }, Promise.resolve()).then(function () {
+          document.querySelector('[data-pg="done"] h1').textContent = '報名完成';
           document.getElementById('dnNo').textContent = nm + '，謝謝妳的報名 🌿';
-          document.getElementById('dnMsg').innerHTML = '我們已經收到妳的報名資料。<br>請加入官方 LINE，Kimi 會在 LINE 上跟妳確認場次與付款方式。';
+          document.getElementById('dnMsg').innerHTML = payNow === 'transfer' ? '已收到妳的報名和匯款後五碼 <b>' + l5 + '</b>，<br>Kimi 對完帳會在官方 LINE 跟妳確認 🌿'
+            : payNow === 'linepay' ? '已收到妳的報名，<br>請把 LINE Pay「付款成功」畫面截圖傳到官方 LINE，Kimi 確認後會回覆妳 🌿'
+            : '我們已經收到妳的報名資料。<br>請加入官方 LINE，Kimi 會在 LINE 上跟妳確認分期付款方式。';
           document.getElementById('dnList').innerHTML = courses.map(function (x) { return '<div><span>' + C(x.k).short + '　' + (x.s && x.s.date ? dateLabel(x.s) + ' ' + (x.s.time || '') : '時間另約') + '</span><span>' + x.qty + ' 人</span></div>'; }).join('');
           document.getElementById('dnLine').hidden = false;
-          showPayInfo(payNow, totNow);
-          S.cart = []; updateCount(); go('done');
+          var dp = document.getElementById('dnPay'); if (dp) dp.hidden = true; var dn = document.getElementById('dnNote'); if (dn) dn.hidden = true;
+          trk('sign_up', { method: payNow, courses: courses.length });
+          S.cart = []; S.l5 = ''; S.payPicked = 0; ckClear(); updateCount(); go('done');
         }).catch(function () { toast('送出失敗，請稍後再試，或直接私訊官方 LINE 報名'); })
-          .then(function () { btn.disabled = false; btn.textContent = '送出報名'; });
+          .then(function () { btn.disabled = false; renderCart(); });
         return;
       }
       var no = 'IMK' + new Date().toISOString().slice(2, 10).replace(/-/g, '') + String(Math.floor(Math.random() * 900) + 100);
@@ -288,7 +375,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   var h = location.hash.slice(1) || 'home';
   go(h);
-  loadLiveSessions(function () { if (window.renderUpcoming) renderUpcoming(); if (S.page === 'course') renderPick(); if (S.page === 'cart' && S.cart.length === 1 && !S.cart[0].touched) { S.cart = []; renderCart(); } });
+  loadLiveSessions(function () { if (window.renderUpcoming) renderUpcoming(); if (S.page === 'course') renderPick(); if (S.page === 'cart') renderCart(); });
 });
 
 // 選單：全部課程預設收起，點一下展開／收起

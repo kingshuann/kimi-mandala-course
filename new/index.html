@@ -1,0 +1,1080 @@
+<!doctype html>
+<html lang="zh-Hant"><head>
+<meta name="robots" content="noindex"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>1A｜MOYA 經典米綠</title>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* A 版：MOYA 經典 — 奶茶米底、深橄欖綠導覽列、米色卡片、大寫細字標題 */
+:root{--desk:#D9CFBF;--bg:#EEE6D8;--card:#E4D9C7;--card2:#F5EFE5;--olive:#3E4733;--olive2:#58624A;--cream:#F3EDE2;--ink:#2F3328;--muted:#8C8676;--line:rgba(47,51,40,.12);--nav-bg:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,0) 50%) rgba(56,64,46,.93);--nav-ink:#F3EDE2}
+.hi{padding:8px 20px 14px}
+.hi b{display:block;font-family:'Noto Serif TC',serif;font-weight:500;font-size:19px;letter-spacing:.08em}
+.hi span{font-size:11.5px;color:var(--muted);letter-spacing:.08em}
+.hero{margin:0 16px;background:var(--card);border-radius:18px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;min-height:200px;position:relative}
+.hero .tx{padding:22px 0 20px 20px;display:flex;flex-direction:column;z-index:1}
+.hero h2{font-family:'Noto Serif TC',serif;font-weight:500;font-size:20px;line-height:1.4;letter-spacing:.1em}
+.hero small{font-family:'Marcellus';font-size:9.5px;letter-spacing:.22em;color:var(--olive2);margin-top:6px}
+.hero .btn{margin-top:auto}
+.hero img{width:100%;height:100%;object-fit:cover;object-position:50% 50%;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 24%);mask-image:linear-gradient(90deg,transparent 0,#000 24%)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:34px;padding:0 16px;border-radius:7px;background:var(--olive);color:var(--cream);font-size:12px;letter-spacing:.18em;align-self:flex-start}
+.btn.full{width:100%;height:50px;font-size:14.5px;border-radius:10px}
+.sh{display:flex;justify-content:space-between;align-items:baseline;padding:26px 20px 12px}
+.sh h3{font-family:'Marcellus',serif;font-weight:400;font-size:13px;letter-spacing:.2em}
+.sh h3 i{font-style:normal;font-family:'Noto Serif TC';font-size:14px;letter-spacing:.12em;margin-left:6px}
+.sh a,.sh button{font-family:'Marcellus';font-size:10.5px;letter-spacing:.16em;border-bottom:1px solid;color:var(--olive2)}
+.cols{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:0 14px}
+.col{display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center;font-size:11.5px;letter-spacing:.08em;line-height:1.35}
+.col img,.col .ph{width:66px;height:66px;border-radius:50%;object-fit:cover;background:var(--card)}
+.col .ph{display:grid;place-items:center;color:var(--olive2)}.col .ph svg{width:30px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.band{margin:22px 16px 0;background:var(--card);border-radius:14px;display:flex;align-items:center;gap:14px;padding:16px 18px;color:var(--olive)}
+.band svg{width:42px;flex-shrink:0}
+.band p{flex:1;font-family:'Noto Serif TC',serif;font-size:14.5px;letter-spacing:.14em;line-height:1.6}
+.band small{display:block;font-family:'Marcellus';font-size:9.5px;letter-spacing:.2em;color:var(--muted);margin-top:4px}
+.rvs{padding:0 16px 10px;display:grid;gap:10px}
+.rv{background:var(--card2);border-radius:14px;padding:14px 16px;font-size:13.5px}
+.rv small{display:block;margin-top:8px;color:var(--muted);font-size:11.5px;text-align:right}
+.rv .stars{color:#B8955A;font-size:13px;letter-spacing:3px;margin-bottom:6px}
+.ttl{padding:12px 20px 8px;position:relative}
+.ttl h1{font-family:'Noto Serif TC',serif;font-weight:500;font-size:21px;letter-spacing:.16em}
+.ttl p{font-size:13px;color:var(--ink);opacity:.75;margin-top:6px;max-width:72%}
+.ttl .lf{position:absolute;right:18px;top:0;width:70px;color:var(--olive2);opacity:.35}
+.fl{display:flex;gap:7px;padding:12px 20px 16px}
+.fl span{font-family:'Marcellus';font-size:10.5px;letter-spacing:.14em;padding:5px 14px;border-radius:6px;border:1px solid var(--line);background:var(--card2)}
+.fl span.on{background:var(--olive);color:var(--cream);border-color:var(--olive)}
+.list{display:grid;gap:12px;padding:0 16px 10px}
+.it{display:flex;gap:14px;background:var(--card);border-radius:14px;padding:10px;align-items:stretch}
+.it img{width:96px;height:96px;border-radius:10px;object-fit:cover;flex-shrink:0}
+.it .t{flex:1;display:flex;flex-direction:column;padding:4px 0}
+.it b{font-family:'Noto Serif TC',serif;font-weight:500;font-size:15px;letter-spacing:.1em}
+.it span{font-size:11.5px;color:var(--muted)}
+.it .p{margin-top:auto;display:flex;justify-content:space-between;align-items:center}
+.it em{font-style:normal;font-size:15px;font-weight:700;letter-spacing:.04em}
+.plus{width:28px;height:28px;border-radius:50%;background:var(--olive);color:var(--cream);display:grid;place-items:center;font-size:17px;line-height:1}
+.it.soon{opacity:.6}
+.cimg{margin:4px 16px 0;border-radius:18px;overflow:hidden;aspect-ratio:1/.82;position:relative}
+.cimg img{width:100%;height:100%;object-fit:cover}
+.cimg .tag{position:absolute;left:12px;top:12px;background:var(--cream);color:var(--olive);font-size:11px;letter-spacing:.14em;padding:3px 11px;border-radius:99px}
+.cbody{padding:18px 20px 8px}
+.cbody h1{font-family:'Noto Serif TC',serif;font-weight:500;font-size:22px;letter-spacing:.14em}
+.cbody .sub{font-size:13px;color:var(--muted);margin-top:4px}
+.pr{display:flex;align-items:baseline;gap:10px;margin-top:12px}
+.pr b{font-size:24px;letter-spacing:.02em}
+.pr s{color:var(--muted);font-size:13px}
+.ck{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.ck span{font-size:11.5px;padding:3px 10px;border-radius:6px;background:var(--card);color:var(--olive)}
+.pk{margin:16px 0 0;list-style:none;display:grid;gap:6px;font-size:13px}
+.pk li::before{content:'—';color:var(--olive2);margin-right:8px}
+.lbl{font-family:'Marcellus';font-size:11px;letter-spacing:.2em;margin:20px 0 9px;color:var(--olive2)}
+.chip{background:var(--card2);border:1px solid var(--line)}
+.chip.on{background:var(--olive);color:var(--cream);border-color:var(--olive)}
+.dt{background:var(--card2);border:1px solid var(--line)}
+.dt.on{background:var(--olive);color:var(--cream)}
+.cta{padding:20px 20px 16px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:0 16px 10px}
+.grid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px}
+.ck2{padding:4px 20px 0}
+.ck2 h1{font-family:'Marcellus';font-weight:400;font-size:19px;letter-spacing:.18em}
+.ck2 h1 i{font-style:normal;font-family:'Noto Serif TC';font-size:14px;margin-left:8px;letter-spacing:.1em;color:var(--muted)}
+.ci{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);align-items:center}
+.ci img{width:62px;height:62px;border-radius:10px;object-fit:cover}
+.ci .t{flex:1;min-width:0}
+.ci b{display:block;font-family:'Noto Serif TC';font-weight:500;font-size:14px;letter-spacing:.08em}
+.ci span{display:block;font-size:11.5px;color:var(--muted)}
+.ci em{font-style:normal;font-weight:700;font-size:13.5px;display:block;margin-top:2px}
+.qty{display:flex;align-items:center;border:1px solid var(--line);border-radius:7px;height:28px}
+.qty button{width:26px;text-align:center;font-size:15px}
+.qty span{width:18px;text-align:center;font-size:12.5px}
+.del{width:24px;color:var(--muted)}.del svg{width:18px;fill:none;stroke:currentColor;stroke-width:1.4}
+.sum{padding:14px 0;display:grid;gap:6px;font-size:12px;letter-spacing:.12em}
+.sum div{display:flex;justify-content:space-between}
+.sum .tot{font-size:14.5px;font-weight:700;padding-top:4px}
+.box{border:1px solid var(--line);background:var(--card2);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:8px;width:100%}
+.box b{font-family:'Marcellus';font-weight:400;letter-spacing:.1em;font-size:12px;width:62px}
+.box .r{margin-left:auto;width:16px;height:16px;border-radius:50%;border:1.5px solid var(--muted)}
+.box.on{border-color:var(--olive)}.box.on .r{border:5px solid var(--olive)}
+.sec{text-align:center;font-family:'Marcellus';font-size:10px;letter-spacing:.2em;color:var(--muted);margin-top:10px}
+/* 課程詳細介紹（取自舊網站） */
+.detail{padding:4px 20px 10px}
+.ds{padding:22px 0 6px;border-top:1px solid var(--line)}
+.dk{font-family:'Noto Serif TC',serif;font-size:16px;letter-spacing:.12em;color:var(--olive);margin-bottom:12px}
+.rows{list-style:none}
+.rows li{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px dashed var(--line);font-size:13px}
+.rows li span:first-child{color:var(--muted);flex-shrink:0}
+.rows li span:last-child{text-align:right}
+.lh{display:flex;align-items:center;gap:8px;font-family:'Noto Serif TC',serif;font-weight:500;font-size:14.5px;letter-spacing:.08em;margin:14px 0 6px}
+.lh span{font-family:'Noto Sans TC';font-size:10.5px;letter-spacing:.1em;color:var(--cream);background:var(--olive2);border-radius:5px;padding:1px 8px}
+.dl{padding-left:18px;display:grid;gap:5px;font-size:13px;color:#4A4D42}
+.dl li::marker{color:var(--olive2)}
+.dp{font-size:13px;color:#4A4D42}
+.fin{width:100%;border-radius:14px;margin-top:14px}
+.cond{margin-top:14px;background:var(--card);border-radius:12px;padding:12px 14px;font-size:12.5px;color:var(--olive)}
+.cmp{border-radius:12px;overflow:hidden;font-size:12px;background:var(--card2)}
+.cmp-h,.cmp-r{display:grid;grid-template-columns:62px 1fr 1fr}
+.cmp-h span{padding:8px;font-weight:700;color:var(--muted)}
+.cmp-h span:last-child{background:var(--olive);color:var(--cream)}
+.cmp-r span{padding:9px 8px;border-top:1px solid var(--line)}
+.cmp-r span:first-child{color:var(--muted)}
+.cmp-r span:last-child{background:var(--card);color:var(--olive);font-weight:700}
+.stk{position:sticky;bottom:calc(64px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;background:rgba(238,230,216,.96);backdrop-filter:blur(8px);border-top:1px solid var(--line);z-index:20}
+.stk b{font-size:18px}.stk small{font-size:11px;color:var(--muted);margin-left:2px}
+.stk .btn{height:42px;padding:0 20px;border-radius:10px;font-size:13px}
+/* 首頁橫幅輪播：左右滑動 */
+.car{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 16px;scrollbar-width:none;scroll-padding-inline:16px}
+.car::-webkit-scrollbar{display:none}
+.car .hero{margin:0;flex:0 0 100%;scroll-snap-align:start}
+.soon2{align-self:flex-start;font-size:10.5px;letter-spacing:.12em;color:var(--cream);background:var(--olive2);border-radius:99px;padding:2px 10px;margin-bottom:8px}
+.btn.ghost{background:transparent;color:var(--olive);border:1px solid var(--olive)}
+.hero.tarot .tw{display:grid;place-items:center;background:radial-gradient(circle at 60% 50%,#EFE7DA,var(--card) 70%)}
+.hero.tarot .tc{width:88%}
+.cdots{display:flex;justify-content:center;gap:6px;margin-top:10px}
+.cdots button{width:6px;height:6px;border-radius:3px;background:#CFC4B1;transition:width .25s}
+.cdots button.on{width:18px;background:var(--olive)}
+.band .bk{margin:0 0 8px;color:var(--olive2)}
+#dq{display:block}
+#dd{text-align:right;margin-top:10px}
+/* 輪播文字留白：徽章、標題、說明、按鈕之間拉開距離 */
+.car .hero{min-height:228px}
+.car .hero .tx{padding:22px 0 22px 20px}
+.car .hero .tx p{margin:10px 0 16px !important;line-height:1.7}
+.car .hero .btn{height:32px;padding:0 14px;font-size:11.5px}
+.soon2{margin-bottom:10px;font-size:10px;padding:2px 9px}
+/* 關於、消息、問答、聯繫 */
+.abt{margin:6px 20px 0;display:flex;gap:16px;align-items:center;background:var(--card);border-radius:18px;padding:16px}
+.abt img{width:84px;height:84px;border-radius:50%;object-fit:cover;flex-shrink:0}
+.abt b{display:block;font-family:'Noto Serif TC',serif;font-weight:500;font-size:17px;letter-spacing:.12em}
+.abt small{display:block;color:var(--olive2);font-size:12px;margin:3px 0}
+.abt span{font-size:12px;color:var(--muted)}
+.txt{padding:18px 20px 0;display:grid;gap:10px;font-size:13.5px;line-height:1.9;color:#4A4D42}
+.nws{display:grid;gap:10px;padding:6px 16px}
+.nw{display:block;width:100%;background:var(--card);border-radius:14px;padding:14px 16px}
+.nw small{font-size:11px;letter-spacing:.14em;color:var(--olive2)}
+.nw b{display:block;font-family:'Noto Serif TC',serif;font-weight:500;font-size:16px;letter-spacing:.1em;margin:4px 0 2px}
+.nw span{font-size:12.5px;color:var(--muted)}
+.qa{padding:4px 20px}
+.qa details{border-bottom:1px solid var(--line)}
+.qa summary{list-style:none;display:flex;justify-content:space-between;gap:10px;padding:15px 0;font-family:'Noto Serif TC',serif;font-size:14.5px;letter-spacing:.06em;cursor:pointer}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:'+';color:var(--olive2)}
+.qa details[open] summary::after{content:'−'}
+.qa p{font-size:13px;color:#4A4D42;line-height:1.8;padding:0 0 15px}
+.cts{display:grid;gap:10px;padding:6px 16px 10px}
+.ct{display:grid;grid-template-columns:1fr auto;background:var(--card);border-radius:14px;padding:14px 16px}
+.ct b{font-family:'Noto Serif TC',serif;font-weight:500;font-size:16px;letter-spacing:.1em}
+.ct span{grid-column:1;font-size:12.5px;color:var(--muted)}
+.ct i{grid-column:2;grid-row:1/3;align-self:center;font-style:normal;color:var(--olive)}
+/* 卡片、膠囊塊半透明霧面（2026-11-22）：底色換成紙紋後會透出質感 */
+:root{--card:rgba(222,210,190,.55);--card2:rgba(255,252,246,.55)}
+.hero,.band,.it,.rv,.col .ph,.col img,.box,.ci,.abt,.nw,.ct,.cmp,.fl span,.chip,.dt,.qty{-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.car .hero{grid-template-columns:1fr 1.15fr;height:232px;min-height:0}
+.car .hero img,.car .hero .tw{min-height:0;height:100%}
+.carw{position:relative}
+.carr{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:rgba(243,237,226,.72);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:var(--olive);box-shadow:0 2px 8px rgba(40,44,32,.12)}
+.carr svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.carr.prev{left:4px}.carr.next{right:4px}
+.carr{width:26px !important;height:26px !important}
+.car .hero .tx{padding-left:36px !important}
+/* 三頁橫幅排版統一：小標 → 標題 → 英文 → 說明 → 按鈕，整組垂直置中 */
+.car .hero .tx{justify-content:center;padding-top:18px !important;padding-bottom:18px !important}
+.car .hero .tx p{margin:10px 0 0 !important}
+.car .hero .btn{margin-top:16px !important}
+.car .hero h2{font-size:20px}
+/* 橫幅滿版：貼齊螢幕左右，箭頭只留有立體感的箭頭本身 */
+.car{gap:0 !important;padding:0 !important;scroll-padding-inline:0 !important}
+.car .hero{border-radius:0 !important}
+.carr{background:none !important;box-shadow:none !important;-webkit-backdrop-filter:none !important;backdrop-filter:none !important;width:30px !important;height:44px !important;color:var(--olive);filter:drop-shadow(0 1px 0 rgba(255,255,255,.85)) drop-shadow(0 2px 3px rgba(30,34,24,.35))}
+.carr svg{width:24px !important;height:24px !important;stroke-width:2.4 !important}
+.carr.prev{left:2px !important}.carr.next{right:2px !important}
+.carr.next{color:#F3EDE2;filter:drop-shadow(0 1px 1px rgba(30,34,24,.5)) drop-shadow(0 2px 5px rgba(30,34,24,.45))}
+.carr,.carr.next{color:#FBF8F2 !important;filter:drop-shadow(0 1px 1px rgba(30,34,24,.55)) drop-shadow(0 2px 5px rgba(30,34,24,.45)) !important}
+/* 頂部字標列：跟底部列同一個深綠霧面 */
+:root{--tb-ink:#F3EDE2}
+.tb{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,0) 50%) rgba(56,64,46,.95) !important;-webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%);border-bottom:1px solid rgba(255,255,255,.08)}
+.tb .cnt{background:#F3EDE2;color:var(--olive);border-color:#3E4733}
+.ey{display:block;font-family:'Marcellus',serif;font-size:11px;letter-spacing:.34em;color:var(--olive2);margin-bottom:4px}
+/* 標題間距：英文貼近中文標題，中文標題和說明拉開 */
+.ey{display:none !important}
+.ttl h1,.cbody h1{line-height:1.3}
+.ttl p{margin-top:12px !important}
+.cbody .sub{margin-top:8px}
+/* 藝廊：電子雜誌（BOUNDLESS SOUL 風） */
+[data-pg="works"]{background:#3A2E29}
+.mg{padding:18px 18px 10px;display:grid;gap:18px}
+.mp{position:relative;aspect-ratio:3/4.25;background:#F3EEE6;overflow:hidden;container-type:inline-size;box-shadow:0 10px 30px rgba(0,0,0,.35);color:#1E1A17}
+.mp img{display:block;object-fit:cover}
+.mp .pn{position:absolute;bottom:4.2cqw;left:7cqw;font-style:normal;font-size:2.4cqw;letter-spacing:.22em;color:#6E6259}
+.big,.ls,.t5,.vt b{font-family:'Bodoni Moda','Playfair Display',serif;font-weight:400;color:#1E1A17}
+/* p1：上圖下文，大標壓在交界 */
+.p1 .ph,.p6 .ph{position:absolute;left:0;top:0;width:100%;height:62%}
+.p1 .big,.p6 .big{position:absolute;right:5cqw;top:52%;text-align:right;font-size:10.5cqw;line-height:1.02;letter-spacing:.01em}
+.p1 .big span{color:#F3EEE6;mix-blend-mode:normal}
+.p1 .big{color:#1E1A17}
+.p1 .big::first-line{color:#F3EEE6}
+.poem{position:absolute;left:7cqw;bottom:13cqw;font-family:'Noto Serif TC',serif;font-size:3.1cqw;line-height:1.9;letter-spacing:.2em;color:#3B342F}
+/* p2：直排大標＋右側三張 */
+.p2 .vt{position:absolute;left:9cqw;top:14cqw;writing-mode:vertical-rl;display:flex;gap:2cqw}
+.p2 .vt b{font-size:9cqw;letter-spacing:.04em;line-height:1}
+.p2 .vt small{font-size:2.4cqw;letter-spacing:.5em;color:#6E6259}
+.p2 .col3{position:absolute;right:0;top:0;bottom:0;width:32%;display:grid;grid-template-rows:1fr 1fr 1fr;gap:2.4cqw;background:#F3EEE6}
+.p2 .col3 img{width:100%;height:100%}
+.p2 .sm{position:absolute;left:7cqw;bottom:13cqw;font-family:'Noto Serif TC',serif;font-size:2.7cqw;line-height:2;letter-spacing:.16em;color:#3B342F}
+/* p3：左側模糊大圖＋疊一張清楚的小圖＋直排中文 */
+.p3 .blur{position:absolute;left:0;top:0;width:46%;height:100%;filter:blur(5px) saturate(.9);transform:scale(1.08)}
+.p3 .inset{position:absolute;left:31%;top:21%;width:44%;aspect-ratio:3/4;height:auto;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.p3 .vzh{position:absolute;right:6cqw;top:7cqw;writing-mode:vertical-rl;font-family:'Noto Serif TC',serif;font-size:3.2cqw;letter-spacing:.3em;color:#1E1A17}
+.p3 .para{position:absolute;left:51%;right:7cqw;top:74%;transform:translateY(-50%);font-size:2.75cqw;line-height:1.95;letter-spacing:.08em;color:#3B342F;text-align:justify}
+.p3 .pn{left:auto;right:6cqw}
+/* p4：右半暗色照片＋跨版字距大標 */
+.p4 .dark{position:absolute;right:0;top:0;width:58%;height:100%;filter:brightness(.62) contrast(1.05)}
+.p4 .ls{position:absolute;left:6cqw;top:7cqw;font-size:10cqw;line-height:1.15;letter-spacing:.22em;z-index:1}
+.p4 .ls{background:linear-gradient(90deg,#1E1A17 0 42cqw,#F3EEE6 42cqw);-webkit-background-clip:text;background-clip:text;color:transparent}
+.p4 .zh{position:absolute;left:6cqw;bottom:24cqw;font-family:'Noto Serif TC',serif;font-size:3.6cqw;line-height:1.9;letter-spacing:.22em;color:#1E1A17}
+.p4 .pn.l{left:6cqw}.p4 .pn.r{left:auto;right:5cqw;color:#D9CEC2}
+/* p5：學生作品六宮格 */
+.p5{padding:9% 7% 0}
+.p5 .t5{font-size:13cqw;letter-spacing:.16em;line-height:1}
+.p5 .s5{font-family:'Noto Serif TC',serif;font-size:2.8cqw;letter-spacing:.1em;color:#6E6259;margin:2.5cqw 0 5cqw}
+.p5 .g6{display:grid;grid-template-columns:1fr 1fr;gap:2.6cqw}
+.p5 .g6 img{width:100%;aspect-ratio:1.45;height:auto}
+/* p6 */
+.p6 .ph{filter:brightness(.92)}
+.mg-end{text-align:center;font-family:'Bodoni Moda','Playfair Display',serif;font-size:12px;letter-spacing:.3em;color:#C9BCAE;padding:6px 0 14px}
+.p1 .ph,.p6 .ph{height:56% !important}
+.p1 .big,.p6 .big{top:59% !important;color:#1E1A17 !important;font-size:9.6cqw !important}
+.p1 .big::first-line{color:#1E1A17 !important}
+.poem{bottom:11cqw !important}
+.p2 .poem,.p2 .sm{left:25cqw !important;bottom:12cqw !important}
+.p2 .vt{top:9cqw !important}
+/* 藝廊翻書：每一頁像真的書頁往左翻過去 */
+.bk-wrap{padding:22px 22px 8px}
+.book{position:relative;aspect-ratio:3/4.25;perspective:1800px;touch-action:pan-y}
+.book::before,.book::after{content:'';position:absolute;inset:0;background:#E7DFD3;transform:translate(4px,4px);box-shadow:0 12px 30px rgba(0,0,0,.4)}
+.book::after{transform:translate(2px,2px);background:#EDE6DC;box-shadow:none}
+.leaf{position:absolute;inset:0;transform-origin:left center;transform-style:preserve-3d;transition:transform 1s cubic-bezier(.35,.75,.2,1);z-index:1}
+.leaf.flipped{transform:rotateY(-180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden}
+.face .mp{width:100%;height:100%;aspect-ratio:auto;box-shadow:none}
+.front::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,.18) 0,rgba(0,0,0,0) 5%),linear-gradient(90deg,rgba(0,0,0,0) 60%,rgba(0,0,0,.18) 100%);opacity:0;transition:opacity .5s}
+.front::before{content:'';position:absolute;left:0;top:0;bottom:0;width:6%;z-index:2;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,0,.14),rgba(0,0,0,0))}
+.leaf.turning .front::after{opacity:1}
+.back{transform:rotateY(180deg);background:#EDE6DC;display:grid;place-items:center;background-image:linear-gradient(270deg,rgba(0,0,0,.12),rgba(0,0,0,0) 8%)}
+.back span{font-family:'Bodoni Moda','Playfair Display',serif;font-size:19px;letter-spacing:.3em;color:rgba(30,26,23,.25)}
+.bk-nav{display:flex;align-items:center;justify-content:center;gap:22px;margin-top:20px;color:#E8DFD3}
+.bk-nav button{width:36px;height:36px;display:grid;place-items:center;color:#F3EEE6;filter:drop-shadow(0 2px 3px rgba(0,0,0,.4))}
+.bk-nav button:disabled{opacity:.25}
+.bk-nav svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.bk-nav span{font-family:'Bodoni Moda','Playfair Display',serif;font-size:14px;letter-spacing:.3em;min-width:64px;text-align:center}
+.bk-hint{text-align:center;font-size:11.5px;letter-spacing:.24em;color:#B5A797;margin:6px 0 18px}
+/* 整本書一眼看完：高度配合手機螢幕，翻頁箭頭不用往下滑 */
+.bk-wrap{padding:16px 0 6px;display:flex;flex-direction:column;align-items:center}
+.book{height:min(calc(100dvh - 250px),calc((min(100vw,440px) - 44px)*1.4167));width:auto;max-width:calc(100% - 44px)}
+.bk-nav{margin-top:14px}
+[data-pg="works"].on{min-height:100dvh}
+/* 藝廊：雜誌簡化版 */
+[data-pg="works"]{background:#FBFAF7 !important}
+.zine{background:#FBFAF7;color:#1C1C1A}
+.zp{padding:44px 28px 30px;border-bottom:1px solid #E6E2DA}
+.zarc{text-align:center;font-family:'Noto Sans TC',sans-serif;font-weight:500;font-size:11.5px;letter-spacing:.3em;margin-bottom:34px}
+.zh{display:flex;align-items:flex-end;gap:22px;margin-bottom:26px}
+.zlab{text-align:center;flex-shrink:0}
+.zlab small{display:block;font-family:'Noto Sans TC',sans-serif;font-weight:500;font-size:13px;padding-bottom:6px;border-bottom:1px solid #1C1C1A;margin-bottom:8px}
+.zlab b{display:block;font-size:10.5px;font-weight:500;letter-spacing:.4em}
+.zlab i{display:block;font-style:normal;font-weight:700;font-size:41px;line-height:1.05;letter-spacing:.04em}
+.zt{font-family:'Noto Sans TC',sans-serif;font-weight:500;font-size:12px;letter-spacing:.32em;line-height:1.8;padding-bottom:8px}
+.zbig{position:relative;margin:0 0 0 0}
+.zbig img{width:100%;aspect-ratio:4/4.6;object-fit:cover;display:block}
+.zcap{position:absolute;left:-10px;bottom:-16px;background:#fff;border:1px solid #1C1C1A;padding:8px 12px;font-size:11.5px;letter-spacing:.1em;margin:0 !important;color:#1C1C1A !important}
+.zmid{display:flex;gap:22px;margin:36px 0 40px;align-items:stretch}
+.zv{writing-mode:vertical-rl;font-family:'Noto Serif TC',serif;font-size:16px;letter-spacing:.4em;border-left:3px solid #1C1C1A;padding-left:12px}
+.zq{font-family:'Noto Serif TC',serif;font-size:18px;line-height:2;letter-spacing:.16em}
+.zs{font-size:12.5px;line-height:1.9;color:#66625B;letter-spacing:.08em;margin-top:14px;padding-top:14px;border-top:1px solid #1C1C1A;max-width:200px}
+.zpair{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.zpair figure:last-child{margin-top:40px}
+.zpair img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block}
+.zpair figcaption{font-size:11px;letter-spacing:.16em;color:#77736C;margin-top:8px}
+.zcr{text-align:right;font-family:'Noto Sans TC',sans-serif;font-weight:500;font-size:11px;color:#8A857C;margin-top:34px}
+.zcr b{display:block;font-family:'Noto Sans TC';font-weight:700;letter-spacing:.3em;color:#1C1C1A}
+.mr .zh{flex-direction:row-reverse;text-align:right}
+.mr .zmid{flex-direction:row-reverse;text-align:right}
+.mr .zv{border-left:0;border-right:3px solid #1C1C1A;padding:0 12px 0 0}
+.mr .zs{margin-left:auto}
+.mr .zcap{left:auto;right:-10px}
+.mr .zpair figure:first-child{margin-top:40px}.mr .zpair figure:last-child{margin-top:0}
+.mr .zcr{text-align:left}
+.zlt{padding:46px 32px 40px;border-bottom:1px solid #E6E2DA}
+.zlk{font-size:11px;letter-spacing:.4em;font-weight:500;margin-bottom:6px}
+.zlt h2{font-family:'Noto Serif TC',serif;font-weight:500;font-size:23px;letter-spacing:.2em;margin-bottom:24px}
+.zlt img{width:46%;aspect-ratio:3/4;object-fit:cover;float:right;margin:3px 0 14px 18px}
+.zlt p:not(.zarc):not(.zlk){font-family:'Noto Serif TC',serif;font-size:14.5px;line-height:2.05;letter-spacing:.06em;color:#3B3934;margin-bottom:14px}
+.zlt .zsig{text-align:right;color:#77736C !important;clear:both}
+.ztoc{list-style:none;clear:both;border-top:1px solid #1C1C1A;margin-top:24px;padding-top:6px}
+.ztoc li{display:flex;gap:16px;padding:10px 0;border-bottom:1px dashed #D9D5CC;font-family:'Noto Serif TC',serif;font-size:15px;letter-spacing:.14em}
+.ztoc i{font-style:normal;font-weight:700;font-family:'Noto Sans TC'}
+.zst{font-family:'Noto Serif TC',serif;font-size:14.5px;line-height:2.05;letter-spacing:.06em;color:#3B3934;margin-top:44px}
+.zend{text-align:center;font-family:'Noto Sans TC',sans-serif;font-weight:500;font-size:12px;letter-spacing:.3em;color:#8A857C;padding:26px 0 34px}
+/* 水彩紙紋理（自製冷壓紙紋，疊在原本底色上，顏色不變） */
+.app,[data-pg="works"],.zine{background-image:url(paper-texture.jpg?v=2) !important;background-size:240px !important;background-blend-mode:multiply !important}
+.app{background-color:var(--bg) !important}
+[data-pg="works"],.zine{background-color:var(--bg) !important}
+.zp,.zlt{border-bottom-color:rgba(62,71,51,.14) !important}
+.zcap{background-color:var(--bg) !important;background-image:url(paper-texture.jpg?v=2);background-size:240px;background-blend-mode:multiply}
+/* 商店 */
+.sp-tabs{display:flex;gap:8px;overflow-x:auto;padding:4px 16px 16px;scrollbar-width:none}
+.sp-tabs::-webkit-scrollbar{display:none}
+.sp-tabs button{flex-shrink:0;padding:6px 14px;border-radius:99px;font-size:13px;letter-spacing:.08em;border:1px solid var(--line);background:var(--card2)}
+.sp-tabs button.on{background:var(--olive);color:var(--cream);border-color:var(--olive)}
+.sp-c{display:block;font-size:11px;letter-spacing:.14em;color:var(--olive2);margin-bottom:2px}
+.go-out{color:var(--olive) !important;font-size:14px !important;border-bottom:1px solid var(--olive)}
+a.it{text-decoration:none;color:inherit}
+/* 商店模擬 */
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px 12px;padding:0 16px}
+.pc{display:block;text-align:left}
+.pim{position:relative;display:block;border-radius:12px;overflow:hidden}
+.pim img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
+.pim i{position:absolute;left:8px;top:8px;font-style:normal;font-size:11px;letter-spacing:.1em;background:rgba(251,250,247,.9);color:var(--olive);padding:2px 8px;border-radius:99px}
+.pc small{display:block;font-family:'Marcellus',serif;font-size:10px;letter-spacing:.2em;color:var(--muted);margin-top:8px}
+.pc b{display:block;font-family:'Noto Serif TC',serif;font-weight:500;font-size:14.5px;letter-spacing:.06em;line-height:1.4}
+.pp{display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:14.5px;margin-top:4px}
+.pp em{font-style:normal;font-weight:400;font-size:11.5px;color:var(--olive)}
+.sp-ship{margin:26px 16px 10px;padding:12px 14px;border-radius:12px;background:var(--card2);font-size:12.5px;color:#4A4D42;line-height:1.7}
+.sp-ship b{display:block;color:var(--olive);margin-bottom:2px}
+[data-pg="product"]{padding-bottom:150px}
+.pd-imgs{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.pd-imgs::-webkit-scrollbar{display:none}
+.pd-imgs img{flex:0 0 100%;aspect-ratio:1;object-fit:cover;scroll-snap-align:start}
+.pd-dots{display:flex;justify-content:center;gap:6px;margin-top:10px}
+.pd-dots i{width:6px;height:6px;border-radius:3px;background:#CFC4B1}
+.pd-dots i.on{width:18px;background:var(--olive)}
+.pd-b{padding:16px 20px}
+.pd-b small{font-family:'Marcellus',serif;font-size:11px;letter-spacing:.22em;color:var(--olive2)}
+.pd-b h1{font-family:'Noto Serif TC',serif;font-weight:500;font-size:21px;letter-spacing:.1em;margin:2px 0 6px}
+.pd-p{font-size:21px;font-weight:700;display:flex;align-items:center;gap:10px}
+.pd-p span{font-size:11.5px;font-weight:400;color:var(--olive);border:1px solid var(--olive);border-radius:99px;padding:1px 9px}
+.pd-l{font-size:13px;letter-spacing:.14em;color:var(--olive2);margin:18px 0 8px}
+.pd-o{display:flex;flex-wrap:wrap;gap:8px}
+.pd-o button{padding:7px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card2);font-size:13.5px}
+.pd-o button.on{border-color:var(--olive);background:var(--olive);color:var(--cream)}
+.pd-q{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:10px;background:var(--card2)}
+.pd-q button{width:40px;height:38px;font-size:18px}.pd-q span{width:34px;text-align:center;font-size:15px}
+.pd-d{font-family:'Noto Serif TC',serif;font-size:14px;line-height:2;color:#3F4337;margin:22px 0 12px}
+.pd-s{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:13px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.pd-s dt{color:var(--muted)}
+.pd-x summary{cursor:pointer;padding:14px 0;font-size:14px;border-bottom:1px solid var(--line);list-style:none}
+.pd-x p{font-size:13px;line-height:1.9;color:#4A4D42;padding:10px 0}
+.pd-r{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pd-r button{text-align:left}.pd-r img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px}
+.pd-r b{display:block;font-size:12px;font-weight:500;margin-top:6px;line-height:1.4}.pd-r span{font-size:12px;color:var(--muted)}
+.pd-bar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(66px + env(safe-area-inset-bottom));width:100%;max-width:440px;display:flex;gap:8px;align-items:center;padding:10px 14px;background:rgba(238,230,216,.96);backdrop-filter:blur(10px);border-top:1px solid var(--line);z-index:30}
+.pd-bar div{flex:1}.pd-bar small{display:block;font-size:11px;color:var(--muted)}.pd-bar b{font-size:17px}
+.pd-bar .btn{height:44px;padding:0 16px;border-radius:10px;font-size:13.5px}
+.pg:not(.on) .pd-bar{display:none}
+.fm{display:grid;gap:8px}
+.fm input,.fm select{height:44px;border:1px solid var(--line);border-radius:10px;padding:0 12px;font:inherit;font-size:15px;background:var(--card2)}
+.dn{padding:40px 24px;text-align:center}
+.dn .lf{width:40px;margin:0 auto 10px;color:var(--olive2)}
+.dn small{font-family:'Marcellus',serif;letter-spacing:.3em;color:var(--olive2)}
+.dn h1{font-family:'Noto Serif TC',serif;font-weight:500;font-size:23px;letter-spacing:.14em;margin:4px 0}
+.dn .no{font-size:13px;color:var(--muted);letter-spacing:.1em;margin-bottom:16px}
+.dn p{font-size:14px;line-height:1.9;color:#4A4D42}
+.dn-list{text-align:left;margin:20px 0;background:var(--card2);border-radius:14px;padding:6px 14px}
+.dn-list div{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
+.dn-list div:last-child{border-bottom:0;font-weight:700}
+/* 商品卡對齊：圖片同大小、文字靠上對齊、名稱固定兩行高，價格排在同一條線 */
+.pgrid{align-items:stretch}
+.pgrid .pc{display:flex !important;flex-direction:column;justify-content:flex-start;align-items:stretch;text-align:left;height:100%}
+.pgrid .pim{width:100%;aspect-ratio:1;flex-shrink:0}
+.pgrid .pim img{width:100%;height:100%;aspect-ratio:auto;object-fit:cover}
+.pgrid .pc b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.8em}
+.pgrid .pp{margin-top:auto;padding-top:4px}
+
+/* 學生作品獨立分頁：舊網站的三欄九宮格 */
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin:14px 0 6px}
+.sgrid img{width:100%;aspect-ratio:1;object-fit:cover}
+
+/* 商店「全部」：分類小標題＋往右滑動的一排商品 */
+.pshelves .sh{padding:18px 20px 10px}
+.pshelves .sh:first-child{padding-top:4px}
+.prow{display:flex;gap:12px;overflow-x:auto;padding:0 20px 6px;scroll-snap-type:x mandatory;scroll-padding:0 20px;scrollbar-width:none}
+.prow::-webkit-scrollbar{display:none}
+.prow .pc{flex:0 0 42%;scroll-snap-align:start;display:flex !important;flex-direction:column;justify-content:flex-start;align-items:stretch;text-align:left}
+.prow .pim{width:100%;aspect-ratio:1;flex-shrink:0}
+.prow .pim img{width:100%;height:100%;aspect-ratio:auto;object-fit:cover}
+.prow .pc b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.8em}
+.prow .pp{margin-top:auto;padding-top:4px}
+
+/* 月刊刊頭：大標＋期數小標（2026-11-23） */
+.zmast{text-align:center;padding-top:6px;margin-bottom:10px}
+.zmast b{display:block;font-family:'Marcellus',serif;font-weight:400;font-size:38px;line-height:1.1;letter-spacing:.08em;color:#1C1C1A}
+.zmast span{display:block;font-family:'Noto Serif TC',serif;font-size:15px;letter-spacing:.6em;padding-left:.6em;margin-top:8px;color:#3B3934}
+.zmast + .zarc{font-size:10.5px !important;letter-spacing:.26em !important;color:#6E6259;margin-bottom:34px !important;padding-top:14px;border-top:1px solid rgba(28,28,26,.2);width:72%;margin-left:auto;margin-right:auto}
+
+/* 每日能量小語：維持最初排版，只把句子放大（2026-11-23） */
+#dq{font-size:17.5px;line-height:1.7}
+/* 日期往上移一排：放在標題那行的右邊，卡片壓扁一點 */
+.band p{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:10px}
+.band .bk{order:0;flex:1 1 auto}
+#dd{order:1;margin:0 0 8px auto !important;white-space:nowrap;letter-spacing:.14em !important}
+#dq{order:2;flex:0 0 100%}
+/* 橫幅即將登場：Coming Soon 純文字、不要框 */
+.hero .csoon{display:inline-block;margin-top:14px;padding:0;border:0 !important;background:none !important;font-family:'Marcellus',serif;font-size:14px;letter-spacing:.24em;color:var(--olive);white-space:nowrap}
+/* 月刊內文左右對齊（雜誌感） */
+.zlt p:not(.zarc):not(.zlk):not(.zsig),.zst{text-align:justify;text-justify:inter-character}
+/* 課程列表：＋改成「看詳情 ›」，因為是看課程介紹不是加入購物車 */
+.it .more{font-style:normal;font-size:12.5px;letter-spacing:.14em;color:var(--olive);display:inline-flex;align-items:center;gap:1px;white-space:nowrap}
+.it .more svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+/* 換頁淡入：點看詳情等進入新畫面時，慢慢浮現不要直接跳 */
+@keyframes pgFade{from{opacity:0}to{opacity:1}}
+.pg.on > :not([data-top]):not(.tb){animation:pgFade .45s ease-out both}
+@media (prefers-reduced-motion:reduce){.pg.on > *{animation:none !important}}
+/* 缺貨：標示缺貨、按鈕變灰不能按 */
+.pd-p .oos{background:#8C8676 !important;color:#fff !important}
+.pd-bar .btn.off{opacity:.4;pointer-events:none}
+/* 聯名商品圖是 2:1 橫幅（左字右商品），裁正方形時對準右邊的商品 */
+img[src*="img_collab/"]{object-position:74% 50% !important}
+/* 商品卡：名稱下方加兩行小字簡介 */
+.pgrid .pc b,.prow .pc b{min-height:0 !important}
+.pc .pbrief{font-size:11.5px;line-height:1.6;color:var(--muted);letter-spacing:.04em;margin-top:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:3.2em}
+/* 手記開頭問候：手動換行、不左右撐開 */
+.zlt p.zhi{text-align:left !important}
+/* 數量加減：− 1 + 置中排好 */
+.pd-q button,.qty button{display:grid !important;place-items:center;text-align:center !important;padding:0;line-height:1}
+.pd-q span,.qty span{display:grid;place-items:center}
+/* 全部課程分類：全部／曼陀羅繪畫課程／其他課程 */
+.fl span[data-cf]{cursor:pointer}
+.cempty{text-align:center;padding:40px 20px;color:var(--olive)}
+.cempty b{display:block;font-family:'Marcellus',serif;font-weight:400;font-size:18px;letter-spacing:.24em;margin-bottom:10px}
+.cempty p{font-size:13px;color:var(--muted);line-height:1.8}
+.list [hidden]{display:none !important}
+/* 原創畫作：不寫價格，改成私訊詢價 */
+.pd-ask{font-family:'Noto Serif TC',serif;font-size:14.5px;line-height:1.9;color:var(--olive);margin:10px 0 18px;padding:12px 16px;border-left:2px solid var(--olive2);background:rgba(255,255,255,.35)}
+.pd-bar.ask > div,.pd-bar.ask #pdAdd{display:none}
+.pd-bar.ask #pdBuy{flex:1}
+/* 點分類時：按鈕顏色慢慢變、商品淡入 */
+.sp-tabs button,.fl span{transition:background-color .3s,color .3s,border-color .3s}
+.fx{animation:pgFade .45s ease-out both}
+@media (prefers-reduced-motion:reduce){.fx{animation:none}}
+/* 首頁副標字大一號 */
+.hi span{font-size:12.5px !important}
+/* VIEW ALL 改成「更多 ›」 */
+.sh .vmore{border-bottom:0 !important;font-family:'Noto Sans TC',sans-serif !important;font-size:12.5px !important;letter-spacing:.14em !important;color:var(--olive) !important;display:inline-flex;align-items:center;gap:1px}
+.sh .vmore svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+/* 學生作品：零基礎班／師資班 */
+[data-pg="students"] .fl span{cursor:pointer;transition:background-color .3s,color .3s,border-color .3s}
+[data-sg][hidden]{display:none !important}
+.snote{font-size:12.5px;color:var(--muted);letter-spacing:.06em;padding:0 20px;margin-top:4px}
+/* 資訊表最後一列不要虛線，避免和下方分隔線重複 */
+.rows li:last-child{border-bottom:0}
+.cmag small{display:block;font-family:'Marcellus',serif;font-size:9.5px;letter-spacing:.06em;color:var(--olive2);white-space:nowrap;margin-bottom:1px}
+/* 探索：一排 4 格，按更多展開到 8 格 */
+.cols{grid-template-columns:repeat(4,1fr) !important;gap:14px 6px !important;padding:0 14px !important}
+.col .ph,.col img{width:62px !important;height:62px !important}
+.sh .vmore[data-exp] svg{transition:transform .3s}
+.sh .vmore[data-exp].open svg{transform:rotate(180deg)}
+/* 彩虹卡抽牌視窗 */
+.mkm{position:fixed;inset:0;z-index:70;display:grid;place-items:center;padding:20px;opacity:0;transition:opacity .25s}
+.mkm.on{opacity:1}.mkm[hidden]{display:none}
+.dk-bg{position:absolute;inset:0;background:rgba(25,28,20,.55)}
+.dk-box{position:relative;width:min(340px,100%);background:var(--bg);background-image:url(paper-texture.jpg?v=2);background-size:240px;background-blend-mode:multiply;border-radius:18px;padding:26px 22px 20px;text-align:center;color:var(--olive);box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.dk-x{position:absolute;top:8px;right:12px;font-size:26px;line-height:1;width:34px;height:34px;color:var(--olive)}
+.dk-ey{display:block;font-family:'Marcellus',serif;font-size:10.5px;letter-spacing:.3em;color:var(--olive2)}
+.dk-box h3{font-family:'Noto Serif TC',serif;font-weight:500;font-size:18px;letter-spacing:.14em;margin:6px 0 4px}
+.dk-sub{font-size:12.5px;color:var(--muted);margin-bottom:16px}
+.dk-card{width:180px;height:260px;margin:0 auto 18px;perspective:900px}
+.dk-in{position:relative;width:100%;height:100%;transition:transform .7s cubic-bezier(.3,.7,.3,1);transform-style:preserve-3d}
+.dk-card.flip .dk-in{transform:rotateY(180deg)}
+.dk-back,.dk-front{position:absolute;inset:0;border-radius:14px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:grid;place-items:center;box-shadow:0 8px 20px rgba(40,44,32,.18)}
+.dk-back{background:var(--olive);color:#E8DFC9;border:6px solid #EEE6D8}
+.dk-back svg{width:70px;fill:none;stroke:currentColor;stroke-width:.8}
+.dk-front{transform:rotateY(180deg);background:#FBF8F1;border:1px solid var(--line);padding:20px 16px;align-content:center;gap:12px}
+.dk-front b{font-family:'Noto Serif TC',serif;font-weight:500;font-size:19px;letter-spacing:.16em}
+.dk-front p{font-family:'Noto Serif TC',serif;font-size:14px;line-height:1.9;color:#3B3934}
+#dkBtn.off{opacity:.45;pointer-events:none}
+.dk-note{font-size:11.5px;color:var(--muted);margin-top:10px;letter-spacing:.06em}
+/* 魔法卡牌面 */
+.dk-card{width:200px !important;height:300px !important}
+.dk-front{display:flex !important;flex-direction:column;align-items:center;justify-content:center;gap:0 !important;padding:18px 16px !important;border:1px solid var(--olive2) !important;outline:1px solid var(--line);outline-offset:-7px}
+.dk-n{font-style:normal;font-family:'Marcellus',serif;font-size:13px;letter-spacing:.2em;color:var(--olive2)}
+.dk-emb svg{width:46px;height:46px;fill:none;stroke:var(--olive);stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round;margin:10px 0 8px}
+.dk-front b{font-size:18px !important}
+.dk-front small{font-family:'Marcellus',serif;font-size:9.5px;letter-spacing:.16em;color:var(--olive2);margin-top:3px}
+.dk-front hr{width:24px;border:0;border-top:1px solid var(--olive2);opacity:.6;margin:12px 0}
+.dk-front p{font-size:13.5px !important;line-height:1.85 !important}
+/* 魔法卡：每張專屬插圖 */
+.dk-card{width:230px !important;height:370px !important}
+.dk-box{padding-top:22px !important}
+.dk-emb img{display:block;width:168px;height:168px;object-fit:cover;border-radius:6px;margin:8px 0 10px;mix-blend-mode:multiply}
+.dk-front{padding:14px 14px !important}
+.dk-front p{font-size:13px !important;line-height:1.75 !important}
+.dk-front hr{margin:9px 0 !important}
+/* 探索：AI 統一風格小圖示 */
+.col .ph img{width:38px !important;height:38px !important;border-radius:0 !important;background:none !important;object-fit:contain;-webkit-backdrop-filter:none !important;backdrop-filter:none !important}
+/* 首頁：近期開課 */
+.upc{padding:0 16px;display:grid;gap:10px}
+.upc-i{display:flex;align-items:center;gap:14px;width:100%;background:var(--card);border-radius:14px;padding:10px 14px 10px 10px;text-align:left}
+.upc-d{flex:0 0 52px;height:56px;border-radius:10px;background:var(--olive);color:#F3EEE6;display:grid;place-content:center;text-align:center;line-height:1.15}
+.upc-d small{font-size:10.5px;opacity:.85}.upc-d b{font-size:20px;font-weight:600}
+.upc-t{flex:1;min-width:0}.upc-t b{display:block;font-family:'Noto Serif TC',serif;font-weight:500;font-size:15px;letter-spacing:.1em}
+.upc-t small{display:block;font-size:12px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.upc-i .more{font-style:normal;font-size:12.5px;letter-spacing:.12em;color:var(--olive);display:inline-flex;align-items:center;white-space:nowrap}
+.upc-i .more svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.upc-none{font-size:13px;color:var(--muted);padding:6px 4px}
+/* 近期開課的作品照 */
+.upc-img{display:block;width:calc(100% - 32px);margin:0 16px 12px;aspect-ratio:16/9;object-fit:cover;border-radius:14px}
+/* 魔法卡牌背：AI 設計 */
+.dk-back{background:#3F4733 url(img_magic/back_c.jpg) center/cover no-repeat !important;border:5px solid #EEE6D8 !important}
+.dk-back svg{display:none}
+/* 牌背比例和卡片一致（688:1024），左右不再被切掉 */
+.dk-card{width:249px !important;height:370px !important}
+.dk-back{background-size:100% 100% !important}
+/* 課程卡簡介：兩行內 */
+.it .t > span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.55;margin-top:2px}
+/* 課程頁主圖：滿版貼齊左右上（頂部列下方），不留邊、不圓角 */
+[data-pg="course"] .cimg{margin:0 !important;border-radius:0 !important;aspect-ratio:1/1 !important}
+[data-pg="course"] .cimg .tag{left:16px;top:14px}
+/* 師資班主圖：曼陀羅完整露出，下方保留沙發與家飾 */
+[data-pg="course"] .cimg img[src*="teacher.jpg"]{object-position:50% 22%}
+/* 完成頁「加入官方 LINE」按鈕：文字上下置中 */
+.pi{text-align:left;background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:0 0 14px}
+.pi-t{font-family:'Noto Serif TC',serif;font-size:14px;letter-spacing:.12em;color:var(--olive);margin-bottom:8px}
+.pi-row{display:flex;align-items:center;gap:10px;font-size:13px;padding:5px 0;border-bottom:1px dashed var(--line)}
+.pi-row span{color:var(--muted);width:34px;flex-shrink:0}.pi-row b{font-weight:500;letter-spacing:.06em;word-break:break-all}
+.pi-cp{margin-left:auto;font-size:11.5px;border:1px solid var(--olive);color:var(--olive);border-radius:99px;padding:2px 10px;flex-shrink:0}
+.pi-l5{display:flex;gap:8px}.pi-l5 input{flex:1;min-width:0;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;font-size:15px;letter-spacing:.3em;background:var(--bg)}
+.pi-l5 .btn{flex-shrink:0;padding:0 18px}
+.pi-n{font-size:11.5px;color:var(--muted);margin-top:8px;line-height:1.6}.pi-ok{font-size:13px;color:var(--olive);padding:6px 0}
+.pi-qr{width:200px;max-width:70%;margin:4px auto 0;border-radius:10px;background:#fff;padding:8px}
+#dnLine:not([hidden]){display:flex;align-items:center;justify-content:center;text-decoration:none}
+</style></head>
+<body><div class="app">
+
+<section class="pg" data-pg="home"><div data-top></div>
+  <div class="hi"><b id="hiTxt">Hi，今天過得好嗎？</b><span>陪你從「畫畫」開始，創造自己喜歡的生活方式。</span></div>
+  <div class="carw">
+  <div class="car" id="car">
+    <div class="hero"><div class="tx"><span class="soon2">報名中</span><h2>零基礎班</h2><small>Beginner Class</small><p style="font-size:12px;margin-top:8px;color:var(--olive2)">一個下午茶的時間<br>完成你的第一幅作品</p><button class="btn" data-go="course:beginner">立即報名</button></div><img data-src="img/mandala-beige.jpg" alt=""></div>
+    <div class="hero"><div class="tx"><span class="soon2">即將登場</span><h2>能量蠟燭</h2><small>Energy Candle</small><p style="font-size:12px;margin-top:8px;color:var(--olive2)">手繪點點曼陀羅<br>點亮一盞療癒燭光</p><button class="csoon" data-soon>Coming Soon ...</button></div><img src="img_banner/energy-candle.jpg" alt="能量蠟燭" style="object-position:62% 55%"></div>
+    <div class="hero"><div class="tx"><span class="soon2">即將登場</span><h2>塔羅牌占卜</h2><small>Tarot Reading</small><p style="font-size:12px;margin-top:8px;color:var(--olive2)">抽一張牌<br>聽聽內心的聲音</p><button class="csoon" data-soon>Coming Soon ...</button></div><img src="img_banner/tarot.jpg" alt="塔羅牌占卜" style="object-position:50% 60%"></div>
+  </div>
+  <button class="carr prev" id="carPrev" aria-label="上一頁"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><button class="carr next" id="carNext" aria-label="下一頁"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+  </div>
+  <div class="cdots" id="cdots"><button class="on" aria-label="第 1 頁"></button><button aria-label="第 2 頁"></button><button aria-label="第 3 頁"></button></div>
+  <div class="sh"><h3>Explore<i>探索</i></h3></div>
+  <div class="cols">
+    <button class="col cx" data-go="news"><span class="ph"><img src="img_icons/news.png?v=2" alt=""></span>最新消息</button>
+    <button class="col cx" data-deck><span class="ph"><img src="img_icons/deck.png?v=2" alt=""></span>今日抽牌</button>
+    <button class="col" data-go="works"><span class="ph"><img src="img_icons/journal.png?v=2" alt=""></span>點點月刊</button>
+    <button class="col cx" data-soon><span class="ph"><img src="img_icons/tarot.png?v=2" alt=""></span>塔羅占卜</button>
+    <button class="col" data-go="shop"><span class="ph"><img src="img_icons/course.png?v=3" alt=""></span>曼陀羅課程</button>
+    <button class="col" data-go="students"><span class="ph"><img src="img_icons/students.png?v=2" alt=""></span>學生作品</button>
+    <button class="col cx" data-go="goods#energy"><span class="ph"><img src="img_icons/healing.png?v=2" alt=""></span>療癒小物</button>
+    <button class="col" data-go="goods#art"><span class="ph"><img src="img_icons/art.png?v=2" alt=""></span>原創畫作</button>
+  </div>
+
+  <div class="band"><span data-icon="leaf"></span><p><small class="bk">Daily Words　每日能量小語</small><span id="dq">我值得被好好愛著。</span><small id="dd"></small></p></div>
+  <div class="sh"><h3>Upcoming<i>近期開課</i></h3><button class="vmore" data-go="shop">全部課程<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button></div>
+  <img class="upc-img" src="img_banner/upcoming.jpg" alt="學員完成的點點曼陀羅作品">
+  <div class="upc" id="upc"></div>
+  <div class="sh"><h3>Feedback<i>學生怎麼說</i></h3></div>
+  <div class="rvs" data-reviews="2"></div>
+</section>
+
+<section class="pg" data-pg="shop"><div data-top></div>
+  <div class="ttl"><span data-icon="leaf"></span><small class="ey">COURSES</small><h1>全部課程</h1><p>不需要繪畫基礎，跟著自己的感覺，一點一點完成屬於你的作品。</p></div>
+  <div class="fl"><span class="on" data-cf="all">全部</span><span data-cf="mandala">曼陀羅繪畫課程</span><span data-cf="other">其他課程</span></div>
+  <div class="list">
+    <button class="it" data-cat="mandala" data-go="course:beginner"><img data-src="img/mandala-beige.jpg" alt=""><div class="t"><b>零基礎班</b><span>沒畫過也沒關係，一個下午茶的時間，就能帶走第一幅屬於你的作品。</span><div class="p"><em>NT$3,500</em><i class="more">看詳情<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></i></div></div></button>
+    <button class="it" data-cat="mandala" data-go="course:teacher"><img src="img_banner/teacher.jpg" alt=""><div class="t"><b>兩日師資班</b><span>兩天學會完整技法與教案，完成 4 件作品，結業就能開始帶自己的課，可分期。</span><div class="p"><em>NT$26,800</em><i class="more">看詳情<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></i></div></div></button>
+    <button class="it" data-cat="mandala" data-go="course:online"><img data-src="img/work5.jpg" alt=""><div class="t"><b>線上課</b><span>材料包寄到家，跟著老師視訊上課，在家就能慢慢畫出自己的作品。</span><div class="p"><em>NT$3,333</em><i class="more">看詳情<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></i></div></div></button>
+    <div class="cempty" data-cat="other" hidden><b>Coming Soon ...</b><p>其他主題課程正在籌備中，<br>開課時會第一時間公告。</p></div>
+  </div>
+</section>
+
+<section class="pg" data-pg="course"><div data-top="sub"></div>
+  <div class="cimg"><img data-img alt=""><span class="tag" data-f="tag"></span></div>
+  <div class="cbody"><small class="ey" data-en></small><h1 data-f="short"></h1><p class="sub" data-f="sub"></p>
+    <div class="pr"><b data-f="priceText"></b><s data-f="orig"></s></div>
+    <div class="ck" data-chips></div><ul class="pk" data-perks></ul>
+    <p class="lbl">01　選擇地區</p><div class="chips" data-cities></div>
+    <p class="lbl">02　選擇場次</p><div class="dates" data-dates></div>
+  </div>
+  <div class="cta"><button class="btn full" data-add>加入報名清單</button></div>
+  <div class="detail" data-detail></div>
+  <div class="stk"><div><b data-f="priceText"></b><small>／人</small></div><button class="btn" data-add>加入報名清單</button></div>
+</section>
+
+<section class="pg" data-pg="works"><div data-top></div>
+  <!-- 藝廊：直式雜誌（簡化留白版） -->
+  <div class="zine"><section class="zlt">
+  <div class="zmast"><b>Dots Journal</b><span>點點月刊</span></div>
+  <p class="zarc">Journal Vol. 01 | Dec. 2026</p>
+  <img src="../img/kimi-portrait.jpg" alt="Kimi">
+  <p class="zlk">EDITOR'S LETTER</p>
+  <h2>本月手記</h2>
+  <p class="zhi">嗨，<br>我是品牌主理人 Kimi。<br>我心心念念的<span style="white-space:nowrap">《點點月刊》</span><br>終於創刊了！</p>
+  <p>一直想找個地方，好好記錄每個月畫了什麼、教了誰、又遇到哪些讓人心動的瞬間。IG 的貼文滑過就不見了，所以決定每個月出一本小小的電子雜誌，把這些時刻收起來。</p>
+  <p>這個月，天氣慢慢變冷，課堂上卻很溫暖。有第一次拿起點珠筆就停不下來的同學，也有畫到一半說「好療癒」的媽媽。我自己則在準備一些新東西，想把點點曼陀羅帶進更多人的生活裡。</p>
+  <p>希望妳翻這本小雜誌的時候，也能慢下來一點點。</p>
+  <p class="zsig">— Kimi　2026.12</p>
+  <ol class="ztoc"><li><i>01</i>原創畫作</li><li><i>02</i>學生作品</li><li><i>03</i>工作桌筆記</li></ol>
+</section><article class="zp" id="art">
+  <p class="zarc">Journal Vol. 01 | Dec. 2026</p>
+  <header class="zh"><div class="zlab"><small>Kimi's</small><b>ORIGINAL ART</b><i>01</i></div><p class="zt">ONE DOT × ONE HEART</p></header>
+  <figure class="zbig"><img src="../img/mandala-beige.jpg" alt="" loading="lazy"><figcaption class="zcap">NO.01　〈靜〉15cm</figcaption></figure>
+  <p class="zst">這個月畫了好幾幅奶茶色系的作品。天氣轉涼，特別想用溫暖的米色和金色，畫的時候整個人都慢下來。〈靜〉是這個月最喜歡的一幅：從中心一個點開始，畫到最外圈，剛好是一個下午的時間。</p>
+  <div class="zmid"><p class="zv">一點一點長出來</p><div><p class="zq">沒有草稿，<br>沒有範本，<br>只有當下。</p><p class="zs">跟著心情選顏色，一圈一圈往外長。</p></div></div>
+  <div class="zpair"><figure><img src="../img/work1.jpg" alt="" loading="lazy"><figcaption>NO.02　深夜的花</figcaption></figure><figure><img src="../img/work3.jpg" alt="" loading="lazy"><figcaption>NO.03　金色漣漪</figcaption></figure></div>
+  <p class="zcr"><b>STYLE</b>Dots Journal ｜ Vol. 01 | Dec. 2026　1/3</p>
+</article><article class="zp mr" id="students">
+  <p class="zarc">STUDENT WORKS ・ DEC 2026</p>
+  <header class="zh"><div class="zlab"><small>Class</small><b>STUDENT WORKS</b><i>02</i></div><p class="zt">3.5 HOURS × FIRST ART</p></header>
+  <figure class="zbig"><img src="img_sq/gallery6.jpg" alt="" loading="lazy"><figcaption class="zcap">CLASS　台中・零基礎班</figcaption></figure>
+  <p class="zst">這個月在台中、桃園都有開班，也辦了一場兩日師資班。好幾位同學一開始都說「我手很殘」，結果最後都畫出讓自己驚喜的作品。最常聽到的一句話是：「原來我也可以。」</p>
+  <div class="zmid"><p class="zv">零基礎也畫得出來</p><div><p class="zq">一個下午茶的時間，<br>帶走一幅<br>自己的畫。</p><p class="zs">每一幅都是零基礎同學在課堂上完成的。</p></div></div>
+  <div class="zpair"><figure><img src="img_sq/gallery1.jpg" alt="" loading="lazy"><figcaption>CLASS　桃園</figcaption></figure><figure><img src="img_sq/gallery9.jpg" alt="" loading="lazy"><figcaption>CLASS　高雄</figcaption></figure></div>
+  <p class="zcr"><b>STYLE</b>Dots Journal ｜ Vol. 01 | Dec. 2026　2/3</p>
+</article><article class="zp" id="studio">
+  <p class="zarc">STUDIO NOTES ・ DEC 2026</p>
+  <header class="zh"><div class="zlab"><small>Kimi's</small><b>STUDIO NOTES</b><i>03</i></div><p class="zt">LIGHT × CANDLE</p></header>
+  <figure class="zbig"><img src="../img/kimi-portrait.jpg" alt="" loading="lazy"><figcaption class="zcap">NOTE　畫畫時，世界安靜下來</figcaption></figure>
+  <p class="zst">工作桌最近堆滿了蠟燭和石頭。一直想把點點曼陀羅畫在生活小物上，能量蠟燭和塔羅占卜都在準備中。下個月會先在最新消息公告，也歡迎私訊告訴我妳想先看到什麼。</p>
+  <div class="zmid"><p class="zv">把心放回手上</p><div><p class="zq">能量蠟燭、<br>塔羅占卜，<br>即將登場。</p><p class="zs">新的療癒小物與服務，會先在最新消息公告。</p></div></div>
+  <div class="zpair"><figure><img src="img_banner/energy-candle.jpg" alt="" loading="lazy"><figcaption>SOON　能量蠟燭</figcaption></figure><figure><img src="img_banner/tarot.jpg" alt="" loading="lazy"><figcaption>SOON　塔羅占卜</figcaption></figure></div>
+  <p class="zcr"><b>STYLE</b>Dots Journal ｜ Vol. 01 | Dec. 2026　3/3</p>
+</article><p class="zend">imikdots JOURNAL　Vol.02 即將出刊</p></div>
+</section>
+
+<section class="pg" data-pg="goods"><div data-top></div>
+  <div class="ttl"><span data-icon="leaf"></span><h1>商店</h1><p>Kimi 的原創畫作與療癒小物，把療癒帶回家。</p></div>
+  <div class="sp-tabs"><button class="on" data-sp="all">全部</button><button data-sp="art">原創畫作</button><button data-sp="energy">療癒小物</button><button data-sp="collab">聯名合作</button></div>
+  <div class="pgrid" id="pgrid"></div>
+  <div class="sp-ship"><b>運送說明</b>全館滿 NT$1,500 免運，未滿酌收 NT$80。原創畫作為單件作品，售出即下架。</div>
+</section>
+
+<section class="pg" data-pg="product"><div data-top="sub"></div>
+  <div id="pd"></div>
+  <div class="pd-bar"><div><small>小計</small><b id="pdSum"></b></div><button class="btn ghost" id="pdAdd">加入購物車</button><button class="btn" id="pdBuy">立即購買</button></div>
+</section>
+
+<section class="pg" data-pg="cart"><div data-top="sub"></div>
+  <div class="ck2"><h1>Checkout<i id="ckTitle">報名結帳</i></h1>
+    <div data-items></div>
+    <div class="sum"><div><span>小計</span><span data-sub></span></div><div data-offrow><span>同行優惠</span><span data-off></span></div><div data-shiprow><span>運費</span><span data-ship></span></div><div class="tot"><span>合計</span><span data-total></span></div></div>
+    <div data-shipform><p class="lbl" style="margin-top:6px">Shipping　收件資料</p>
+      <div class="fm"><input placeholder="收件人姓名"><input type="tel" placeholder="手機號碼"><select><option>7-11 店到店（輸入門市）</option><option>全家店到店（輸入門市）</option><option>宅配到府（輸入地址）</option></select><input placeholder="門市名稱或收件地址"></div></div>
+    <div data-signform><p class="lbl" style="margin-top:6px">Sign up　報名資料</p>
+      <div class="fm"><input id="suName" placeholder="姓名" autocomplete="name"><input id="suPhone" type="tel" placeholder="手機號碼" autocomplete="tel"><input id="suLine" placeholder="LINE 名稱（方便我們聯繫妳）"></div></div>
+    <p class="lbl" style="margin-top:6px">Payment　付款方式</p>
+    <button class="box" data-pay="card"><b>CARD</b>信用卡一次付清<span class="r"></span></button>
+    <button class="box" data-pay="transfer"><b>BANK</b>銀行轉帳<span class="r"></span></button>
+    <button class="box" data-pay="linepay"><b>LINE PAY</b>LINE Pay 掃碼付款<span class="r"></span></button>
+    <button class="box" data-pay="installment"><b>分期</b>中租分期（師資班）<span class="r"></span></button>
+    <div style="height:10px"></div><button class="btn full" data-submit id="ckBtn">送出報名</button>
+    <p class="sec">🔒 Secure Checkout</p><div style="height:20px"></div>
+  </div>
+</section>
+
+<section class="pg" data-pg="done"><div data-top></div>
+  <div class="dn"><span data-icon="leaf"></span><small>THANK YOU</small><h1>訂單已成立</h1><p class="no" id="dnNo"></p>
+  <p id="dnMsg">謝謝妳的支持 🌿<br>確認信已寄到妳的信箱，商品會在 3–5 個工作天內寄出，出貨時會再通知妳。</p>
+  <div class="dn-list" id="dnList"></div>
+  <div class="pi" id="dnPay" hidden></div>
+  <a class="btn full" id="dnLine" href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener" hidden style="margin-bottom:10px">加入官方 LINE</a>
+  <button class="btn full" data-go="goods">繼續逛逛</button><button class="btn full ghost" data-go="home" style="margin-top:10px">回首頁</button>
+  <p class="sec" id="dnNote">商品訂單目前是模擬畫面；課程報名會直接送到 Kimi 的報名表</p></div>
+</section>
+
+
+<!-- 魔法卡抽牌視窗 -->
+<div class="mkm" id="dk" hidden>
+  <div class="dk-bg" data-dkx></div>
+  <div class="dk-box">
+    <button class="dk-x" data-dkx aria-label="關閉">×</button>
+    <small class="dk-ey">MAGIC CARD</small>
+    <h3>抽一張今天的魔法訊息</h3>
+    <p class="dk-sub">深呼吸，想著此刻的自己，再按下抽牌。</p>
+    <div class="dk-card" id="dkCard"><div class="dk-in">
+      <div class="dk-back"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="3.6"/><circle cx="12" cy="12" r=".6"/></svg></div>
+      <div class="dk-front"><i class="dk-n" id="dkN"></i><span class="dk-emb" id="dkE"></span><b id="dkT"></b><small id="dkEn"></small><hr><p id="dkM"></p></div>
+    </div></div>
+    <button class="btn full" id="dkBtn">抽一張牌</button>
+    <p class="dk-note" id="dkNote"></p>
+  </div>
+</div>
+<section class="pg" data-pg="students"><div data-top="sub"></div>
+  <div class="ttl"><span data-icon="leaf"></span><small class="ey">STUDENT WORKS</small><h1>學生作品</h1><p>每一幅都是同學在課堂上親手完成的唷❤️</p></div>
+  <div class="fl"><span class="on" data-sf="basic">零基礎班</span><span data-sf="teacher">師資班</span></div>
+  <div data-sg="basic"><p class="snote">零基礎的同學，一個下午茶的時間完成的第一幅作品</p><div class="sgrid"><img src="img_sq/new1.jpg" alt="學員作品" loading="lazy"><img src="img_sq/new2.jpg" alt="學員作品" loading="lazy"><img src="img_sq/new3.jpg" alt="學員作品" loading="lazy"><img src="img_sq/new4.jpg" alt="學員作品" loading="lazy"><img src="img_sq/new5.jpg" alt="學員作品" loading="lazy"><img src="img_sq/new6.jpg" alt="學員作品" loading="lazy"><img src="img_sq/gallery1.jpg" alt="學員作品" loading="lazy"><img src="img_sq/gallery6.jpg" alt="學員作品" loading="lazy"><img src="img_sq/gallery9.jpg" alt="學員作品" loading="lazy"><img src="img_sq/gallery2.jpg" alt="學員作品" loading="lazy"><img src="img_sq/gallery5.jpg" alt="學員作品" loading="lazy"><img src="img_sq/gallery7.jpg" alt="學員作品" loading="lazy"><img src="img_sq/gallery3.jpg" alt="學員作品" loading="lazy"><img src="img_sq/gallery4.jpg" alt="學員作品" loading="lazy"><img src="img_sq/gallery8.jpg" alt="學員作品" loading="lazy"></div></div>
+  <div data-sg="teacher" hidden><p class="snote">兩日師資班同學完成的進階作品</p><div class="sgrid"><img data-src="img/final-teacher.jpg" alt="師資班學員作品" loading="lazy"><img data-src="img/mandala-navy.jpg" alt="師資班學員作品" loading="lazy"><img data-src="img/work1.jpg" alt="師資班學員作品" loading="lazy"><img data-src="img/work3.jpg" alt="師資班學員作品" loading="lazy"><img data-src="img/work4.jpg" alt="師資班學員作品" loading="lazy"><img data-src="img/work6.jpg" alt="師資班學員作品" loading="lazy"><img data-src="img/work7.jpg" alt="師資班學員作品" loading="lazy"><img data-src="img/work2.jpg" alt="師資班學員作品" loading="lazy"><img data-src="img/work5.jpg" alt="師資班學員作品" loading="lazy"></div></div>
+  <div class="cta"><button class="btn full" data-go="shop">我也想畫一幅</button></div>
+</section>
+<section class="pg" data-pg="about"><div data-top="sub"></div>
+  <div class="ttl"><span data-icon="leaf"></span><small class="ey">ABOUT</small><h1>關於 Kimi</h1><p>陪你從「畫畫」開始，創造自己喜歡的生活方式。</p></div>
+  <div class="abt"><img data-src="img/kimi-portrait.jpg" alt="Kimi"><div><b>Kimi 老師</b><small>從事各產業教職事業 6 年・學生 300+</small><span>曼陀羅老師／美業老師／影音創作者</span></div></div>
+  <div class="txt"><p>國立高雄科技大學行銷系畢業、國立中興大學科技管理研究所畢業。曾任職於廣告業、電商行銷產業與美業創業 8 年，後來轉身走進療癒繪畫教學。</p><p>希望陪你在忙碌的世界裡，慢慢找回屬於自己的節奏。</p></div>
+  <div class="cta"><button class="btn full" data-go="shop">看看課程</button></div>
+</section>
+
+<section class="pg" data-pg="news"><div data-top="sub"></div>
+  <div class="ttl"><span data-icon="leaf"></span><small class="ey">NEWS</small><h1>最新消息</h1><p>課程、新服務與活動，都會先在這裡公告。</p></div>
+  <div class="nws">
+    <button class="nw" data-go="shop"><small>2026.11　課程</small><b>零基礎班全台開班中</b><span>台中、桃園等地近期都有場次，1 人也能報名線上課。</span></button>
+    <button class="nw" data-soon><small>即將登場　好物</small><b>能量蠟燭</b><span>手繪點點曼陀羅燭台，點亮一盞療癒燭光。</span></button>
+    <button class="nw" data-soon><small>即將登場　服務</small><b>塔羅牌占卜</b><span>抽一張牌，聽聽內心的聲音。</span></button>
+  </div>
+</section>
+
+<section class="pg" data-pg="faq"><div data-top="sub"></div>
+  <div class="ttl"><span data-icon="leaf"></span><small class="ey">Q &amp; A</small><h1>常見問題</h1><p>報名前想知道的事，都整理在這裡。</p></div>
+  <div class="qa">
+    <details open><summary>需要帶什麼嗎？</summary><p>零基礎課程什麼都不用帶，開心來就好！師資班請自備「平頭筆」及「點珠筆」。</p></details>
+    <details><summary>完全沒畫過畫可以嗎？</summary><p>可以！零基礎課程就是為新手設計的，一個下午茶的時間完整教會基本功。</p></details>
+    <details><summary>人數不夠會開班嗎？</summary><p>台中班、線上課 1 人就開班，時間可討論；台中以外的縣市滿 3 人才開班。最晚於開課前一週通知，未成功開班全額退費，也可延期或轉讓。</p></details>
+    <details><summary>臨時不能來怎麼辦？</summary><p>完成匯款後如因個人因素無法參加，可延期補課或轉讓他人，恕不退費。</p></details>
+    <details><summary>有線上課嗎？</summary><p>有！選「線上課」填好報名資料送出，我們會用 LINE 跟你約上課時間。工具材料包會寄到家，上課時在家透過視訊跟著老師一起畫。線上課 1 人就開班，每人 NT$3,333，已含材料包與運費。</p></details>
+    <details><summary>可以帶小朋友嗎？</summary><p>大人與小朋友同價，歡迎攜伴，但請家長協助照顧。</p></details>
+    <details><summary>師資班可以分期嗎？</summary><p>可以，師資班提供中租分期，送出報名後小幫手會用 LINE 提供分期資訊。</p></details>
+  </div>
+</section>
+
+<section class="pg" data-pg="contact"><div data-top="sub"></div>
+  <div class="ttl"><span data-icon="leaf"></span><small class="ey">CONTACT</small><h1>聯繫我</h1><p>報名、包班、合作邀約，都歡迎找我聊聊。</p></div>
+  <div class="cts">
+    <a class="ct" href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener"><b>官方 LINE</b><span>場次・報名・諮詢，回覆最快</span><i>→</i></a>
+    <a class="ct" href="https://www.instagram.com/imikdots" target="_blank" rel="noopener"><b>Instagram</b><span>@imikdots・作品與課程日常</span><i>→</i></a>
+  </div>
+  <p class="lbl" style="padding:0 20px">Studio　上課地點</p>
+  <ul class="rows" style="padding:0 20px" id="venues"></ul>
+</section>
+
+<template id="tpl-item"><div class="ci"><img src="{img}" alt=""><div class="t"><b>{name}</b><span>{meta}</span><em>{price}</em></div><div class="qty"><button data-q="-1" data-i="{i}">−</button><span>{qty}</span><button data-q="1" data-i="{i}">+</button></div><button class="del" data-del="{i}"><svg viewBox="0 0 24 24"><path d="M5 7h14M9.5 7V5h5v2M7 7l1 12h8l1-12"/></svg></button></div></template>
+</div>
+<script src="../data.js"></script>
+<script src="shared.js"></script>
+<script>
+// 橫幅輪播：無限循環。頭尾各放一張複製頁，滑到複製頁時瞬間跳回真的那頁，看起來就像一直轉下去
+(function () {
+  var car, dots, n, t, busy;
+  function step() { return car.clientWidth; }
+  function raw() { return Math.round(car.scrollLeft / step()); }
+  function jump(i) { car.style.scrollSnapType = 'none'; car.scrollLeft = i * step(); car.offsetHeight; car.style.scrollSnapType = ''; }
+  function mark() { var r = (raw() - 1 + n) % n; dots.forEach(function (d, i) { d.classList.toggle('on', i === r); }); }
+  function settle() { var i = raw(); if (i === 0) jump(n); else if (i === n + 1) jump(1); mark(); }
+  function go(delta) { car.scrollTo({ left: (raw() + delta) * step(), behavior: 'smooth' }); }
+  function auto() { clearInterval(t); t = setInterval(function () { if (document.querySelector('[data-pg="home"].on')) go(1); }, 5000); }
+  document.addEventListener('DOMContentLoaded', function () {
+    car = document.getElementById('car'); dots = Array.from(document.querySelectorAll('#cdots button'));
+    var real = Array.from(car.children); n = real.length;
+    car.insertBefore(real[n - 1].cloneNode(true), real[0]);
+    car.appendChild(real[0].cloneNode(true));
+    requestAnimationFrame(function () { jump(1); mark(); });
+    window.addEventListener('resize', function () { jump(((raw() - 1 + n) % n) + 1); });
+    car.addEventListener('scroll', function () { clearTimeout(car._m); car._m = setTimeout(settle, 90); }, { passive: true });
+    car.addEventListener('touchstart', auto, { passive: true });
+    dots.forEach(function (d, i) { d.onclick = function () { car.scrollTo({ left: (i + 1) * step(), behavior: 'smooth' }); auto(); }; });
+    document.getElementById('carPrev').onclick = function () { go(-1); auto(); };
+    document.getElementById('carNext').onclick = function () { go(1); auto(); };
+    auto();
+  });
+})();
+</script>
+<script>
+// ===== 商店模擬：商品資料（價格、選項都是示意，之後換成真的）=====
+var PRODUCTS = [
+  { id: 'art-quiet', brief: '奶茶與金色的點點，從中心畫出安靜的節奏。', cat: 'art', ask: true, tag: '', name: '〈靜〉', en: 'Original Art No.01', price: 6800, stock: 1,
+    imgs: ['img/mandala-beige.jpg', 'img/final-beginner.jpg', 'img/work6.jpg'],
+    opts: [{ name: '畫架', list: ['附木質小畫架', '不需要畫架'] }],
+    desc: '奶茶色系的點點曼陀羅，從中心一個點開始，一圈一圈畫出安靜的節奏。放在書桌、玄關或床頭，都很適合。',
+    spec: [['尺寸', '直徑 15cm 圓形畫板'], ['材質', '木質畫板、壓克力顏料'], ['保護', '表面亮光保護漆'], ['附件', '手寫作品卡']] },
+  { id: 'art-ripple', brief: '金色與墨綠交錯，掛在客廳就是整面牆的焦點。', cat: 'art', ask: true, tag: '', name: '〈金色漣漪〉', en: 'Original Art No.03', price: 12800, stock: 1,
+    imgs: ['img/work3.jpg', 'img/mandala-navy.jpg', 'img/work1.jpg'],
+    opts: [{ name: '包裝', list: ['標準包裝', '禮物包裝 +NT$150'] }],
+    desc: '30cm 圓形畫布，金色與墨綠交錯，掛在客廳就是整面牆的焦點。',
+    spec: [['尺寸', '直徑 30cm 圓形畫布含框'], ['材質', '畫布、壓克力顏料'], ['吊掛', '背面附掛勾'], ['附件', '手寫作品卡']] },
+  { id: 'art-dawn', brief: '暖橘與奶白交織，像早晨照進房間的第一道光。', cat: 'art', ask: true, tag: '', name: '〈晨光〉', en: 'Original Art No.02', price: 5800, stock: 1,
+    imgs: ['img/work4.jpg', 'img/mandala-beige.jpg'],
+    opts: [{ name: '畫架', list: ['附木質小畫架', '不需要畫架'] }],
+    desc: '暖橘與奶白交織，像早晨第一道光照進房間。適合放在每天起床第一眼會看到的地方。',
+    spec: [['尺寸', '直徑 15cm 圓形畫板'], ['材質', '木質畫板、壓克力顏料'], ['附件', '手寫作品卡']] },
+  { id: 'art-forest', brief: '墨綠一圈圈像樹的年輪，提醒自己慢慢呼吸。', cat: 'art', ask: true, tag: '', name: '〈森林呼吸〉', en: 'Original Art No.04', price: 8800, stock: 1,
+    imgs: ['img/gallery4.jpg', 'img/work1.jpg'],
+    opts: [{ name: '包裝', list: ['標準包裝', '禮物包裝 +NT$150'] }],
+    desc: '墨綠為底，一圈圈像樹的年輪，提醒自己慢慢呼吸、好好長大。',
+    spec: [['尺寸', '直徑 20cm 圓形畫板'], ['材質', '木質畫板、壓克力顏料'], ['附件', '手寫作品卡']] },
+  { id: 'art-night', brief: '深藍夜空裡的點點星光，睡前看一眼就安靜下來。', cat: 'art', ask: true, tag: '', name: '〈星夜〉', en: 'Original Art No.05', price: 7200, stock: 1,
+    imgs: ['img/gallery8.jpg', 'img/mandala-navy.jpg'],
+    opts: [{ name: '畫架', list: ['附木質小畫架', '不需要畫架'] }],
+    desc: '深藍夜空裡的點點星光，適合放在臥室，睡前看一眼就安靜下來。',
+    spec: [['尺寸', '直徑 20cm 圓形畫板'], ['材質', '木質畫板、壓克力顏料'], ['附件', '手寫作品卡']] },
+  { id: 'candle', brief: '大豆蠟加天然精油，杯身是 Kimi 手繪的曼陀羅。', cat: 'energy', tag: '', name: '能量手作蠟燭', en: 'Energy Candle', price: 880, stock: 20,
+    imgs: ['img_banner/energy-candle.jpg', 'img/work2.jpg', 'img/mandala-beige.jpg'],
+    opts: [{ name: '香味', list: ['白鼠尾草', '薰衣草', '檀香'] }, { name: '燭杯', list: ['手繪曼陀羅杯', '素面杯 −NT$100'] }],
+    desc: '大豆蠟加天然精油，杯身是 Kimi 手繪的點點曼陀羅。點上一盞，讓房間和心都慢下來。',
+    spec: [['容量', '180g，約可燃燒 35 小時'], ['材質', '大豆蠟、天然精油、棉芯'], ['杯身', '手繪壓克力，蠟燭用完可當小物收納']] },
+  { id: 'bracelet', brief: 'Kimi 親手挑選串製，附手繪曼陀羅小卡。', cat: 'energy', tag: '', name: '天然水晶手串', en: 'Crystal Bracelet', price: 1280, stock: 0,
+    imgs: ['img_banner/bracelet.jpg'],
+    opts: [{ name: '水晶', list: ['白水晶', '粉晶', '黃水晶'] }, { name: '手圍', list: ['S 14–15cm', 'M 15–16cm', 'L 16–17cm'] }],
+    desc: '每一條都由 Kimi 親手挑選與串製，搭配手繪曼陀羅小卡，送人自用都好。',
+    spec: [['珠徑', '8mm'], ['材質', '天然水晶、彈性線'], ['附件', '手繪曼陀羅小卡、收納袋']] },
+  { id: 'coaster', brief: '竹製杯墊防水好清潔，每天喝水都有一點療癒。', cat: 'energy', tag: '', name: '手繪曼陀羅杯墊', en: 'Mandala Coaster', price: 580, stock: 15,
+    imgs: ['img/work2.jpg', 'img/work6.jpg'],
+    opts: [{ name: '色系', list: ['大地奶茶', '森林綠', '夜空藍'] }],
+    desc: '竹製杯墊加環氧樹脂封層，防水好清潔。每天喝水都有一點小療癒。',
+    spec: [['尺寸', '直徑 10cm'], ['材質', '竹片、壓克力顏料、環氧樹脂']] },
+  { id: 'spray', brief: '天然精油調香，幫空間和心情都換個氣。', cat: 'energy', tag: '', name: '淨化能量噴霧', en: 'Aura Spray', price: 680, stock: 18,
+    imgs: ['img_banner/energy-candle.jpg', 'img/mandala-beige.jpg'],
+    opts: [{ name: '香味', list: ['白鼠尾草', '甜橙', '薰衣草'] }],
+    desc: '天然精油調香，畫畫前、冥想前噴一下，幫空間和心情都換個氣。',
+    spec: [['容量', '100ml'], ['成分', '純水、天然精油、植物酒精']] },
+  { id: 'cards', brief: '每天抽一張，給自己一句溫柔的話。', cat: 'energy', tag: '', name: '每日能量小卡組', en: 'Daily Words Cards', price: 450, stock: 30,
+    imgs: ['img_banner/tarot.jpg', 'img/work5.jpg'],
+    opts: [{ name: '款式', list: ['30 張基本款', '60 張完整版 +NT$300'] }],
+    desc: '把網站上的每日能量小語做成卡片，每天抽一張，給自己一句溫柔的話。',
+    spec: [['尺寸', '9 × 6cm'], ['內容', '手繪曼陀羅插圖＋能量小語'], ['附件', '收納盒']] },
+  { id: 'bi-bm-now', brief: 'NFC 微光書籤，在需要的時候給你一句剛剛好的話。', cat: 'collab', tag: '', name: '微光書籤｜我現在，只想靜一下', en: 'Glow Bookmark', price: 366, ext: true, url: 'https://www.beinside.com.tw/Product1.aspx?id=PBH23081100001',
+    imgs: ['img_collab/beinside_00001.jpg'], desc: '與「在裡面 beinside」聯名，點選後到對方官網下單。' },
+  { id: 'bi-bm-rel', brief: '關係覺察書籤卡，陪你看見關係裡的自己。', cat: 'collab', tag: '', name: '關係覺察書籤卡｜他現在，有想我嗎？', en: 'Relationship Bookmark', price: 588, ext: true, url: 'https://www.beinside.com.tw/Product1.aspx?id=PBH23081100002',
+    imgs: ['img_collab/beinside_00002.jpg'], desc: '與「在裡面 beinside」聯名，點選後到對方官網下單。' },
+  { id: 'bi-set-now', brief: '微光書籤加相框，把溫柔的話留在身邊。', cat: 'collab', tag: '', name: '給當下的你｜微光書籤＋相框組', en: 'Bookmark & Frame Set', price: 888, ext: true, url: 'https://www.beinside.com.tw/Product1.aspx?id=pbh23081100004',
+    imgs: ['img_collab/beinside_00006.jpg'], desc: '與「在裡面 beinside」聯名，點選後到對方官網下單。' },
+  { id: 'bi-set-rel', brief: '覺察書籤加相框，送給正在關係裡的你。', cat: 'collab', tag: '', name: '關係中的你｜覺察書籤＋相框組', en: 'Bookmark & Frame Set', price: 888, ext: true, url: 'https://www.beinside.com.tw/Product1.aspx?id=pbh23081100006',
+    imgs: ['img_collab/beinside_00005.jpg'], desc: '與「在裡面 beinside」聯名，點選後到對方官網下單。' },
+  { id: 'bi-fr-now', brief: 'NFC 微光相框，輕輕一碰就收到一段話。', cat: 'collab', tag: '', name: '給當下的你｜NFC 微光相框', en: 'Glow Frame', price: 666, ext: true, url: 'https://www.beinside.com.tw/Product1.aspx?id=pbh23081100003',
+    imgs: ['img_collab/beinside_00003.jpg'], desc: '與「在裡面 beinside」聯名，點選後到對方官網下單。' },
+  { id: 'bi-fr-rel', brief: 'NFC 微光相框，為關係留一盞溫柔的光。', cat: 'collab', tag: '', name: '關係中的你｜NFC 微光相框', en: 'Glow Frame', price: 666, ext: true, url: 'https://www.beinside.com.tw/Product1.aspx?id=pbh23081100005',
+    imgs: ['img_collab/beinside_00004.jpg'], desc: '與「在裡面 beinside」聯名，點選後到對方官網下單。' }
+];
+function PI(src) { return src.indexOf('img/') === 0 ? IMG + src : src; }
+function pAdj(o) { var m = (o || '').match(/([+−-])NT\$(\d+)/); return m ? (m[1] === '+' ? 1 : -1) * (+m[2]) : 0; }
+var PD = { id: null, sel: [], qty: 1, pic: 0 };
+var SP_CATS = [['art', 'Original Art', '原創畫作'], ['energy', 'Healing', '療癒小物'], ['collab', 'Collab', '聯名合作']];
+function pCard(p) {
+  return '<button class="pc" data-pid="' + p.id + '"><span class="pim"><img src="' + PI(p.imgs[0]) + '" alt="" loading="lazy">' + (p.tag ? '<i>' + p.tag + '</i>' : '') + '</span>' +
+    '<small>' + p.en + '</small><b>' + p.name + '</b><p class="pbrief">' + (p.brief || '') + '</p><span class="pp">' + (p.ask ? '' : money(p.price)) + (p.ext ? '<em>官網 ↗</em>' : '') + '</span></button>';
+}
+function renderShop(cat) {
+  var el = document.getElementById('pgrid'); setTimeout(function () { el.classList.remove('fx'); void el.offsetWidth; el.classList.add('fx'); }, 0);
+  if (!cat || cat === 'all') {
+    el.className = 'pshelves';
+    el.innerHTML = SP_CATS.map(function (c) {
+      var list = PRODUCTS.filter(function (p) { return p.cat === c[0]; });
+      if (!list.length) return '';
+      return '<div class="sh"><h3>' + c[1] + '<i>' + c[2] + '</i></h3><button class="vmore" data-sp="' + c[0] + '">更多<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button></div>' +
+        '<div class="prow">' + list.map(pCard).join('') + '</div>';
+    }).join('');
+    return;
+  }
+  el.className = 'pgrid';
+  el.innerHTML = PRODUCTS.filter(function (p) { return p.cat === cat; }).map(pCard).join('');
+}
+function renderShop_old(cat) {
+  document.getElementById('pgrid').innerHTML = PRODUCTS.filter(function (p) { return !cat || cat === 'all' || p.cat === cat; }).map(function (p) {
+    return '<button class="pc" data-pid="' + p.id + '"><span class="pim"><img src="' + PI(p.imgs[0]) + '" alt="" loading="lazy">' + (p.tag ? '<i>' + p.tag + '</i>' : '') + '</span>' +
+      '<small>' + p.en + '</small><b>' + p.name + '</b><p class="pbrief">' + (p.brief || '') + '</p><span class="pp">' + (p.ask ? '' : money(p.price)) + (p.ext ? '<em>官網 ↗</em>' : '') + '</span></button>';
+  }).join('');
+}
+function renderPD() {
+  var p = PRODUCTS.filter(function (x) { return x.id === PD.id; })[0]; if (!p) return;
+  var opts = (p.opts || []).map(function (o, oi) {
+    return '<p class="pd-l">' + o.name + '</p><div class="pd-o">' + o.list.map(function (v, vi) { return '<button class="' + (PD.sel[oi] === vi ? 'on' : '') + '" data-po="' + oi + ':' + vi + '">' + v + '</button>'; }).join('') + '</div>';
+  }).join('');
+  document.getElementById('pd').innerHTML =
+    '<div class="pd-g"><div class="carw"><div class="pd-imgs" id="pdImgs">' + p.imgs.map(function (s) { return '<img src="' + PI(s) + '" alt="">'; }).join('') + '</div>' +
+      (p.imgs.length > 1 ? '<button class="carr prev" data-pdp="-1" aria-label="上一張"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><button class="carr next" data-pdp="1" aria-label="下一張"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>' : '') + '</div>' +
+    '<div class="pd-dots">' + p.imgs.map(function (s, k) { return '<i class="' + (k === PD.pic ? 'on' : '') + '"></i>'; }).join('') + '</div></div>' +
+    '<div class="pd-b"><small>' + p.en + '</small><h1>' + p.name + '</h1>' + (p.ask ? '<p class="pd-ask">這是 Kimi 的單件原創作品。<br>若有意願收藏，歡迎私訊詢價 🤍</p>' : '<p class="pd-p">' + money(p.price) + (p.stock === 0 ? '<span class="oos">缺貨</span>' : '') + '</p>' +
+    opts + '<p class="pd-l">數量</p><div class="pd-q"><button data-pq="-1">−</button><span>' + PD.qty + '</span><button data-pq="1">+</button></div>') +
+    '<p class="pd-d">' + p.desc + '</p><dl class="pd-s">' + (p.spec || []).map(function (r) { return '<dt>' + r[0] + '</dt><dd>' + r[1] + '</dd>'; }).join('') + '</dl>' +
+    '<details class="pd-x"><summary>運送與退換貨</summary><p>滿 NT$1,500 免運，未滿酌收 NT$80。下單後 3–5 個工作天出貨。手作商品如有瑕疵，收到 7 天內聯繫官方 LINE 協助換貨。原創畫作為單件作品，恕不退換。</p></details>' +
+    '<p class="pd-l" style="margin-top:26px">你可能也喜歡</p><div class="pd-r">' + PRODUCTS.filter(function (x) { return x.id !== p.id && !x.ext; }).slice(0, 3).map(function (x) {
+      return '<button data-pid="' + x.id + '"><img src="' + PI(x.imgs[0]) + '" alt=""><b>' + x.name + '</b><span>' + (x.ask ? '' : money(x.price)) + '</span></button>'; }).join('') + '</div></div>';
+  var u = unitPrice(p); document.getElementById('pdSum').textContent = money(u * PD.qty);
+  var oos = p.stock === 0; ['pdAdd', 'pdBuy'].forEach(function (id) { var b = document.getElementById(id); b.disabled = oos; b.classList.toggle('off', oos); }); document.getElementById('pdBuy').textContent = p.ask ? '私訊詢價' : oos ? '缺貨中' : '立即購買';
+  document.querySelector('.pd-bar').classList.toggle('ask', !!p.ask);
+  var im = document.getElementById('pdImgs');
+  im.addEventListener('scroll', function () { var k = Math.round(im.scrollLeft / im.clientWidth); if (k !== PD.pic) { PD.pic = k; document.querySelectorAll('.pd-dots i').forEach(function (d, j) { d.classList.toggle('on', j === k); }); } }, { passive: true });
+}
+function unitPrice(p) { return p.price + (p.opts || []).reduce(function (a, o, oi) { return a + pAdj(o.list[PD.sel[oi]]); }, 0); }
+function openPD(id) {
+  var p = PRODUCTS.filter(function (x) { return x.id === id; })[0];
+  if (p.ext) { window.open(p.url, '_blank', 'noopener'); return; }
+  PD = { id: id, sel: (p.opts || []).map(function () { return 0; }), qty: 1, pic: 0 }; go('product'); renderPD();
+}
+function addProduct(buy) {
+  var _a = PRODUCTS.filter(function (x) { return x.id === PD.id; })[0]; if (_a && _a.ask) { window.open('https://lin.ee/5rqtuQw', '_blank', 'noopener'); return; }
+  var _p = PRODUCTS.filter(function (x) { return x.id === PD.id; })[0]; if (_p && _p.stock === 0) { toast('這件商品目前缺貨'); return; }
+  var p = PRODUCTS.filter(function (x) { return x.id === PD.id; })[0];
+  var optText = (p.opts || []).map(function (o, oi) { return o.list[PD.sel[oi]].replace(/\s*[+−-]NT\$\d+/, ''); }).join('・');
+  var key = 'p:' + p.id + ':' + optText, ex = S.cart.filter(function (x) { return x.key === key; })[0];
+  var maxQ = p.stock || 9;
+  if (ex) ex.qty = Math.min(maxQ, ex.qty + PD.qty);
+  else S.cart.push({ key: key, k: 'p:' + p.id, prod: p, opt: optText || '—', qty: Math.min(maxQ, PD.qty), price: unitPrice(p), img: PI(p.imgs[0]) });
+  S.cart = S.cart.filter(function (x) { return !x.demo; });
+  updateCount();
+  if (buy) go('cart'); else toast('已加入購物車 🛒');
+}
+document.addEventListener('DOMContentLoaded', function () {
+  renderShop('all');
+  document.getElementById('pdAdd').onclick = function () { addProduct(false); };
+  document.getElementById('pdBuy').onclick = function () { addProduct(true); };
+});
+document.addEventListener('click', function (e) {
+  var t = e.target.closest('[data-sp]');
+  if (t) { var k = t.dataset.sp; document.querySelectorAll('.sp-tabs [data-sp]').forEach(function (b) { b.classList.toggle('on', b.dataset.sp === k); }); renderShop(k); if (!t.closest('.sp-tabs')) window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+  t = e.target.closest('[data-pid]'); if (t) { openPD(t.dataset.pid); return; }
+  t = e.target.closest('[data-pdp]'); if (t) { var im = document.getElementById('pdImgs'), n = im.children.length, k = (Math.round(im.scrollLeft / im.clientWidth) + (+t.dataset.pdp) + n) % n; im.scrollTo({ left: k * im.clientWidth, behavior: 'smooth' }); return; }
+  t = e.target.closest('[data-po]'); if (t) { var a = t.dataset.po.split(':'); PD.sel[+a[0]] = +a[1]; renderPD(); return; }
+  t = e.target.closest('[data-pq]'); if (t) { var p = PRODUCTS.filter(function (x) { return x.id === PD.id; })[0]; PD.qty = Math.max(1, Math.min(p.stock || 9, PD.qty + (+t.dataset.pq))); renderPD(); return; }
+});
+</script>
+<script>
+// 首頁問候語：以療癒自己為主軸，每次重新整理隨機換一句
+var HI = ['Hi，今天過得好嗎？', 'Hi，今天有好好照顧自己嗎？', 'Hi，今天想怎麼寵愛自己？', 'Hi，先深呼吸一下吧。', 'Hi，今天想為自己做點什麼？', 'Hi，辛苦了，歡迎回來。', 'Hi，今天的心情是什麼顏色？', 'Hi，今天也給自己一點時間吧。', 'Hi，累了就在這裡休息一下。', 'Hi，今天想讓什麼事療癒你？'];
+document.addEventListener('DOMContentLoaded', function () { var b = document.getElementById('hiTxt'); if (b) b.textContent = HI[Math.floor(Math.random() * HI.length)]; });
+// 每日能量小語（正向肯定語，不推課程）：每次重新整理隨機換一句，之後可以直接改這個清單
+var DAILY = [
+  '我值得被好好愛著。',
+  '我接納今天的自己。',
+  '我溫柔聆聽自己的感受。',
+  '一切都是最好的安排。',
+  '我已經足夠好了。',
+  '我允許自己慢下來。',
+  '我的內在充滿力量。',
+  '我放下擔心，活在此刻。',
+  '我是自己最好的陪伴。',
+  '我值得擁有美好與豐盛。',
+  '每一天，我都在變得更好。',
+  '謝謝自己，一路走到這裡。',
+  '我信任自己的直覺。',
+  '我的存在就是一份禮物。'
+];
+document.addEventListener('DOMContentLoaded', function () {
+  var t = new Date(), n = Math.floor((t - new Date(t.getFullYear(), 0, 0)) / 864e5);
+  var dqi = Math.floor(Math.random() * DAILY.length);
+  document.getElementById('dq').innerHTML = DAILY[dqi];
+  var band = document.getElementById('dq').closest('.band');
+  if (band) { band.style.cursor = 'pointer'; band.addEventListener('click', function () { dqi = (dqi + 1) % DAILY.length; document.getElementById('dq').innerHTML = DAILY[dqi]; }); }
+  var v = document.getElementById('venues'); if (v && window.VENUES) v.innerHTML = Object.keys(VENUES).map(function (c) { return '<li><span>' + c + '</span><span>' + VENUES[c] + '</span></li>'; }).join('') + '<li><span>線上</span><span>在家視訊上課，材料包寄到家</span></li>';
+  document.getElementById('dd').textContent = ['Jan.','Feb.','Mar.','Apr.','May','Jun.','Jul.','Aug.','Sep.','Oct.','Nov.','Dec.'][t.getMonth()] + ' ' + t.getDate() + ', ' + t.getFullYear();
+});
+
+// 全部課程分類切換
+document.addEventListener('click', function (e) {
+  var t = e.target.closest('[data-cf]'); if (!t) return;
+  var k = t.dataset.cf, pg = t.closest('.pg');
+  pg.querySelectorAll('[data-cf]').forEach(function (b) { b.classList.toggle('on', b === t); });
+  var ls = pg.querySelector('.list'); ls.classList.remove('fx'); void ls.offsetWidth; ls.classList.add('fx');
+  pg.querySelectorAll('.list [data-cat]').forEach(function (el) { el.hidden = el.classList.contains('cempty') ? k !== 'other' : !(k === 'all' || el.dataset.cat === k); });
+});
+
+// 首頁探索／選單：直接跳到商店的某個分類（goods#art、goods#energy）
+document.addEventListener('click', function (e) {
+  var t = e.target.closest('[data-go^="goods#"]'); if (!t) return;
+  e.preventDefault(); e.stopPropagation();
+  document.body.classList.remove('dopen');
+  var k = t.dataset.go.split('#')[1];
+  go('goods');
+  var b = document.querySelector('.sp-tabs [data-sp="' + k + '"]'); if (b) b.click();
+}, true);
+
+// 學生作品：零基礎班／師資班切換
+document.addEventListener('click', function (e) {
+  var t = e.target.closest('[data-sf]'); if (!t) return;
+  var k = t.dataset.sf, pg = t.closest('.pg');
+  pg.querySelectorAll('[data-sf]').forEach(function (b) { b.classList.toggle('on', b === t); });
+  pg.querySelectorAll('[data-sg]').forEach(function (g) { var on = g.dataset.sg === k; g.hidden = !on; if (on) { g.classList.remove('fx'); void g.offsetWidth; g.classList.add('fx'); } });
+});
+
+// 零基礎班時長改寫成「一個下午茶的時間」（不動正式網站 data.js）
+(function () {
+  var c = window.COURSES && COURSES.beginner; if (!c || !c.info) return;
+  c.info.forEach(function (r) { if (r[0] === '課程時長') r[1] = '3 小時 30 分鐘'; });
+})();
+
+// 探索：預設顯示 4 格，按「更多」往下展開成 8 格
+document.addEventListener('click', function (e) {
+  var t = e.target.closest('[data-exp]'); if (!t) return;
+  var c = document.querySelector('[data-pg="home"] .cols'), open = c.classList.toggle('open');
+  t.classList.toggle('open', open); t.firstChild.nodeValue = open ? '收起' : '更多';
+  c.querySelectorAll('.cx').forEach(function (x) { x.classList.remove('fx'); void x.offsetWidth; if (open) x.classList.add('fx'); });
+});
+
+// 魔法卡抽牌：10 分鐘內只能抽一次（記在這台裝置的瀏覽器）
+// 原創魔法卡 22 張（0～XXI）：之後要改文字直接改這裡
+var DECK = [
+  { n: '0', k: 'creature', t: '信使貓頭鷹', en: 'The Messenger Owl', m: '好消息正在路上，\n耐心等它飛來。' },
+  { n: 'I', k: 'creature', t: '月光獨角獸', en: 'The Moon Unicorn', m: '你的純粹與溫柔，\n就是你最強的魔法。' },
+  { n: 'II', k: 'creature', t: '浴火鳳凰', en: 'The Phoenix', m: '每一次結束，\n都是重生的開始。' },
+  { n: 'III', k: 'creature', t: '守寶小龍', en: 'The Little Dragon', m: '好好守護\n你心裡珍惜的人事物。' },
+  { n: 'IV', k: 'creature', t: '夜色黑貓', en: 'The Black Cat', m: '相信你的直覺，\n它比你以為的更準。' },
+  { n: 'V', k: 'creature', t: '織夢蜘蛛', en: 'The Dream Weaver', m: '一點一點慢慢織，\n你正在編織自己的人生。' },
+  { n: 'VI', k: 'creature', t: '林間白鹿', en: 'The White Stag', m: '你比自己想像的\n更勇敢。' },
+  { n: 'VII', k: 'creature', t: '星光蝴蝶', en: 'The Star Butterfly', m: '改變正在悄悄發生，\n給它一點時間。' },
+  { n: 'VIII', k: 'character', t: '老巫師', en: 'The Old Wizard', m: '先停下來，\n聽聽內在的聲音。' },
+  { n: 'IX', k: 'character', t: '小學徒', en: 'The Apprentice', m: '每天練習一點點，\n就會看見改變。' },
+  { n: 'X', k: 'character', t: '森林守護者', en: 'The Guardian', m: '有人正在\n默默守護著你。' },
+  { n: 'XI', k: 'character', t: '星象師', en: 'The Stargazer', m: '時機到了，\n一切自然會發生。' },
+  { n: 'XII', k: 'character', t: '藥草師', en: 'The Herbalist', m: '好好照顧自己，\n就是最好的療癒。' },
+  { n: 'XIII', k: 'character', t: '勇敢騎士', en: 'The Brave Knight', m: '今天，\n為自己勇敢一次。' },
+  { n: 'XIV', k: 'character', t: '月亮女巫', en: 'The Moon Witch', m: '擁抱你溫柔\n又強大的那一面。' },
+  { n: 'XV', k: 'item', t: '魔杖', en: 'The Wand', m: '改變的力量，\n一直握在你手中。' },
+  { n: 'XVI', k: 'item', t: '飛天掃帚', en: 'The Broom', m: '放下包袱，\n讓自己輕盈起飛。' },
+  { n: 'XVII', k: 'item', t: '水晶球', en: 'The Crystal Ball', m: '答案其實\n早就在你心裡。' },
+  { n: 'XVIII', k: 'item', t: '魔藥瓶', en: 'The Potion', m: '給自己一點時間，\n慢慢調配剛好的配方。' },
+  { n: 'XIX', k: 'item', t: '古老魔法書', en: 'The Spellbook', m: '你走過的每一步，\n都是寶貴的咒語。' },
+  { n: 'XX', k: 'item', t: '星空斗篷', en: 'The Starry Cloak', m: '允許自己躲起來，\n好好休息一下。' },
+  { n: 'XXI', k: 'item', t: '時光沙漏', en: 'The Hourglass', m: '不用急，\n屬於你的時間剛剛好。' }
+];
+var DK_EMB = {
+  creature: '<svg viewBox="0 0 24 24"><path d="M12 4c2.5 2.6 2.5 5.4 0 8-2.5-2.6-2.5-5.4 0-8zM12 12c3.2-1.6 6-1 8 1.5-3.2 1.6-6 1-8-1.5zM12 12c-3.2-1.6-6-1-8 1.5 3.2 1.6 6 1 8-1.5zM12 12v8"/><circle cx="12" cy="12" r=".5"/></svg>',
+  character: '<svg viewBox="0 0 24 24"><path d="M12 2.5l3 7.5H9z"/><path d="M6.5 10h11"/><circle cx="12" cy="14" r="3"/><path d="M6.5 21c.8-2.6 3-4 5.5-4s4.7 1.4 5.5 4"/><circle cx="12" cy="14" r=".4"/></svg>',
+  item: '<svg viewBox="0 0 24 24"><path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6z"/><circle cx="18" cy="18" r="1.6"/><circle cx="6" cy="17" r="1"/><circle cx="12" cy="20" r=".5"/></svg>'
+};
+(function () {
+  var KEY = 'imk_magic_draw', WAIT = 10 * 60 * 1000, box = document.getElementById('dk');
+  function get() { try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { return null; } }
+  function set(v) { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch (e) {} }
+  function show(i) { var c = DECK[i] || DECK[0]; document.getElementById('dkN').textContent = c.n; document.getElementById('dkE').innerHTML = '<img src="img_magic/card' + ('0' + DECK.indexOf(c)).slice(-2) + '.jpg" alt="">'; document.getElementById('dkT').textContent = c.t; document.getElementById('dkEn').textContent = c.en; document.getElementById('dkM').innerHTML = c.m.replace(/\n/g, '<br>'); }
+  function refresh() {
+    var r = get(), btn = document.getElementById('dkBtn'), note = document.getElementById('dkNote'), card = document.getElementById('dkCard');
+    if (r && Date.now() - r.at < WAIT) {
+      show(r.i); card.classList.add('flip');
+      var m = Math.ceil((WAIT - (Date.now() - r.at)) / 60000);
+      btn.disabled = true; btn.classList.add('off'); btn.textContent = '今天的訊息已經抽好了';
+      note.textContent = '把這句話帶在身上，' + m + ' 分鐘後可以再抽一張。';
+    } else {
+      card.classList.remove('flip'); btn.disabled = false; btn.classList.remove('off'); btn.textContent = '抽一張牌'; note.textContent = '每 10 分鐘可以抽一次';
+    }
+  }
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('[data-deck]')) { e.preventDefault(); refresh(); box.hidden = false; requestAnimationFrame(function () { box.classList.add('on'); }); return; }
+    if (e.target.closest('[data-dkx]')) { box.classList.remove('on'); setTimeout(function () { box.hidden = true; }, 250); return; }
+    if (e.target.closest('#dkBtn')) {
+      var r = get(); if (r && Date.now() - r.at < WAIT) { refresh(); return; }
+      var i = Math.floor(Math.random() * DECK.length); set({ at: Date.now(), i: i }); show(i);
+      setTimeout(refresh, 700); document.getElementById('dkCard').classList.add('flip');
+    }
+  });
+})();
+
+// 首頁「近期開課」：從場次資料抓最近 3 場（零基礎班＋師資班），點了進課程頁報名
+function renderUpcoming() {
+  var el = document.getElementById('upc'); if (!el || typeof sessionsFor !== 'function') return;
+  var W = ['日', '一', '二', '三', '四', '五', '六'], list = [];
+  ['beginner', 'teacher'].forEach(function (k) { sessionsFor(k).forEach(function (s) { if (s.date) list.push({ k: k, s: s }); }); });
+  list.sort(function (a, b) { return (a.s.date + a.s.time).localeCompare(b.s.date + b.s.time); });
+  list = list.slice(0, 3);
+  if (!list.length) { el.innerHTML = '<p class="upc-none">新場次即將公布，歡迎先用 LINE 詢問 🌿</p>'; return; }
+  el.innerHTML = list.map(function (x) {
+    var s = x.s, p = s.date.split('-'), d = new Date(+p[0], +p[1] - 1, +p[2]), on = /線上/.test(s.location);
+    var name = x.k === 'teacher' ? '兩日師資班' : (on ? '零基礎班・線上' : '零基礎班');
+    var when = x.k === 'teacher' && s.endDate ? (+p[1]) + '/' + (+p[2]) + '–' + (+s.endDate.split('-')[2]) : '週' + W[d.getDay()];
+    return '<button class="upc-i" data-go="course:' + x.k + '"><span class="upc-d"><small>' + (+p[1]) + '月</small><b>' + (+p[2]) + '</b></span>' +
+      '<span class="upc-t"><b>' + name + '</b><small>' + s.location + '・' + when + '・' + s.time + '</small></span><i class="more">報名' + '<svg viewBox=\"0 0 24 24\"><path d=\"M9 5l7 7-7 7\"/></svg>' + '</i></button>';
+  }).join('');
+}
+document.addEventListener('DOMContentLoaded', renderUpcoming);
+
+// 結帳頁：購物車有課程時才顯示「報名資料」
+(function () { var r = window.renderCart; if (!r) return; window.renderCart = function () { r.apply(this, arguments); var f = document.querySelector('[data-signform]'); if (f) f.style.display = S.cart.some(function (x) { return !x.prod; }) ? '' : 'none'; }; })();
+</script>
+</body></html>

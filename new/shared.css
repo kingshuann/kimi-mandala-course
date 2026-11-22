@@ -1,0 +1,121 @@
+/* 三版共用骨架：每一版再用自己的 CSS 換顏色和排版 */
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Noto Sans TC',sans-serif;line-height:1.6;font-size:14.5px;background:var(--desk);color:var(--ink);letter-spacing:.02em}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-align:inherit}
+.app{max-width:440px;margin:0 auto;min-height:100vh;background:var(--bg);position:relative;padding-bottom:calc(76px + env(safe-area-inset-bottom));overflow-x:clip}
+.pg{display:none}.pg.on{display:block}
+.en{font-family:'Marcellus',serif;letter-spacing:.2em;text-transform:uppercase}
+.serif{font-family:'Noto Serif TC',serif}
+.lf{fill:none;stroke:currentColor;stroke-width:1}
+
+/* 頂部 */
+.tb{position:sticky;top:0;z-index:30;display:grid;grid-template-columns:76px 1fr 76px;align-items:center;height:64px;padding:0 10px;background:var(--tb-bg,var(--bg))}
+.tb-l{width:40px;height:40px;display:grid;place-items:center;color:var(--tb-ink,var(--olive))}
+.tb-logo{width:46px !important;height:46px !important}
+.tb-logo img{width:46px;height:46px;object-fit:contain;mix-blend-mode:multiply}
+.tb svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.5}
+.wm{text-align:center;cursor:pointer;color:var(--tb-ink,var(--olive));line-height:1}
+.wm b{display:block;font-family:'Marcellus',serif;font-weight:400;font-size:24px;letter-spacing:.16em;padding-left:.16em}
+.wm small{display:block;font-family:'Noto Serif TC',serif;font-size:10px;letter-spacing:.3em;margin-top:5px;padding-left:.3em;opacity:.8}
+.tb-r{display:flex;justify-content:flex-end;color:var(--tb-ink,var(--olive))}
+.tb-r button{position:relative;width:36px;height:40px;display:grid;place-items:center}
+.cnt{position:absolute;top:5px;right:2px;min-width:15px;height:15px;border-radius:8px;background:var(--olive);color:var(--cream);font-size:9.5px;font-style:normal;display:grid;place-items:center;padding:0 3px;border:1.5px solid var(--bg)}
+.cnt:empty{display:none}
+
+/* 底部導覽列：最右邊是選單 */
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:440px;z-index:40;display:grid;grid-template-columns:repeat(5,1fr);background:var(--nav-bg);color:var(--nav-ink);-webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%);border-top:1px solid rgba(255,255,255,.22);box-shadow:0 -6px 24px rgba(40,44,32,.12);padding:8px 4px calc(8px + env(safe-area-inset-bottom));border-radius:var(--nav-r,0)}
+.nav button{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10.5px;letter-spacing:.06em;white-space:nowrap;opacity:.62;text-align:center}
+.nav button.on{opacity:1}
+.nav svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.4}
+
+/* 右側滑出選單 */
+.dbg{position:fixed;inset:0;z-index:50;background:rgba(25,28,20,.45);opacity:0;pointer-events:none;transition:opacity .25s}
+.drw{position:fixed;top:0;bottom:0;right:max(0px,calc(50vw - 220px));z-index:51;width:min(80vw,310px);background:var(--drw-bg,var(--olive));color:var(--drw-ink,var(--cream));padding:22px 26px calc(24px + env(safe-area-inset-bottom));display:flex;flex-direction:column;transform:translateX(100%);visibility:hidden;transition:transform .32s cubic-bezier(.2,.8,.2,1),visibility .32s;overflow-y:auto}
+body.dopen .dbg{opacity:1;pointer-events:auto}
+body.dopen .drw{transform:none;visibility:visible}
+.drw-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-family:'Marcellus',serif;letter-spacing:.3em;font-size:11px;opacity:.85}
+.drw-h button{font-size:30px;line-height:1;width:36px;height:36px;margin-right:-8px}
+.drw-i{display:block;width:100%;padding:13px 0;border-bottom:1px solid var(--drw-line,rgba(243,238,228,.16));font-family:'Noto Serif TC',serif;font-size:17.5px;letter-spacing:.14em}
+.drw-i small{display:block;font-family:'Marcellus',serif;font-size:9.5px;letter-spacing:.3em;opacity:.65}
+.drw-i.soon{opacity:.6}
+.drw-i.sub{font-size:14.5px;padding:9px 0 9px 16px;border-bottom:0;position:relative;letter-spacing:.1em}
+.drw-i.sub::before{content:'';position:absolute;left:2px;top:50%;width:7px;height:1px;background:currentColor;opacity:.6}
+.drw-i.sub+.drw-i:not(.sub){border-top:1px solid var(--drw-line,rgba(243,238,228,.16))}
+.drw-i i{font-style:normal;font-family:'Noto Sans TC';font-size:10.5px;border:1px solid currentColor;border-radius:99px;padding:0 7px;margin-left:4px;white-space:nowrap}
+.drw-s{display:flex;flex-direction:column;gap:11px;margin-top:20px;font-size:13.5px;letter-spacing:.12em;opacity:.85}
+.drw-f{margin-top:auto;padding-top:24px;font-family:'Marcellus',serif;font-size:9px;letter-spacing:.4em;opacity:.7}
+.drw-f b{display:block;font-weight:400;font-size:20px;letter-spacing:.16em;margin-bottom:4px}
+.drw-f{font-family:'Noto Serif TC',serif !important;letter-spacing:.3em !important;font-size:10.5px !important}
+.drw-f b{font-family:'Marcellus',serif}
+
+.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:60;background:var(--ink);color:var(--cream);font-size:13px;padding:10px 16px;border-radius:12px;opacity:0;transition:.25s;pointer-events:none;max-width:84vw;text-align:center}
+.toast.on{opacity:1}
+.hint{font-size:12.5px;color:var(--muted);padding:4px 0}
+.dates,.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+.dates::-webkit-scrollbar,.chips::-webkit-scrollbar{display:none}
+.dt{flex:0 0 58px;text-align:center;border-radius:14px;padding:7px 0}
+.dt small{display:block;font-size:10.5px;opacity:.7}
+.dt b{display:block;font-size:18px;line-height:1.2;font-weight:600}
+.dt span{font-size:10.5px;opacity:.75}
+.chip{flex-shrink:0;padding:6px 15px;border-radius:999px;font-size:13px;white-space:nowrap}
+
+/* 選單精緻版（2026-11-22）：字和行距縮小 */
+.drw{padding-top:20px}
+.drw-h{margin-bottom:8px}
+.drw-i{padding:7px 0;font-size:14px;letter-spacing:.16em}
+.drw-i small{font-size:9px;letter-spacing:.32em;margin-bottom:0}
+.drw-i.sub{font-size:12px;padding:5px 0 5px 16px;letter-spacing:.14em}
+.drw-i i{font-size:9.5px;padding:0 6px}
+.drw-s{margin-top:16px;font-size:12px}
+
+/* 選單不顯示英文小字 */
+.drw-i small{display:none}
+.drw-i{padding:10px 0}
+.drw-i.sub{padding:6px 0 6px 16px}
+
+/* 課程子項目再往右縮排 */
+.drw-i.sub{padding-left:32px}
+.drw-i.sub::before{left:16px}
+
+/* 選單字大一號 */
+.drw-i{font-size:15px !important}
+.drw-i.sub{font-size:13px !important}
+.drw-i i{font-size:10.5px !important}
+
+/* 選單：全部課程可以收合 */
+.drw-acc{display:flex !important;align-items:center;justify-content:space-between}
+.drw-acc svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.8;transition:transform .3s}
+.drw-acc.open svg{transform:rotate(180deg)}
+.drw-sub{display:grid;grid-template-rows:0fr;transition:grid-template-rows .32s ease}
+.drw-sub > div{overflow:hidden}
+.drw-acc.open + .drw-sub{grid-template-rows:1fr}
+.drw-acc.open + .drw-sub > div{padding-bottom:6px}
+.drw-sub + .drw-i{border-top:1px solid var(--drw-line,rgba(243,238,228,.16))}
+.drw-acc{border-bottom:0 !important}
+
+/* 底部列剩 4 格（首頁／課程／商店／選單） */
+.nav{grid-template-columns:repeat(4,1fr)}
+
+/* 全部課程：文字點了進課程總覽，右邊箭頭負責展開 */
+.drw-acc{padding:0 !important}
+.drw-acc-t{flex:1;text-align:left;padding:10px 0;font:inherit;letter-spacing:inherit;color:inherit}
+.drw-acc-c{width:40px;height:40px;display:grid;place-items:center;margin-right:-10px;color:inherit}
+
+/* 底部列 AI 圖示 */
+.nav .nav-ic{width:24px;height:24px;display:block}
+.nav .nav-ic{width:26px;height:26px}
+
+/* 課程比較：改成一列一張卡（一般 vs 這堂課） */
+.vs{display:grid;gap:10px}
+.vs-i{background:var(--card2);border-radius:14px;padding:12px 12px 12px}
+.vs-k{font-family:'Noto Serif TC',serif;font-size:14px;letter-spacing:.14em;color:var(--olive);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.vs-k::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--olive2)}
+.vs-g{display:grid;grid-template-columns:1fr 1.25fr;gap:8px}
+.vs-a,.vs-b{border-radius:10px;padding:8px 10px;font-size:12.5px;line-height:1.55}
+.vs-a{color:var(--muted)}
+.vs-a span{text-decoration:line-through;text-decoration-color:rgba(140,134,118,.5)}
+.vs-b{background:var(--olive);color:#F3EEE6;font-weight:500}
+.vs-a small,.vs-b small{display:block;font-size:10.5px;letter-spacing:.12em;opacity:.75;margin-bottom:3px}

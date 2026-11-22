@@ -119,3 +119,18 @@ body.dopen .drw{transform:none;visibility:visible}
 .vs-a span{text-decoration:line-through;text-decoration-color:rgba(140,134,118,.5)}
 .vs-b{background:var(--olive);color:#F3EEE6;font-weight:500}
 .vs-a small,.vs-b small{display:block;font-size:10.5px;letter-spacing:.12em;opacity:.75;margin-bottom:3px}
+
+/* 2026-11-23：拿掉底部列；選單改左上角三條線、從左邊滑出；選單下方放社群連結 */
+.nav{display:none !important}
+.app{padding-bottom:env(safe-area-inset-bottom)}
+.stk{bottom:env(safe-area-inset-bottom) !important}
+.pd-bar{bottom:0 !important;padding-bottom:calc(10px + env(safe-area-inset-bottom)) !important}
+.toast{bottom:calc(84px + env(safe-area-inset-bottom))}
+.tb-lw{display:flex;align-items:center;margin-left:-6px}
+.tb-lw .tb-l{width:38px;height:40px}
+.tb-lw .tb-bk svg{width:20px;height:20px}
+.drw{right:auto;left:max(0px,calc(50vw - 220px));transform:translateX(-100%)}
+.drw-soc{display:flex;gap:12px;justify-content:center;margin-top:auto;padding-top:26px}
+.drw-soc a{width:42px;height:42px;border-radius:50%;background:rgba(243,238,228,.16);display:grid;place-items:center;color:var(--drw-ink,var(--cream))}
+.drw-soc svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7}
+.drw-soc b{font-family:'Noto Sans TC',sans-serif;font-size:10px;font-weight:700;letter-spacing:.02em}

@@ -58,7 +58,7 @@ var S = { page: 'home', k: 'beginner', city: null, sess: null, cart: [], pay: 't
 
 // ---- 共用元件 ----
 function topbar(sub) {
-  return '<header class="tb">' + (sub ? '<button class="tb-l" data-back aria-label="返回">' + ICONS.back + '</button>' : '<span class="tb-l"></span>') +
+  return '<header class="tb"><div class="tb-lw"><button class="tb-l tb-mn" data-menu aria-label="選單"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>' + (sub ? '<button class="tb-l tb-bk" data-back aria-label="返回">' + ICONS.back + '</button>' : '') + '</div>' +
     '<div class="wm" data-go="home"><b>imikdots</b><small>Kimi 點點曼陀羅</small></div>' +
     '<div class="tb-r"><button data-login aria-label="會員登入">' + ICONS.user + '</button><button data-go="cart" aria-label="購物車">' + ICONS.shop + '<em class="cnt"></em></button></div></header>';
 }
@@ -71,6 +71,11 @@ var JOURNAL_ISSUE = '12 月號';
 // 底部列圖示：AI 統一風格（米色去背 PNG），沒有對應圖時用原本的線條
 var NAV_IMG = { home: 'nav_home', brush: 'nav_course', store: 'nav_store', menu: 'nav_menu' };
 function navIcon(k) { return NAV_IMG[k] ? '<img class="nav-ic" src="img_icons/' + NAV_IMG[k] + '.png?v=4" alt="">' : ICONS[k]; }
+// 選單下方的社群連結：[名稱, 網址, 圖示]。要加 Facebook、Threads 就照格式多一行
+var SOCIAL = [
+  ['Instagram', 'https://www.instagram.com/imikdots', '<svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>'],
+  ['LINE 官方帳號', 'https://lin.ee/5rqtuQw', '<b>LINE</b>']
+];
 function drawer() {
   // [連到哪, 英文小字, 名稱, 是否子項目, 即將推出]
   var it = [['home', 'HOME', '首頁'], ['about', 'ABOUT', '關於 Kimi'], ['works', 'JOURNAL', '點點月刊 <i>' + JOURNAL_ISSUE + '</i>'], ['shop', 'COURSES', '全部課程', 0, 0, 1],
@@ -88,6 +93,7 @@ function drawer() {
       if (x[5]) return '<div class="drw-i drw-acc"><button class="drw-acc-t" data-go="' + x[0] + '">' + x[2] + '</button><button class="drw-acc-c" data-acc aria-expanded="false" aria-label="展開子項目"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button></div><div class="drw-sub"><div>';
       return '<button class="drw-i" data-go="' + x[0] + '"><small>' + x[1] + '</small>' + x[2] + '</button>';
     }).join('') +
+    '<div class="drw-soc">' + SOCIAL.map(function (s) { return '<a href="' + s[1] + '" target="_blank" rel="noopener" aria-label="' + s[0] + '">' + s[2] + '</a>'; }).join('') + '</div>' +
     '</aside><div class="toast" id="toast"></div>';
 }
 function toast(m) { var t = document.getElementById('toast'); t.textContent = m; t.classList.add('on'); clearTimeout(t._t); t._t = setTimeout(function () { t.classList.remove('on'); }, 2000); }

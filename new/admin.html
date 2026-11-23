@@ -6,16 +6,19 @@
 <meta name="robots" content="noindex,nofollow">
 <title>imikdots 後台</title>
 <style>
-:root{--bg:#EEE6D8;--card:#F5EFE5;--olive:#3E4733;--olive2:#58624A;--cream:#F3EDE2;--ink:#2F3328;--muted:#8C8676;--line:rgba(47,51,40,.14);--warn:#A0603A}
+:root{--bg:#EEE6D8;--card:#F5EFE5;--olive:#3E4733;--olive2:#58624A;--cream:#F3EDE2;--ink:#2F3328;--muted:#8C8676;--line:rgba(47,51,40,.14);--warn:#A0603A;--sage:#DCE0CC}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Noto Sans TC',-apple-system,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.55}
-button,input,select{font:inherit;color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer;border:0;background:none}
 .wrap{max-width:1100px;margin:0 auto;padding:18px 16px 60px}
 header{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:16px}
 h1{font-size:19px;letter-spacing:.12em;color:var(--olive)}
 .btn{background:var(--olive);color:var(--cream);border-radius:8px;padding:8px 14px;font-size:13px;letter-spacing:.06em}
 .btn.gh{background:transparent;border:1px solid var(--olive);color:var(--olive)}
+.btn.sm{padding:5px 10px;font-size:12px}
+.btn.wr{background:transparent;border:1px solid var(--warn);color:var(--warn)}
+.btn:disabled{opacity:.5}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
 .login{max-width:360px;margin:60px auto;display:grid;gap:10px}
 .login input,.bar input,.bar select,td select,td input{height:40px;border:1px solid var(--line);border-radius:8px;padding:0 10px;background:#fff8;width:100%}
@@ -39,27 +42,99 @@ td select{height:32px;width:auto}
 td input.note{height:32px;min-width:120px}
 .tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:99px;background:var(--bg);color:var(--olive)}
 .tag.w{background:var(--olive);color:var(--cream)}
+.tag.o{background:var(--warn);color:#fff}
 .st-待對帳{color:var(--warn);font-weight:700}
 .msg{color:var(--warn);font-size:13px}
 .muted{color:var(--muted);font-size:12.5px}
 .back{margin-bottom:10px}
-@media (max-width:600px){h1{font-size:17px}.stats b{font-size:17px}}
+
+/* ---- 排課 ---- */
+.alert{background:#F6E7DA;border:1px solid #E2C3A8;border-radius:12px;padding:12px 14px;margin-bottom:12px}
+.alert b{color:var(--warn)}
+.alert ul{margin:6px 0 0 18px;font-size:13px}
+.alert li{margin:3px 0}
+.mnav{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.mnav h2{font-size:17px;color:var(--olive);letter-spacing:.08em;min-width:118px;text-align:center}
+.mnav .sp{flex:1}
+.legend{display:flex;gap:10px;font-size:11.5px;color:var(--muted);margin-bottom:6px;flex-wrap:wrap}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cal .wd{text-align:center;font-size:11.5px;color:var(--muted);padding:2px 0}
+.cal .d{min-height:78px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:3px;cursor:pointer;display:flex;flex-direction:column;gap:2px;overflow:hidden}
+.cal .d.out{opacity:.35}
+.cal .d.past{background:#ece6da}
+.cal .d.today{border-color:var(--olive);box-shadow:inset 0 0 0 1px var(--olive)}
+.cal .d.sel{background:#fff;border-color:var(--olive)}
+.cal .n{font-size:12px;font-weight:700;color:var(--olive)}
+.chip{font-size:10.5px;line-height:1.25;border-radius:4px;padding:1px 2px;letter-spacing:-.02em;background:var(--sage);color:var(--olive);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip.t{background:var(--olive);color:var(--cream)}
+.chip.x{background:#e3ddd2;color:#a39c8c;text-decoration:line-through}
+.chip b{font-weight:700}.chip em{font-style:normal;font-weight:700;margin-left:1px}
+.day{margin-top:14px}
+.day h3{font-size:16px;color:var(--olive);margin-bottom:8px}
+.adds{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.adds button{border:1px dashed var(--olive);border-radius:10px;padding:8px 12px;color:var(--olive);background:#fff6;font-size:13px;text-align:left}
+.adds button small{display:block;font-size:11px;color:var(--muted)}
+.ss{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px}
+.ss.cx{background:#ebe5da}
+.ss-h{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:flex-start}
+.ss-h b{font-size:15px}
+.ss-a{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.stu{border-top:1px dashed var(--line);margin-top:8px;padding-top:8px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center}
+.stu .who small{display:block;color:var(--muted);font-size:11.5px}
+.stu .acts{display:flex;gap:5px;flex-wrap:wrap}
+.hist{font-size:11.5px;color:var(--muted);margin-top:2px}
+.mdl{position:fixed;inset:0;background:rgba(30,32,26,.45);display:flex;align-items:flex-end;justify-content:center;z-index:50}
+.mdl-b{background:var(--cream);width:100%;max-width:520px;max-height:92vh;overflow:auto;border-radius:16px 16px 0 0;padding:18px 16px 22px}
+@media (min-width:640px){.mdl{align-items:center}.mdl-b{border-radius:16px}}
+.mdl-b h3{font-size:16px;color:var(--olive);margin-bottom:12px}
+.fld{margin-bottom:12px}
+.fld>label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
+.fld input,.fld textarea{width:100%;height:40px;border:1px solid var(--line);border-radius:8px;padding:0 10px;background:#fff}
+.fld textarea{height:70px;padding:8px 10px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{border:1px solid var(--line);border-radius:99px;padding:6px 13px;background:#fff;font-size:13px}
+.seg button.on{background:var(--olive);color:var(--cream);border-color:var(--olive)}
+.mdl-f{display:flex;gap:8px;justify-content:flex-end;margin-top:14px}
+.pick{display:grid;gap:6px}
+.pick button{text-align:left;border:1px solid var(--line);border-radius:10px;padding:9px 12px;background:#fff}
+.pick button small{color:var(--muted)}
+.toast{position:fixed;left:50%;top:16px;transform:translateX(-50%);background:var(--olive);color:var(--cream);padding:10px 16px;border-radius:10px;font-size:13px;z-index:60;max-width:90vw;text-align:center;box-shadow:0 4px 16px #0003}
+@media (max-width:600px){h1{font-size:17px}.stats b{font-size:17px}.cal .d{min-height:64px}.chip{font-size:9.5px}.wrap{padding:14px 10px 60px}}
 </style>
 </head>
 <body>
 <div class="wrap" id="app"><p class="muted" style="padding:40px 0;text-align:center">載入中…</p></div>
+<div id="mdl"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
-<script src="sb-config.js?v=1123m"></script>
+<script src="sb-config.js?v=1124a"></script>
 <script>
-// imikdots 後台：看會員、訂單，改對帳狀態，匯出電子報名單
-var A = { tab: 'orders', brand: 'mandala', q: '', st: 'all', members: [], orders: [], who: null };
-var app = document.getElementById('app');
+// imikdots 後台：排課、看會員、訂單，改對帳狀態，匯出電子報名單
+// 排課（2026-11-23）：場次存在 Supabase，官網直接讀；每次改完會請 Google 試算表跟著同步
+var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwBrx3RqcjnG-TIbsNJlAx_rC7WWA3s8NONsc-Fm_FZ_QUwrJo0A_H5UOTe7S3D_YD-NA/exec';
+var A = { tab: 'sched', brand: 'mandala', q: '', st: 'all', members: [], orders: [], sess: [], enr: [], ym: '', day: '', who: null, schedOff: false };
+var app = document.getElementById('app'), mdl = document.getElementById('mdl');
 var STATUS = ['待對帳', '已對帳', '已完成', '已取消'];
 var BR = { mandala: '曼陀羅', ronin: '浪人' };
+var CITIES = ['台北', '新北', '桃園', '新竹', '台中', '高雄'];
+var SLOTS = [['早上', '09:00', '12:30'], ['下午', '13:30', '17:00'], ['晚上', '18:30', '22:00']];
+var CNAME = { beginner: '零基礎', teacher: '兩日師資班' };
+var WEEK = ['日', '一', '二', '三', '四', '五', '六'];
 function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
 function money(n) { return 'NT$' + (n || 0).toLocaleString('en-US'); }
 function dt(d, t) { if (!d) return ''; var x = new Date(d); return x.getFullYear() + '/' + (x.getMonth() + 1) + '/' + x.getDate() + (t ? ' ' + String(x.getHours()).padStart(2, '0') + ':' + String(x.getMinutes()).padStart(2, '0') : ''); }
+function ymd(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+function today() { return ymd(new Date()); }
+function addDays(s, n) { var p = s.split('-'); return ymd(new Date(+p[0], +p[1] - 1, +p[2] + n)); }
+function md(s) { var p = s.split('-'); return (+p[1]) + '/' + (+p[2]) + '（' + WEEK[new Date(+p[0], +p[1] - 1, +p[2]).getDay()] + '）'; }
+function sTime(s) { return s.time_start + '－' + s.time_end; }
+function sDate(s) { return md(s.date) + (s.end_date && s.end_date !== s.date ? '～' + md(s.end_date) : ''); }
+function sLabel(s) { return s.location + ' ' + sDate(s) + ' ' + sTime(s); }
+function slotOf(s) { if (s.course === 'teacher') return '師'; var h = parseInt(s.time_start, 10); return h < 12 ? '早' : h < 18 ? '午' : '晚'; }
+function toast(t) { var e = document.createElement('div'); e.className = 'toast'; e.textContent = t; document.body.appendChild(e); setTimeout(function () { e.remove(); }, 3800); }
+function closeM() { mdl.innerHTML = ''; }
 
 if (!SB_URL || !SB_KEY) { app.innerHTML = '<div class="card login"><h1>imikdots 後台</h1><p class="muted">會員系統還沒連上資料庫（sb-config.js 還沒填）</p></div>'; }
 else {
@@ -87,19 +162,23 @@ function start(user) {
   });
 }
 
-function load() {
-  app.innerHTML = '<p class="muted" style="padding:40px 0;text-align:center">讀取資料中…</p>';
-  Promise.all([
+function load(keep) {
+  if (!keep) app.innerHTML = '<p class="muted" style="padding:40px 0;text-align:center">讀取資料中…</p>';
+  return Promise.all([
     sb.from('members').select('*').order('created_at', { ascending: false }).limit(5000),
-    sb.from('orders').select('*').order('created_at', { ascending: false }).limit(5000)
+    sb.from('orders').select('*').order('created_at', { ascending: false }).limit(5000),
+    sb.rpc('admin_sessions'),
+    sb.from('enrollments').select('*').order('id').limit(10000)
   ]).then(function (r) {
     A.members = r[0].data || []; A.orders = r[1].data || [];
+    A.schedOff = !!r[2].error; A.sess = r[2].data || []; A.enr = r[3].data || [];
     render();
   });
 }
 
 function byBrand(x) { return A.brand === 'all' || x.brand === A.brand; }
 function itemsText(o) { return (o.items || []).map(function (x) { return esc(x.name) + (x.detail ? '<small>' + esc(x.detail) + '</small>' : ''); }).join(''); }
+function welcomeEnd(m) { var a = new Date(m.created_at).getTime() + 30 * 864e5, b = m.welcome_until ? new Date(m.welcome_until).getTime() : 0; return new Date(Math.max(a, b)); }
 
 function render() {
   var ms = A.members.filter(byBrand), os = A.orders.filter(byBrand);
@@ -107,14 +186,16 @@ function render() {
   var monthOrders = os.filter(function (o) { var d = new Date(o.created_at); return d.getFullYear() + '-' + d.getMonth() === ym && o.status !== '已取消'; });
   var head = '<header><h1>imikdots 後台</h1><div style="display:flex;gap:8px;flex-wrap:wrap">' +
     '<button class="btn gh" id="reload">重新整理</button><button class="btn gh" id="out">登出</button></div></header>' +
-    '<div class="stats"><div><small>會員人數</small><b>' + ms.length + '</b></div>' +
+    (A.tab === 'sched' ? '' : '<div class="stats"><div><small>會員人數</small><b>' + ms.length + '</b></div>' +
     '<div><small>待對帳</small><b>' + os.filter(function (o) { return o.status === '待對帳'; }).length + ' 筆</b></div>' +
     '<div><small>本月訂單</small><b>' + monthOrders.length + ' 筆</b></div>' +
-    '<div><small>本月金額（不含取消）</small><b>' + money(monthOrders.reduce(function (a, o) { return a + o.total; }, 0)) + '</b></div></div>' +
-    '<div class="tabs"><button data-tab="orders" class="' + (A.tab === 'orders' ? 'on' : '') + '">訂單</button><button data-tab="members" class="' + (A.tab !== 'orders' ? 'on' : '') + '">會員</button></div>';
+    '<div><small>本月金額（不含取消）</small><b>' + money(monthOrders.reduce(function (a, o) { return a + o.total; }, 0)) + '</b></div></div>') +
+    '<div class="tabs"><button data-tab="sched" class="' + (A.tab === 'sched' ? 'on' : '') + '">排課</button><button data-tab="orders" class="' + (A.tab === 'orders' ? 'on' : '') + '">訂單</button><button data-tab="members" class="' + (A.tab !== 'orders' && A.tab !== 'sched' ? 'on' : '') + '">會員</button></div>';
   var body = '';
   var q = A.q.toLowerCase();
-  if (A.tab === 'orders') {
+  if (A.tab === 'sched') {
+    body = schedView();
+  } else if (A.tab === 'orders') {
     var list = os.filter(function (o) {
       if (A.st !== 'all' && o.status !== A.st) return false;
       if (!q) return true;
@@ -129,8 +210,8 @@ function render() {
     body = '<div class="bar"><input id="q" placeholder="搜尋姓名、手機、Email" value="' + esc(A.q) + '"><button class="btn gh" id="csvM">匯出電子報名單 CSV</button></div>' +
       '<div class="tw"><table><thead><tr><th>加入日期</th><th>姓名</th><th>手機</th><th>生日</th><th>Email</th><th>電子報</th><th>首購折 100</th><th>訂單</th><th>消費金額</th><th>事業</th></tr></thead><tbody>' +
       (ml.length ? ml.map(function (m) {
-        var c = cnt[m.id] || [0, 0], exp = new Date(new Date(m.created_at).getTime() + 30 * 864e5);
-        var w = m.welcome_used_at ? '已用 ' + dt(m.welcome_used_at) : exp > new Date() ? '<span class="tag w">可用到 ' + dt(exp) + '</span>' : '<span class="muted">已過期</span>';
+        var c = cnt[m.id] || [0, 0], exp = welcomeEnd(m);
+        var w = m.welcome_used_at ? '已用 ' + dt(m.welcome_used_at) : exp > new Date() ? '<span class="tag w">可用到 ' + dt(new Date(exp.getTime() - 1)) + '</span>' + (m.welcome_until ? '<small>取消開課退款後還給他</small>' : '') : '<span class="muted">已過期</span>';
         return '<tr class="click" data-mid="' + m.id + '"><td>' + dt(m.created_at) + '</td><td>' + esc(m.name) + '</td><td>' + esc(m.phone) + '</td><td>' + esc(m.birthday || '') + '</td><td>' + esc(m.email) + '</td><td>' + (m.newsletter ? '✓' : '—') + '</td><td>' + w + '</td><td>' + c[0] + '</td><td>' + money(c[1]) + '</td><td>' + (BR[m.brand] || m.brand) + '</td></tr>';
       }).join('') : '<tr><td colspan="10" class="muted">還沒有會員</td></tr>') + '</tbody></table></div>';
   } else {
@@ -156,15 +237,269 @@ function orderTable(list) {
     }).join('') : '<tr><td colspan="8" class="muted">沒有符合的訂單</td></tr>') + '</tbody></table></div>';
 }
 
+// ================= 排課 =================
+function orderOf(e) { return A.orders.filter(function (o) { return o.id === e.order_id; })[0] || {}; }
+function sessOf(id) { return A.sess.filter(function (s) { return s.id === id; })[0]; }
+function enrOf(sid, all) { return A.enr.filter(function (e) { return e.session_id === sid && (all || e.status === '正常' || e.status === '待處理' || e.status === '延期中'); }); }
+function heads(list) { return list.filter(function (e) { return e.status === '正常'; }).reduce(function (a, e) { return a + (e.qty || 1); }, 0); }
+
+function schedView() {
+  if (A.schedOff) return '<div class="card"><b>排課功能還差一步</b><p class="muted" style="margin-top:6px">資料庫還沒加上排課的設定。請照「會員系統/4_排課系統_Kimi設定步驟.md」第 1 步，把 3_排課系統.sql 貼進 Supabase 執行一次，再回來按「重新整理」。</p></div>';
+  if (!A.ym) A.ym = today().slice(0, 7);
+  var t = today(), h = '';
+
+  // ---- 提醒 ----
+  var todo = A.enr.filter(function (e) { return e.status === '待處理'; });
+  var post = A.enr.filter(function (e) { return e.status === '延期中'; });
+  var unl = A.enr.filter(function (e) { return !e.session_id && e.status === '正常'; });
+  var low = A.sess.filter(function (s) { return s.status === '開放' && s.mode === '實體' && s.location !== '台中' && s.course === 'beginner' && s.date >= t && s.date <= addDays(t, 7) && heads(enrOf(s.id)) < 3; });
+  var li = [];
+  todo.forEach(function (e) { var s = sessOf(e.session_id) || {}; li.push('<li><b>待處理</b>　' + esc(orderOf(e).name) + '（' + esc(e.label) + '）課已取消，要退款、改別堂或延期　<button class="btn sm gh" data-goday="' + (s.date || '') + '">去處理</button></li>'); });
+  post.forEach(function (e) { li.push('<li><b>延期中</b>　' + esc(orderOf(e).name) + '（原 ' + esc(e.label) + '）還沒排新課　<button class="btn sm gh" data-mv="' + e.id + '">排新課</button></li>'); });
+  low.forEach(function (s) { li.push('<li><b>人數不足</b>　' + esc(sLabel(s)) + ' 目前 ' + heads(enrOf(s.id)) + '／3 人，要決定開不開　<button class="btn sm gh" data-goday="' + s.date + '">看這堂</button></li>'); });
+  unl.forEach(function (e) { li.push('<li><b>沒對到場次</b>　' + esc(orderOf(e).name) + '（' + esc(e.label) + '）　<button class="btn sm gh" data-link="' + e.id + '">接到場次</button></li>'); });
+  if (li.length) h += '<div class="alert">⚠️ 有 ' + li.length + ' 件事要處理<ul>' + li.join('') + '</ul></div>';
+  if (!A.sess.length) h += '<div class="card" style="margin-bottom:12px"><b>第一次使用</b><p class="muted" style="margin:4px 0 8px">先把 Google 試算表裡現有的場次搬進來，之後就都在這裡排。重複的不會再加一次。</p><button class="btn" id="imp">從 Google 試算表匯入現有場次</button></div>';
+
+  // ---- 月曆 ----
+  var y = +A.ym.slice(0, 4), m = +A.ym.slice(5, 7);
+  var first = new Date(y, m - 1, 1), startD = new Date(y, m - 1, 1 - first.getDay());
+  var monthCnt = A.sess.filter(function (s) { return s.date.slice(0, 7) === A.ym && s.status === '開放'; });
+  h += '<div class="mnav"><button class="btn gh sm" data-mon="-1">‹ 上個月</button><h2>' + y + ' 年 ' + m + ' 月</h2><button class="btn gh sm" data-mon="1">下個月 ›</button><span class="sp"></span>' +
+    '<span class="muted">這個月 ' + monthCnt.length + ' 堂・' + monthCnt.reduce(function (a, s) { return a + heads(enrOf(s.id)); }, 0) + ' 人報名</span></div>' +
+    '<div class="legend"><span><i style="background:var(--sage)"></i>零基礎（早／午／晚）</span><span><i style="background:var(--olive)"></i>兩日師資班</span><span><i style="background:#e3ddd2"></i>已取消</span><span>數字＝報名人數</span></div>' +
+    '<div class="cal">' + WEEK.map(function (w) { return '<div class="wd">' + w + '</div>'; }).join('');
+  for (var i = 0; i < 42; i++) {
+    var d = new Date(startD.getFullYear(), startD.getMonth(), startD.getDate() + i), ds = ymd(d);
+    if (i >= 35 && d.getMonth() !== m - 1) break;
+    var daySess = A.sess.filter(function (s) { return s.date === ds || (s.end_date && s.date < ds && s.end_date >= ds); });
+    h += '<div class="d' + (d.getMonth() !== m - 1 ? ' out' : '') + (ds < t ? ' past' : '') + (ds === t ? ' today' : '') + (ds === A.day ? ' sel' : '') + '" data-day="' + ds + '"><span class="n">' + d.getDate() + '</span>' +
+      daySess.map(function (s) { var n = heads(enrOf(s.id)); return '<span class="chip' + (s.course === 'teacher' ? ' t' : '') + (s.status !== '開放' ? ' x' : '') + '"><b>' + slotOf(s) + '</b>' + esc(s.location.slice(0, 2)) + (n ? '<em>' + n + '</em>' : '') + '</span>'; }).join('') + '</div>';
+  }
+  h += '</div>';
+
+  // ---- 某一天 ----
+  if (A.day) {
+    var list = A.sess.filter(function (s) { return s.date === A.day || (s.end_date && s.date < A.day && s.end_date >= A.day); });
+    h += '<div class="day" id="dayBox"><h3>' + md(A.day) + (A.day < t ? '　<span class="muted">（已經過了）</span>' : '') + '</h3>' +
+      '<div class="adds">' + SLOTS.map(function (x) { return '<button data-add="' + x[0] + '">＋ ' + x[0] + '<small>' + x[1] + '–' + x[2] + '</small></button>'; }).join('') +
+      '<button data-add="師資班">＋ 兩日師資班<small>' + md(A.day) + '～' + md(addDays(A.day, 1)) + '</small></button></div>' +
+      (list.length ? list.map(sessCard).join('') : '<p class="muted">這天還沒有課，點上面的按鈕開一堂。</p>') + '</div>';
+  } else {
+    h += '<p class="muted" style="margin-top:12px">點月曆上的日期就可以開課、看報名、改時間。</p>';
+  }
+  return h;
+}
+
+function sessCard(s) {
+  var es = enrOf(s.id, true), act = enrOf(s.id), n = heads(act), cx = s.status !== '開放';
+  var h = '<div class="ss' + (cx ? ' cx' : '') + '"><div class="ss-h"><div><b>' + CNAME[s.course] + '　' + sTime(s) + '</b>' +
+    (cx ? '　<span class="tag o">已取消</span>' : '') + '<div class="muted">' + esc(s.mode === '線上' ? '線上課' : s.location + '教室') + '・' + sDate(s) + (s.note ? '・' + esc(s.note) : '') + '</div></div>' +
+    (cx ? '<div class="muted">還要處理 <b style="color:var(--warn);font-size:15px">' + act.filter(function (e) { return e.status === '待處理'; }).length + '</b> 位</div></div>' : '<div class="muted">報名 <b style="color:var(--olive);font-size:15px">' + n + '</b> 人' + (s.course === 'beginner' && s.mode === '實體' && s.location !== '台中' ? '／滿 3 人開班' : '') + '</div></div>');
+  es.forEach(function (e) {
+    var o = orderOf(e), hs = (e.history || []).filter(function (x) { return x.from; }).map(function (x) { return '原 ' + esc(x.from) + ' → 改 ' + esc(x.to) + '（' + dt(x.at) + '）'; });
+    var tag = e.status === '正常' ? '' : '<span class="tag' + (e.status === '待處理' ? ' o' : '') + '">' + e.status + (e.status === '已退款' && e.refund_amount != null ? ' ' + money(e.refund_amount) : '') + '</span> ';
+    var acts = e.status === '正常' ? '<button class="btn sm gh" data-mv="' + e.id + '">換場次</button>'
+      : e.status === '待處理' ? '<button class="btn sm" data-rf="' + e.id + '">退款</button><button class="btn sm gh" data-mv="' + e.id + '">改到別堂</button><button class="btn sm gh" data-pp="' + e.id + '">延期</button><button class="btn sm gh" data-msg="' + e.id + '">複製通知訊息</button>'
+      : e.status === '延期中' ? '<button class="btn sm gh" data-mv="' + e.id + '">排新課</button><button class="btn sm gh" data-rf="' + e.id + '">改成退款</button>' : '';
+    h += '<div class="stu"><div class="who">' + tag + '<b>' + esc(o.name || '（沒有姓名）') + '</b>　' + (e.qty || 1) + ' 人' +
+      '<small>' + esc(o.phone || '') + (o.line_name ? '・LINE ' + esc(o.line_name) : '') + (o.order_no ? '・' + esc(o.order_no) : '') + (o.discount ? '・用了首購折 100' : '') + (o.pay_method ? '・' + esc(o.pay_method) : '') + '</small>' +
+      (hs.length ? '<div class="hist">' + hs.join('<br>') + '</div>' : '') + '</div><div class="acts">' + acts + '</div></div>';
+  });
+  h += '<div class="ss-a">' + (cx ? '<button class="btn sm gh" data-reopen="' + s.id + '">恢復開課</button>' : '<button class="btn sm gh" data-edit="' + s.id + '">改時間／地點</button>') +
+    (act.length ? (cx ? '' : '<button class="btn sm wr" data-cancel="' + s.id + '">取消開課</button>') : '<button class="btn sm wr" data-del="' + s.id + '">✕ 刪除這堂</button>') + '</div></div>';
+  return h;
+}
+
+// ---- 開課／改時間 ----
+function editor(s) {
+  var e = s ? JSON.parse(JSON.stringify(s)) : null;
+  if (!e) return;
+  function draw() {
+    var isT = e.course === 'teacher';
+    mdl.innerHTML = '<div class="mdl" id="mBg"><div class="mdl-b"><h3>' + (e.id ? '改時間／地點' : '開一堂新課') + '</h3>' +
+      '<div class="fld"><label>課程</label><div class="seg">' + ['beginner', 'teacher'].map(function (c) { return '<button data-ec="' + c + '" class="' + (e.course === c ? 'on' : '') + '">' + CNAME[c] + '</button>'; }).join('') + '</div></div>' +
+      '<div class="' + (isT ? 'row2' : '') + '"><div class="fld"><label>' + (isT ? '第一天' : '日期') + '</label><input type="date" id="eD" value="' + e.date + '"></div>' +
+      (isT ? '<div class="fld"><label>第二天</label><input type="date" id="eD2" value="' + (e.end_date || addDays(e.date, 1)) + '"></div>' : '') + '</div>' +
+      (isT ? '' : '<div class="fld"><label>時段（點一下帶入預設時間）</label><div class="seg">' + SLOTS.map(function (x) { return '<button data-es="' + x[0] + '" class="' + (e.time_start === x[1] && e.time_end === x[2] ? 'on' : '') + '">' + x[0] + ' ' + x[1] + '–' + x[2] + '</button>'; }).join('') + '</div></div>') +
+      '<div class="row2"><div class="fld"><label>開始</label><input type="time" id="eT1" value="' + e.time_start + '"></div><div class="fld"><label>結束</label><input type="time" id="eT2" value="' + e.time_end + '"></div></div>' +
+      '<div class="fld"><label>上課方式</label><div class="seg"><button data-em="實體" class="' + (e.mode === '實體' ? 'on' : '') + '">實體課</button><button data-em="線上" class="' + (e.mode === '線上' ? 'on' : '') + '">線上課</button></div></div>' +
+      (e.mode === '實體' ? '<div class="fld"><label>教室</label><div class="seg">' + CITIES.map(function (c) { return '<button data-el="' + c + '" class="' + (e.location === c ? 'on' : '') + '">' + c + '</button>'; }).join('') + '</div></div>' : '') +
+      '<div class="fld"><label>備註（只有妳看得到，選填）</label><input id="eN" value="' + esc(e.note || '') + '" placeholder="例如：團體包班、跟教室確認過了"></div>' +
+      (e.id && enrOf(e.id).length ? '<p class="muted">這堂已經有 ' + heads(enrOf(e.id)) + ' 人報名，存檔後他們的報名紀錄會一起改成新時間，並留下原本時間的紀錄。</p>' : '') +
+      '<div class="mdl-f"><button class="btn gh" data-x>取消</button><button class="btn" id="eSave">存檔</button></div></div></div>';
+  }
+  function grab() {
+    var g = function (id) { var x = document.getElementById(id); return x ? x.value : ''; };
+    e.date = g('eD') || e.date; e.time_start = g('eT1') || e.time_start; e.time_end = g('eT2') || e.time_end; e.note = g('eN');
+    if (e.course === 'teacher') e.end_date = g('eD2') || addDays(e.date, 1); else e.end_date = null;
+  }
+  draw();
+  mdl.onclick = function (ev) {
+    var b = ev.target.closest('button'); if (ev.target.id === 'mBg') return closeM(); if (!b) return;
+    var d = b.dataset;
+    if ('x' in d) return closeM();
+    grab();
+    if (d.ec) { e.course = d.ec; if (d.ec === 'teacher') { e.time_start = '09:00'; e.time_end = '17:00'; e.end_date = addDays(e.date, 1); } else if (e.time_end === '17:00' && e.time_start === '09:00') { e.time_end = '12:30'; } draw(); }
+    else if (d.es) { var x = SLOTS.filter(function (z) { return z[0] === d.es; })[0]; e.time_start = x[1]; e.time_end = x[2]; draw(); }
+    else if (d.em) { e.mode = d.em; if (d.em === '線上') e.location = '線上'; else if (e.location === '線上') e.location = ''; draw(); }
+    else if (d.el) { e.location = d.el; draw(); }
+    else if (b.id === 'eSave') {
+      if (!e.location) return toast('請選教室');
+      if (e.time_end <= e.time_start) return toast('結束時間要比開始晚');
+      var clash = A.sess.filter(function (s) { return s.id !== e.id && s.status === '開放' && (s.date === e.date || (s.end_date && s.date <= e.date && s.end_date >= e.date)) && s.time_start < e.time_end && e.time_start < s.time_end; });
+      if (clash.length && !confirm('這個時間已經有課：' + clash.map(sLabel).join('、') + '\n還是要存嗎？')) return;
+      b.disabled = true; b.textContent = '存檔中…';
+      sb.rpc('admin_session_save', { p: e }).then(function (r) {
+        if (r.error) { b.disabled = false; b.textContent = '存檔'; return alert('存檔失敗：' + r.error.message); }
+        var affected = e.id ? enrOf(e.id).map(function (x) { return x.id; }) : [];
+        closeM(); A.day = e.date; A.ym = e.date.slice(0, 7); done(e.id ? '已改好，官網和學生紀錄都更新了' : '開課成功，官網已經看得到', affected);
+      });
+    }
+  };
+}
+
+// ---- 換場次／排新課 ----
+function movePicker(eid) {
+  var e = A.enr.filter(function (x) { return x.id === eid; })[0]; if (!e) return;
+  var o = orderOf(e), t = today();
+  var opts = A.sess.filter(function (s) { return s.status === '開放' && s.date >= t && s.id !== e.session_id && (!e.course || s.course === e.course); });
+  mdl.innerHTML = '<div class="mdl" id="mBg"><div class="mdl-b"><h3>' + esc(o.name || '') + ' 換到哪一堂？</h3><p class="muted" style="margin-bottom:10px">目前：' + esc(e.label) + '</p>' +
+    (opts.length ? '<div class="pick">' + opts.map(function (s) { return '<button data-to="' + s.id + '"><b>' + sDate(s) + '　' + sTime(s) + '</b>　' + esc(s.location) + '<br><small>' + CNAME[s.course] + '・已報名 ' + heads(enrOf(s.id)) + ' 人</small></button>'; }).join('') + '</div>'
+      : '<p class="muted">還沒有可以換的場次。先在月曆上開一堂新課，再回來換。</p>') +
+    '<p class="muted" style="margin-top:10px">想要的時間還沒開？先關掉這個視窗，在月曆上開好那堂課，再按「換場次」。</p>' +
+    '<div class="mdl-f"><button class="btn gh" data-x>關閉</button></div></div></div>';
+  mdl.onclick = function (ev) {
+    if (ev.target.id === 'mBg' || ev.target.closest('[data-x]')) return closeM();
+    var b = ev.target.closest('[data-to]'); if (!b) return;
+    var s = sessOf(+b.dataset.to);
+    if (!confirm('把 ' + (o.name || '') + ' 換到 ' + sLabel(s) + '？')) return;
+    sb.rpc('admin_enroll_move', { p_id: eid, p_session: s.id }).then(function (r) {
+      if (r.error) return alert('換場次失敗：' + r.error.message);
+      closeM(); A.day = s.date; A.ym = s.date.slice(0, 7); done('已換到 ' + sLabel(s) + '，學生紀錄也改好了', [eid]);
+    });
+  };
+}
+
+// ---- 沒對到場次的報名，接到某一堂 ----
+function linkPicker(eid) {
+  var e = A.enr.filter(function (x) { return x.id === eid; })[0]; if (!e) return;
+  var opts = A.sess.filter(function (s) { return s.status === '開放' && (!e.course || s.course === e.course); });
+  mdl.innerHTML = '<div class="mdl" id="mBg"><div class="mdl-b"><h3>這筆報名是哪一堂？</h3><p class="muted" style="margin-bottom:10px">' + esc(orderOf(e).name) + '：' + esc(e.label) + '</p><div class="pick">' +
+    opts.map(function (s) { return '<button data-to="' + s.id + '"><b>' + sDate(s) + '　' + sTime(s) + '</b>　' + esc(s.location) + '</button>'; }).join('') + '</div><div class="mdl-f"><button class="btn gh" data-x>關閉</button></div></div></div>';
+  mdl.onclick = function (ev) {
+    if (ev.target.id === 'mBg' || ev.target.closest('[data-x]')) return closeM();
+    var b = ev.target.closest('[data-to]'); if (!b) return;
+    sb.rpc('admin_enroll_link', { p_id: eid, p_session: +b.dataset.to }).then(function (r) { if (r.error) return alert(r.error.message); closeM(); done('接好了', []); });
+  };
+}
+
+// ---- 退款 ----
+function refundBox(eid) {
+  var e = A.enr.filter(function (x) { return x.id === eid; })[0]; if (!e) return;
+  var o = orderOf(e), sameOrder = A.enr.filter(function (x) { return x.order_id === e.order_id; });
+  var def = sameOrder.length === 1 && o.total ? o.total : (e.price || 0) * (e.qty || 1);
+  var s = sessOf(e.session_id), until = s ? addDays(s.date, 30) : addDays(today(), 30);
+  var others = sameOrder.filter(function (x) { return x.id !== e.id && x.status !== '已退款' && x.status !== '已取消'; }).length;
+  mdl.innerHTML = '<div class="mdl" id="mBg"><div class="mdl-b"><h3>退款給 ' + esc(o.name || '') + '</h3><p class="muted" style="margin-bottom:10px">' + esc(e.label) + '</p>' +
+    '<div class="row2"><div class="fld"><label>退多少（元）</label><input id="rA" type="number" inputmode="numeric" value="' + def + '"></div><div class="fld"><label>退款日期</label><input id="rD" type="date" value="' + today() + '"></div></div>' +
+    (o.discount && o.member_id ? (others ? '<p class="muted">這張訂單還有別的課沒退，首購折 100 先不還；全部退完才會還給他。</p>' : '<p class="muted">🌿 他用了首購折 100，退款後會還給他，可以用到 ' + md(until) + '（原本上課日之後 30 天）。</p>') : '') +
+    '<p class="muted">這裡只是記錄，錢要妳自己轉回給學生。Google 報名表的「開課狀況」會自動改成「取消」，不算進營業額。</p>' +
+    '<div class="mdl-f"><button class="btn gh" data-x>先不要</button><button class="btn" id="rOk">確定，已退款</button></div></div></div>';
+  mdl.onclick = function (ev) {
+    if (ev.target.id === 'mBg' || ev.target.closest('[data-x]')) return closeM();
+    if (ev.target.id !== 'rOk') return;
+    var b = ev.target; b.disabled = true;
+    sb.rpc('admin_enroll_refund', { p_id: eid, p_amount: +document.getElementById('rA').value || 0, p_date: document.getElementById('rD').value || today() }).then(function (r) {
+      if (r.error) { b.disabled = false; return alert('記錄失敗：' + r.error.message); }
+      closeM(); done(r.data && r.data.welcome_back ? '已記錄退款，首購折 100 也還給他了' : '已記錄退款', [eid]);
+    });
+  };
+}
+
+function notifyMsg(eid) {
+  var e = A.enr.filter(function (x) { return x.id === eid; })[0], o = orderOf(e);
+  var t = '哈囉' + (o.name ? ' ' + o.name : '') + '，我是 Kimi 🌿\n妳報名的「' + String(e.label || '').replace(/・\d+ 人$/, '') + '」點點曼陀羅課程，因為報名人數沒有達到開班人數，這次很抱歉沒辦法開課 🙏\n\n想跟妳確認，妳比較想要：\n1️⃣ 全額退款\n2️⃣ 延期到其他場次（我把近期的時間傳給妳挑）\n\n回覆我一下就好，造成不便真的很不好意思！';
+  (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(function () { toast('已複製，貼到 LINE 傳給學生就好'); }, function () { prompt('複製下面這段：', t); });
+}
+
+// 每次改完：重新讀資料、請 Google 試算表同步、提醒改 TimeTree
+function done(msg, eids) {
+  try {
+    fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ action: 'sync', ids: eids || [] }) }).catch(function () {});
+  } catch (x) {}
+  load(true).then(function () { toast(msg + '。記得也改 TimeTree 🗓'); var db = document.getElementById('dayBox'); if (db) db.scrollIntoView({ block: 'start', behavior: 'smooth' }); });
+}
+
+function bindSched() {
+  var root = app;
+  root.querySelectorAll('[data-mon]').forEach(function (b) { b.onclick = function () { var y = +A.ym.slice(0, 4), m = +A.ym.slice(5, 7) + (+b.dataset.mon); var d = new Date(y, m - 1, 1); A.ym = ymd(d).slice(0, 7); A.day = ''; render(); }; });
+  root.querySelectorAll('[data-day]').forEach(function (c) { c.onclick = function () { A.day = c.dataset.day; render(); var db = document.getElementById('dayBox'); if (db) db.scrollIntoView({ block: 'start', behavior: 'smooth' }); }; });
+  root.querySelectorAll('[data-goday]').forEach(function (b) { b.onclick = function () { if (!b.dataset.goday) return; A.day = b.dataset.goday; A.ym = A.day.slice(0, 7); render(); document.getElementById('dayBox').scrollIntoView({ block: 'start', behavior: 'smooth' }); }; });
+  root.querySelectorAll('[data-add]').forEach(function (b) {
+    b.onclick = function () {
+      var k = b.dataset.add, x = SLOTS.filter(function (z) { return z[0] === k; })[0];
+      editor(k === '師資班' ? { course: 'teacher', date: A.day, end_date: addDays(A.day, 1), time_start: '09:00', time_end: '17:00', mode: '實體', location: '台中', note: '' }
+        : { course: 'beginner', date: A.day, time_start: x[1], time_end: x[2], mode: '實體', location: '台中', note: '' });
+    };
+  });
+  root.querySelectorAll('[data-edit]').forEach(function (b) { b.onclick = function () { editor(sessOf(+b.dataset.edit)); }; });
+  root.querySelectorAll('[data-del]').forEach(function (b) {
+    b.onclick = function () {
+      var s = sessOf(+b.dataset.del); if (!confirm('刪除 ' + sLabel(s) + '？官網會馬上拿掉這堂。')) return;
+      sb.rpc('admin_session_delete', { p_id: s.id }).then(function (r) { if (r.error) return alert(r.error.message); done('已刪除，官網也拿掉了', []); });
+    };
+  });
+  root.querySelectorAll('[data-cancel]').forEach(function (b) {
+    b.onclick = function () {
+      var s = sessOf(+b.dataset.cancel);
+      if (!confirm('取消開課：' + sLabel(s) + '？\n\n官網會馬上拿掉這堂，已報名的 ' + heads(enrOf(s.id)) + ' 人會變成「待處理」，再一個一個選退款、改別堂或延期。')) return;
+      var ids = enrOf(s.id).map(function (x) { return x.id; });
+      sb.rpc('admin_session_cancel', { p_id: s.id }).then(function (r) { if (r.error) return alert(r.error.message); done('已取消開課，下面幫每位學生選處理方式', ids); });
+    };
+  });
+  root.querySelectorAll('[data-reopen]').forEach(function (b) {
+    b.onclick = function () {
+      var s = sessOf(+b.dataset.reopen); if (!confirm('恢復開課：' + sLabel(s) + '？還沒處理的學生會恢復成正常報名。')) return;
+      sb.rpc('admin_session_reopen', { p_id: s.id }).then(function (r) { if (r.error) return alert(r.error.message); done('已恢復開課', enrOf(s.id, true).map(function (x) { return x.id; })); });
+    };
+  });
+  root.querySelectorAll('[data-mv]').forEach(function (b) { b.onclick = function () { movePicker(+b.dataset.mv); }; });
+  root.querySelectorAll('[data-link]').forEach(function (b) { b.onclick = function () { linkPicker(+b.dataset.link); }; });
+  root.querySelectorAll('[data-rf]').forEach(function (b) { b.onclick = function () { refundBox(+b.dataset.rf); }; });
+  root.querySelectorAll('[data-msg]').forEach(function (b) { b.onclick = function () { notifyMsg(+b.dataset.msg); }; });
+  root.querySelectorAll('[data-pp]').forEach(function (b) {
+    b.onclick = function () {
+      var id = +b.dataset.pp; if (!confirm('改成「延期，日期還沒定」？錢先留著，之後在上方提醒裡幫他排新課。')) return;
+      sb.rpc('admin_enroll_postpone', { p_id: id }).then(function (r) { if (r.error) return alert(r.error.message); done('已改成延期中', [id]); });
+    };
+  });
+  var imp = document.getElementById('imp');
+  if (imp) imp.onclick = function () {
+    imp.disabled = true; imp.textContent = '匯入中…';
+    Promise.all(['beginner', 'teacher'].map(function (k) {
+      return fetch(APPS_SCRIPT_URL + '?course=' + k + '&source=sheet').then(function (r) { return r.json(); }).then(function (d) { return (Array.isArray(d) ? d : []).map(function (s) { return Object.assign({}, s, { course: k }); }); }).catch(function () { return []; });
+    })).then(function (r) {
+      var all = r[0].concat(r[1]).filter(function (s) { return s.date >= addDays(today(), -60); });
+      if (!all.length) { imp.disabled = false; imp.textContent = '從 Google 試算表匯入現有場次'; return alert('讀不到 Google 試算表的場次，請稍後再試'); }
+      return sb.rpc('admin_session_import', { p: all }).then(function (x) {
+        if (x.error) return alert('匯入失敗：' + x.error.message);
+        done('匯入 ' + x.data.added + ' 堂課', []);
+      });
+    });
+  };
+}
+
 function bind() {
   var $ = function (id) { return document.getElementById(id); };
   if ($('brand')) $('brand').onchange = function () { A.brand = this.value; render(); };
-  if ($('reload')) $('reload').onclick = load;
+  if ($('reload')) $('reload').onclick = function () { load(); };
   if ($('out')) $('out').onclick = function () { sb.auth.signOut().then(function () { loginView(); }); };
   if ($('st')) $('st').onchange = function () { A.st = this.value; render(); };
   if ($('q')) { var qi = $('q'); qi.oninput = function () { A.q = this.value; clearTimeout(qi._t); qi._t = setTimeout(function () { render(); var n = $('q'); n.focus(); n.setSelectionRange(n.value.length, n.value.length); }, 300); }; }
   document.querySelectorAll('[data-tab]').forEach(function (b) { b.onclick = function () { A.tab = b.dataset.tab; A.q = ''; render(); window.scrollTo(0, 0); }; });
   document.querySelectorAll('[data-mid]').forEach(function (r) { r.onclick = function () { A.tab = r.dataset.mid; A.q = ''; render(); window.scrollTo(0, 0); }; });
+  if (A.tab === 'sched') bindSched();
   document.querySelectorAll('[data-oid]').forEach(function (s) {
     s.onchange = function () {
       var id = +s.dataset.oid, v = s.value;

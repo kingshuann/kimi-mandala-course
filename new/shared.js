@@ -358,17 +358,18 @@ document.addEventListener('DOMContentLoaded', function () {
         var payNow = S.pay; S.lastSign = { name: nm, phone: ph };
         var btn = document.getElementById('ckBtn'); btn.disabled = true; btn.textContent = '送出中…';
         var useW = S.ckMOff > 0;
-        var items = courses.map(function (x) { var s = x.s || {}; return { name: C(x.k).short, detail: (s.flex ? '時間另約' : (s.location || '') + ' ' + dateLabel(s) + (s.time ? ' ' + s.time : '')) + '・' + x.qty + ' 人', k: x.k, qty: x.qty, price: x.price }; });
+        var items = courses.map(function (x) { var s = x.s || {}; return { name: C(x.k).short, detail: (s.flex ? '時間另約' : (s.location || '') + ' ' + dateLabel(s) + (s.time ? ' ' + s.time : '')) + '・' + x.qty + ' 人', k: x.k, qty: x.qty, price: x.price, sid: s.id || null, date: s.date || '', location: s.location || '', time: s.time || '' }; });
         var ord = null;
         function post(o) { return fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(o) }); }
         // 一筆一筆送，避免同時寫入同一列；轉帳的話每筆報名再補上後五碼
         (window.memPlace ? memPlace({ kind: 'course', items: items, amount: S.ckAmt, use_welcome: useW, pay_method: PAYL[S.pay] || S.pay, last5: l5, name: nm, phone: ph, line_name: ln }) : Promise.resolve(null)).then(function (r) { ord = r; }).then(function () {
         var tag = (ord && ord.discount ? '｜會員折' + ord.discount : '') + (ord && ord.order_no ? '｜' + ord.order_no : '');
-        return courses.reduce(function (p, x) {
+        return courses.reduce(function (p, x, xi) {
           var s = x.s || {}, rng = s.endDate && s.endDate !== s.date;
           var payload = { course: x.k === 'online' ? 'beginner' : x.k, session: s.flex ? '時間另約' : rng ? s.date + '~' + s.endDate : s.date,
             dateLabel: s.flex ? '時間另約' : dateLabel(s), location: s.location || (x.k === 'online' ? '線上' : ''), time: s.time || '',
-            name: nm, phone: ph, lineName: ln, partySize: x.qty + '人', paymentMethod: (PAYL[S.pay] || S.pay) + (payNow === 'linepay' ? '（已勾選付款完成）' : '') + tag, submittedAt: new Date().toISOString() };
+            name: nm, phone: ph, lineName: ln, partySize: x.qty + '人', paymentMethod: (PAYL[S.pay] || S.pay) + (payNow === 'linepay' ? '（已勾選付款完成）' : '') + tag, submittedAt: new Date().toISOString(),
+            enrollId: ord && ord.enrollments ? ord.enrollments[xi] || null : null };
           return p.then(function () { return post(payload); }).then(function () { if (l5) return post({ action: 'last5', name: nm, phone: ph, last5: l5, submittedAt: new Date().toISOString() }); });
         }, Promise.resolve()); }).then(function () {
           document.querySelector('[data-pg="done"] h1').textContent = '報名完成';
@@ -403,3 +404,27 @@ document.addEventListener('click', function (e) {
   var t = e.target.closest('[data-acc]'); if (!t) return;
   var row = t.closest('.drw-acc') || t, open = row.classList.toggle('open'); t.setAttribute('aria-expanded', open);
 });
+
+// 場次改讀「imikdots 後台 → 排課」（2026-11-24）：直接讀資料庫，比較快；讀不到或後台還沒排課，才照舊讀 Google 試算表
+(function () {
+  var sheetLoad = window.loadLiveSessions;
+  window.loadLiveSessions = function (cb) {
+    if (typeof SB_URL === 'undefined' || !SB_URL || !SB_KEY) return sheetLoad(cb);
+    var t = new Date(Date.now() - 864e5), from = t.getFullYear() + '-' + String(t.getMonth() + 1).padStart(2, '0') + '-' + String(t.getDate()).padStart(2, '0');
+    fetch(SB_URL + '/rest/v1/sessions?select=id,course,date,end_date,time_start,time_end,location&status=eq.' + encodeURIComponent('開放') + '&date=gte.' + from + '&order=date,time_start',
+      { headers: { apikey: SB_KEY } })
+      .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+      .then(function (rows) {
+        if (!Array.isArray(rows) || !rows.length) throw 0;
+        var out = { beginner: [], teacher: [] };
+        rows.forEach(function (r) {
+          var o = { id: r.id, date: r.date, location: r.location, time: r.time_start + '－' + r.time_end };
+          if (r.end_date && r.end_date !== r.date) o.endDate = r.end_date;
+          (out[r.course] || out.beginner).push(o);
+        });
+        SESSIONS.beginner = out.beginner; SESSIONS.teacher = out.teacher;
+        if (cb) cb();
+      })
+      .catch(function () { sheetLoad(cb); });
+  };
+})();

@@ -166,7 +166,7 @@ function addToCart() {
   var c = C(S.k);
   S.cart = S.cart.filter(function (x) { return x.k !== S.k; });
   S.cart.push({ k: S.k, s: S.sess, qty: 1, price: c.price });
-  updateCount(); toast('已加入報名清單 🌿'); setTimeout(function () { go('cart'); }, 500);
+  updateCount(); toast('已加入購物車 🌿'); setTimeout(function () { go('cart'); }, 500);
 }
 function updateCount() { var n = S.cart.reduce(function (a, x) { return a + x.qty; }, 0); document.querySelectorAll('.cnt').forEach(function (e) { e.textContent = n || ''; }); }
 
@@ -175,7 +175,7 @@ function renderCart() {
   var host = document.querySelector('[data-items]'); if (!host) return;
   var tpl = document.getElementById('tpl-item').innerHTML;
   var ck = host.closest('.ck2'); if (ck) ck.classList.toggle('empty', !S.cart.length);
-  if (!S.cart.length) { host.innerHTML = '<p class="ck-empty">報名清單還是空的，先去挑一堂課吧 🌿</p><button class="btn full" data-go="shop">看課程</button>'; ckSave(); return; }
+  if (!S.cart.length) { var t0 = document.getElementById('ckTitle'); if (t0) t0.textContent = '購物車'; host.innerHTML = '<p class="ck-empty">購物車還是空的，去逛逛課程或商品吧 🌿</p><button class="btn full" data-go="shop">看課程</button><button class="btn full ghost" data-go="goods" style="margin-top:10px">逛商店</button>'; ckSave(); return; }
   host.innerHTML = S.cart.map(function (x, i) {
     if (x.prod) return tpl.replace(/{img}/g, x.img).replace(/{name}/g, x.prod.name).replace(/{meta}/g, x.opt).replace(/{price}/g, money(x.price * x.qty)).replace(/{qty}/g, x.qty).replace(/{i}/g, i);
     var c = C(x.k);

@@ -547,6 +547,34 @@ img[src*="img_collab/"]{object-position:74% 50% !important}
 .ck2.empty > :not(h1):not([data-items]){display:none !important}
 .pi-qr{width:200px;max-width:70%;margin:4px auto 0;border-radius:10px;background:#fff;padding:8px}
 #dnLine:not([hidden]){display:flex;align-items:center;justify-content:center;text-decoration:none}
+/* 首頁「嗨，我是 Kimi」（2026-11-24）：沒有底色，直接寫在背景紙上 */
+.hk{margin:0 20px;color:var(--ink)}
+.hk-top{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-top:4px}
+.hk-ph{position:relative;flex-shrink:0;margin:0 8px 8px 0}
+.hk-ph img{position:relative;z-index:1;display:block;width:116px;height:150px;border-radius:14px;object-fit:cover;object-position:50% 30%}
+.hk-ph::after{content:'';position:absolute;inset:8px -8px -8px 8px;border:1px solid var(--olive);border-radius:14px;opacity:.45}
+.hk-id{padding-bottom:6px}
+.hk-id .ey{display:block;font-family:'Marcellus',serif;font-size:10px;letter-spacing:.32em;color:var(--olive2)}
+.hk-top b{display:block;margin-top:8px;font-family:'Marcellus',serif;font-weight:400;font-size:38px;line-height:1;letter-spacing:.06em;color:var(--olive)}
+.hk-top b i{font-style:normal;font-family:'Noto Serif TC',serif;font-weight:600;font-size:15px;letter-spacing:.2em;margin-left:8px;vertical-align:middle}
+.hk-id hr{width:28px;border:0;border-top:1px solid var(--olive);margin:14px 0 12px}
+.hk-top small{display:block;font-size:12px;line-height:2;color:var(--olive2);letter-spacing:.08em;white-space:nowrap}
+.hk-q{position:relative;margin:30px 0 0;padding:22px 4px 16px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);text-align:center;font-family:'Noto Serif TC',serif;font-weight:600;font-size:15.5px;letter-spacing:.08em;line-height:1.9;color:var(--olive)}
+.hk-q::before{content:'\201C';position:absolute;top:-22px;left:50%;transform:translateX(-50%);padding:0 10px;background:transparent;font-family:'Marcellus',serif;font-size:46px;line-height:1;color:var(--olive);opacity:.6}
+.hk p.t{margin:8px 0 0;font-size:13.5px;line-height:1.95;font-weight:400}
+.hk-h+p.t{margin-top:8px}
+.hk-h{margin:30px 0 0;font-family:'Noto Serif TC',serif;font-weight:600;font-size:15px;letter-spacing:.1em;color:var(--olive);display:flex;align-items:center;gap:8px}
+.hk-h::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--olive);flex-shrink:0}
+.hk-n{display:grid;grid-template-columns:1fr 1.3fr 1fr;margin:20px 0 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0;text-align:center}
+.hk-n div+div{border-left:1px solid var(--line)}
+.hk-n b{display:block;font-family:'Marcellus',serif;font-weight:400;font-size:19px;letter-spacing:0;white-space:nowrap;line-height:1.5;color:var(--olive)}
+.hk-n span{font-size:11px;color:var(--muted);letter-spacing:.06em}
+.hk-b{display:flex;gap:10px;margin:22px 0 40px}.hk-b .btn{flex:1}
+.hk-more{position:relative;max-height:150px;overflow:hidden;-webkit-mask-image:linear-gradient(#000 45%,transparent);mask-image:linear-gradient(#000 45%,transparent)}
+.hk-more.open{max-height:none;-webkit-mask-image:none;mask-image:none}
+.hk-more-b{display:flex;align-items:center;gap:4px;margin:6px auto 0;padding:6px 14px;font-size:12.5px;letter-spacing:.14em;color:var(--olive);border-bottom:1px solid var(--olive) !important;border-radius:0}
+.hk-more-b svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s}
+.hk-more-b.open svg{transform:rotate(180deg)}
 </style></head>
 <body><div class="app">
 
@@ -574,6 +602,27 @@ img[src*="img_collab/"]{object-position:74% 50% !important}
   </div>
 
   <div class="band"><span data-icon="leaf"></span><p><small class="bk">Daily Words　每日能量小語</small><span id="dq">我值得被好好愛著。</span><small id="dd"></small></p></div>
+  <div class="sh"><h3>About<i>關於我</i></h3></div>
+  <div class="hk">
+    <div class="hk-top"><div class="hk-id"><b>Kimi<i>老師</i></b><hr><small>點點曼陀羅創作者・課程講師<br>美業教育品牌負責人<br>Podcaster・影片創作者</small></div><div class="hk-ph"><img data-src="img/kimi-portrait.jpg" alt="Kimi 老師" loading="lazy"></div></div>
+    <p class="hk-q">我不是美術系畢業，<br>小時候還常被說不會畫畫、沒有創意。</p>
+    <div class="hk-more">
+    <h4 class="hk-h">全年無休投入工作</h4>
+    <p class="t">商管碩士畢業後，我先後投入廣告行銷業與電商產業，後來轉身踏入美業 8 年，當過美甲師、美睫師、紋繡師，之後更致力於美業教學。</p>
+    <p class="t">那幾年我把工作排得滿滿的，幾乎 365 天全年無休，每天都在照顧別人，直到事業和身心同時跌進低潮，整個人的狀態低到谷底。</p>
+    <h4 class="hk-h">為什麼是點點曼陀羅</h4>
+    <p class="t">那時的我總是焦慮、浮躁，心很難安定下來。第一次看見點點曼陀羅，我卻能靜靜地看著它好久：它看起來和諧又完整，其實只是由一個個點和線組成，讓我想試試看。</p>
+    <p class="t">沒想到，一畫就停不下來。</p>
+    <p class="t">以前的我總在擔心還沒發生的未來、懊悔已經過去的事；但拿起筆的時候，我只需要專心在眼前這一點：點在哪裡、選什麼顏色。一點一點之間，紛亂的思緒慢慢安靜下來，我終於把專注力放回「現在」，也找回了內心的平靜。</p>
+    <h4 class="hk-h">把這份平靜帶給你</h4>
+    <p class="t">現在我在全台各地都有開課據點，也開設線上課程。</p>
+    <p class="t"><strong style="color:var(--olive)">零基礎班</strong>，陪你留一段時間給自己。即使完全沒有繪畫經驗，或曾經被說不會畫畫，也能一點一點完成屬於你的作品。</p>
+    <p class="t"><strong style="color:var(--olive)">師資班</strong>，從完整教材到結業後 3 個月一對一陪跑，陪你開出自己的課。</p>
+    <p class="t">課堂之外，我也拍影片、做 Podcast，分享畫畫與生活。</p>
+    </div><button class="hk-more-b" type="button" onclick="var m=this.previousElementSibling;var o=m.classList.toggle('open');this.firstChild.textContent=o?'收起':'閱讀我的故事';this.classList.toggle('open',o)">閱讀我的故事<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+    <div class="hk-n"><div><b>6 年</b><span>教育產業經驗</span></div><div><b>一場下午茶</b><span>零基礎完成第一幅</span></div><div><b>3 個月</b><span>師資一對一陪跑</span></div></div>
+    <div class="hk-b"><button class="btn" data-go="shop">查看課程介紹</button></div>
+  </div>
   <div class="sh"><h3>Upcoming<i>近期開課</i></h3><button class="vmore" data-go="shop">全部課程<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button></div>
   <img class="upc-img" src="img_banner/upcoming.jpg" alt="學員完成的點點曼陀羅作品">
   <div class="upc" id="upc"></div>

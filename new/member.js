@@ -253,8 +253,8 @@ function memResetRender() {
 
 // 切到會員頁、重設密碼頁時畫出內容
 var _memGo = go;
-go = function (p) {
-  _memGo(p);
+go = function (p, fromPop) {
+  _memGo(p, fromPop);
   if (S.page === 'me') memRender();
   if (S.page === 'reset') memResetRender();
 };

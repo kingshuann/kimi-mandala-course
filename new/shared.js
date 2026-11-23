@@ -99,7 +99,8 @@ function drawer() {
 function toast(m) { var t = document.getElementById('toast'); t.textContent = m; t.classList.add('on'); clearTimeout(t._t); t._t = setTimeout(function () { t.classList.remove('on'); }, 2000); }
 
 // ---- 頁面切換 ----
-function go(p) {
+function go(p, fromPop) {
+  var y0 = pageYOffset; // 換頁前先記住目前捲到哪（頁面一切換位置就會歸零）
   var anc = p.split('#')[1]; p = p.split('#')[0];
   var parts = p.split(':'); var page = parts[0];
   if (page === 'course') { S.k = parts[1] || S.k; S.city = null; S.sess = null; renderCourse(); }
@@ -108,7 +109,10 @@ function go(p) {
   document.querySelectorAll('.pg').forEach(function (x) { x.classList.toggle('on', x.dataset.pg === page); });
   document.querySelectorAll('.nav [data-go]').forEach(function (b) { b.classList.toggle('on', b.dataset.go === (page === 'course' ? 'shop' : page)); });
   document.body.classList.remove('dopen');
-  if (location.hash.slice(1) !== p) history.replaceState(null, '', '#' + p);
+  // 每換一頁就記一筆瀏覽紀錄：手機從螢幕左邊往右滑＝上一頁、右邊往左滑＝下一頁（瀏覽器內建手勢）
+  if (!fromPop && location.hash.slice(1) !== p) {
+    try { history.replaceState({ y: y0 }, '', location.hash || '#home'); history.pushState({ y: 0 }, '', '#' + p); } catch (e) {}
+  }
   window.scrollTo(0, 0);
   var vp = page === 'course' ? 'course/' + S.k : page;
   if (window._lastVp !== vp) { window._lastVp = vp; trk('page_view', { page_title: (PG_NAME[page] || page) + (page === 'course' ? '｜' + S.k : ''), page_location: location.origin + location.pathname + '#' + vp }); }
@@ -395,7 +399,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
   var h = location.hash.slice(1) || 'home';
-  go(h);
+  try { history.replaceState({ y: 0 }, '', '#' + h); } catch (e) {}
+  go(h, true);
+  // 滑回上一頁／下一頁時，切到那一頁並回到原本捲到的位置
+  window.addEventListener('popstate', function (e) {
+    go(location.hash.slice(1) || 'home', true);
+    var y = e.state && e.state.y; if (y) setTimeout(function () { window.scrollTo(0, y); }, 30);
+  });
   loadLiveSessions(function () { if (window.renderUpcoming) renderUpcoming(); if (S.page === 'course') renderPick(); if (S.page === 'cart') renderCart(); });
 });
 

@@ -18,6 +18,21 @@ var ICONS = {
 };
 var NAV = [['home', '首頁', 'home'], ['shop', '課程介紹', 'brush'], ['goods', '商店', 'store']];
 var NOTES = ['台中班、線上課 1 人就開班，時間可討論；台中以外的縣市滿 3 人才開班。最晚於開課前一週通知，未成功開班全額退費，也可延期或轉讓。', '完成匯款後如因個人因素無法參加，可延期補課或轉讓他人，恕不退費。', '大人與小朋友同價，歡迎攜伴，請家長協助照顧。', '課堂中老師會側拍作品分享到 IG，不想入鏡請告訴老師。'];
+// 師資班：結業後帶走的東西、常見問題（Kimi 2026-11-24 口述與確認）
+var TEACHER_GETS = [
+  ['師資結業證書', '由 imikdots 點點曼陀羅頒發'],
+  ['完整教材電子檔', '拿到就能開課，可依自己的風格調整'],
+  ['3 個月一對一陪跑', '回傳你的教學計畫書，我陪你規劃第一堂課；招生、排課遇到問題，3 個月內保證一對一回覆'],
+  ['獨當一面之後', '3 個月後你已經能自己開課；之後有問題，還是可以來問我']
+];
+var TEACHER_QA = [
+  ['學完可以自己開課嗎？', '可以！結業後就能用自己的名義開課。3 個月陪跑期間，招生和課程規劃遇到問題，都可以一對一問我。'],
+  ['結業證書是誰發的？', '由 imikdots 點點曼陀羅頒發師資結業證書。'],
+  ['教材可以修改嗎？', '可以依照你的風格調整，用在自己的課程裡；教材檔案僅限本人使用，請勿轉賣或分享給他人。'],
+  ['開課的材料要去哪裡買？', '教材附有材料採購清單，可以照清單自己買，也可以直接跟 Kimi 購買。'],
+  ['完全沒學過可以直接報名嗎？', '需要先有基礎：上過零基礎課程（其他老師的零基礎班也可以），報名後用 LINE 傳一張過去作品給 Kimi 即可。'],
+  ['師資班可以分期嗎？', '可以，師資班提供中租分期，送出報名後小幫手會用 LINE 提供分期資訊。']
+];
 var TEACHER_COND = '報名條件：必須上過「零基礎課程」（其他老師的零基礎班也可以）。送出報名後用 LINE 傳一張過去作品給 Kimi 即可。';
 var EXTRA = { online: { key: 'online', short: '線上課', name: '點點曼陀羅・線上課', sub: '材料包寄到家，在家視訊上課', price: 3333, priceText: 'NT$3,333', orig: 'NT$3,980', img: 'img/work5.jpg', tag: '在家上課', hours: '3 小時 30 分鐘' } };
 function C(k) { return COURSES[k] || EXTRA[k]; }
@@ -142,13 +157,16 @@ function detailHtml(k) {
   if (on) info = [['課程時長', '3 小時 30 分鐘（時間報名後用 LINE 約）'], ['上課方式', '在家視訊，老師一步步帶畫'], ['材料', '工具材料包寄到家（含運費）'], ['開班', '1 人就開班']].concat(info.filter(function (r) { return r[0] === '課程內容'; }));
   var cmp = b.compare.length === 1 ? '<p class="dp"><b>' + b.compare[0][0] + '：</b>' + b.compare[0][2] + '</p>' :
     '<div class="vs">' + b.compare.map(function (r) { return '<div class="vs-i"><p class="vs-k">' + r[0] + '</p><div class="vs-g"><div class="vs-a"><small>一般繪畫課</small><span>' + r[1] + '</span></div><div class="vs-b"><small>這堂課</small><span>' + r[2] + '</span></div></div></div>'; }).join('') + '</div>';
-  return '<section class="ds"><p class="dk">01　課程資訊</p><ul class="rows">' + info.map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('') + '</ul></section>' +
-    '<section class="ds"><p class="dk">02　' + (k === 'teacher' ? '不只教你畫，更陪你開課' : '並非臨摹，而是 0 到 1 獨立創作') + '</p>' + cmp + '</section>' +
-    '<section class="ds"><p class="dk">03　課程內容</p>' + b.lessons.map(function (l, i) { return '<h4 class="lh"><span>主題' + '一二三四五六七八'[i] + '</span>' + l[0] + '</h4><ul class="dl">' + l[1].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>'; }).join('') + '</section>' +
-    '<section class="ds"><p class="dk">04　' + (k === 'teacher' ? '附贈材料' : '工具大禮包') + '</p><ul class="dl">' + b.kit.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul><img class="fin" src="' + IMG + b.finalImg + '" alt="課程作品" loading="lazy"></section>' +
-    '<section class="ds"><p class="dk">05　誰適合這堂課？</p><ul class="dl">' + b.who.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul></section>' +
-    '<section class="ds"><p class="dk">06　報名須知</p><h4 class="lh">攜帶物品</h4><p class="dp">' + (on ? '什麼都不用準備，材料包會寄到家！' : b.bring) + '</p><h4 class="lh">注意事項</h4><ol class="dl">' + NOTES.map(function (n) { return '<li>' + n + '</li>'; }).join('') + '</ol>' +
-    (k === 'teacher' ? '<p class="cond">🌿 ' + TEACHER_COND + '</p>' : '') + '</section>';
+  var n = 0, no = function () { n++; return (n < 10 ? '0' : '') + n + '　'; }, T = k === 'teacher';
+  return '<section class="ds"><p class="dk">' + no() + '課程資訊</p><ul class="rows">' + info.map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('') + '</ul></section>' +
+    '<section class="ds"><p class="dk">' + no() + (T ? '不只教你畫，更陪你開課' : '並非臨摹，而是 0 到 1 獨立創作') + '</p>' + cmp + '</section>' +
+    '<section class="ds"><p class="dk">' + no() + '課程內容</p>' + b.lessons.map(function (l, i) { return '<h4 class="lh"><span>主題' + '一二三四五六七八'[i] + '</span>' + l[0] + '</h4><ul class="dl">' + l[1].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>'; }).join('') + '</section>' +
+    '<section class="ds"><p class="dk">' + no() + (T ? '附贈材料' : '工具大禮包') + '</p><ul class="dl">' + b.kit.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul><img class="fin" src="' + IMG + b.finalImg + '" alt="課程作品" loading="lazy"></section>' +
+    (T ? '<section class="ds"><p class="dk">' + no() + '結業後，你會帶走</p><ul class="gets">' + TEACHER_GETS.map(function (g) { return '<li><b>' + g[0] + '</b><span>' + g[1] + '</span></li>'; }).join('') + '</ul></section>' : '') +
+    '<section class="ds"><p class="dk">' + no() + '誰適合這堂課？</p><ul class="dl">' + b.who.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul></section>' +
+    '<section class="ds"><p class="dk">' + no() + '報名須知</p><h4 class="lh">攜帶物品</h4><p class="dp">' + (on ? '什麼都不用準備，材料包會寄到家！' : b.bring) + '</p><h4 class="lh">注意事項</h4><ol class="dl">' + NOTES.map(function (n) { return '<li>' + n + '</li>'; }).join('') + '</ol>' +
+    (T ? '<p class="cond">🌿 ' + TEACHER_COND + '</p>' : '') + '</section>' +
+    (T ? '<section class="ds"><p class="dk">' + no() + '師資班常見問題</p><div class="qa">' + TEACHER_QA.map(function (q, i) { return '<details' + (i ? '' : ' open') + '><summary>' + q[0] + '</summary><p>' + q[1] + '</p></details>'; }).join('') + '</div></section>' : '');
 }
 function renderPick() {
   var L = sessionsFor(S.k), cities = [];

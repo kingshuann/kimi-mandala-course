@@ -269,9 +269,9 @@
 .bk-wrap{padding:16px 0 6px;display:flex;flex-direction:column;align-items:center}
 .book{height:min(calc(100dvh - 250px),calc((min(100vw,440px) - 44px)*1.4167));width:auto;max-width:calc(100% - 44px)}
 .bk-nav{margin-top:14px}
-[data-pg="works"].on{min-height:100dvh}
+[data-pg="works"].on,[data-pg="issue"].on{min-height:100dvh}
 /* 藝廊：雜誌簡化版 */
-[data-pg="works"]{background:#FBFAF7 !important}
+[data-pg="works"],[data-pg="issue"]{background:#FBFAF7 !important}
 .zine{background:#FBFAF7;color:#1C1C1A}
 .zp{padding:44px 28px 30px;border-bottom:1px solid #E6E2DA}
 .zarc{text-align:center;font-family:'Noto Sans TC',sans-serif;font-weight:500;font-size:11.5px;letter-spacing:.3em;margin-bottom:34px}
@@ -313,9 +313,9 @@
 .zst{font-family:'Noto Serif TC',serif;font-size:14.5px;line-height:2.05;letter-spacing:.06em;color:#3B3934;margin-top:44px}
 .zend{text-align:center;font-family:'Noto Sans TC',sans-serif;font-weight:500;font-size:12px;letter-spacing:.3em;color:#8A857C;padding:26px 0 34px}
 /* 水彩紙紋理（自製冷壓紙紋，疊在原本底色上，顏色不變） */
-.app,[data-pg="works"],.zine{background-image:url(paper-texture.jpg?v=2) !important;background-size:240px !important;background-blend-mode:multiply !important}
+.app,[data-pg="works"],[data-pg="issue"],.zine{background-image:url(paper-texture.jpg?v=2) !important;background-size:240px !important;background-blend-mode:multiply !important}
 .app{background-color:var(--bg) !important}
-[data-pg="works"],.zine{background-color:var(--bg) !important}
+[data-pg="works"],[data-pg="issue"],.zine{background-color:var(--bg) !important}
 .zp,.zlt{border-bottom-color:rgba(62,71,51,.14) !important}
 .zcap{background-color:var(--bg) !important;background-image:url(paper-texture.jpg?v=2);background-size:240px;background-blend-mode:multiply}
 /* 商店 */
@@ -631,6 +631,33 @@ body.dopen .fab{opacity:0;pointer-events:none}
 .pol b{font-weight:700;color:var(--olive)}
 .pol a{color:var(--olive);text-decoration:underline}
 .pol-d{margin-top:20px !important;font-size:12px;color:var(--muted)}
+/* 點點月刊列表（2026-11-24） */
+.jl-head{text-align:center;padding:26px 24px 0}
+.jl-head .zarc{margin-bottom:0 !important}
+.jl-head b{display:block;font-family:'Marcellus',serif;font-weight:400;font-size:34px;letter-spacing:.06em;color:#1C1C1A;line-height:1.2}
+.jl-head span{display:block;margin-top:6px;font-family:'Noto Serif TC',serif;font-weight:600;font-size:14px;letter-spacing:.5em;padding-left:.5em;color:var(--olive)}
+.jl-head p{margin:14px auto 0;max-width:300px;font-size:12.5px;line-height:1.8;color:var(--muted);font-weight:400}
+.jl{padding:10px 20px 36px}
+.jl-c{display:block;width:100%;padding:18px 0 20px;border-bottom:1px solid var(--line);text-align:left;color:var(--ink)}
+.jl-img{position:relative;display:block;aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:var(--card2)}
+/* 舊的期數：小圖在左、文字在右（雜誌網站常見的列表），最新一期維持大圖 */
+.jl-c.row{display:grid;grid-template-columns:112px 1fr;gap:14px;align-items:start;padding:18px 0}
+.jl-c.row .jl-img{aspect-ratio:1/1;border-radius:4px}
+.jl-c.row .jl-t{margin-top:0}
+.jl-c.row .jl-t b{font-size:16px;margin-top:4px}
+.jl-c.row .jl-t>span{font-size:12.5px;line-height:1.75;margin-top:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.jl-c.row .jl-t i{margin-top:6px;font-size:11.5px}
+.jl-sec{margin-top:18px;font-family:'Marcellus',serif;font-size:11px;letter-spacing:.3em;color:var(--olive2);padding-bottom:6px;border-bottom:1px solid var(--ink)}
+.jl-img img{width:100%;height:100%;object-fit:cover;display:block}
+.jl-img em{position:absolute;top:10px;left:10px;font-style:normal;font-family:'Marcellus',serif;font-size:10px;letter-spacing:.2em;padding:4px 9px;border-radius:3px;background:var(--olive);color:var(--cream)}
+.jl-t{display:block;margin-top:16px}
+.jl-t small{display:block;font-family:'Marcellus',serif;font-size:11px;letter-spacing:.24em;color:var(--olive2)}
+.jl-t b{display:block;margin-top:6px;font-family:'Noto Serif TC',serif;font-weight:600;font-size:20px;letter-spacing:.08em;color:var(--ink);line-height:1.5}
+.jl-t>span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-top:8px;font-size:13.5px;line-height:1.85;color:var(--ink);font-weight:400;letter-spacing:.04em}
+.jl-t i{display:block;margin-top:8px;font-style:normal;font-family:'Marcellus',serif;font-size:13px;letter-spacing:.12em;color:var(--muted)}
+.jl-c.soon{padding:20px 0;color:var(--muted)}
+.jl-c.soon .jl-t{margin-top:0}
+.jl-c.soon b{font-size:15px;color:var(--muted)}
 </style></head>
 <body><div class="app">
 
@@ -731,8 +758,21 @@ body.dopen .fab{opacity:0;pointer-events:none}
 </section>
 
 <section class="pg" data-pg="works"><div data-top></div>
-  <!-- 藝廊：直式雜誌（簡化留白版） -->
-  <div class="zine"><section class="zlt">
+  <!-- 點點月刊：期數列表，一期一個方框，點進去看整本（2026-11-24） -->
+  <div class="jl-head"><div class="zmast"><b>Dots Journal</b><span>點點月刊</span></div><p class="zarc">Monthly Notes | Since 2026</p></div>
+  <div class="jl">
+    <button class="jl-c" data-go="issue:1">
+      <span class="jl-img"><img src="../img/mandala-beige.jpg" alt="點點月刊 Vol.01" loading="lazy"><em>NEW</em></span>
+      <span class="jl-t"><small>VOL. 01 ・ 創刊號</small><b>一點一點長出來</b><span>品牌主理人 Kimi 的第一本電子雜誌：這個月的原創畫作、台中與桃園的學生作品，還有工作桌上正在準備的能量蠟燭。</span><i>2026 / 12</i></span>
+    </button>
+    <div class="jl-c soon">
+      <span class="jl-t"><small>VOL. 02</small><b>即將出刊・2027 / 01</b></span>
+    </div>
+  </div>
+</section>
+
+<section class="pg" data-pg="issue"><div data-top="sub"></div>
+  <div class="zine" data-issue="1"><section class="zlt">
   <div class="zmast"><b>Dots Journal</b><span>點點月刊</span></div>
   <p class="zarc">Journal Vol. 01 | Dec. 2026</p>
   <img src="../img/kimi-portrait.jpg" alt="Kimi">
@@ -1274,4 +1314,8 @@ document.addEventListener('DOMContentLoaded', renderUpcoming);
 (function () { var r = window.renderCart; if (!r) return; window.renderCart = function () { r.apply(this, arguments); var f = document.querySelector('[data-signform]'); if (f) f.style.display = S.cart.some(function (x) { return !x.prod; }) ? '' : 'none'; }; })();
 </script>
 <script src="shop-live.js?v=1124a"></script>
+<script>
+// 點點月刊：go('issue:1') 顯示第 1 期（之後新增一期就多一個 data-issue）
+(function () { var g0 = go; go = function (p, f) { g0(p, f); if (S.page !== 'issue') return; var n = (String(p).split('#')[0].split(':')[1]) || '1'; document.querySelectorAll('[data-issue]').forEach(function (z) { z.hidden = z.dataset.issue !== n; }); }; })();
+</script>
 </body></html>

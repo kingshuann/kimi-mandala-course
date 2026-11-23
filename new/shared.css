@@ -129,7 +129,7 @@ body.dopen .drw{transform:none;visibility:visible}
 .tb-lw{display:flex;align-items:center;margin-left:-6px}
 .tb-lw .tb-l{width:38px;height:40px}
 .tb-lw .tb-bk svg{width:20px;height:20px}
-.drw{right:auto;left:max(0px,calc(50vw - 220px));transform:translateX(-100%)}
+/* 選單改回從右邊滑出（2026-11-24，選單鈕移到右上角） */
 .drw-soc{display:flex;gap:12px;justify-content:center;margin-top:auto;padding-top:26px}
 .drw-soc a{width:42px;height:42px;border-radius:50%;background:rgba(243,238,228,.16);display:grid;place-items:center;color:var(--drw-ink,var(--cream))}
 .drw-soc svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7}
@@ -196,3 +196,11 @@ body.dopen .drw{transform:none;visibility:visible}
 .mb-pop-k{font-size:11px;letter-spacing:.32em;color:var(--olive2,var(--olive))}
 .mb-pop-h{font-family:'Noto Serif TC',serif;font-size:21px;letter-spacing:.1em;color:var(--olive);margin-top:6px}
 .mb-pop-s{font-size:11.5px;color:var(--muted);margin-bottom:16px}
+
+/* 頂端列：字標靠左、選單在最右邊（2026-11-24） */
+.tb{grid-template-columns:1fr auto !important;padding:0 8px 0 16px}
+.tb-lw{margin-left:0;gap:6px}
+.tb-lw .tb-bk{margin-left:-8px}
+.tb .wm{text-align:left}
+.tb .wm b{padding-left:0;font-size:23px}
+.tb .wm small{padding-left:0}

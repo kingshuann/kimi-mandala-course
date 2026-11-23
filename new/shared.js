@@ -20,14 +20,13 @@ var NAV = [['home', '首頁', 'home'], ['shop', '課程介紹', 'brush'], ['good
 var NOTES = ['台中班、線上課 1 人就開班，時間可討論；台中以外的縣市滿 3 人才開班。最晚於開課前一週通知，未成功開班全額退費，也可延期或轉讓。', '完成匯款後如因個人因素無法參加，可延期補課或轉讓他人，恕不退費。', '大人與小朋友同價，歡迎攜伴，請家長協助照顧。', '課堂中老師會側拍作品分享到 IG，不想入鏡請告訴老師。'];
 // 師資班：結業後帶走的東西、常見問題（Kimi 2026-11-24 口述與確認）
 var TEACHER_GETS = [
-  ['師資結業證書', '由 imikdots 點點曼陀羅頒發'],
+  ['師資結業證書', '完成兩天課程即可取得'],
   ['完整教材電子檔', '拿到就能開課，可依自己的風格調整'],
   ['3 個月一對一陪跑', '回傳你的教學計畫書，我陪你規劃第一堂課；招生、排課遇到問題，3 個月內保證一對一回覆'],
   ['獨當一面之後', '3 個月後你已經能自己開課；之後有問題，還是可以來問我']
 ];
 var TEACHER_QA = [
   ['學完可以自己開課嗎？', '可以！結業後就能用自己的名義開課。3 個月陪跑期間，招生和課程規劃遇到問題，都可以一對一問我。'],
-  ['結業證書是誰發的？', '由 imikdots 點點曼陀羅頒發師資結業證書。'],
   ['教材可以修改嗎？', '可以依照你的風格調整，用在自己的課程裡；教材檔案僅限本人使用，請勿轉賣或分享給他人。'],
   ['開課的材料要去哪裡買？', '教材附有材料採購清單，可以照清單自己買，也可以直接跟 Kimi 購買。'],
   ['完全沒學過可以直接報名嗎？', '需要先有基礎：上過零基礎課程（其他老師的零基礎班也可以），報名後用 LINE 傳一張過去作品給 Kimi 即可。'],
@@ -73,9 +72,10 @@ var S = { page: 'home', k: 'beginner', city: null, sess: null, cart: [], pay: 't
 
 // ---- 共用元件 ----
 function topbar(sub) {
-  return '<header class="tb"><div class="tb-lw"><button class="tb-l tb-mn" data-menu aria-label="選單"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>' + (sub ? '<button class="tb-l tb-bk" data-back aria-label="返回">' + ICONS.back + '</button>' : '') + '</div>' +
-    '<div class="wm" data-go="home"><b>imikdots</b><small>Kimi 點點曼陀羅</small></div>' +
-    '<div class="tb-r"><button data-login aria-label="會員登入">' + ICONS.user + '</button><button data-go="cart" aria-label="購物車">' + ICONS.shop + '<em class="cnt"></em></button></div></header>';
+  // 字標靠左（內頁前面多一個返回鍵），右邊依序：會員、購物車、選單（2026-11-24 Kimi）
+  return '<header class="tb"><div class="tb-lw">' + (sub ? '<button class="tb-l tb-bk" data-back aria-label="返回">' + ICONS.back + '</button>' : '') +
+    '<div class="wm" data-go="home"><b>imikdots</b><small>Kimi 點點曼陀羅</small></div></div>' +
+    '<div class="tb-r"><button data-login aria-label="會員登入">' + ICONS.user + '</button><button data-go="cart" aria-label="購物車">' + ICONS.shop + '<em class="cnt"></em></button><button class="tb-mn" data-menu aria-label="選單"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div></header>';
 }
 function navbar() {
   return '<nav class="nav">' + NAV.map(function (n) { return '<button data-go="' + n[0] + '">' + navIcon(n[2]) + '<span>' + n[1] + '</span></button>'; }).join('') +

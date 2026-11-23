@@ -137,7 +137,7 @@ function memRender() {
       '<div class="fm"><input id="mbName" placeholder="姓名" autocomplete="name"><input id="mbPhone" type="tel" inputmode="numeric" placeholder="手機號碼" autocomplete="tel">' +
       '<label class="mb-lb">生日<input id="mbBday" type="date" max="' + new Date().toISOString().slice(0, 10) + '"></label>' +
       '<input id="mbEmail" type="email" placeholder="Email（登入帳號，也會收到電子報）" autocomplete="email"><input id="mbPw" type="password" placeholder="設定密碼（至少 8 碼）" autocomplete="new-password"></div>' +
-      '<label class="mb-agree"><input type="checkbox" id="mbAgree"> 我同意 imikdots 保存以上資料，用於會員服務、課程通知與電子報（電子報可隨時取消訂閱）</label>' +
+      '<label class="mb-agree"><input type="checkbox" id="mbAgree"> 我同意 imikdots 保存以上資料，用於會員服務、課程通知與電子報（電子報可隨時取消訂閱）。<a data-go="privacy" style="text-decoration:underline">隱私權政策</a></label>' +
       '<button class="btn full" data-mact="signup">加入會員</button>';
     else if (m === 'forgot') box.innerHTML = tabs + msg +
       '<p class="mb-p">輸入註冊的 Email，我們會寄一封重設密碼的信給妳。</p><div class="fm"><input id="mbEmail" type="email" placeholder="Email" autocomplete="email"></div>' +

@@ -45,7 +45,7 @@ function trk(name, params) {
   try { if (window.gtag && TRACK.ga4) gtag('event', name, params || {}); } catch (e) {}
   try { if (window.clarity && TRACK.clarity) clarity('event', name); } catch (e) {}
 }
-var PG_NAME = { home: '首頁', shop: '課程介紹', course: '課程內頁', goods: '商店', cart: '結帳', done: '完成', works: '點點月刊' };
+var PG_NAME = { home: '首頁', shop: '課程介紹', course: '課程內頁', goods: '商店', cart: '結帳', done: '完成', works: '點點月刊', me: '會員', reset: '重設密碼' };
 
 // ---- 收款資訊：Kimi 自己把 ★ 的地方換成真的資料 ----
 var PAYINFO = {
@@ -194,9 +194,16 @@ function renderCart() {
   var ship = hasP ? (prodSum >= 1500 ? 0 : 80) : 0;
   document.querySelectorAll('[data-ship]').forEach(function (e) { e.textContent = ship ? money(ship) : '免運'; });
   document.querySelectorAll('[data-shiprow],[data-shipform]').forEach(function (e) { e.style.display = hasP ? '' : 'none'; });
-  document.querySelectorAll('[data-total]').forEach(function (e) { e.textContent = money(sub - off + ship); });
+  // 會員首購折 100（聯名商品不算）
+  var nonCollab = S.cart.filter(function (x) { return !(x.prod && x.prod.cat === 'collab'); }).reduce(function (a, x) { return a + x.price * x.qty; }, 0) - off;
+  var mOff = window.memOff ? memOff(nonCollab) : 0;
+  S.ckAmt = sub - off + ship; S.ckMOff = mOff;
+  document.querySelectorAll('[data-moff]').forEach(function (e) { e.textContent = '− ' + money(mOff); });
+  document.querySelectorAll('[data-mrow]').forEach(function (e) { e.style.display = mOff ? '' : 'none'; });
+  if (window.memCkBanner) memCkBanner();
+  document.querySelectorAll('[data-total]').forEach(function (e) { e.textContent = money(sub - off - mOff + ship); });
   var t = document.getElementById('ckTitle'); if (t) t.textContent = hasP && !hasC ? '購物車結帳' : hasP ? '報名與購物結帳' : '報名結帳';
-  var b = document.getElementById('ckBtn'); if (b) b.textContent = hasP ? '確認付款 ' + money(sub - off + ship) : '送出報名';
+  var b = document.getElementById('ckBtn'); if (b) b.textContent = hasP ? '確認付款 ' + money(sub - off - mOff + ship) : '送出報名';
   document.querySelectorAll('[data-pay="card"]').forEach(function (e) { e.style.display = hasP ? '' : 'none'; });
   if (hasP && S.pay === 'transfer' && !S.payPicked) S.pay = 'card';
   document.querySelectorAll('[data-pay]').forEach(function (e) { e.classList.toggle('on', e.dataset.pay === S.pay); });
@@ -329,7 +336,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (d.go) go(d.go);
     else if ('menu' in d) document.body.classList.add('dopen');
     else if ('close' in d) document.body.classList.remove('dopen');
-    else if ('login' in d) { document.body.classList.remove('dopen'); toast('會員登入即將開放：之後可以查看買過的課程'); }
+    else if ('login' in d) go('me');
     else if ('soon' in d) toast('即將推出，敬請期待');
     else if ('back' in d) go(S.page === 'course' ? 'shop' : 'home');
     else if (d.city) { S.city = d.city; S.sess = null; renderPick(); }
@@ -350,21 +357,27 @@ document.addEventListener('DOMContentLoaded', function () {
         if (S.pay === 'linepay' && !(document.getElementById('ckLp') || {}).checked) { toast('LINE Pay 付款完成後，請勾選「我已完成付款」'); return; }
         var payNow = S.pay; S.lastSign = { name: nm, phone: ph };
         var btn = document.getElementById('ckBtn'); btn.disabled = true; btn.textContent = '送出中…';
+        var useW = S.ckMOff > 0;
+        var items = courses.map(function (x) { var s = x.s || {}; return { name: C(x.k).short, detail: (s.flex ? '時間另約' : (s.location || '') + ' ' + dateLabel(s) + (s.time ? ' ' + s.time : '')) + '・' + x.qty + ' 人', k: x.k, qty: x.qty, price: x.price }; });
+        var ord = null;
         function post(o) { return fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(o) }); }
         // 一筆一筆送，避免同時寫入同一列；轉帳的話每筆報名再補上後五碼
-        courses.reduce(function (p, x) {
+        (window.memPlace ? memPlace({ kind: 'course', items: items, amount: S.ckAmt, use_welcome: useW, pay_method: PAYL[S.pay] || S.pay, last5: l5, name: nm, phone: ph, line_name: ln }) : Promise.resolve(null)).then(function (r) { ord = r; }).then(function () {
+        var tag = (ord && ord.discount ? '｜會員折' + ord.discount : '') + (ord && ord.order_no ? '｜' + ord.order_no : '');
+        return courses.reduce(function (p, x) {
           var s = x.s || {}, rng = s.endDate && s.endDate !== s.date;
           var payload = { course: x.k === 'online' ? 'beginner' : x.k, session: s.flex ? '時間另約' : rng ? s.date + '~' + s.endDate : s.date,
             dateLabel: s.flex ? '時間另約' : dateLabel(s), location: s.location || (x.k === 'online' ? '線上' : ''), time: s.time || '',
-            name: nm, phone: ph, lineName: ln, partySize: x.qty + '人', paymentMethod: (PAYL[S.pay] || S.pay) + (payNow === 'linepay' ? '（已勾選付款完成）' : ''), submittedAt: new Date().toISOString() };
+            name: nm, phone: ph, lineName: ln, partySize: x.qty + '人', paymentMethod: (PAYL[S.pay] || S.pay) + (payNow === 'linepay' ? '（已勾選付款完成）' : '') + tag, submittedAt: new Date().toISOString() };
           return p.then(function () { return post(payload); }).then(function () { if (l5) return post({ action: 'last5', name: nm, phone: ph, last5: l5, submittedAt: new Date().toISOString() }); });
-        }, Promise.resolve()).then(function () {
+        }, Promise.resolve()); }).then(function () {
           document.querySelector('[data-pg="done"] h1').textContent = '報名完成';
-          document.getElementById('dnNo').textContent = nm + '，謝謝妳的報名 🌿';
+          document.getElementById('dnNo').textContent = nm + '，謝謝妳的報名 🌿' + (ord && ord.order_no ? '（編號 ' + ord.order_no + '）' : '');
           document.getElementById('dnMsg').innerHTML = payNow === 'transfer' ? '已收到妳的報名和匯款後五碼 <b>' + l5 + '</b>，<br>Kimi 對完帳會在官方 LINE 跟妳確認 🌿'
             : payNow === 'linepay' ? '已收到妳的報名，<br>請把 LINE Pay「付款成功」畫面截圖傳到官方 LINE，Kimi 確認後會回覆妳 🌿'
             : '我們已經收到妳的報名資料。<br>請加入官方 LINE，Kimi 會在 LINE 上跟妳確認分期付款方式。';
-          document.getElementById('dnList').innerHTML = courses.map(function (x) { return '<div><span>' + C(x.k).short + '　' + (x.s && x.s.date ? dateLabel(x.s) + ' ' + (x.s.time || '') : '時間另約') + '</span><span>' + x.qty + ' 人</span></div>'; }).join('');
+          document.getElementById('dnList').innerHTML = courses.map(function (x) { return '<div><span>' + C(x.k).short + '　' + (x.s && x.s.date ? dateLabel(x.s) + ' ' + (x.s.time || '') : '時間另約') + '</span><span>' + x.qty + ' 人</span></div>'; }).join('') +
+            (ord && ord.discount ? '<div><span>會員首購優惠</span><span>− ' + money(ord.discount) + '</span></div>' : '') + (ord ? '<div><span>實付</span><span>' + money(ord.total) + '</span></div>' : '');
           document.getElementById('dnLine').hidden = false;
           var dp = document.getElementById('dnPay'); if (dp) dp.hidden = true; var dn = document.getElementById('dnNote'); if (dn) dn.hidden = true;
           trk('sign_up', { method: payNow, courses: courses.length });

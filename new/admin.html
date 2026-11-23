@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>imikdots 後台</title>
+<style>
+:root{--bg:#EEE6D8;--card:#F5EFE5;--olive:#3E4733;--olive2:#58624A;--cream:#F3EDE2;--ink:#2F3328;--muted:#8C8676;--line:rgba(47,51,40,.14);--warn:#A0603A}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans TC',-apple-system,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.55}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+.wrap{max-width:1100px;margin:0 auto;padding:18px 16px 60px}
+header{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+h1{font-size:19px;letter-spacing:.12em;color:var(--olive)}
+.btn{background:var(--olive);color:var(--cream);border-radius:8px;padding:8px 14px;font-size:13px;letter-spacing:.06em}
+.btn.gh{background:transparent;border:1px solid var(--olive);color:var(--olive)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.login{max-width:360px;margin:60px auto;display:grid;gap:10px}
+.login input,.bar input,.bar select,td select,td input{height:40px;border:1px solid var(--line);border-radius:8px;padding:0 10px;background:#fff8;width:100%}
+.tabs{display:flex;gap:6px;margin-bottom:12px}
+.tabs button{padding:8px 16px;border-radius:8px;border:1px solid var(--line);background:var(--card)}
+.tabs button.on{background:var(--olive);color:var(--cream);border-color:var(--olive)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:12px}
+.stats div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.stats small{display:block;color:var(--muted);font-size:12px}
+.stats b{font-size:20px;color:var(--olive)}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.bar input{flex:1 1 220px;width:auto}
+.bar select{flex:0 0 auto;width:auto}
+.tw{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:760px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top;font-size:13px}
+th{font-size:12px;color:var(--muted);font-weight:500;white-space:nowrap;background:#0000000a}
+td small{display:block;color:var(--muted);font-size:11.5px}
+tr.click{cursor:pointer}tr.click:hover{background:#ffffff66}
+td select{height:32px;width:auto}
+td input.note{height:32px;min-width:120px}
+.tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:99px;background:var(--bg);color:var(--olive)}
+.tag.w{background:var(--olive);color:var(--cream)}
+.st-待對帳{color:var(--warn);font-weight:700}
+.msg{color:var(--warn);font-size:13px}
+.muted{color:var(--muted);font-size:12.5px}
+.back{margin-bottom:10px}
+@media (max-width:600px){h1{font-size:17px}.stats b{font-size:17px}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"><p class="muted" style="padding:40px 0;text-align:center">載入中…</p></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="sb-config.js?v=1123m"></script>
+<script>
+// imikdots 後台：看會員、訂單，改對帳狀態，匯出電子報名單
+var A = { tab: 'orders', brand: 'mandala', q: '', st: 'all', members: [], orders: [], who: null };
+var app = document.getElementById('app');
+var STATUS = ['待對帳', '已對帳', '已完成', '已取消'];
+var BR = { mandala: '曼陀羅', ronin: '浪人' };
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+function money(n) { return 'NT$' + (n || 0).toLocaleString('en-US'); }
+function dt(d, t) { if (!d) return ''; var x = new Date(d); return x.getFullYear() + '/' + (x.getMonth() + 1) + '/' + x.getDate() + (t ? ' ' + String(x.getHours()).padStart(2, '0') + ':' + String(x.getMinutes()).padStart(2, '0') : ''); }
+
+if (!SB_URL || !SB_KEY) { app.innerHTML = '<div class="card login"><h1>imikdots 後台</h1><p class="muted">會員系統還沒連上資料庫（sb-config.js 還沒填）</p></div>'; }
+else {
+  var sb = supabase.createClient(SB_URL, SB_KEY, { auth: { detectSessionInUrl: false, persistSession: true } });
+  sb.auth.getSession().then(function (r) { start(r.data.session && r.data.session.user); });
+}
+
+function loginView(msg) {
+  app.innerHTML = '<div class="card login"><h1>imikdots 後台</h1><p class="muted">用妳在網站註冊的會員帳號登入</p>' + (msg ? '<p class="msg">' + esc(msg) + '</p>' : '') +
+    '<input id="em" type="email" placeholder="Email" autocomplete="email"><input id="pw" type="password" placeholder="密碼" autocomplete="current-password"><button class="btn" id="go">登入</button></div>';
+  document.getElementById('go').onclick = function () {
+    var b = this; b.disabled = true; b.textContent = '登入中…';
+    sb.auth.signInWithPassword({ email: document.getElementById('em').value.trim(), password: document.getElementById('pw').value }).then(function (r) {
+      if (r.error) loginView('Email 或密碼不對'); else start(r.data.user);
+    });
+  };
+}
+
+function start(user) {
+  if (!user) return loginView();
+  A.who = user;
+  sb.rpc('is_admin').then(function (r) {
+    if (!r.data) { sb.auth.signOut(); return loginView('這個帳號沒有後台權限'); }
+    load();
+  });
+}
+
+function load() {
+  app.innerHTML = '<p class="muted" style="padding:40px 0;text-align:center">讀取資料中…</p>';
+  Promise.all([
+    sb.from('members').select('*').order('created_at', { ascending: false }).limit(5000),
+    sb.from('orders').select('*').order('created_at', { ascending: false }).limit(5000)
+  ]).then(function (r) {
+    A.members = r[0].data || []; A.orders = r[1].data || [];
+    render();
+  });
+}
+
+function byBrand(x) { return A.brand === 'all' || x.brand === A.brand; }
+function itemsText(o) { return (o.items || []).map(function (x) { return esc(x.name) + (x.detail ? '<small>' + esc(x.detail) + '</small>' : ''); }).join(''); }
+
+function render() {
+  var ms = A.members.filter(byBrand), os = A.orders.filter(byBrand);
+  var now = new Date(), ym = now.getFullYear() + '-' + now.getMonth();
+  var monthOrders = os.filter(function (o) { var d = new Date(o.created_at); return d.getFullYear() + '-' + d.getMonth() === ym && o.status !== '已取消'; });
+  var head = '<header><h1>imikdots 後台</h1><div style="display:flex;gap:8px;flex-wrap:wrap">' +
+    '<button class="btn gh" id="reload">重新整理</button><button class="btn gh" id="out">登出</button></div></header>' +
+    '<div class="stats"><div><small>會員人數</small><b>' + ms.length + '</b></div>' +
+    '<div><small>待對帳</small><b>' + os.filter(function (o) { return o.status === '待對帳'; }).length + ' 筆</b></div>' +
+    '<div><small>本月訂單</small><b>' + monthOrders.length + ' 筆</b></div>' +
+    '<div><small>本月金額（不含取消）</small><b>' + money(monthOrders.reduce(function (a, o) { return a + o.total; }, 0)) + '</b></div></div>' +
+    '<div class="tabs"><button data-tab="orders" class="' + (A.tab === 'orders' ? 'on' : '') + '">訂單</button><button data-tab="members" class="' + (A.tab !== 'orders' ? 'on' : '') + '">會員</button></div>';
+  var body = '';
+  var q = A.q.toLowerCase();
+  if (A.tab === 'orders') {
+    var list = os.filter(function (o) {
+      if (A.st !== 'all' && o.status !== A.st) return false;
+      if (!q) return true;
+      return [o.order_no, o.name, o.phone, o.line_name, o.last5, JSON.stringify(o.items)].join(' ').toLowerCase().indexOf(q) >= 0;
+    });
+    body = '<div class="bar"><input id="q" placeholder="搜尋姓名、手機、訂單編號、後五碼、課程" value="' + esc(A.q) + '">' +
+      '<select id="st"><option value="all">全部狀態</option>' + STATUS.map(function (s) { return '<option' + (A.st === s ? ' selected' : '') + '>' + s + '</option>'; }).join('') + '</select>' +
+      '<button class="btn gh" id="csvO">匯出訂單 CSV</button></div>' + orderTable(list);
+  } else if (A.tab === 'members') {
+    var cnt = {}; A.orders.forEach(function (o) { if (o.member_id && o.status !== '已取消') { cnt[o.member_id] = cnt[o.member_id] || [0, 0]; cnt[o.member_id][0]++; cnt[o.member_id][1] += o.total; } });
+    var ml = ms.filter(function (m) { return !q || [m.name, m.phone, m.email].join(' ').toLowerCase().indexOf(q) >= 0; });
+    body = '<div class="bar"><input id="q" placeholder="搜尋姓名、手機、Email" value="' + esc(A.q) + '"><button class="btn gh" id="csvM">匯出電子報名單 CSV</button></div>' +
+      '<div class="tw"><table><thead><tr><th>加入日期</th><th>姓名</th><th>手機</th><th>生日</th><th>Email</th><th>電子報</th><th>首購折 100</th><th>訂單</th><th>消費金額</th><th>事業</th></tr></thead><tbody>' +
+      (ml.length ? ml.map(function (m) {
+        var c = cnt[m.id] || [0, 0], exp = new Date(new Date(m.created_at).getTime() + 30 * 864e5);
+        var w = m.welcome_used_at ? '已用 ' + dt(m.welcome_used_at) : exp > new Date() ? '<span class="tag w">可用到 ' + dt(exp) + '</span>' : '<span class="muted">已過期</span>';
+        return '<tr class="click" data-mid="' + m.id + '"><td>' + dt(m.created_at) + '</td><td>' + esc(m.name) + '</td><td>' + esc(m.phone) + '</td><td>' + esc(m.birthday || '') + '</td><td>' + esc(m.email) + '</td><td>' + (m.newsletter ? '✓' : '—') + '</td><td>' + w + '</td><td>' + c[0] + '</td><td>' + money(c[1]) + '</td><td>' + (BR[m.brand] || m.brand) + '</td></tr>';
+      }).join('') : '<tr><td colspan="10" class="muted">還沒有會員</td></tr>') + '</tbody></table></div>';
+  } else {
+    var m = A.members.filter(function (x) { return x.id === A.tab; })[0] || {};
+    var mo = A.orders.filter(function (o) { return o.member_id === m.id || (m.phone && o.phone === m.phone); });
+    body = '<button class="btn gh back" data-tab="members">← 回會員列表</button>' +
+      '<div class="card" style="margin-bottom:12px"><b style="font-size:16px">' + esc(m.name) + '</b><p class="muted">' + esc(m.phone) + '・' + esc(m.email) + '・生日 ' + esc(m.birthday || '未填') + '・' + dt(m.created_at) + ' 加入</p></div>' +
+      '<p class="muted" style="margin-bottom:8px">這位會員的所有訂單（含同一支手機沒登入時下的單）</p>' + orderTable(mo);
+  }
+  app.innerHTML = head + body;
+  bind();
+}
+
+function orderTable(list) {
+  return '<div class="tw"><table><thead><tr><th>時間</th><th>編號</th><th>客人</th><th>內容</th><th>金額</th><th>付款</th><th>狀態</th><th>備註</th></tr></thead><tbody>' +
+    (list.length ? list.map(function (o) {
+      return '<tr><td>' + dt(o.created_at, 1) + '<small>' + (BR[o.brand] || o.brand) + '・' + (o.kind === 'course' ? '課程' : '商品') + '</small></td><td>' + esc(o.order_no) + '</td>' +
+        '<td>' + esc(o.name) + '<small>' + esc(o.phone) + (o.line_name ? '・LINE ' + esc(o.line_name) : '') + '</small>' + (o.member_id ? '<span class="tag">會員</span>' : '') + '</td>' +
+        '<td>' + itemsText(o) + '</td><td>' + money(o.total) + (o.discount ? '<small>原 ' + money(o.amount) + '・會員折 ' + o.discount + '</small>' : '') + '</td>' +
+        '<td>' + esc(o.pay_method || '') + (o.last5 ? '<small>後五碼 ' + esc(o.last5) + '</small>' : '') + '</td>' +
+        '<td><select data-oid="' + o.id + '" class="st-' + esc(o.status) + '">' + STATUS.map(function (s) { return '<option' + (o.status === s ? ' selected' : '') + '>' + s + '</option>'; }).join('') + '</select></td>' +
+        '<td><input class="note" data-nid="' + o.id + '" value="' + esc(o.admin_note || '') + '" placeholder="備註"></td></tr>';
+    }).join('') : '<tr><td colspan="8" class="muted">沒有符合的訂單</td></tr>') + '</tbody></table></div>';
+}
+
+function bind() {
+  var $ = function (id) { return document.getElementById(id); };
+  if ($('brand')) $('brand').onchange = function () { A.brand = this.value; render(); };
+  if ($('reload')) $('reload').onclick = load;
+  if ($('out')) $('out').onclick = function () { sb.auth.signOut().then(function () { loginView(); }); };
+  if ($('st')) $('st').onchange = function () { A.st = this.value; render(); };
+  if ($('q')) { var qi = $('q'); qi.oninput = function () { A.q = this.value; clearTimeout(qi._t); qi._t = setTimeout(function () { render(); var n = $('q'); n.focus(); n.setSelectionRange(n.value.length, n.value.length); }, 300); }; }
+  document.querySelectorAll('[data-tab]').forEach(function (b) { b.onclick = function () { A.tab = b.dataset.tab; A.q = ''; render(); window.scrollTo(0, 0); }; });
+  document.querySelectorAll('[data-mid]').forEach(function (r) { r.onclick = function () { A.tab = r.dataset.mid; A.q = ''; render(); window.scrollTo(0, 0); }; });
+  document.querySelectorAll('[data-oid]').forEach(function (s) {
+    s.onchange = function () {
+      var id = +s.dataset.oid, v = s.value;
+      sb.from('orders').update({ status: v }).eq('id', id).then(function (r) {
+        if (r.error) { alert('更新失敗：' + r.error.message); return; }
+        A.orders.forEach(function (o) { if (o.id === id) o.status = v; }); s.className = 'st-' + v;
+      });
+    };
+  });
+  document.querySelectorAll('[data-nid]').forEach(function (inp) {
+    inp.onchange = function () {
+      var id = +inp.dataset.nid, v = inp.value;
+      sb.from('orders').update({ admin_note: v }).eq('id', id).then(function (r) { if (r.error) alert('備註存檔失敗'); else A.orders.forEach(function (o) { if (o.id === id) o.admin_note = v; }); });
+    };
+  });
+  if ($('csvM')) $('csvM').onclick = function () {
+    var rows = [['姓名', 'Email', '手機', '生日', '加入日期', '事業']].concat(A.members.filter(byBrand).filter(function (m) { return m.newsletter; }).map(function (m) { return [m.name, m.email, m.phone, m.birthday || '', dt(m.created_at), BR[m.brand] || m.brand]; }));
+    csv(rows, '電子報名單');
+  };
+  if ($('csvO')) $('csvO').onclick = function () {
+    var rows = [['時間', '編號', '事業', '類型', '姓名', '手機', 'LINE', '內容', '原價', '會員折扣', '實付', '付款方式', '後五碼', '狀態', '備註']].concat(A.orders.filter(byBrand).map(function (o) {
+      return [dt(o.created_at, 1), o.order_no, BR[o.brand] || o.brand, o.kind === 'course' ? '課程' : '商品', o.name, o.phone, o.line_name, (o.items || []).map(function (x) { return x.name + (x.detail ? '（' + x.detail + '）' : ''); }).join('；'), o.amount, o.discount, o.total, o.pay_method, o.last5, o.status, o.admin_note];
+    }));
+    csv(rows, '訂單');
+  };
+}
+
+function csv(rows, name) {
+  var s = '﻿' + rows.map(function (r) { return r.map(function (v) { v = String(v == null ? '' : v); if (/^[=+\-@]/.test(v)) v = "'" + v; return '"' + v.replace(/"/g, '""') + '"'; }).join(','); }).join('\r\n');
+  var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([s], { type: 'text/csv;charset=utf-8' }));
+  a.download = name + '_' + new Date().toISOString().slice(0, 10) + '.csv'; a.click();
+}
+</script>
+</body>
+</html>

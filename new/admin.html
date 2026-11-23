@@ -72,7 +72,12 @@ td input.note{height:32px;min-width:120px}
 .chip b{font-weight:700}.chip em{font-style:normal;font-weight:700;margin-left:1px}
 .day{margin-top:14px}
 .day h3{font-size:16px;color:var(--olive);margin-bottom:8px}
-.adds{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.qk{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:10px}
+.qk small.t{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px}
+.qk .seg{margin-bottom:9px}
+.qk .seg button{padding:7px 13px}
+.more{font-size:12.5px;color:var(--olive);text-decoration:underline;padding:4px 0}
+.adds{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
 .adds button{border:1px dashed var(--olive);border-radius:10px;padding:8px 12px;color:var(--olive);background:#fff6;font-size:13px;text-align:left}
 .adds button small{display:block;font-size:11px;color:var(--muted)}
 .ss{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px}
@@ -114,7 +119,7 @@ td input.note{height:32px;min-width:120px}
 // imikdots 後台：排課、看會員、訂單，改對帳狀態，匯出電子報名單
 // 排課（2026-11-23）：場次存在 Supabase，官網直接讀；每次改完會請 Google 試算表跟著同步
 var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwBrx3RqcjnG-TIbsNJlAx_rC7WWA3s8NONsc-Fm_FZ_QUwrJo0A_H5UOTe7S3D_YD-NA/exec';
-var A = { tab: 'sched', brand: 'mandala', q: '', st: 'all', members: [], orders: [], sess: [], enr: [], ym: '', day: '', who: null, schedOff: false };
+var A = { city: (function () { try { return localStorage.getItem('imk_city') || '台中'; } catch (e) { return '台中'; } })(), tab: 'sched', brand: 'mandala', q: '', st: 'all', members: [], orders: [], sess: [], enr: [], ym: '', day: '', who: null, schedOff: false };
 var app = document.getElementById('app'), mdl = document.getElementById('mdl');
 var STATUS = ['待對帳', '已對帳', '已完成', '已取消'];
 var BR = { mandala: '曼陀羅', ronin: '浪人' };
@@ -282,8 +287,10 @@ function schedView() {
   if (A.day) {
     var list = A.sess.filter(function (s) { return s.date === A.day || (s.end_date && s.date < A.day && s.end_date >= A.day); });
     h += '<div class="day" id="dayBox"><h3>' + md(A.day) + (A.day < t ? '　<span class="muted">（已經過了）</span>' : '') + '</h3>' +
-      '<div class="adds">' + SLOTS.map(function (x) { return '<button data-add="' + x[0] + '">＋ ' + x[0] + '<small>' + x[1] + '–' + x[2] + '</small></button>'; }).join('') +
-      '<button data-add="師資班">＋ 兩日師資班<small>' + md(A.day) + '～' + md(addDays(A.day, 1)) + '</small></button></div>' +
+      '<div class="qk"><small class="t">① 選地區</small><div class="seg">' + CITIES.concat(['線上']).map(function (c) { return '<button data-city="' + c + '" class="' + (A.city === c ? 'on' : '') + '">' + c + '</button>'; }).join('') + '</div>' +
+      '<small class="t">② 點時段，馬上開好一堂（' + esc(A.city) + '）</small><div class="adds">' + SLOTS.map(function (x) { return '<button data-quick="' + x[0] + '">＋ ' + x[0] + '<small>' + x[1] + '–' + x[2] + '</small></button>'; }).join('') +
+      (A.city === '線上' ? '' : '<button data-quick="師資班">＋ 兩日師資班<small>' + md(A.day) + '～' + md(addDays(A.day, 1)) + '</small></button>') + '</div>' +
+      '<button class="more" data-add="自訂">要改時間或其他設定？點這裡自訂</button></div>' +
       (list.length ? list.map(sessCard).join('') : '<p class="muted">這天還沒有課，點上面的按鈕開一堂。</p>') + '</div>';
   } else {
     h += '<p class="muted" style="margin-top:12px">點月曆上的日期就可以開課、看報名、改時間。</p>';
@@ -436,11 +443,24 @@ function bindSched() {
   root.querySelectorAll('[data-mon]').forEach(function (b) { b.onclick = function () { var y = +A.ym.slice(0, 4), m = +A.ym.slice(5, 7) + (+b.dataset.mon); var d = new Date(y, m - 1, 1); A.ym = ymd(d).slice(0, 7); A.day = ''; render(); }; });
   root.querySelectorAll('[data-day]').forEach(function (c) { c.onclick = function () { A.day = c.dataset.day; render(); var db = document.getElementById('dayBox'); if (db) db.scrollIntoView({ block: 'start', behavior: 'smooth' }); }; });
   root.querySelectorAll('[data-goday]').forEach(function (b) { b.onclick = function () { if (!b.dataset.goday) return; A.day = b.dataset.goday; A.ym = A.day.slice(0, 7); render(); document.getElementById('dayBox').scrollIntoView({ block: 'start', behavior: 'smooth' }); }; });
-  root.querySelectorAll('[data-add]').forEach(function (b) {
+  function draft(k) {
+    var on = A.city === '線上', x = SLOTS.filter(function (z) { return z[0] === k; })[0] || SLOTS[0];
+    return k === '師資班' ? { course: 'teacher', date: A.day, end_date: addDays(A.day, 1), time_start: '09:00', time_end: '17:00', mode: '實體', location: A.city, note: '' }
+      : { course: 'beginner', date: A.day, time_start: x[1], time_end: x[2], mode: on ? '線上' : '實體', location: A.city, note: '' };
+  }
+  root.querySelectorAll('[data-city]').forEach(function (b) { b.onclick = function () { A.city = b.dataset.city; try { localStorage.setItem('imk_city', A.city); } catch (e) {} render(); var db = document.getElementById('dayBox'); if (db) db.scrollIntoView({ block: 'start' }); }; });
+  root.querySelectorAll('[data-add]').forEach(function (b) { b.onclick = function () { editor(draft('早上')); }; });
+  root.querySelectorAll('[data-quick]').forEach(function (b) {
     b.onclick = function () {
-      var k = b.dataset.add, x = SLOTS.filter(function (z) { return z[0] === k; })[0];
-      editor(k === '師資班' ? { course: 'teacher', date: A.day, end_date: addDays(A.day, 1), time_start: '09:00', time_end: '17:00', mode: '實體', location: '台中', note: '' }
-        : { course: 'beginner', date: A.day, time_start: x[1], time_end: x[2], mode: '實體', location: '台中', note: '' });
+      var e = draft(b.dataset.quick);
+      var clash = A.sess.filter(function (s) { return s.status === '開放' && (s.date === e.date || (s.end_date && s.date <= e.date && s.end_date >= e.date)) && s.time_start < e.time_end && e.time_start < s.time_end; });
+      if (clash.length && !confirm('這個時間已經有課：' + clash.map(sLabel).join('、') + '\n還是要再開一堂嗎？')) return;
+      b.disabled = true;
+      sb.rpc('admin_session_save', { p: e }).then(function (r) {
+        b.disabled = false;
+        if (r.error) return alert('開課失敗：' + r.error.message);
+        done('已開好 ' + e.location + ' ' + md(e.date) + ' ' + b.dataset.quick + '，官網看得到了', []);
+      });
     };
   });
   root.querySelectorAll('[data-edit]').forEach(function (b) { b.onclick = function () { editor(sessOf(+b.dataset.edit)); }; });

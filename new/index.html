@@ -1141,4 +1141,5 @@ document.addEventListener('DOMContentLoaded', renderUpcoming);
 // 結帳頁：購物車有課程時才顯示「報名資料」
 (function () { var r = window.renderCart; if (!r) return; window.renderCart = function () { r.apply(this, arguments); var f = document.querySelector('[data-signform]'); if (f) f.style.display = S.cart.some(function (x) { return !x.prod; }) ? '' : 'none'; }; })();
 </script>
+<script src="shop-live.js?v=1124a"></script>
 </body></html>

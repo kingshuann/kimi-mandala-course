@@ -965,10 +965,9 @@ var DAILY = [
 ];
 document.addEventListener('DOMContentLoaded', function () {
   var t = new Date(), n = Math.floor((t - new Date(t.getFullYear(), 0, 0)) / 864e5);
-  var dqi = Math.floor(Math.random() * DAILY.length);
+  // 每日能量小語：照「今年第幾天」輪流，同一天大家看到同一句，點了也不換（Kimi 2026-11-24）
+  var dqi = n % DAILY.length;
   document.getElementById('dq').innerHTML = DAILY[dqi];
-  var band = document.getElementById('dq').closest('.band');
-  if (band) { band.style.cursor = 'pointer'; band.addEventListener('click', function () { dqi = (dqi + 1) % DAILY.length; document.getElementById('dq').innerHTML = DAILY[dqi]; }); }
   var v = document.getElementById('venues'); if (v && window.VENUES) v.innerHTML = Object.keys(VENUES).map(function (c) { return '<li><span>' + c + '</span><span>' + VENUES[c] + '</span></li>'; }).join('') + '<li><span>線上</span><span>在家視訊上課，材料包寄到家</span></li>';
   document.getElementById('dd').textContent = ['Jan.','Feb.','Mar.','Apr.','May','Jun.','Jul.','Aug.','Sep.','Oct.','Nov.','Dec.'][t.getMonth()] + ' ' + t.getDate() + ', ' + t.getFullYear();
 });

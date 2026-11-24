@@ -271,7 +271,7 @@
 .bk-nav{margin-top:14px}
 [data-pg="works"].on,[data-pg="issue"].on{min-height:100dvh}
 /* 藝廊：雜誌簡化版 */
-[data-pg="works"],[data-pg="issue"]{background:#FBFAF7 !important}
+[data-pg="works"],[data-pg="issue"],[data-pg="about"]{background:#FBFAF7 !important}
 .zine{background:#FBFAF7;color:#1C1C1A}
 .zp{padding:44px 28px 30px;border-bottom:1px solid #E6E2DA}
 .zarc{text-align:center;font-family:'Noto Sans TC',sans-serif;font-weight:500;font-size:11.5px;letter-spacing:.3em;margin-bottom:34px}
@@ -313,9 +313,9 @@
 .zst{font-family:'Noto Serif TC',serif;font-size:14.5px;line-height:2.05;letter-spacing:.06em;color:#3B3934;margin-top:44px}
 .zend{text-align:center;font-family:'Noto Sans TC',sans-serif;font-weight:500;font-size:12px;letter-spacing:.3em;color:#8A857C;padding:26px 0 34px}
 /* 水彩紙紋理（自製冷壓紙紋，疊在原本底色上，顏色不變） */
-.app,[data-pg="works"],[data-pg="issue"],.zine{background-image:url(paper-texture.jpg?v=2) !important;background-size:240px !important;background-blend-mode:multiply !important}
+.app,[data-pg="works"],[data-pg="issue"],[data-pg="about"],.zine{background-image:url(paper-texture.jpg?v=2) !important;background-size:240px !important;background-blend-mode:multiply !important}
 .app{background-color:var(--bg) !important}
-[data-pg="works"],[data-pg="issue"],.zine{background-color:var(--bg) !important}
+[data-pg="works"],[data-pg="issue"],[data-pg="about"],.zine{background-color:var(--bg) !important}
 .zp,.zlt{border-bottom-color:rgba(62,71,51,.14) !important}
 .zcap{background-color:var(--bg) !important;background-image:url(paper-texture.jpg?v=2);background-size:240px;background-blend-mode:multiply}
 /* 商店 */
@@ -658,6 +658,30 @@ body.dopen .fab{opacity:0;pointer-events:none}
 .jl-c.soon{padding:20px 0;color:var(--muted)}
 .jl-c.soon .jl-t{margin-top:0}
 .jl-c.soon b{font-size:15px;color:var(--muted)}
+.hk-link{display:inline-block;margin-top:12px;font-size:13px;letter-spacing:.12em;color:var(--olive);border-bottom:1px solid var(--olive) !important;padding-bottom:2px}
+.hk-full{margin-top:4px;padding-bottom:30px}
+.hk-join{margin-top:34px;padding:26px 20px;border-radius:14px;background:var(--card);text-align:center}
+.hk-join b{display:block;font-family:'Noto Serif TC',serif;font-weight:600;font-size:18px;letter-spacing:.14em;color:var(--olive)}
+.hk-join p{margin-top:10px;font-size:13px;line-height:1.9;color:var(--ink);font-weight:400}
+.hk-join .hk-b{margin:16px 0 0}
+.hk-ig{display:inline-block;margin-top:14px;font-size:12.5px;letter-spacing:.08em;color:var(--olive);text-decoration:underline}
+/* 關於 Kimi 頁：雜誌風圖文（參考 ViVi 文章排法，2026-11-24） */
+.mz-lead{margin:22px 0 0;padding:16px 18px;background:var(--card);border-radius:4px;font-size:13.5px;line-height:1.9;font-weight:400;color:var(--ink)}
+.mz-ch{text-align:center;margin:44px 0 18px}
+.mz-tag{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;width:54px;height:54px;background:var(--olive);color:var(--cream);font-family:'Marcellus',serif;font-size:9px;letter-spacing:.2em;line-height:1.1}
+.mz-tag b{font-weight:400;font-size:22px;letter-spacing:.04em;margin-top:2px}
+.mz-ch h3{margin-top:14px;font-family:'Noto Serif TC',serif;font-weight:600;font-size:20px;letter-spacing:.12em;line-height:1.6;color:var(--ink)}
+.mz-ch h3 em{font-style:normal;color:var(--olive);border-bottom:2px solid rgba(62,71,51,.25)}
+.mz-fig{margin:0 -20px 14px}
+.mz-fig img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
+.mz-fig figcaption{padding:8px 20px 0;font-size:11.5px;line-height:1.7;color:var(--muted);letter-spacing:.04em}
+.mz-pull{margin:24px 0 18px;text-align:center;font-family:'Noto Serif TC',serif;font-weight:600;font-size:19px;letter-spacing:.12em;line-height:1.7;color:var(--olive)}
+.mz-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 18px}
+.mz-pair img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:4px}
+.mz-fig.wide img{aspect-ratio:16/10}
+.hk-full .hk-n{display:none}
+.zabt-cta{display:flex;flex-direction:column;align-items:center;gap:12px;padding:30px 28px 6px}
+.zabt-cta .btn{width:100%}
 </style></head>
 <body><div class="app">
 
@@ -689,20 +713,9 @@ body.dopen .fab{opacity:0;pointer-events:none}
   <div class="hk">
     <div class="hk-top"><div class="hk-id"><b>Kimi<i>老師</i></b><hr><small>點點曼陀羅創作者・課程講師<br>美業教育品牌負責人<br>Podcaster・影片創作者</small></div><div class="hk-ph"><img data-src="img/kimi-portrait.jpg" alt="Kimi 老師" loading="lazy"></div></div>
     <p class="hk-q">我不是美術系畢業，<br>小時候還常被說不會畫畫、沒有創意。</p>
-    <div class="hk-more">
-    <h4 class="hk-h">全年無休投入工作</h4>
-    <p class="t">商管碩士畢業後，我先後投入廣告行銷業與電商產業，後來轉身踏入美業 8 年，當過美甲師、美睫師、紋繡師，之後更致力於美業教學。</p>
-    <p class="t">那幾年我把工作排得滿滿的，幾乎 365 天全年無休，每天都在照顧別人，直到事業和身心同時跌進低潮，整個人的狀態低到谷底。</p>
-    <h4 class="hk-h">為什麼是點點曼陀羅</h4>
-    <p class="t">那時的我總是焦慮、浮躁，心很難安定下來。第一次看見點點曼陀羅，我卻能靜靜地看著它好久：它看起來和諧又完整，其實只是由一個個點和線組成，讓我想試試看。</p>
-    <p class="t">沒想到，一畫就停不下來。</p>
-    <p class="t">以前的我總在擔心還沒發生的未來、懊悔已經過去的事；但拿起筆的時候，我只需要專心在眼前這一點：點在哪裡、選什麼顏色。一點一點之間，紛亂的思緒慢慢安靜下來，我終於把專注力放回「現在」，也找回了內心的平靜。</p>
-    <h4 class="hk-h">把這份平靜帶給你</h4>
-    <p class="t">現在我在全台各地都有開課據點，也開設線上課程。</p>
-    <p class="t"><strong style="color:var(--olive)">零基礎班</strong>，陪你留一段時間給自己。即使完全沒有繪畫經驗，或曾經被說不會畫畫，也能一點一點完成屬於你的作品。</p>
-    <p class="t"><strong style="color:var(--olive)">師資班</strong>，從完整教材到結業後 3 個月一對一陪跑，陪你開出自己的課。</p>
-    <p class="t">課堂之外，我也拍影片、做 Podcast，分享畫畫與生活。</p>
-    </div><button class="hk-more-b" type="button" onclick="var m=this.previousElementSibling;var o=m.classList.toggle('open');this.firstChild.textContent=o?'收起':'閱讀我的故事';this.classList.toggle('open',o)">閱讀我的故事<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+    <p class="t">商管碩士畢業後，我投入廣告行銷與電商產業，再轉身踏入美業 8 年。在最焦慮、最低潮的時候遇見點點曼陀羅，才發現原來我可以把專注力放回現在。</p>
+    <p class="t">現在，我想把這份平靜帶給你。</p>
+    <button class="hk-link" data-go="about">閱讀我的故事 →</button>
     <div class="hk-n"><div><b>6 年</b><span>教育產業經驗</span></div><div><b>一場下午茶</b><span>零基礎完成第一幅</span></div><div><b>3 個月</b><span>師資一對一陪跑</span></div></div>
     <div class="hk-b"><button class="btn" data-go="shop">查看課程介紹</button></div>
   </div>
@@ -886,10 +899,42 @@ body.dopen .fab{opacity:0;pointer-events:none}
   <div class="cta"><button class="btn full" data-go="shop">我也想畫一幅</button></div>
 </section>
 <section class="pg" data-pg="about"><div data-top="sub"></div>
-  <div class="ttl"><span data-icon="leaf"></span><small class="ey">ABOUT</small><h1>關於 Kimi</h1><p>陪你從「畫畫」開始，創造自己喜歡的生活方式。</p></div>
-  <div class="abt"><img data-src="img/kimi-portrait.jpg" alt="Kimi"><div><b>Kimi 老師</b><small>從事各產業教職事業 6 年・學生 300+</small><span>曼陀羅老師／美業老師／影音創作者</span></div></div>
-  <div class="txt"><p>國立高雄科技大學行銷系畢業、國立中興大學科技管理研究所畢業。曾任職於廣告業、電商行銷產業與美業創業 8 年，後來轉身走進療癒繪畫教學。</p><p>希望陪你在忙碌的世界裡，慢慢找回屬於自己的節奏。</p></div>
-  <div class="cta"><button class="btn full" data-go="shop">看看課程</button></div>
+  <!-- 關於 Kimi：跟點點月刊同一套雜誌排版（2026-11-24） -->
+  <div class="zine"><section class="zlt">
+  <div class="zmast"><b>About Kimi</b><span>關於 Kimi</span></div>
+  <p class="zarc">Profile | imikdots</p>
+  <img data-src="img/kimi-portrait.jpg" alt="Kimi">
+  <p class="zlk">PROFILE</p>
+  <h2>Kimi 老師</h2>
+  <p class="zhi">點點曼陀羅創作者<br>課程講師<br>美業教育品牌負責人<br>Podcaster<br>影片創作者</p>
+  <p>我不是美術系畢業，小時候還常被說不會畫畫、沒有創意。從廣告行銷、電商，到美業 8 年，再到點點曼陀羅，這是一個原本以為自己不會畫畫的人，一點一點畫出新生活的故事。</p>
+  <p class="zsig">— Kimi</p>
+  <ol class="ztoc"><li><i>01</i>全年無休投入工作</li><li><i>02</i>為什麼是點點曼陀羅</li><li><i>03</i>把這份平靜帶給你</li></ol>
+</section><article class="zp">
+  <p class="zarc">STORY 01 ・ ABOUT KIMI</p>
+  <header class="zh"><div class="zlab"><small>Kimi's</small><b>BEFORE</b><i>01</i></div><p class="zt">365 DAYS × NON-STOP</p></header>
+  <figure class="zbig"><img data-src="img/kimi-hero.jpg" alt="" loading="lazy"><figcaption class="zcap">BEFORE　那幾年，總是把自己排在最後</figcaption></figure>
+  <p class="zst">商管碩士畢業後，我先後投入廣告行銷業與電商產業，後來轉身踏入美業 8 年，當過美甲師、美睫師、紋繡師，之後更致力於美業教學。那幾年我把工作排得滿滿的，幾乎 365 天全年無休，直到事業和身心同時跌進低潮，整個人的狀態低到谷底。</p>
+  <div class="zmid"><p class="zv">全年無休投入工作</p><div><p class="zq">每天都在<br>照顧別人，<br>卻忘了自己。</p><p class="zs">事業和身心，同時跌進了低潮。</p></div></div>
+  <p class="zcr"><b>STORY</b>About Kimi ｜ imikdots　1/3</p>
+</article><article class="zp mr">
+  <p class="zarc">STORY 02 ・ MEET DOTS</p>
+  <header class="zh"><div class="zlab"><small>Kimi's</small><b>MEET DOTS</b><i>02</i></div><p class="zt">ONE DOT × ONE BREATH</p></header>
+  <figure class="zbig"><img data-src="img/mandala-navy.jpg" alt="" loading="lazy"><figcaption class="zcap">DOTS　看起來和諧又完整，其實只是點和線</figcaption></figure>
+  <p class="zst">那時的我總是焦慮、浮躁，心很難安定下來。第一次看見點點曼陀羅，我卻能靜靜地看著它好久，讓我想試試看。沒想到，一畫就停不下來。拿起筆的時候，我只需要專心在眼前這一點：點在哪裡、選什麼顏色。一點一點之間，紛亂的思緒慢慢安靜下來，我終於把專注力放回「現在」。</p>
+  <div class="zmid"><p class="zv">一畫就停不下來</p><div><p class="zq">只需要<br>想好<br>眼前這一點。</p><p class="zs">一點一點之間，找回了內心的平靜。</p></div></div>
+  <div class="zpair"><figure><img data-src="img/work6.jpg" alt="" loading="lazy"><figcaption>WORK　米色的靜</figcaption></figure><figure><img data-src="img/work2.jpg" alt="" loading="lazy"><figcaption>WORK　綠色燭台</figcaption></figure></div>
+  <p class="zcr"><b>STORY</b>About Kimi ｜ imikdots　2/3</p>
+</article><article class="zp">
+  <p class="zarc">STORY 03 ・ TODAY</p>
+  <header class="zh"><div class="zlab"><small>Kimi's</small><b>TODAY</b><i>03</i></div><p class="zt">CLASS × TEACHER</p></header>
+  <figure class="zbig"><img src="img_banner/upcoming.jpg" alt="" loading="lazy"><figcaption class="zcap">CLASS　學生們在課堂上完成的作品</figcaption></figure>
+  <p class="zst">現在我在全台各地都有開課據點，也開設線上課程。零基礎班，陪你留一段時間給自己，即使完全沒有繪畫經驗，或曾經被說不會畫畫，也能一點一點完成屬於你的作品。師資班，從完整教材到結業後 3 個月一對一陪跑，陪你開出自己的課。課堂之外，我也拍影片、做 Podcast，分享畫畫與生活。</p>
+  <div class="zmid"><p class="zv">把這份平靜帶給你</p><div><p class="zq">你願意開始，<br>就已經<br>很棒了。</p><p class="zs">零基礎班、師資班，都歡迎你。</p></div></div>
+  <p class="zcr"><b>STORY</b>About Kimi ｜ imikdots　3/3</p>
+</article>
+  <div class="zabt-cta"><button class="btn" data-go="shop">查看課程介紹</button><a class="hk-ig" href="https://www.instagram.com/imikdots" target="_blank" rel="noopener">在 IG 看更多作品 @imikdots</a></div>
+  <p class="zend">imikdots　ABOUT KIMI</p></div>
 </section>
 
 <section class="pg" data-pg="news"><div data-top="sub"></div>

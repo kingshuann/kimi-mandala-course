@@ -79,7 +79,8 @@
     if (typeof sb === 'undefined' || !sb) { toast('商店暫時無法下單，請私訊官方 LINE 購買'); return; }
 
     btn.disabled = true; btn.textContent = '送出中…';
-    var useW = S.ckMOff > 0 && !courses.length, payNow = S.pay;
+    // 首購折：只有商品時折在商品；兩人以上同行報名時，首購折不折課程、改折在同一張購物車的商品（2026-11-25 Kimi）
+    var useW = S.ckMOff > 0 && (!courses.length || !!S.ckWProd), payNow = S.pay;
     sb.rpc('place_order', { p: { brand: typeof BRAND !== 'undefined' ? BRAND : 'mandala', kind: 'product',
       items: prods.map(function (x) { return { pid: x.prod.id, sel: selOf(x), qty: x.qty, name: x.prod.name }; }),
       use_welcome: useW, pay_method: (PAYL[S.pay] || S.pay) + (S.pay === 'linepay' ? '（已勾選付款完成）' : ''), last5: l5,

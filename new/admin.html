@@ -182,7 +182,7 @@ var STATUS = ['待對帳', '已對帳', '已出貨', '已完成', '已取消'];
 var BR = { mandala: '曼陀羅', ronin: '浪人' };
 var CITIES = ['台北', '新北', '桃園', '新竹', '台中', '高雄'];
 var SLOTS = [['早上', '09:00', '12:30'], ['下午', '13:30', '17:00'], ['晚上', '18:30', '22:00']];
-var CNAME = { beginner: '零基礎', teacher: '兩日師資班' };
+var CNAME = { beginner: '零基礎', teacher: '研修班' };
 var WEEK = ['日', '一', '二', '三', '四', '五', '六'];
 function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
 function money(n) { return 'NT$' + (n || 0).toLocaleString('en-US'); }
@@ -542,7 +542,7 @@ function schedView() {
   var monthCnt = A.sess.filter(function (s) { return s.date.slice(0, 7) === A.ym && s.status === '開放'; });
   h += '<div class="mnav"><button class="mbtn" data-mon="-1" aria-label="上個月">‹</button><div class="mt"><small>' + y + ' ・ ' + ['JANUARY','FEBRUARY','MARCH','APRIL','MAY','JUNE','JULY','AUGUST','SEPTEMBER','OCTOBER','NOVEMBER','DECEMBER'][m - 1] + '</small><h2>' + m + ' 月</h2>' +
     '<span>這個月 ' + monthCnt.length + ' 堂・' + monthCnt.reduce(function (a, s) { return a + heads(enrOf(s.id)); }, 0) + ' 人報名</span></div><button class="mbtn" data-mon="1" aria-label="下個月">›</button></div>' +
-    '<div class="legend"><span><i style="background:var(--sage)"></i>零基礎（早／午／晚）</span><span><i style="background:var(--olive)"></i>兩日師資班</span><span><i style="background:#e3ddd2"></i>已取消</span><span>數字＝報名人數</span></div>' +
+    '<div class="legend"><span><i style="background:var(--sage)"></i>零基礎（早／午／晚）</span><span><i style="background:var(--olive)"></i>研修班</span><span><i style="background:#e3ddd2"></i>已取消</span><span>數字＝報名人數</span></div>' +
     '<div class="cal" id="calGrid">' + ['一', '二', '三', '四', '五', '六', '日'].map(function (w, i) { return '<div class="wd' + (i > 4 ? ' we' : '') + '">' + w + '</div>'; }).join('');
   for (var i = 0; i < 42; i++) {
     var d = new Date(startD.getFullYear(), startD.getMonth(), startD.getDate() + i), ds = ymd(d);
@@ -559,7 +559,7 @@ function schedView() {
     h += '<div class="day" id="dayBox"><h3>' + md(A.day) + (A.day < t ? '　<span class="muted">（已經過了）</span>' : '') + '</h3>' +
       '<div class="qk"><small class="t">① 選地區</small><div class="seg">' + CITIES.concat(['線上']).map(function (c) { return '<button data-city="' + c + '" class="' + (A.city === c ? 'on' : '') + '">' + c + '</button>'; }).join('') + '</div>' +
       '<small class="t">② 點時段，馬上開好一堂（' + esc(A.city) + '）</small><div class="adds">' + SLOTS.map(function (x) { return '<button data-quick="' + x[0] + '">＋ ' + x[0] + '<small>' + x[1] + '–' + x[2] + '</small></button>'; }).join('') +
-      (A.city === '線上' ? '' : '<button data-quick="師資班">＋ 兩日師資班<small>' + md(A.day) + '～' + md(addDays(A.day, 1)) + '</small></button>') + '</div>' +
+      (A.city === '線上' ? '' : '<button data-quick="師資班">＋ 研修班<small>' + md(A.day) + '～' + md(addDays(A.day, 1)) + '</small></button>') + '</div>' +
       '<button class="more" data-add="自訂">要改時間或其他設定？點這裡自訂</button></div>' +
       (list.length ? list.map(sessCard).join('') : '<p class="muted">這天還沒有課，點上面的按鈕開一堂。</p>') + '</div>';
   } else {

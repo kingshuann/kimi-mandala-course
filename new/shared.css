@@ -204,3 +204,14 @@ body.dopen .drw{transform:none;visibility:visible}
 .tb .wm{text-align:left}
 .tb .wm b{padding-left:0;font-size:23px}
 .tb .wm small{padding-left:0}
+
+/* 課程比較表（2026-11-25 Kimi：卡片改成一張對照表） */
+.vtb{margin-top:10px;background:var(--card2);border-radius:14px;overflow:hidden}
+.vtb-r{display:grid;grid-template-columns:78px 1fr 1.3fr;align-items:stretch}
+.vtb-r>*{padding:11px 10px;font-size:12.5px;line-height:1.55;display:flex;align-items:center}
+.vtb-r+.vtb-r>*{border-top:1px solid rgba(74,79,58,.12)}
+.vtb-r>b{font-family:'Noto Serif TC',serif;font-weight:600;font-size:13px;letter-spacing:.06em;color:#3E4733;padding-left:12px;padding-right:4px;white-space:nowrap}
+.vtb-r>span:nth-child(2){color:var(--muted)}
+.vtb-r>span:nth-child(3){background:#3E4733;color:#F3EEE6;font-weight:500;border-top-color:rgba(243,238,230,.14)}
+.vtb-h>*{padding-top:10px;padding-bottom:8px;font-size:11px;letter-spacing:.14em;font-weight:500}
+.vtb-h>span:nth-child(3){opacity:1;color:#E5DFC9}

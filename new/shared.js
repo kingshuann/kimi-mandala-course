@@ -126,7 +126,7 @@ var SOCIAL = [
 function drawer() {
   // [連到哪, 英文小字, 名稱, 是否子項目, 即將推出]
   var it = [['home', 'HOME', '首頁'], ['about', 'ABOUT', '關於 Kimi'], ['works', 'JOURNAL', '點點月刊 <i>' + JOURNAL_ISSUE + '</i>'], ['shop', 'COURSES', '全部課程', 0, 0, 1],
-    ['course:beginner', '', '<em class="dlv">初階</em>零基礎班', 1], ['course:teacher', '', '<em class="dlv">進階</em>創作職人研修班', 1], ['course:online', '', '<em class="dlv">初階</em>線上課', 1], ['', '', '主題課程', 1, 1],
+    ['course:beginner', '', '<em class="dlv">初階</em>零基礎班', 1], ['course:teacher', '', '<em class="dlv">進階</em>創作職人研修班', 1], ['', '', '主題課程', 1, 1],
     ['students', 'WORKS', '學生作品'], ['goods#art', 'ART', '原創畫作'], ['goods', 'SHOP', '商店'], ['faq', 'Q&A', '常見問題'], ['contact', 'CONTACT', '聯繫我']];
   return '<div class="dbg" data-close></div><aside class="drw"><div class="drw-h"><span>MENU</span><button data-close aria-label="關閉">×</button></div>' +
     it.map(function (x, n) {
@@ -183,6 +183,7 @@ function renderCourse() {
     // 2026-11-26 Kimi：研修班頁最上面放聳動標題，三種學生一行一句
     up.innerHTML = S.k === 'teacher' ? '<b>報研修班，零基礎免費送</b>' + BASE_DEALS.map(function (r) { return '<span>' + r[0] + '？' + r[1] + '</span>'; }).join('')
       : '🌿 上完零基礎班 2 週內報名進階「創作職人研修班」，零基礎學費全額折抵　<button data-go="course:teacher">看研修班</button>'; }
+  if (S.k === 'online') { var h1 = host.querySelector('h1[data-f]'); if (h1) h1.textContent = COURSES.beginner.short; } // 線上併在零基礎班裡，標題一樣
   var lh = host.querySelector('[data-lvh]'); if (lh) lh.textContent = { beginner: '初階', online: '初階・線上', teacher: '進階' }[S.k] || '';
   var lv = host.querySelector('[data-lv]'); if (lv) lv.innerHTML = '<button class="lvk" data-go="shop#cmp">三種課程怎麼選？看比較表 →</button>';
   var dt = host.querySelector('[data-detail]'); if (dt) dt.innerHTML = detailHtml(S.k);
@@ -225,11 +226,18 @@ function renderPick() {
   if (!S.city || cities.indexOf(S.city) < 0) S.city = cities[0] || null;
   var ce = document.querySelector('[data-cities]'), de = document.querySelector('[data-dates]');
   if (!ce) return;
-  if (S.k === 'online') { ce.innerHTML = '<span class="chip on">線上・時間另約</span>'; de.innerHTML = '<p class="hint">報名後小幫手會用 LINE 跟你約上課時間</p>'; S.sess = ONLINE_FLEX; renderTOpt(); return; }
+  // 線上課併在初階零基礎班裡（2026-11-26 Kimi）：地區多一顆「線上・在家上」，點了在同一頁切換實體／線上
+  function swap(k, city) { S.k = k; S.city = city || null; S.sess = null; try { history.replaceState(null, '', '#course:' + k); } catch (e) {} renderCourse(); }
+  if (S.k === 'online') {
+    var bc = []; sessionsFor('beginner').forEach(function (s) { if (bc.indexOf(s.location) < 0) bc.push(s.location); });
+    ce.innerHTML = bc.map(function (ct) { return '<button class="chip" data-bcity="' + ct + '">' + ct + '</button>'; }).join('') + '<span class="chip on">線上・在家上</span>';
+    ce.querySelectorAll('[data-bcity]').forEach(function (btn) { btn.onclick = function (ev) { ev.stopPropagation(); swap('beginner', btn.dataset.bcity); }; });
+    de.innerHTML = '<p class="hint">材料包寄到家，報名後小幫手會用 LINE 跟你約上課時間</p>'; S.sess = ONLINE_FLEX; renderTOpt(); return; }
   ce.innerHTML = cities.length ? cities.map(function (ct) { return '<button class="chip' + (ct === S.city ? ' on' : '') + '" data-city="' + ct + '">' + ct + '</button>'; }).join('') : '<p class="hint">目前沒有公告場次，歡迎私訊官方 LINE 開班</p>';
   var ds = L.filter(function (s) { return s.location === S.city; }).slice(0, 12);
   de.innerHTML = ds.map(function (s, i) { var p = s.date.split('-'); return '<button class="dt' + (S.sess === s ? ' on' : '') + '" data-si="' + i + '"><small>' + (+p[1]) + '月</small><b>' + (+p[2]) + (s.endDate ? '–' + (+s.endDate.split('-')[2]) : '') + '</b><span>' + (S.k === 'teacher' ? '兩日' : slotName(s.time)) + '</span></button>'; }).join('');
   de._list = ds;
+  if (S.k === 'beginner') { ce.insertAdjacentHTML('beforeend', '<button class="chip" data-gon>線上・在家上</button>'); ce.querySelector('[data-gon]').onclick = function (ev) { ev.stopPropagation(); swap('online'); }; }
   // 直接綁在每顆按鈕上（不靠整頁的點擊判斷），第一個場次也點得到
   ce.querySelectorAll('[data-city]').forEach(function (btn) { btn.onclick = function (ev) { ev.stopPropagation(); S.city = btn.dataset.city; S.sess = null; renderPick(); }; });
   de.querySelectorAll('[data-si]').forEach(function (btn) { btn.onclick = function (ev) { ev.stopPropagation(); S.sess = ds[+btn.dataset.si]; renderPick(); trk('select_session', { course: S.k, city: S.city }); }; });

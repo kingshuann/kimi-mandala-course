@@ -18,11 +18,11 @@ var ICONS = {
 };
 var NAV = [['home', '首頁', 'home'], ['shop', '課程介紹', 'brush'], ['goods', '商店', 'store']];
 var NOTES = ['台中班、線上課 1 人就開班，時間可討論；台中以外的縣市滿 3 人才開班。最晚於開課前一週通知，未成功開班全額退費，也可延期或轉讓。', '完成匯款後如因個人因素無法參加，可延期補課或轉讓他人，恕不退費。', '大人與小朋友同價，歡迎攜伴，請家長協助照顧。', '課堂中老師會側拍作品分享到 IG，不想入鏡請告訴老師。'];
-// 研修班改版（2026-11-25 Kimi 定案）：「兩日師資班」改名「進階：創作職人研修班」，開課陪跑計劃改成加購
+// 研修班改版（2026-11-25 Kimi 定案）：「兩日師資班」改名「進階：創作研修班」，開課陪跑計劃改成加購
 // 只改新網站：在這裡覆寫 data.js 的 COURSES.teacher，舊首頁不受影響
 (function () {
   var t = window.COURSES && COURSES.teacher; if (!t) return;
-  t.tag = '進階'; t.name = '點點曼陀羅・創作職人研修班'; t.short = '創作職人研修班';
+  t.tag = '進階'; t.name = '點點曼陀羅・創作研修班'; t.short = '創作研修班';
   t.sub = '兩天學會進階技法與大幅構圖，畫出有質感的作品';
   t.orig = ''; t.badges = ['🌱 進階創作', '可分期'];
   t.chips = ['4 件作品', '材料全包', '每梯限 6 人', '終身問答'];
@@ -144,7 +144,7 @@ var SOCIAL = [
 function drawer() {
   // [連到哪, 英文小字, 名稱, 是否子項目, 即將推出]
   var it = [['home', 'HOME', '首頁'], ['about', 'ABOUT', '關於 Kimi'], ['works', 'JOURNAL', '點點月刊 <i>' + JOURNAL_ISSUE + '</i>'], ['shop', 'COURSES', '全部課程', 0, 0, 1],
-    ['course:beginner', '', '<em class="dlv">初階</em>零基礎班', 1], ['course:teacher', '', '<em class="dlv">進階</em>兩日創作職人研修班', 1], ['', '', '主題課程', 1, 1],
+    ['course:beginner', '', '<em class="dlv">初階</em>零基礎班', 1], ['course:teacher', '', '<em class="dlv">進階</em>兩日創作研修班', 1], ['', '', '主題課程', 1, 1],
     ['students', 'WORKS', '學生作品'], ['goods#art', 'ART', '原創畫作'], ['goods', 'SHOP', '商店'], ['faq', 'Q&A', '常見問題'], ['contact', 'CONTACT', '聯繫我']];
   return '<div class="dbg" data-close></div><aside class="drw"><div class="drw-h"><span>MENU</span><button data-close aria-label="關閉">×</button></div>' +
     it.map(function (x, n) {
@@ -182,6 +182,7 @@ function go(p, fromPop) {
   var vp = page === 'course' ? 'course/' + S.k : page;
   if (window._lastVp !== vp) { window._lastVp = vp; trk('page_view', { page_title: (PG_NAME[page] || page) + (page === 'course' ? '｜' + S.k : ''), page_location: location.origin + location.pathname + '#' + vp }); }
   if (page === 'cart') trk('begin_checkout', {});
+  if (anc === 'coach') { setTimeout(coachOpen, 80); anc = null; }
   if (anc) setTimeout(function () { var el = document.getElementById(anc); if (el && window.bookTo && window.bookTo(el)) return; if (el) window.scrollTo({ top: el.getBoundingClientRect().top + pageYOffset - 70, behavior: 'smooth' }); }, 50);
 }
 
@@ -203,7 +204,7 @@ function renderCourse() {
     up.innerHTML = S.k === 'teacher' ? '<div class="gft"><div class="gft-t"><small>GIFT・研修班限定優惠</small><b>報研修班，零基礎免費送</b></div><button data-cpn>了解詳情</button></div>'
       : '🌿 已經想進修？<b>直接報研修班，零基礎免費送</b>　<button data-go="course:teacher">看研修班</button><small>想先上上看也可以，上完 2 週內報名，學費一樣全額折抵</small>'; }
   // 2026-11-26 Kimi：初階／進階直接寫在班名前面，研修班加「兩日」；線上併在零基礎班裡，標題一樣
-  var h1 = host.querySelector('h1[data-f]'); if (h1) h1.innerHTML = S.k === 'teacher' ? '<small class="h1lv">進階</small>兩日創作職人研修班' : '<small class="h1lv">初階</small>零基礎班';
+  var h1 = host.querySelector('h1[data-f]'); if (h1) h1.innerHTML = S.k === 'teacher' ? '<small class="h1lv">進階</small>兩日創作研修班' : '<small class="h1lv">初階</small>零基礎班';
   var lh = host.querySelector('[data-lvh]'); if (lh) { lh.textContent = ''; lh.hidden = true; }
   var lv = host.querySelector('[data-lv]'); if (lv) lv.innerHTML = ''; // 2026-11-26 Kimi：課程頁先不放「看比較表」連結，比較表只在全部課程頁
   if (up) up.className = S.k === 'teacher' ? 'upn cpw' : 'upn upb';
@@ -225,11 +226,25 @@ function detailHtml(k) {
     '<section class="ds"><p class="dk">' + no() + (T ? '不只學技法，更學會創作' : '並非臨摹，而是 0 到 1 獨立創作') + '</p>' + cmp + '</section>' +
     '<section class="ds"><p class="dk">' + no() + '課程內容</p>' + b.lessons.map(function (l, i) { return '<h4 class="lh"><span>主題' + '一二三四五六七八'[i] + '</span>' + l[0] + '</h4><ul class="dl">' + l[1].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>'; }).join('') + '</section>' +
     '<section class="ds"><p class="dk">' + no() + (T ? '附贈材料' : '工具大禮包') + '</p><ul class="dl">' + b.kit.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul><img class="fin" src="' + IMG + b.finalImg + '" alt="課程作品" loading="lazy"></section>' +
-    (T ? '<section class="ds" id="coach"><p class="dk">' + no() + '加購：開課陪跑計劃</p>' + coachHtml() + '</section>' : '') +
     '<section class="ds"><p class="dk">' + no() + '誰適合這堂課？</p><ul class="dl">' + b.who.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul></section>' +
     '<section class="ds"><p class="dk">' + no() + '報名須知</p><h4 class="lh">攜帶物品</h4><p class="dp">' + (on ? '什麼都不用準備，材料包會寄到家！' : b.bring) + '</p><h4 class="lh">注意事項</h4><ol class="dl">' + NOTES.map(function (n) { return '<li>' + n + '</li>'; }).join('') + '</ol>' +
     (T ? '<p class="cond">🌿 ' + TEACHER_COND + '</p>' : '') + '</section>' +
     (T ? '<section class="ds"><p class="dk">' + no() + '研修班常見問題</p><div class="qa">' + TEACHER_QA.map(function (q, i) { return '<details' + (i ? '' : ' open') + '><summary>' + q[0] + '</summary><p>' + q[1] + '</p></details>'; }).join('') + '</div></section>' : '');
+}
+// 陪跑計劃獨立頁（2026-11-26 Kimi：不放在研修班頁下面，點「看陪跑計劃內容」才打開）
+function coachOpen() {
+  var m = document.getElementById('cop');
+  if (!m) {
+    m = document.createElement('div'); m.id = 'cop'; m.className = 'cop'; document.body.appendChild(m);
+    m.addEventListener('click', function (ev) {
+      if (ev.target.closest('[data-copx]')) { ev.stopPropagation(); m.hidden = true; document.body.style.overflow = ''; }
+      else if (ev.target.closest('[data-copadd]')) { ev.stopPropagation(); S.tAdd = 1; m.hidden = true; document.body.style.overflow = ''; renderTOpt();
+        var o = document.querySelector('[data-tadd]'); if (o) window.scrollTo({ top: o.getBoundingClientRect().top + pageYOffset - 120, behavior: 'smooth' }); }
+    });
+  }
+  m.innerHTML = '<div class="cop-hd"><button data-copx aria-label="返回">‹ 返回研修班</button><span>開課陪跑計劃</span></div><div class="cop-bd">' + coachHtml() + '</div>' +
+    '<div class="cop-ft">' + (S.k === 'teacher' ? (S.tAdd ? '<p>✓ 已加購陪跑計劃</p><button class="btn full" data-copx>回到報名</button>' : '<button class="btn full" data-copadd>報名研修班時一起加購（+NT$13,000）</button>') : '<button class="btn full" data-copx>回到研修班</button>') + '</div>';
+  m.hidden = false; m.scrollTop = 0; document.body.style.overflow = 'hidden';
 }
 // 研修班頁裡的「開課陪跑計劃」區塊（深綠卡片）
 function coachHtml() {
@@ -318,14 +333,18 @@ function renderTOpt() {
   var bh = tBaseHtml(ob), found = window.MEM && MEM.user && S.bc && S.bc.found;
   var html = '<p class="lbl">03　' + (found ? '你的零基礎' : '你上過零基礎嗎？') + '</p>' + bh, n = 4;
   if (S.tBase === 'none') html += '<p class="lbl">0' + (n++) + '　選一堂零基礎場次（免費）</p><div class="chips" data-fcities></div><div class="dates" data-fdates></div><p class="tnote">先上完零基礎，再來上研修班 🌿</p>';
+  // 2026-11-26 Kimi：陪跑不給「先上研修班就好」選項，改成勾選加購；內容放獨立頁（coachOpen）
+  if (S.tAdd == null) S.tAdd = 0;
   html += '<p class="lbl">0' + n + '　加購開課陪跑計劃</p>' +
-    ob('add', 1, S.tAdd === 1, '一起加購開課陪跑計劃', '+NT$13,000・研修班＋陪跑合計 NT$39,800') +
-    ob('add', 0, S.tAdd === 0, '先上研修班就好', '之後想開課，還是可以加購（NT$15,800）');
+    '<button class="box ad' + (S.tAdd ? ' on' : '') + '" data-tadd><span class="ad-t"><small>想開自己的課？一起加購</small><b>+NT$13,000</b><em>研修班＋陪跑合計 NT$39,800</em></span><span class="ad-c"></span></button>' +
+    '<button class="adl" data-coach>看陪跑計劃內容 ›</button>';
   var cr = S.tBase === 'kimi' ? (S.tCr || 0) : 0, tot = COURSES.teacher.price + (S.tAdd ? COACH.price : 0) - cr;
   if (S.tCodeHtml) html += '<div class="tcwrap">' + S.tCodeHtml + '</div>';
   html += '<div class="tsum"><span>研修班 ' + money(COURSES.teacher.price) + (S.tAdd ? '＋陪跑 ' + money(COACH.price) : '') + (cr ? '－零基礎折抵 ' + money(cr) : '') + '</span><b>' + money(tot) + '</b></div>';
   h.innerHTML = html;
   document.querySelectorAll('[data-pg="course"] .stk b').forEach(function (e) { e.textContent = money(tot); });
+  var ta = h.querySelector('[data-tadd]'); if (ta) ta.onclick = function (ev) { ev.stopPropagation(); S.tAdd = S.tAdd ? 0 : 1; renderTOpt(); };
+  var tl = h.querySelector('[data-coach]'); if (tl) tl.onclick = function (ev) { ev.stopPropagation(); coachOpen(); };
   h.querySelectorAll('[data-to]').forEach(function (b) { b.onclick = function (ev) { ev.stopPropagation(); var a = b.dataset.to, v = b.dataset.v;
     if (a === 'add') S.tAdd = +v; else { S.tBase = v; S.tCr = null; S.tCode = null; S.fSess = null; }
     renderTOpt(); }; });
@@ -349,7 +368,7 @@ function renderTOpt() {
 function renderUpsell(h) {
   function ob(a, v, on, t, sm) { return '<button class="box ob' + (on ? ' on' : '') + '" data-uo="' + a + '" data-v="' + v + '"><span class="ob-t"><em>' + t + '</em>' + (sm ? '<small>' + sm + '</small>' : '') + '</span><span class="r"></span></button>'; }
   var tp = COURSES.teacher.price, html = '<p class="lbl">03　要不要加購研修班？</p>' +
-    ob('up', 1, S.uAdd === 1, '加購創作職人研修班', '這堂零基礎免費・只付研修班 ' + money(tp)) +
+    ob('up', 1, S.uAdd === 1, '加購創作研修班', '這堂零基礎免費・只付研修班 ' + money(tp)) +
     ob('up', 0, S.uAdd === 0, '先上零基礎就好', '上完 2 週內報研修班，學費一樣全額折抵');
   var base = C(S.k).price, tot = base;
   if (S.uAdd === 1) {
@@ -655,7 +674,7 @@ document.addEventListener('DOMContentLoaded', function () {
           document.getElementById('dnLine').hidden = false;
           // 報名零基礎（沒報研修班）→ 完成頁邀請下一步：研修班
           var du = document.getElementById('dnUp'), isB = courses.some(function (x) { return (x.k === 'beginner' || x.k === 'online') && !x.free; }), hasT = courses.some(function (x) { return x.k === 'teacher'; });
-          if (du) { du.hidden = !(isB && !hasT); du.innerHTML = '<small>NEXT STEP・進階</small><b>上完課，想把作品畫得更美？</b><p>上完零基礎 2 週內報名「創作職人研修班」，這堂零基礎的學費<b>全額折抵</b>。先好好享受這堂課，畫完再決定就好 🌿</p><button class="btn ghost full" data-go="course:teacher">看創作職人研修班</button>'; }
+          if (du) { du.hidden = !(isB && !hasT); du.innerHTML = '<small>NEXT STEP・進階</small><b>上完課，想把作品畫得更美？</b><p>上完零基礎 2 週內報名「創作研修班」，這堂零基礎的學費<b>全額折抵</b>。先好好享受這堂課，畫完再決定就好 🌿</p><button class="btn ghost full" data-go="course:teacher">看創作研修班</button>'; }
           var dp = document.getElementById('dnPay'); if (dp) dp.hidden = true; var dn = document.getElementById('dnNote'); if (dn) dn.hidden = true;
           trk('sign_up', { method: payNow, courses: courses.length });
           S.cart = []; S.l5 = ''; S.payPicked = 0; ckClear(); updateCount(); go('done');

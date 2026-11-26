@@ -274,6 +274,16 @@ function renderPick() {
   var ds = L.filter(function (s) { return s.location === S.city; }).slice(0, 12);
   de.innerHTML = ds.map(function (s, i) { var p = s.date.split('-'); return '<button class="dt' + (s.endDate ? ' dt2' : '') + (S.sess === s ? ' on' : '') + '" data-si="' + i + '"><small>' + (+p[1]) + '月</small><b>' + (+p[2]) + (s.endDate ? '–' + (+s.endDate.split('-')[2]) : '') + '</b><span>' + (S.k === 'teacher' ? '兩日' : slotName(s.time)) + '</span></button>'; }).join('');
   de._list = ds;
+  // 2026-11-26 Kimi：研修班場次少，格子旁補「這場的細節」，下面加「許願開班」
+  var ow = de.parentNode && de.parentNode.querySelector('.wish'); if (ow) ow.remove();
+  if (S.k === 'teacher') {
+    var ss = S.sess || (ds.length === 1 ? ds[0] : null);
+    if (ss && ds.length <= 2) {
+      var wk = function (d) { var x = new Date(d + 'T00:00:00'); return '（' + '日一二三四五六'[x.getDay()] + '）'; }, q = ss.date.split('-');
+      de.insertAdjacentHTML('beforeend', '<div class="dti"><b>' + (+q[1]) + '/' + (+q[2]) + wk(ss.date) + (ss.endDate ? '～' + (+ss.endDate.split('-')[1]) + '/' + (+ss.endDate.split('-')[2]) + wk(ss.endDate) : '') + '</b><span>09:00–17:00・' + ss.location + '</span><span>每梯限 6 人</span></div>');
+    }
+    de.insertAdjacentHTML('afterend', '<p class="wish">🌿 想在其他縣市上？滿 3 人就能開班，<a href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener">私訊官方 LINE 許願開班 ›</a></p>');
+  }
   if (S.k === 'beginner') { ce.insertAdjacentHTML('beforeend', '<button class="chip" data-gon>視訊線上課</button>'); ce.querySelector('[data-gon]').onclick = function (ev) { ev.stopPropagation(); swap('online'); }; }
   // 直接綁在每顆按鈕上（不靠整頁的點擊判斷），第一個場次也點得到
   ce.querySelectorAll('[data-city]').forEach(function (btn) { btn.onclick = function (ev) { ev.stopPropagation(); S.city = btn.dataset.city; S.sess = null; renderPick(); }; });

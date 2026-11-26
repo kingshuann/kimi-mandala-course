@@ -615,7 +615,7 @@ img[src*="img_collab/"]{object-position:74% 50% !important}
 .gets b{display:block;font-family:'Noto Serif TC',serif;font-weight:600;font-size:15px;letter-spacing:.08em;color:var(--olive)}
 .gets span{display:block;margin-top:4px;font-size:13px;line-height:1.8;font-weight:400}
 .gets.pain{grid-template-columns:1fr 1fr;gap:8px}
-/* 研修班改版（2026-11-25）：報名選項、零基礎優惠、開課陪跑計劃 */
+/* 兩日進階班改版（2026-11-25）：報名選項、零基礎優惠、開課陪跑計劃 */
 /* 課程比較表（2026-11-26 Kimi：初階／進階，陪跑是進階加購） */
 .cmpx{background:var(--card);border-radius:16px;padding:16px 12px 14px;margin:4px 0 18px}
 .cmpx-h{font-family:'Noto Serif TC',serif;font-size:16px;letter-spacing:.1em;color:var(--olive);margin:0 4px 12px}
@@ -635,7 +635,7 @@ img[src*="img_collab/"]{object-position:74% 50% !important}
 /* 課程頁標題上方等級（2026-11-26 Kimi） */
 .lvh{display:inline-block;font-size:11px;letter-spacing:.16em;color:var(--cream);background:var(--olive);border-radius:99px;padding:1px 11px;margin:2px 0 8px;line-height:1.8}
 [data-pg="course"] .cimg .tag{display:none}
-/* 研修班優惠券＋了解詳情彈窗（2026-11-26 Kimi） */
+/* 兩日進階班優惠券＋了解詳情彈窗（2026-11-26 Kimi） */
 .upn.cpw{background:none;padding:0;margin:12px 0 6px}
 .cpn{position:relative;display:flex;align-items:stretch;background:var(--card2);border:1px solid var(--olive);border-radius:12px;overflow:visible}
 .cpn:before,.cpn:after{content:'';position:absolute;left:66px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:1px solid var(--olive);transform:translateX(-50%)}
@@ -665,7 +665,7 @@ img[src*="img_collab/"]{object-position:74% 50% !important}
 /* 選項下方展開的說明：左邊一條線（2026-11-26 Kimi） */
 .tsub{margin:-2px 0 12px 16px;padding:3px 0 3px 12px;border-left:2px solid var(--olive);font-size:12.5px;line-height:1.85;color:var(--olive);animation:tsubIn .28s ease}
 @keyframes tsubIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
-/* 報名完成頁：邀請下一步研修班（2026-11-26） */
+/* 報名完成頁：邀請下一步兩日進階班（2026-11-26） */
 .dn-up{text-align:left;background:var(--card);border-radius:16px;padding:16px 16px 14px;margin:4px 0 14px}
 .dn-up small{display:block;font-family:'Marcellus',serif;font-size:10.5px;letter-spacing:.22em;color:var(--olive2)}
 .dn-up>b{display:block;font-family:'Noto Serif TC',serif;font-size:16px;letter-spacing:.06em;color:var(--olive);margin:4px 0 6px}
@@ -855,7 +855,7 @@ body.dopen .fab{opacity:0;pointer-events:none}
 .cop-bd{padding:14px 16px 8px;max-width:560px;margin:0 auto}
 .cop-ft{position:sticky;bottom:0;background:var(--bg);padding:10px 16px 16px;border-top:1px solid var(--line);text-align:center;max-width:560px;margin:0 auto}
 .cop-ft p{font-size:13px;color:var(--olive);margin-bottom:8px}
-/* 2026-11-26 Kimi：研修班場次旁的細節＋許願開班 */
+/* 2026-11-26 Kimi：兩日進階班場次旁的細節＋許願開班 */
 .dti{flex:none;display:flex;flex-direction:column;justify-content:center;gap:2px;padding:4px 4px 4px 10px;font-size:12.5px;color:var(--muted);line-height:1.6}
 .dti b{font-size:14px;font-weight:600;color:var(--olive);letter-spacing:.04em}
 .wish{font-size:12.5px;line-height:1.7;color:var(--olive);margin:10px 0 2px}
@@ -880,6 +880,7 @@ body.dopen .fab{opacity:0;pointer-events:none}
 .stg{display:none !important}
 /* 2026-11-27 Kimi：探索最後兩格先預留空位 */
 .col-empty{visibility:hidden}
+.dk.dkc{text-align:center}
 /* 2026-11-27 Kimi：課程頁「一般繪畫課 vs 這堂課」不要半邊深綠，改成淺色、這堂課用橄欖綠粗字＋淡綠底 */
 .vtb-r>span:nth-child(3){background:rgba(88,98,74,.08) !important;color:var(--olive) !important;font-weight:600 !important;border-top-color:rgba(74,79,58,.12) !important}
 .vtb-h>span:nth-child(3){color:var(--olive) !important;font-weight:700 !important}
@@ -952,7 +953,7 @@ body.dopen .fab{opacity:0;pointer-events:none}
       <ul><li>每梯限定 6 人，材料全包</li><li>兩天完成 4 件不同材質的作品</li><li>想開課？加購 3 個月開課陪跑計劃</li></ul>
       <p class="tc-more">想畫出更有質感的作品，可以來職人研修；想開始自己開課，還有開課陪跑計劃陪你走。</p>
       <div class="pr"><b>NT$26,800</b><small>可分期・兩日課程</small></div>
-      <button class="btn" data-go="course:teacher">了解研修班</button>
+      <button class="btn" data-go="course:teacher">了解兩日進階班</button>
     </div>
   </div>
   <div class="sh"><h3>Feedback<i>學生怎麼說</i></h3></div>
@@ -964,7 +965,7 @@ body.dopen .fab{opacity:0;pointer-events:none}
     <details><summary>有線上課嗎？</summary><p>有！工具材料包會寄到家，上課時在家透過視訊跟著老師一起畫，1 人就開班。</p></details>
     <button class="hqa-more" data-go="faq">看全部問題</button>
   </div>
-  <div class="hline"><b>還有問題嗎？</b><p>報名、上課時間、研修班分期，<br>都歡迎直接私訊 Kimi。</p><a href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener">LINE 私訊 Kimi</a></div>
+  <div class="hline"><b>還有問題嗎？</b><p>報名、上課時間、兩日進階班分期，<br>都歡迎直接私訊 Kimi。</p><a href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener">LINE 私訊 Kimi</a></div>
 </section>
 
 <section class="pg" data-pg="shop"><div data-top></div>
@@ -972,13 +973,13 @@ body.dopen .fab{opacity:0;pointer-events:none}
   <div class="fl"><span class="on" data-cf="all">全部</span><span data-cf="mandala">曼陀羅繪畫課程</span><span data-cf="other">其他課程</span></div>
   <div class="cmpx" id="cmp">
     <p class="cmpx-h">三種課程怎麼選？</p>
-    <div class="cmpx-hd"><div><i class="stg stg-b" data-stg="b"></i><small>初階班</small><b>零基礎入門</b></div><div><i class="stg stg-t" data-stg="t"></i><small>兩日進階班</small><b>職人研修</b></div><div><i class="stg stg-c" data-stg="c"></i><small>研修班加購</small><b>開課陪跑計劃</b></div></div>
+    <div class="cmpx-hd"><div><i class="stg stg-b" data-stg="b"></i><small>初階班</small><b>零基礎入門</b></div><div><i class="stg stg-t" data-stg="t"></i><small>兩日進階班</small><b>職人研修</b></div><div><i class="stg stg-c" data-stg="c"></i><small>兩日進階班加購</small><b>開課陪跑計劃</b></div></div>
     <p class="cmpx-k">適合誰</p><div class="cmpx-r"><span>沒畫過也可以</span><span>想畫出有質感的<br>大幅作品</span><span>想用這套教材開課</span></div>
     <p class="cmpx-k">上課時間</p><div class="cmpx-r"><span>3.5 小時<br>實體或線上</span><span>兩天<br>09:00–17:00</span><span>3 個月<br>一對一陪跑</span></div>
     <p class="cmpx-k">帶走什麼</p><div class="cmpx-r"><span>第一幅作品<br>＋工具大禮包</span><span>4 件不同<br>材質的作品</span><span>教材授權<br>＋結業證書</span></div>
-    <p class="cmpx-k">費用</p><div class="cmpx-r pr"><span>NT$3,500<br><small>線上 3,333</small></span><span>NT$26,800<br><small>可分期</small></span><span>+NT$13,000<br><small>報研修班時加購</small></span></div>
-    <div class="cmpx-r bt"><button data-go="course:beginner">看零基礎班</button><button data-go="course:teacher">看研修班</button><button data-go="course:teacher#coach">看陪跑內容</button></div>
-    <p class="cmpx-n">🌿 報研修班，零基礎免費送；陪跑計劃在報名研修班時一起加購。</p>
+    <p class="cmpx-k">費用</p><div class="cmpx-r pr"><span>NT$3,500<br><small>線上 3,333</small></span><span>NT$26,800<br><small>可分期</small></span><span>+NT$13,000<br><small>報兩日進階班時加購</small></span></div>
+    <div class="cmpx-r bt"><button data-go="course:beginner">看零基礎班</button><button data-go="course:teacher">看兩日進階班</button><button data-go="course:teacher#coach">看陪跑內容</button></div>
+    <p class="cmpx-n">🌿 報兩日進階班，零基礎免費送；陪跑計劃在報名兩日進階班時一起加購。</p>
   </div>
   <div class="list">
     <button class="it" data-cat="mandala" data-go="course:beginner"><img data-src="img/mandala-beige.jpg" alt=""><div class="t"><i class="stg stg-b" data-stg="b"></i><b>初階班：零基礎入門</b><span>沒畫過也沒關係，一個下午茶的時間，就能帶走第一幅屬於你的作品。實體或線上都能上。</span><div class="p"><em>NT$3,500</em><i class="more">看詳情<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></i></div></div></button>
@@ -1081,7 +1082,7 @@ body.dopen .fab{opacity:0;pointer-events:none}
     <button class="box" data-pay="card"><b>CARD</b>信用卡一次付清<span class="r"></span></button>
     <button class="box" data-pay="transfer"><b>BANK</b>銀行轉帳<span class="r"></span></button>
     <button class="box" data-pay="linepay"><b>LINE PAY</b>LINE Pay 掃碼付款<span class="r"></span></button>
-    <button class="box" data-pay="installment"><b>分期</b>中租分期（研修班）<span class="r"></span></button>
+    <button class="box" data-pay="installment"><b>分期</b>中租分期（兩日進階班）<span class="r"></span></button>
     <div class="pi" id="ckPay" hidden style="margin:0 0 10px"></div>
     <div style="height:10px"></div><button class="btn full" data-submit id="ckBtn">送出報名</button>
     <p class="sec">🔒 Secure Checkout</p><p class="sec" style="font-size:10.5px;opacity:.7;margin-top:4px">本站使用 Google Analytics 與 Microsoft Clarity 了解網站使用情形，不會記錄妳輸入的個人資料。<button data-go="privacy" style="text-decoration:underline;font-size:10.5px">隱私權政策</button>・<button data-go="shopinfo" style="text-decoration:underline;font-size:10.5px">購物說明</button></p><div style="height:20px"></div>
@@ -1126,9 +1127,9 @@ body.dopen .fab{opacity:0;pointer-events:none}
 
 <section class="pg" data-pg="students"><div data-top="sub"></div>
   <div class="ttl"><span data-icon="leaf"></span><small class="ey">STUDENT WORKS</small><h1>學生作品</h1><p>每一幅都是同學在課堂上親手完成的唷❤️</p></div>
-  <div class="fl"><span class="on" data-sf="basic">零基礎班</span><span data-sf="teacher">研修班</span></div>
+  <div class="fl"><span class="on" data-sf="basic">零基礎班</span><span data-sf="teacher">兩日進階班</span></div>
   <div data-sg="basic"><p class="snote">零基礎的同學，一個下午茶的時間完成的第一幅作品</p><div class="sgrid"><img src="img_sq/new1.jpg" alt="學員作品" loading="lazy"><img src="img_sq/new2.jpg" alt="學員作品" loading="lazy"><img src="img_sq/new3.jpg" alt="學員作品" loading="lazy"><img src="img_sq/new4.jpg" alt="學員作品" loading="lazy"><img src="img_sq/new5.jpg" alt="學員作品" loading="lazy"><img src="img_sq/new6.jpg" alt="學員作品" loading="lazy"><img src="img_sq/gallery1.jpg" alt="學員作品" loading="lazy"><img src="img_sq/gallery6.jpg" alt="學員作品" loading="lazy"><img src="img_sq/gallery9.jpg" alt="學員作品" loading="lazy"><img src="img_sq/gallery2.jpg" alt="學員作品" loading="lazy"><img src="img_sq/gallery5.jpg" alt="學員作品" loading="lazy"><img src="img_sq/gallery7.jpg" alt="學員作品" loading="lazy"><img src="img_sq/gallery3.jpg" alt="學員作品" loading="lazy"><img src="img_sq/gallery4.jpg" alt="學員作品" loading="lazy"><img src="img_sq/gallery8.jpg" alt="學員作品" loading="lazy"></div></div>
-  <div data-sg="teacher" hidden><p class="snote">研修班同學完成的進階作品</p><div class="sgrid"><img data-src="img/final-teacher.jpg" alt="研修班學員作品" loading="lazy"><img data-src="img/mandala-navy.jpg" alt="研修班學員作品" loading="lazy"><img data-src="img/work1.jpg" alt="研修班學員作品" loading="lazy"><img data-src="img/work3.jpg" alt="研修班學員作品" loading="lazy"><img data-src="img/work4.jpg" alt="研修班學員作品" loading="lazy"><img data-src="img/work6.jpg" alt="研修班學員作品" loading="lazy"><img data-src="img/work7.jpg" alt="研修班學員作品" loading="lazy"><img data-src="img/work2.jpg" alt="研修班學員作品" loading="lazy"><img data-src="img/work5.jpg" alt="研修班學員作品" loading="lazy"></div></div>
+  <div data-sg="teacher" hidden><p class="snote">兩日進階班同學完成的進階作品</p><div class="sgrid"><img data-src="img/final-teacher.jpg" alt="兩日進階班學員作品" loading="lazy"><img data-src="img/mandala-navy.jpg" alt="兩日進階班學員作品" loading="lazy"><img data-src="img/work1.jpg" alt="兩日進階班學員作品" loading="lazy"><img data-src="img/work3.jpg" alt="兩日進階班學員作品" loading="lazy"><img data-src="img/work4.jpg" alt="兩日進階班學員作品" loading="lazy"><img data-src="img/work6.jpg" alt="兩日進階班學員作品" loading="lazy"><img data-src="img/work7.jpg" alt="兩日進階班學員作品" loading="lazy"><img data-src="img/work2.jpg" alt="兩日進階班學員作品" loading="lazy"><img data-src="img/work5.jpg" alt="兩日進階班學員作品" loading="lazy"></div></div>
   <div class="cta"><button class="btn full" data-go="shop">我也想畫一幅</button></div>
 </section>
 <section class="pg" data-pg="about"><div data-top="sub"></div>
@@ -1162,8 +1163,8 @@ body.dopen .fab{opacity:0;pointer-events:none}
   <p class="zarc">STORY 03 ・ TODAY</p>
   <header class="zh"><div class="zlab"><small>Kimi's</small><b>TODAY</b><i>03</i></div><p class="zt">CLASS × TEACHER</p></header>
   <figure class="zbig"><img src="img_banner/upcoming.jpg" alt="" loading="lazy"><figcaption class="zcap">CLASS　學生們在課堂上完成的作品</figcaption></figure>
-  <p class="zst">現在我在全台各地都有開課據點，也開設線上課程。零基礎班，陪你留一段時間給自己，即使完全沒有繪畫經驗，或曾經被說不會畫畫，也能一點一點完成屬於你的作品。創作研修班，陪你把作品畫得更美；想開課的話，還有 3 個月開課陪跑計劃，陪你開出自己的課。課堂之外，我也拍影片、做 Podcast，分享畫畫與生活。</p>
-  <div class="zmid"><p class="zv">把這份平靜帶給你</p><div><p class="zq">你願意開始，<br>就已經<br>很棒了。</p><p class="zs">零基礎班、研修班，都歡迎你。</p></div></div>
+  <p class="zst">現在我在全台各地都有開課據點，也開設線上課程。零基礎班，陪你留一段時間給自己，即使完全沒有繪畫經驗，或曾經被說不會畫畫，也能一點一點完成屬於你的作品。創作兩日進階班，陪你把作品畫得更美；想開課的話，還有 3 個月開課陪跑計劃，陪你開出自己的課。課堂之外，我也拍影片、做 Podcast，分享畫畫與生活。</p>
+  <div class="zmid"><p class="zv">把這份平靜帶給你</p><div><p class="zq">你願意開始，<br>就已經<br>很棒了。</p><p class="zs">零基礎班、兩日進階班，都歡迎你。</p></div></div>
   <p class="zcr"><b>STORY</b>About Kimi ｜ imikdots　3/3</p>
 </article>
   <div class="zabt-cta"><button class="btn" data-go="shop">查看課程介紹</button><a class="hk-ig" href="https://www.instagram.com/imikdots" target="_blank" rel="noopener">在 IG 看更多作品 @imikdots</a></div>
@@ -1182,16 +1183,16 @@ body.dopen .fab{opacity:0;pointer-events:none}
 <section class="pg" data-pg="faq"><div data-top="sub"></div>
   <div class="ttl"><span data-icon="leaf"></span><small class="ey">Q &amp; A</small><h1>常見問題</h1><p>報名前想知道的事，都整理在這裡。</p></div>
   <div class="qa">
-    <details open><summary>需要帶什麼嗎？</summary><p>零基礎課程什麼都不用帶，開心來就好！研修班請自備「平頭筆」及「點珠筆」。</p></details>
+    <details open><summary>需要帶什麼嗎？</summary><p>零基礎課程什麼都不用帶，開心來就好！兩日進階班請自備「平頭筆」及「點珠筆」。</p></details>
     <details><summary>完全沒畫過畫可以嗎？</summary><p>可以！零基礎課程就是為新手設計的，一個下午茶的時間完整教會基本功。</p></details>
     <details><summary>人數不夠會開班嗎？</summary><p>台中班、線上課 1 人就開班，時間可討論；台中以外的縣市滿 3 人才開班。最晚於開課前一週通知，未成功開班全額退費，也可延期或轉讓。</p></details>
     <details><summary>臨時不能來怎麼辦？</summary><p>完成匯款後如因個人因素無法參加，可延期補課或轉讓他人，恕不退費。</p></details>
     <details><summary>有線上課嗎？</summary><p>有！選「線上課」填好報名資料送出，我們會用 LINE 跟你約上課時間。工具材料包會寄到家，上課時在家透過視訊跟著老師一起畫。線上課 1 人就開班，每人 NT$3,333，已含材料包與運費。</p></details>
     <details><summary>可以帶小朋友嗎？</summary><p>大人與小朋友同價，歡迎攜伴，但請家長協助照顧。</p></details>
-    <details><summary>研修班可以分期嗎？</summary><p>可以，研修班提供中租分期，送出報名後小幫手會用 LINE 提供分期資訊。</p></details>
-    <details><summary>已報名其他老師的零基礎班，可以報研修班嗎？</summary><p>可以！不管你在哪裡學過零基礎，都歡迎來研修班，我們從同一個起點出發。我們會贈送一堂「線上零基礎回訓」，材料自備，課前會提供材料清單。</p></details>
-    <details><summary>只上研修班，可以用學到的東西開課嗎？</summary><p>研修班是陪你把作品畫得更好，不包含教學授權。如果你想用這套教材開課，開課陪跑計劃會給你完整的教材授權，還有我一路陪你走到開課。</p></details>
-    <details><summary>上完研修班之後，還能加購陪跑計劃嗎？</summary><p>可以！上完研修班之後加購是 NT$15,800；報名研修班時一起加購是 NT$13,000，會比較划算。</p></details>
+    <details><summary>兩日進階班可以分期嗎？</summary><p>可以，兩日進階班提供中租分期，送出報名後小幫手會用 LINE 提供分期資訊。</p></details>
+    <details><summary>已報名其他老師的零基礎班，可以報兩日進階班嗎？</summary><p>可以！不管你在哪裡學過零基礎，都歡迎來兩日進階班，我們從同一個起點出發。我們會贈送一堂「線上零基礎回訓」，材料自備，課前會提供材料清單。</p></details>
+    <details><summary>只上兩日進階班，可以用學到的東西開課嗎？</summary><p>兩日進階班是陪你把作品畫得更好，不包含教學授權。如果你想用這套教材開課，開課陪跑計劃會給你完整的教材授權，還有我一路陪你走到開課。</p></details>
+    <details><summary>上完兩日進階班之後，還能加購陪跑計劃嗎？</summary><p>可以！上完兩日進階班之後加購是 NT$15,800；報名兩日進階班時一起加購是 NT$13,000，會比較划算。</p></details>
   </div>
 </section>
 
@@ -1264,7 +1265,7 @@ body.dopen .fab{opacity:0;pointer-events:none}
 <div class="fab"><a class="f-ig" href="https://www.instagram.com/imikdots" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="#fff" stroke="none"/></svg></a><a class="f-line" href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener" aria-label="LINE 私訊 Kimi"><svg viewBox="0 0 24 24" fill="#fff"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a></div>
 </div>
 <script src="../data.js?v=1125a"></script>
-<script src="shared.js?v=1127a"></script>
+<script src="shared.js?v=1127b"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="sb-config.js?v=1123p"></script>
 <script src="member.js?v=1124d"></script>

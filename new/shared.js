@@ -101,6 +101,8 @@ var STG_SVG = {
 };
 var STG_TXT = { b: '萌芽', t: '綻放', c: '成林' };
 function stg(k) { return '<span class="stg stg-' + k + '"><svg viewBox="0 0 24 24" aria-hidden="true">' + STG_SVG[k] + '</svg>' + STG_TXT[k] + '</span>'; }
+// 開課陪跑計劃單買（2026-11-27 Kimi）：原價 16,800，網站直接結帳；舊師資班學生可用優惠碼（資料庫 promo_codes，course = 'coach'）
+EXTRA.coach = { key: 'coach', short: '開課陪跑計劃', name: '點點曼陀羅・開課陪跑計劃', sub: '3 個月一對一陪跑', price: 16800, priceText: 'NT$16,800', img: 'img_banner/teacher.jpg', tag: '陪跑' };
 function C(k) { return COURSES[k] || EXTRA[k]; }
 function money(n) { return 'NT$' + n.toLocaleString('en-US'); }
 
@@ -255,24 +257,59 @@ function coachOpen() {
     m = document.createElement('div'); m.id = 'cop'; m.className = 'cop'; document.body.appendChild(m);
     m.addEventListener('click', function (ev) {
       if (ev.target.closest('[data-copx]')) { ev.stopPropagation(); m.hidden = true; document.body.style.overflow = ''; }
+      else if (ev.target.closest('[data-copbuy]')) { ev.stopPropagation(); coachBuy(); }
+      else if (ev.target.closest('[data-ccode]')) { ev.stopPropagation(); cUseCode(); }
+      else if (ev.target.closest('[data-ccx]')) { ev.stopPropagation(); S.cCode = null; S.cCr = 0; copRender(); }
       else if (ev.target.closest('[data-copadd]')) { ev.stopPropagation(); S.tAdd = 1; m.hidden = true; document.body.style.overflow = ''; renderTOpt();
         var o = document.querySelector('[data-tadd]'); if (o) window.scrollTo({ top: o.getBoundingClientRect().top + pageYOffset - 120, behavior: 'smooth' }); }
     });
   }
-  m.innerHTML = '<div class="cop-hd"><button data-copx aria-label="返回">‹ 返回兩日進階班</button><span>開課陪跑計劃' + stg('c') + '</span></div><div class="cop-bd">' + coachHtml() + '</div>' +
-    '<div class="cop-ft">' + (S.k === 'teacher' ? (S.tAdd ? '<p>✓ 已加購陪跑計劃</p><button class="btn full" data-copx>回到報名</button>' : '<button class="btn full" data-copadd>報名兩日進階班時一起加購（+NT$13,000）</button>') : '<button class="btn full" data-copx>回到兩日進階班</button>') + '</div>';
+  copRender();
   m.hidden = false; m.scrollTop = 0; document.body.style.overflow = 'hidden';
 }
-// 兩日進階班頁裡的「開課陪跑計劃」區塊（深綠卡片）
+// 陪跑頁畫面（2026-11-27 Kimi：要跟其他課程頁一樣，一看就知道在「開課陪跑計劃」頁）
+function copRender() {
+  var m = document.getElementById('cop'); if (!m) return;
+  var st = m.scrollTop, pay = EXTRA.coach.price - (S.cCr || 0), inT = S.k === 'teacher';
+  m.innerHTML = '<div class="cop-hd"><button data-copx aria-label="返回">‹ 返回' + (inT ? '兩日進階班' : '') + '</button><span>開課陪跑計劃</span></div><div class="cop-bd">' + coachHtml() + '</div>' +
+    '<div class="cop-ft stk2"><div><b>' + money(pay) + '</b><small>' + (S.cCode ? '已用優惠碼' : '單買') + '</small></div><button class="btn" data-copbuy>單買，加入購物車</button></div>';
+  m.scrollTop = st;
+  var ci = m.querySelector('#cCode'); if (ci) ci.onkeydown = function (ev) { if (ev.key === 'Enter') { ev.preventDefault(); cUseCode(); } };
+}
+function cUseCode() {
+  var el = document.getElementById('cCode'), msg = document.getElementById('cCodeMsg'), v = el ? el.value.trim() : '';
+  if (!v) { if (msg) msg.textContent = '請輸入優惠碼'; return; }
+  if (!window.sb) { if (msg) msg.textContent = '現在連不上，請稍後再試'; return; }
+  if (msg) msg.textContent = '檢查中…';
+  sb.rpc('check_promo', { p_code: v }).then(function (r) {
+    var d = r.data || {};
+    if (r.error || !d.ok) { if (msg) msg.textContent = d.msg || '優惠碼不正確'; return; }
+    if ((d.course || (d.code === 'teacher' ? 'coach' : 'teacher')) !== 'coach') { if (msg) msg.textContent = '這個優惠碼不能用在陪跑計劃喔'; return; }
+    S.cCode = d.code; S.cCr = Math.min(d.amount, EXTRA.coach.price); copRender();
+  }).catch(function () { if (msg) msg.textContent = '現在連不上，請稍後再試'; });
+}
+function coachBuy() {
+  if (S.cart.some(function (x) { return x.k === 'teacher' && x.addon; })) { toast('購物車裡的兩日進階班已經加購陪跑計劃了喔'); return; }
+  S.cart = S.cart.filter(function (x) { return x.k !== 'coach'; });
+  S.cart.push({ k: 'coach', s: { coach: 1 }, qty: 1, price: EXTRA.coach.price, credit: S.cCr || 0, code: S.cCode || null });
+  var m = document.getElementById('cop'); if (m) m.hidden = true; document.body.style.overflow = '';
+  updateCount(); toast('已加入購物車 🌿'); setTimeout(function () { go('cart'); }, 500);
+}
 function coachHtml() {
-  return '<div class="cc"><small class="cc-ey">TEACHING MENTORSHIP PROGRAM</small>' +
-    '<h3>想開自己的課？<br>我陪你走到第一堂課</h3>' +
+  var codeBox = S.cCode ? '<div class="tok">✓ 已套用優惠碼，折抵 ' + money(S.cCr || 0) + '<button data-ccx>取消</button></div>'
+    : '<div class="tcode"><input id="cCode" placeholder="輸入優惠碼" autocomplete="off" autocapitalize="off"><button data-ccode>使用</button></div><p class="tcmsg" id="cCodeMsg"></p>';
+  return '<div class="cc cop-cb"><small class="ey">TEACHING MENTORSHIP PROGRAM</small><h1 class="cop-h1">開課陪跑計劃</h1>' +
+    '<p class="sub">3 個月一對一陪跑，從定位一路陪你走到第一堂課</p>' +
+    '<div class="pr"><b>NT$16,800</b></div>' +
+    '<div class="ck"><span>3 個月</span><span>一對一 4 次</span><span>教材授權</span><span>結業證書</span></div>' +
     '<p class="cc-lead">如果你想用這套教材開課，陪跑計劃會給你完整授權，還有我一路陪你走到開課。</p>' +
-    '<div class="cpx"><div class="cpx-i hot"><div class="cpx-t"><em>加購價・省 NT$3,800</em><b>跟兩日進階班一起報名</b><span>兩日進階班＋陪跑合計 NT$39,800</span></div><div class="cpx-p"><s>NT$16,800</s><b>+NT$13,000</b></div></div>' +
-    '<div class="cpx-i"><div class="cpx-t"><em>原價</em><b>單買陪跑計劃</b><span>上過其他老師的課，或覺得自己已經有能力，只想學怎麼開課，都可以單獨購買</span></div><div class="cpx-p"><b>NT$16,800</b></div></div></div>' +
-    '<p class="cc-h">適合這樣的你</p><ul class="cfor2">' + COACH_FOR.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>' +
-    '<p class="cc-h">陪跑計劃包含</p><ol class="cc-list">' + COACH_GETS.map(function (g) { return '<li><b>' + g[0] + '</b><span>' + g[1] + '</span></li>'; }).join('') + '</ol>' +
-    '<p class="cc-h">4 次一對一諮詢・每次 45 分鐘</p><ul class="cc-tl">' + COACH_STEPS.map(function (g) { return '<li><b>' + g[0] + '</b><span>' + g[1] + '</span></li>'; }).join('') + '</ul>' +
+    '<p class="cc-h">01　選擇方案</p>' +
+    '<div class="cpx"><div class="cpx-i hot"><div class="cpx-t"><em>加購價・省 NT$3,800</em><b>跟兩日進階班一起報名</b><span>兩日進階班＋陪跑合計 NT$39,800</span>' + (S.k === 'teacher' ? '<button class="cpx-a" data-copadd>回兩日進階班一起報名 ›</button>' : '') + '</div><div class="cpx-p"><s>NT$16,800</s><b>+NT$13,000</b></div></div>' +
+    '<div class="cpx-i"><div class="cpx-t"><em>原價</em><b>單買陪跑計劃</b><span>上過其他老師的課，或覺得自己已經有能力，只想學怎麼開課，都可以單獨購買，網站直接結帳</span></div><div class="cpx-p"><b>NT$16,800</b></div></div></div>' +
+    '<p class="tq">有優惠碼嗎？</p>' + codeBox +
+    '<p class="cc-h">02　適合這樣的你</p><ul class="cfor2">' + COACH_FOR.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>' +
+    '<p class="cc-h">03　陪跑計劃包含</p><ol class="cc-list">' + COACH_GETS.map(function (g) { return '<li><b>' + g[0] + '</b><span>' + g[1] + '</span></li>'; }).join('') + '</ol>' +
+    '<p class="cc-h">04　4 次一對一諮詢・每次 45 分鐘</p><ul class="cc-tl">' + COACH_STEPS.map(function (g) { return '<li><b>' + g[0] + '</b><span>' + g[1] + '</span></li>'; }).join('') + '</ul>' +
     '<p class="cc-note">兩日進階班陪你把作品畫得更好；教材授權和開課陪伴，是陪跑計劃學員才有的。想開課的話，報名時勾選加購就可以 🌿</p></div>';
 }
 function renderPick() {
@@ -348,6 +385,7 @@ function tUseCode() {
   sb.rpc('check_promo', { p_code: v }).then(function (r) {
     var d = r.data || {};
     if (r.error || !d.ok) { if (msg) msg.textContent = d.msg || '優惠碼不正確'; return; }
+    if ((d.course || (d.code === 'teacher' ? 'coach' : 'teacher')) !== 'teacher') { if (msg) msg.textContent = '這個優惠碼是陪跑計劃用的，請到陪跑計劃頁使用'; return; }
     S.tCode = d.code; S.tCr = d.amount; S.tBase = 'kimi'; S.fSess = null; renderTOpt();
   }).catch(function () { if (msg) msg.textContent = '現在連不上，請稍後再試'; });
 }
@@ -363,12 +401,16 @@ function renderTOpt() {
   if (S.tBase === 'none') html += '<p class="lbl">0' + (n++) + '　選一堂零基礎場次（免費）</p><div class="chips" data-fcities></div><div class="dates" data-fdates></div><p class="tnote">先上完零基礎，再來上兩日進階班 🌿</p>';
   // 2026-11-26 Kimi：陪跑不給「先上兩日進階班就好」選項，改成勾選加購；內容放獨立頁（coachOpen）
   if (S.tAdd == null) S.tAdd = 0;
-  html += '<p class="lbl">0' + n + '　加購開課陪跑計劃</p>' +
+  html += '<p class="lbl">0' + n + '　是否加購「開課陪跑計劃」</p>' +
     '<button class="box ad' + (S.tAdd ? ' on' : '') + '" data-tadd><span class="ad-t"><small>想開自己的課？一起加購</small><b>+NT$13,000</b><em>兩日進階班＋陪跑合計 NT$39,800</em></span><span class="ad-c"></span></button>' +
     '<button class="adl" data-coach>看陪跑計劃內容 ›</button>';
   var cr = S.tBase === 'kimi' ? (S.tCr || 0) : 0, tot = COURSES.teacher.price + (S.tAdd ? COACH.price : 0) - cr;
   if (S.tCodeHtml) html += '<div class="tcwrap">' + S.tCodeHtml + '</div>';
-  html += '<div class="tsum"><span>兩日進階班 ' + money(COURSES.teacher.price) + (S.tAdd ? '＋陪跑 ' + money(COACH.price) : '') + (cr ? '－零基礎折抵 ' + money(cr) : '') + '</span><b>' + money(tot) + '</b></div>';
+  // 2026-11-27 Kimi：像會計帳一樣一行一項，最後合計
+  html += '<div class="tled"><p><span>兩日進階班：職人研修</span><span>' + money(COURSES.teacher.price) + '</span></p>' +
+    (S.tAdd ? '<p><span>加購開課陪跑計劃</span><span>+' + money(COACH.price) + '</span></p>' : '') +
+    (cr ? '<p><span>零基礎學費折抵</span><span>−' + money(cr) + '</span></p>' : '') +
+    '<p class="tot"><span>合計</span><b>' + money(tot) + '</b></p></div>';
   h.innerHTML = html;
   document.querySelectorAll('[data-pg="course"] .stk b').forEach(function (e) { e.textContent = money(tot); });
   var ta = h.querySelector('[data-tadd]'); if (ta) ta.onclick = function (ev) { ev.stopPropagation(); S.tAdd = S.tAdd ? 0 : 1; renderTOpt(); };
@@ -401,7 +443,7 @@ function renderUpsell(h) {
   var base = C(S.k).price, tot = base;
   if (S.uAdd === 1) {
     html += '<p class="lbl">04　選兩日進階班場次</p><div class="chips" data-ucities></div><div class="dates" data-udates></div>' +
-      '<p class="lbl">05　加購開課陪跑計劃</p>' +
+      '<p class="lbl">05　是否加購「開課陪跑計劃」</p>' +
       ob('add', 1, S.tAdd === 1, '一起加購開課陪跑計劃', '+NT$13,000・兩日進階班＋陪跑合計 NT$39,800') +
       ob('add', 0, S.tAdd === 0, '先上兩日進階班就好', '之後想開課，還是可以單買（NT$16,800）');
     tot = tp + (S.tAdd ? COACH.price : 0);
@@ -450,6 +492,7 @@ function addToCart() {
 // 報名表、訂單上的兩日進階班註記：加購陪跑、零基礎在哪上、折抵金額
 function tTag(x) {
   if (x.free) return '・兩日進階班贈送零基礎';
+  if (x.k === 'coach') return '・單買陪跑' + (x.code ? '・優惠碼 ' + x.code + '（折 ' + x.credit + '）' : '');
   if (x.k !== 'teacher') return '';
   return (x.addon ? '・加購陪跑' : '') + (x.base ? '・' + BASE_NAME[x.base] + (x.credit ? '（折抵 ' + x.credit + '）' : '') : '') + (x.code ? '・優惠碼 ' + x.code : '');
 }
@@ -465,13 +508,14 @@ function renderCart() {
   host.innerHTML = S.cart.map(function (x, i) {
     if (x.prod) return tpl.replace(/{img}/g, x.img).replace(/{name}/g, x.prod.name).replace(/{meta}/g, x.opt).replace(/{price}/g, money(x.price * x.qty)).replace(/{qty}/g, x.qty).replace(/{i}/g, i);
     var c = C(x.k);
+    if (x.k === 'coach') return tpl.replace(/{img}/g, 'img_banner/teacher.jpg').replace(/{name}/g, c.short).replace(/{meta}/g, '單買・3 個月一對一陪跑' + (x.code ? '<br>優惠碼 ' + x.code + ' 折 ' + money(x.credit) : '')).replace(/{price}/g, money(x.price * x.qty)).replace(/{qty}/g, x.qty).replace(/{i}/g, i);
     var meta = (x.s.flex ? '線上・時間另約' : x.s.location + '・' + dateLabel(x.s) + (x.k === 'teacher' ? '' : '・' + x.s.time)) +
       (x.k === 'teacher' ? (x.addon ? '<br>＋開課陪跑計劃' : '') + (x.base ? '<br>' + BASE_NAME[x.base] : '') : '') + (x.free ? '<br>兩日進階班贈送' : '');
     return tpl.replace(/{img}/g, (x.k === 'teacher' ? 'img_banner/teacher.jpg' : IMG + (x.k === 'online' ? 'img/work5.jpg' : 'img/mandala-beige.jpg')))
       .replace(/{name}/g, c.short + (x.free ? '（贈送）' : '')).replace(/{meta}/g, meta).replace(/{price}/g, money(x.price * x.qty)).replace(/{qty}/g, x.qty).replace(/{i}/g, i);
   }).join('');
   // 兩日進階班、贈送的零基礎一次一位，不能改人數；贈送的零基礎跟著兩日進階班，不能單獨刪
-  S.cart.forEach(function (x, i) { if (x.k !== 'teacher' && !x.free) return; var el = host.children[i]; if (!el) return; var q = el.querySelector('.qty'); if (q) q.style.visibility = 'hidden'; if (x.free) { var d = el.querySelector('.del'); if (d) d.style.visibility = 'hidden'; } });
+  S.cart.forEach(function (x, i) { if (x.k !== 'teacher' && x.k !== 'coach' && !x.free) return; var el = host.children[i]; if (!el) return; var q = el.querySelector('.qty'); if (q) q.style.visibility = 'hidden'; if (x.free) { var d = el.querySelector('.del'); if (d) d.style.visibility = 'hidden'; } });
   var sub = S.cart.reduce(function (a, x) { return a + x.price * x.qty; }, 0);
   var cr = S.cart.reduce(function (a, x) { return a + (x.credit || 0); }, 0);
   document.querySelectorAll('[data-cr]').forEach(function (e) { e.textContent = '− ' + money(cr); });
@@ -505,7 +549,7 @@ function renderCart() {
   document.querySelectorAll('[data-pay="card"]').forEach(function (e) { e.style.display = hasP ? '' : 'none'; });
   if (hasP && S.pay === 'transfer' && !S.payPicked) S.pay = 'card';
   document.querySelectorAll('[data-pay]').forEach(function (e) { e.classList.toggle('on', e.dataset.pay === S.pay); });
-  var hasT = S.cart.some(function (x) { return x.k === 'teacher'; });
+  var hasT = S.cart.some(function (x) { return x.k === 'teacher' || x.k === 'coach'; });
   document.querySelectorAll('[data-pay="installment"]').forEach(function (e) { e.style.display = hasT ? '' : 'none'; });
   renderComp(); renderCkPay(); ckSave();
 }
@@ -657,7 +701,7 @@ document.addEventListener('DOMContentLoaded', function () {
     else if (d.city) { S.city = d.city; S.sess = null; renderPick(); }
     else if (d.si != null) { S.sess = document.querySelector('[data-dates]')._list[+d.si]; renderPick(); trk('select_session', { course: S.k, city: S.city }); }
     else if ('add' in d) { addToCart(); trk('add_to_cart', { course: S.k }); }
-    else if (d.q) { var x = S.cart[+d.i]; if (x.k === 'teacher' || x.free) return; x.qty = Math.max(1, Math.min(x.prod ? (x.prod.stock || 9) : 4, x.qty + (+d.q))); updateCount(); renderCart(); }
+    else if (d.q) { var x = S.cart[+d.i]; if (x.k === 'teacher' || x.k === 'coach' || x.free) return; x.qty = Math.max(1, Math.min(x.prod ? (x.prod.stock || 9) : 4, x.qty + (+d.q))); updateCount(); renderCart(); }
     else if (d.del) { var dx = S.cart.splice(+d.del, 1)[0]; if (dx && dx.k === 'teacher') S.cart = S.cart.filter(function (y) { return !y.free; }); updateCount(); renderCart(); }
     else if (d.pay) { S.pay = d.pay; S.payPicked = 1; renderCart(); trk('select_payment', { method: d.pay }); }
     else if ('submit' in d) {
@@ -676,7 +720,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var payNow = S.pay; S.lastSign = { name: nm, phone: ph };
         var btn = document.getElementById('ckBtn'); btn.disabled = true; btn.textContent = '送出中…';
         var useW = S.ckMOff > 0;
-        var items = courses.map(function (x) { var s = x.s || {}; return { name: C(x.k).short + (x.free ? '（兩日進階班贈送）' : ''), detail: (s.flex ? '時間另約' : (s.location || '') + ' ' + dateLabel(s) + (s.time ? ' ' + s.time : '')) + '・' + x.qty + ' 人' + tTag(x) + compTag(x), companions: compList(x), k: x.k, qty: x.qty, price: x.price, sid: s.id || null, date: s.date || '', location: s.location || '', time: s.time || '' }; });
+        var items = courses.map(function (x) { var s = x.s || {}; return { name: C(x.k).short + (x.free ? '（兩日進階班贈送）' : ''), detail: (x.k === 'coach' ? '開課陪跑計劃（單買・3 個月）' : s.flex ? '時間另約' : (s.location || '') + ' ' + dateLabel(s) + (s.time ? ' ' + s.time : '')) + '・' + x.qty + ' 人' + tTag(x) + compTag(x), companions: compList(x), k: x.k, qty: x.qty, price: x.price, sid: s.id || null, date: s.date || '', location: s.location || '', time: s.time || '' }; });
         var ord = null;
         function post(o) { return fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(o) }); }
         // 一筆一筆送，避免同時寫入同一列；轉帳的話每筆報名再補上後五碼
@@ -684,10 +728,11 @@ document.addEventListener('DOMContentLoaded', function () {
         var tag = (ord && ord.discount ? '｜會員折' + ord.discount : '') + (ord && ord.order_no ? '｜' + ord.order_no : '');
         return courses.reduce(function (p, x, xi) {
           var s = x.s || {}, rng = s.endDate && s.endDate !== s.date;
-          var payload = { course: x.k === 'online' ? 'beginner' : x.k, session: s.flex ? '時間另約' : rng ? s.date + '~' + s.endDate : s.date,
-            dateLabel: s.flex ? '時間另約' : dateLabel(s), location: s.location || (x.k === 'online' ? '線上' : ''), time: s.time || '',
+          if (x.k === 'coach') s = { flex: 0, date: '', location: '線上', time: '' };
+          var payload = { course: x.k === 'online' ? 'beginner' : x.k, session: x.k === 'coach' ? '開課陪跑計劃' : s.flex ? '時間另約' : rng ? s.date + '~' + s.endDate : s.date,
+            dateLabel: x.k === 'coach' ? '開課陪跑計劃（單買・3 個月）' : s.flex ? '時間另約' : dateLabel(s), location: s.location || (x.k === 'online' ? '線上' : ''), time: s.time || '',
             name: nm, phone: ph, lineName: ln, partySize: x.qty + '人', paymentMethod: (PAYL[S.pay] || S.pay) + (payNow === 'linepay' ? '（已勾選付款完成）' : '') + tTag(x).replace(/・/g, '｜') + tag,
-            fee: x.k === 'teacher' || x.free ? x.price * x.qty - (x.credit || 0) : undefined,
+            fee: x.k === 'teacher' || x.k === 'coach' || x.free ? x.price * x.qty - (x.credit || 0) : undefined,
             companions: compTag(x).replace('・同行：', '') || undefined, submittedAt: new Date().toISOString(),
             enrollId: ord && ord.enrollments ? ord.enrollments[xi] || null : null };
           return p.then(function () { return post(payload); }).then(function () { if (l5) return post({ action: 'last5', name: nm, phone: ph, last5: l5, submittedAt: new Date().toISOString() }); });
@@ -697,7 +742,7 @@ document.addEventListener('DOMContentLoaded', function () {
           document.getElementById('dnMsg').innerHTML = payNow === 'transfer' ? '已收到妳的報名和匯款後五碼 <b>' + l5 + '</b>，<br>Kimi 對完帳會在官方 LINE 跟妳確認 🌿'
             : payNow === 'linepay' ? '已收到妳的報名，<br>請把 LINE Pay「付款成功」畫面截圖傳到官方 LINE，Kimi 確認後會回覆妳 🌿'
             : '我們已經收到妳的報名資料。<br>請加入官方 LINE，Kimi 會在 LINE 上跟妳確認分期付款方式。';
-          document.getElementById('dnList').innerHTML = courses.map(function (x) { return '<div><span>' + C(x.k).short + (x.free ? '（贈送）' : x.addon ? '＋陪跑計劃' : '') + '　' + (x.s && x.s.date ? dateLabel(x.s) + ' ' + (x.s.time || '') : '時間另約') + '</span><span>' + x.qty + ' 人</span></div>'; }).join('') +
+          document.getElementById('dnList').innerHTML = courses.map(function (x) { return '<div><span>' + C(x.k).short + (x.free ? '（贈送）' : x.addon ? '＋陪跑計劃' : '') + '　' + (x.k === 'coach' ? '3 個月陪跑' : x.s && x.s.date ? dateLabel(x.s) + ' ' + (x.s.time || '') : '時間另約') + '</span><span>' + x.qty + ' 人</span></div>'; }).join('') +
             (ord && ord.discount ? '<div><span>會員首購優惠</span><span>− ' + money(ord.discount) + '</span></div>' : '') + (ord ? '<div><span>實付</span><span>' + money(ord.total) + '</span></div>' : '');
           document.getElementById('dnLine').hidden = false;
           // 報名零基礎（沒報兩日進階班）→ 完成頁邀請下一步：兩日進階班

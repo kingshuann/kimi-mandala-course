@@ -239,6 +239,7 @@ function renderPick() {
 // 查到 2 週內上過 Kimi 的零基礎 → 自動折抵；查到但超過 2 週 → 不折；查不到 → 只顯示其他老師／一起報
 // 舊生優惠碼 kimi3500：登入會員、限用一次、折 3,500，由資料庫 check_promo() 檢查（會員系統/6_研修班零基礎折抵.sql）
 function tBaseHtml(ob) {
+  S.tCodeHtml = ''; // 優惠碼框放在總金額上面（2026-11-26 Kimi），這裡只決定要不要顯示
   var uid = window.MEM && MEM.user ? MEM.user.id : null;
   if (S.bcU !== uid) { S.bcU = uid; S.bc = null; if (S.tBase === 'kimi') { S.tBase = null; S.tCr = null; S.tCode = null; } if (uid) tLoadBC(); }
   var codeBox = S.tCode ? '<div class="tok">✓ 已套用舊生優惠碼，折抵 ' + money(S.tCr || 0) + '<button data-tcx>取消</button></div>'
@@ -252,11 +253,11 @@ function tBaseHtml(ob) {
     S.tBase = 'kimi';
     if (b.credit) { S.tCr = b.credit; S.tCode = null; return '<div class="tok">✓ 查到你 ' + d + ' 在' + b.location + '上過 Kimi 的零基礎班，學費已折抵 ' + money(b.credit) + '</div>'; }
     if (!S.tCode) S.tCr = 0;
-    return '<div class="tok off">查到你 ' + d + ' 在' + b.location + '上過 Kimi 的零基礎班' + (b.used ? '，這堂已經折抵過研修班了' : '，已經超過 2 週，這次沒有自動折抵') + '。</div>' +
-      '<p class="tq">有舊生優惠碼嗎？</p>' + codeBox;
+    S.tCodeHtml = '<p class="tq">有舊生優惠碼嗎？</p>' + codeBox;
+    return '<div class="tok off">查到你 ' + d + ' 在' + b.location + '上過 Kimi 的零基礎班' + (b.used ? '，這堂已經折抵過研修班了' : '，已經超過 2 週，這次沒有自動折抵') + '。</div>';
   }
-  return (S.tCode ? '' : ob('base', 'other', S.tBase === 'other', '上過，在其他老師那裡上的', '送一堂線上零基礎回訓') + ob('base', 'none', S.tBase === 'none', '還沒上過，想一起報', '零基礎＋研修班一起報，零基礎免費')) +
-    '<p class="tq">在 Kimi 這裡上過零基礎，但系統沒查到？輸入舊生優惠碼，或' + line + '，Kimi 幫你查 🌿</p>' + codeBox;
+  S.tCodeHtml = '<p class="tq">有舊生優惠碼嗎？</p>' + codeBox + (S.tCode ? '' : '<p class="tch">在 Kimi 這裡上過零基礎但系統沒查到？' + line + '，Kimi 幫你查 🌿</p>');
+  return S.tCode ? '<div class="tok">✓ 已用舊生優惠碼折抵零基礎學費</div>' : ob('base', 'other', S.tBase === 'other', '上過，在其他老師那裡上的', '送一堂線上零基礎回訓') + ob('base', 'none', S.tBase === 'none', '還沒上過，想一起報', '零基礎＋研修班一起報，零基礎免費');
 }
 function tLoadBC() {
   var uid = S.bcU;
@@ -289,6 +290,7 @@ function renderTOpt() {
     ob('add', 1, S.tAdd === 1, '一起加購開課陪跑計劃', '+NT$13,000・研修班＋陪跑合計 NT$39,800') +
     ob('add', 0, S.tAdd === 0, '先上研修班就好', '之後想開課，還是可以加購（NT$15,800）');
   var cr = S.tBase === 'kimi' ? (S.tCr || 0) : 0, tot = COURSES.teacher.price + (S.tAdd ? COACH.price : 0) - cr;
+  if (S.tCodeHtml) html += '<div class="tcwrap">' + S.tCodeHtml + '</div>';
   html += '<div class="tsum"><span>研修班 ' + money(COURSES.teacher.price) + (S.tAdd ? '＋陪跑 ' + money(COACH.price) : '') + (cr ? '－零基礎折抵 ' + money(cr) : '') + '</span><b>' + money(tot) + '</b></div>';
   h.innerHTML = html;
   document.querySelectorAll('[data-pg="course"] .stk b').forEach(function (e) { e.textContent = money(tot); });

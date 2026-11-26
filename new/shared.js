@@ -179,14 +179,13 @@ function renderCourse() {
   host.querySelectorAll('[data-chips]').forEach(function (e) { e.innerHTML = (c.chips || ['在家上課', '材料包寄到家', '時間彈性']).map(function (x) { return '<span>' + x + '</span>'; }).join(''); });
   host.querySelectorAll('[data-perks]').forEach(function (e) { e.innerHTML = (c.perks || ['材料包寄到家', '視訊一對一帶畫', '時間報名後用 LINE 約']).slice(0, 4).map(function (x) { return '<li>' + x + '</li>'; }).join(''); });
   var en = host.querySelector('[data-en]'); if (en) en.textContent = { beginner: 'BEGINNER CLASS', teacher: 'ADVANCED CLASS', online: 'ONLINE CLASS' }[S.k] || '';
-  var up = host.querySelector('[data-upn]'); if (up) { up.hidden = S.k !== 'teacher'; // 2026-11-26 Kimi：零基礎／線上頁先不顯示研修班提示
-    up.className = 'upn' + (S.k === 'teacher' ? ' big' : '');
+  var up = host.querySelector('[data-upn]'); if (up) { up.hidden = false; up.className = 'upn' + (S.k === 'teacher' ? ' big' : '');
     // 2026-11-26 Kimi：研修班頁最上面放聳動標題，三種學生一行一句
     up.innerHTML = S.k === 'teacher' ? '<b>報研修班，零基礎免費送</b>' + BASE_DEALS.map(function (r) { return '<span>' + r[0] + '？' + r[1] + '</span>'; }).join('')
       : '🌿 上完零基礎班 2 週內報名進階「創作職人研修班」，零基礎學費全額折抵　<button data-go="course:teacher">看研修班</button>'; }
   if (S.k === 'online') { var h1 = host.querySelector('h1[data-f]'); if (h1) h1.textContent = COURSES.beginner.short; } // 線上併在零基礎班裡，標題一樣
   var lh = host.querySelector('[data-lvh]'); if (lh) lh.textContent = { beginner: '初階', online: '初階・線上', teacher: '進階' }[S.k] || '';
-  var lv = host.querySelector('[data-lv]'); if (lv) lv.innerHTML = '<button class="lvk" data-go="shop#cmp">三種課程怎麼選？看比較表 →</button>';
+  var lv = host.querySelector('[data-lv]'); if (lv) lv.innerHTML = ''; // 2026-11-26 Kimi：課程頁先不放「看比較表」連結，比較表只在全部課程頁
   var dt = host.querySelector('[data-detail]'); if (dt) dt.innerHTML = detailHtml(S.k);
   renderPick();
 }

@@ -226,18 +226,18 @@ function renderPick() {
   if (!S.city || cities.indexOf(S.city) < 0) S.city = cities[0] || null;
   var ce = document.querySelector('[data-cities]'), de = document.querySelector('[data-dates]');
   if (!ce) return;
-  // 線上課併在初階零基礎班裡（2026-11-26 Kimi）：地區多一顆「線上・在家上」，點了在同一頁切換實體／線上
+  // 線上課併在初階零基礎班裡（2026-11-26 Kimi）：地區多一顆「視訊線上課」，點了在同一頁切換實體／線上
   function swap(k, city) { S.k = k; S.city = city || null; S.sess = null; try { history.replaceState(null, '', '#course:' + k); } catch (e) {} renderCourse(); }
   if (S.k === 'online') {
     var bc = []; sessionsFor('beginner').forEach(function (s) { if (bc.indexOf(s.location) < 0) bc.push(s.location); });
-    ce.innerHTML = bc.map(function (ct) { return '<button class="chip" data-bcity="' + ct + '">' + ct + '</button>'; }).join('') + '<span class="chip on">線上・在家上</span>';
+    ce.innerHTML = bc.map(function (ct) { return '<button class="chip" data-bcity="' + ct + '">' + ct + '</button>'; }).join('') + '<span class="chip on">視訊線上課</span>';
     ce.querySelectorAll('[data-bcity]').forEach(function (btn) { btn.onclick = function (ev) { ev.stopPropagation(); swap('beginner', btn.dataset.bcity); }; });
     de.innerHTML = '<p class="hint">材料包寄到家，報名後小幫手會用 LINE 跟你約上課時間</p>'; S.sess = ONLINE_FLEX; renderTOpt(); return; }
   ce.innerHTML = cities.length ? cities.map(function (ct) { return '<button class="chip' + (ct === S.city ? ' on' : '') + '" data-city="' + ct + '">' + ct + '</button>'; }).join('') : '<p class="hint">目前沒有公告場次，歡迎私訊官方 LINE 開班</p>';
   var ds = L.filter(function (s) { return s.location === S.city; }).slice(0, 12);
   de.innerHTML = ds.map(function (s, i) { var p = s.date.split('-'); return '<button class="dt' + (S.sess === s ? ' on' : '') + '" data-si="' + i + '"><small>' + (+p[1]) + '月</small><b>' + (+p[2]) + (s.endDate ? '–' + (+s.endDate.split('-')[2]) : '') + '</b><span>' + (S.k === 'teacher' ? '兩日' : slotName(s.time)) + '</span></button>'; }).join('');
   de._list = ds;
-  if (S.k === 'beginner') { ce.insertAdjacentHTML('beforeend', '<button class="chip" data-gon>線上・在家上</button>'); ce.querySelector('[data-gon]').onclick = function (ev) { ev.stopPropagation(); swap('online'); }; }
+  if (S.k === 'beginner') { ce.insertAdjacentHTML('beforeend', '<button class="chip" data-gon>視訊線上課</button>'); ce.querySelector('[data-gon]').onclick = function (ev) { ev.stopPropagation(); swap('online'); }; }
   // 直接綁在每顆按鈕上（不靠整頁的點擊判斷），第一個場次也點得到
   ce.querySelectorAll('[data-city]').forEach(function (btn) { btn.onclick = function (ev) { ev.stopPropagation(); S.city = btn.dataset.city; S.sess = null; renderPick(); }; });
   de.querySelectorAll('[data-si]').forEach(function (btn) { btn.onclick = function (ev) { ev.stopPropagation(); S.sess = ds[+btn.dataset.si]; renderPick(); trk('select_session', { course: S.k, city: S.city }); }; });

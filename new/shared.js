@@ -238,18 +238,18 @@ function tBaseHtml(ob) {
     : '<div class="tcode"><input id="tCode" placeholder="輸入舊生優惠碼" autocomplete="off" autocapitalize="off"><button data-tcode>使用</button></div><p class="tcmsg" id="tCodeMsg"></p>';
   var line = '<a href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener">私訊官方 LINE</a>';
   if (!uid) return '<div class="tchk"><p>上過 Kimi 的零基礎班？<br>登入會員，系統會自動幫你查學費折抵 🌿</p><button class="btn ghost" data-login>登入／加入會員</button></div>' +
-    ob('base', 'other', S.tBase === 'other', '其他老師') + ob('base', 'none', S.tBase === 'none', '還沒上過（想一起報）', '零基礎＋研修班一起報，零基礎免費');
+    ob('base', 'other', S.tBase === 'other', '上過，在其他老師那裡上的', '送一堂線上零基礎回訓') + ob('base', 'none', S.tBase === 'none', '還沒上過，想一起報', '零基礎＋研修班一起報，零基礎免費');
   if (!S.bc) return '<p class="hint">正在查你的零基礎紀錄…</p>';
   var b = S.bc, d = b.date ? (+b.date.split('-')[1]) + '/' + (+b.date.split('-')[2]) : '';
   if (b.found) {
     S.tBase = 'kimi';
-    if (b.credit) { S.tCr = b.credit; S.tCode = null; return '<div class="tok">✓ 查到你 ' + d + ' 在' + b.location + '上過 Kimi 的零基礎班，自動折抵 ' + money(b.credit) + '</div>'; }
+    if (b.credit) { S.tCr = b.credit; S.tCode = null; return '<div class="tok">✓ 查到你 ' + d + ' 在' + b.location + '上過 Kimi 的零基礎班，學費已折抵 ' + money(b.credit) + '</div>'; }
     if (!S.tCode) S.tCr = 0;
     return '<div class="tok off">查到你 ' + d + ' 在' + b.location + '上過 Kimi 的零基礎班' + (b.used ? '，這堂已經折抵過研修班了' : '，已經超過 2 週，這次沒有自動折抵') + '。</div>' +
       '<p class="tq">有舊生優惠碼嗎？</p>' + codeBox;
   }
-  return (S.tCode ? '' : ob('base', 'other', S.tBase === 'other', '其他老師') + ob('base', 'none', S.tBase === 'none', '還沒上過（想一起報）', '零基礎＋研修班一起報，零基礎免費')) +
-    '<p class="tq">上過 Kimi 的零基礎，但系統沒查到？輸入舊生優惠碼，或' + line + '，Kimi 幫你查 🌿</p>' + codeBox;
+  return (S.tCode ? '' : ob('base', 'other', S.tBase === 'other', '上過，在其他老師那裡上的', '送一堂線上零基礎回訓') + ob('base', 'none', S.tBase === 'none', '還沒上過，想一起報', '零基礎＋研修班一起報，零基礎免費')) +
+    '<p class="tq">在 Kimi 這裡上過零基礎，但系統沒查到？輸入舊生優惠碼，或' + line + '，Kimi 幫你查 🌿</p>' + codeBox;
 }
 function tLoadBC() {
   var uid = S.bcU;
@@ -273,12 +273,14 @@ function renderTOpt() {
   var h = document.querySelector('[data-topt]'); if (!h) return;
   if (S.k !== 'teacher') { h.innerHTML = ''; return; }
   function ob(a, v, on, t, sm) { return '<button class="box ob' + (on ? ' on' : '') + '" data-to="' + a + '" data-v="' + v + '"><span class="ob-t"><em>' + t + '</em>' + (sm ? '<small>' + sm + '</small>' : '') + '</span><span class="r"></span></button>'; }
-  var html = '<p class="lbl">03　加購開課陪跑計劃</p>' +
-    ob('add', 1, S.tAdd === 1, '一起加購開課陪跑計劃', '+NT$13,000・研修班＋陪跑合計 NT$39,800') +
-    ob('add', 0, S.tAdd === 0, '先上研修班就好', '之後想開課，還是可以加購（NT$15,800）') +
-    '<p class="lbl">04　你的零基礎是在哪裡上的？</p>' + tBaseHtml(ob);
+  // 順序（2026-11-26 Kimi）：先問零基礎 → 一起報的選免費場次 → 最後才問加購陪跑
+  var bh = tBaseHtml(ob), found = window.MEM && MEM.user && S.bc && S.bc.found;
+  var html = '<p class="lbl">03　' + (found ? '你的零基礎' : '你上過零基礎嗎？') + '</p>' + bh, n = 4;
   if (S.tBase === 'other') html += '<p class="tnote">🌿 贈送一堂「線上零基礎回訓」（價值 NT$3,000）。材料自備，課前會提供材料清單，報名後小幫手會用 LINE 跟你約時間。</p>';
-  if (S.tBase === 'none') html += '<p class="lbl">05　選一堂零基礎場次（免費）</p><div class="chips" data-fcities></div><div class="dates" data-fdates></div><p class="tnote">先上完零基礎，再來上研修班 🌿</p>';
+  if (S.tBase === 'none') html += '<p class="lbl">0' + (n++) + '　選一堂零基礎場次（免費）</p><div class="chips" data-fcities></div><div class="dates" data-fdates></div><p class="tnote">先上完零基礎，再來上研修班 🌿</p>';
+  html += '<p class="lbl">0' + n + '　加購開課陪跑計劃</p>' +
+    ob('add', 1, S.tAdd === 1, '一起加購開課陪跑計劃', '+NT$13,000・研修班＋陪跑合計 NT$39,800') +
+    ob('add', 0, S.tAdd === 0, '先上研修班就好', '之後想開課，還是可以加購（NT$15,800）');
   var cr = S.tBase === 'kimi' ? (S.tCr || 0) : 0, tot = COURSES.teacher.price + (S.tAdd ? COACH.price : 0) - cr;
   html += '<div class="tsum"><span>研修班 ' + money(COURSES.teacher.price) + (S.tAdd ? '＋陪跑 ' + money(COACH.price) : '') + (cr ? '－零基礎折抵 ' + money(cr) : '') + '</span><b>' + money(tot) + '</b></div>';
   h.innerHTML = html;
@@ -306,8 +308,9 @@ function addToCart() {
   if (!S.sess) { toast('先選地區和場次喔'); var p = document.querySelector('[data-cities]'); if (p) window.scrollTo({ top: p.getBoundingClientRect().top + pageYOffset - 140, behavior: 'smooth' }); return; }
   var c = C(S.k);
   if (S.k === 'teacher') {
-    var miss = S.tAdd == null ? '要不要加購開課陪跑計劃，先選一下喔' : !S.tBase ? '選一下你的零基礎是在哪裡上的' :
-      S.tBase === 'kimi' && S.tCr == null ? '正在查你的零基礎紀錄，請稍等一下' : S.tBase === 'none' && !S.fSess ? '選一堂免費的零基礎場次' : '';
+    var miss = !S.tBase ? '先選一下你有沒有上過零基礎' :
+      S.tBase === 'kimi' && S.tCr == null ? '正在查你的零基礎紀錄，請稍等一下' : S.tBase === 'none' && !S.fSess ? '選一堂免費的零基礎場次' :
+      S.tAdd == null ? '要不要加購開課陪跑計劃，選一下喔' : '';
     if (miss) { toast(miss); var o = document.querySelector('[data-topt]'); if (o) window.scrollTo({ top: o.getBoundingClientRect().top + pageYOffset - 120, behavior: 'smooth' }); return; }
     S.cart = S.cart.filter(function (x) { return x.k !== 'teacher' && !x.free; });
     S.cart.push({ k: 'teacher', s: S.sess, qty: 1, price: c.price + (S.tAdd ? COACH.price : 0), addon: S.tAdd, base: S.tBase, credit: S.tBase === 'kimi' ? (S.tCr || 0) : 0, code: S.tBase === 'kimi' ? S.tCode || null : null });

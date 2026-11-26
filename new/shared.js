@@ -40,8 +40,8 @@ function cpnOpen() {
   var m = document.getElementById('cpm');
   if (!m) {
     m = document.createElement('div'); m.id = 'cpm'; m.className = 'cpm';
-    m.innerHTML = '<div class="cpm-bg" data-cpx></div><div class="cpm-box"><button class="cpm-x" data-cpx aria-label="關閉">×</button><small>GIFT・兩日進階班限定</small><h3>零基礎課程怎麼送？</h3>' +
-      CPN_HOW.map(function (r, i) { return '<div class="cpm-r"><i class="cpm-n">情況' + '一二三'[i] + '</i><p class="cpm-k">' + r[0] + '</p><b>→ ' + r[1] + '</b><span>' + r[2] + '</span></div>'; }).join('') +
+    m.innerHTML = '<div class="cpm-bg" data-cpx></div><div class="cpm-box"><button class="cpm-x" data-cpx aria-label="關閉">×</button><small>BONUS・兩日進階班限定</small><h3>零基礎課程怎麼送？</h3>' +
+      CPN_HOW.map(function (r, i) { return '<div class="cpm-r"><i class="cpm-n">' + (i + 1) + '</i><p class="cpm-k">' + r[0] + '</p><b>→ ' + r[1] + '</b><span>' + r[2] + '</span></div>'; }).join('') +
       '<button class="btn full" data-cpx>我知道了</button></div>';
     document.body.appendChild(m);
     m.addEventListener('click', function (ev) { if (ev.target.closest('[data-cpx]')) { ev.stopPropagation(); m.hidden = true; } });
@@ -220,7 +220,7 @@ function renderCourse() {
   var up = host.querySelector('[data-upn]'); if (up) { up.hidden = false; up.className = 'upn' + (S.k === 'teacher' ? ' big' : '');
     // 2026-11-26 Kimi：兩日進階班頁最上面放聳動標題，三種學生一行一句
     // 2026-11-26 Kimi：改成優惠券樣式，細節點「了解詳情」彈窗看
-    up.innerHTML = S.k === 'teacher' ? '<div class="gft"><div class="gft-t"><small>GIFT・兩日進階班限定優惠</small><b>報兩日進階班，零基礎免費送</b></div><button data-cpn>了解詳情</button></div>'
+    up.innerHTML = S.k === 'teacher' ? '<div class="gft"><div class="gft-t"><small>BONUS・兩日進階班限定優惠</small><b>報兩日進階班，零基礎免費送</b></div><button data-cpn>了解詳情</button></div>'
       : '🌿 已經想進修？<b>直接報兩日進階班，零基礎免費送</b>　<button data-go="course:teacher">看兩日進階班</button><small>想先上上看也可以，上完 2 週內報名，學費一樣全額折抵</small>'; }
   // 2026-11-26 Kimi：初階／進階直接寫在班名前面，兩日進階班加「兩日」；線上併在零基礎班裡，標題一樣
   var h1 = host.querySelector('h1[data-f]'); if (h1) h1.innerHTML = S.k === 'teacher' ? stg('t') + '<span class="h1s">兩日進階班：</span>職人研修' : stg('b') + '<span class="h1s">初階班：</span>零基礎入門';
@@ -818,3 +818,21 @@ function dt2Html(s) {
 }
 // 早午晚班前面加 emoji：☀️ 早班、🍵 午班、🌙 晚班（2026-11-27 Kimi；不動正式網站 data.js 的 slotName）
 function slotEmo(t) { var n = slotName(t); return ({ '早班': '☀️', '午班': '🍵', '晚班': '🌙' }[n] || '') + n; }
+// 初階班不含下午茶了（2026-11-27 Kimi；不動正式網站 data.js）
+(function () { var b = window.COURSES && COURSES.beginner; if (!b) return;
+  if (b.chips) b.chips = b.chips.filter(function (x) { return x.indexOf('下午茶') < 0; });
+  if (b.perks) b.perks = b.perks.filter(function (x) { return x.indexOf('含下午茶') < 0; }); })();
+// 「三種課程怎麼選？」改成點了才彈出來的頁面（2026-11-27 Kimi：全部課程頁一進來只看到乾淨的課程）
+(function () {
+  function init() {
+    var m = document.getElementById('cmpo'); if (!m) return;
+    if (m.parentNode !== document.body) document.body.appendChild(m);
+    function close() { m.hidden = true; document.body.style.overflow = ''; }
+    document.addEventListener('click', function (e) {
+      if (e.target.closest('[data-cmpo]')) { m.hidden = false; m.scrollTop = 0; document.body.style.overflow = 'hidden'; return; }
+      if (e.target.closest('[data-cmpx]')) { close(); return; }
+      if (e.target.closest('#cmpo [data-go]')) close();
+    }, true);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();

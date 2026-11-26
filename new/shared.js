@@ -126,7 +126,7 @@ var SOCIAL = [
 function drawer() {
   // [連到哪, 英文小字, 名稱, 是否子項目, 即將推出]
   var it = [['home', 'HOME', '首頁'], ['about', 'ABOUT', '關於 Kimi'], ['works', 'JOURNAL', '點點月刊 <i>' + JOURNAL_ISSUE + '</i>'], ['shop', 'COURSES', '全部課程', 0, 0, 1],
-    ['course:beginner', '', '零基礎班', 1], ['course:teacher', '', '創作職人研修班', 1], ['course:online', '', '線上課', 1], ['', '', '主題課程', 1, 1],
+    ['course:beginner', '', '<em class="dlv">初階</em>零基礎班', 1], ['course:teacher', '', '<em class="dlv">進階</em>創作職人研修班', 1], ['course:online', '', '<em class="dlv">初階</em>線上課', 1], ['', '', '主題課程', 1, 1],
     ['students', 'WORKS', '學生作品'], ['goods#art', 'ART', '原創畫作'], ['goods', 'SHOP', '商店'], ['faq', 'Q&A', '常見問題'], ['contact', 'CONTACT', '聯繫我']];
   return '<div class="dbg" data-close></div><aside class="drw"><div class="drw-h"><span>MENU</span><button data-close aria-label="關閉">×</button></div>' +
     it.map(function (x, n) {

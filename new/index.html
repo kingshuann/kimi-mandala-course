@@ -875,6 +875,8 @@ body.dopen .fab{opacity:0;pointer-events:none}
 .drw .stg-c{background:rgba(243,237,226,.18);color:#F3EDE2;box-shadow:inset 0 0 0 1px rgba(243,237,226,.45)}
 /* 2026-11-27 Kimi：三個階段標誌先拿掉（覺得不好看），程式留著，刪掉這行就會回來 */
 .stg{display:none !important}
+/* 2026-11-27 Kimi：探索最後兩格先預留空位 */
+.col-empty{visibility:hidden}
 /* 2026-11-27 Kimi：陪跑獨立頁改成跟課程頁一樣的淺色樣式（不再用深綠大卡片） */
 .cop .cc{background:transparent;color:var(--ink);border-radius:0;padding:6px 4px 10px;margin:0}
 .cop .cc-ey{color:var(--olive2);opacity:1}
@@ -913,11 +915,11 @@ body.dopen .fab{opacity:0;pointer-events:none}
     <button class="col cx" data-go="news"><span class="ph"><img src="img_icons/news.png?v=2" alt=""></span>最新消息</button>
     <button class="col cx" data-deck><span class="ph"><img src="img_icons/deck.png?v=2" alt=""></span>今日抽牌</button>
     <button class="col" data-go="works"><span class="ph"><img src="img_icons/journal.png?v=2" alt=""></span>點點月刊</button>
-    <button class="col cx" data-soon><span class="ph"><img src="img_icons/tarot.png?v=2" alt=""></span>塔羅占卜</button>
+    <button class="col" data-go="goods#art"><span class="ph"><img src="img_icons/art.png?v=2" alt=""></span>畫作藝廊</button>
     <button class="col" data-go="shop"><span class="ph"><img src="img_icons/course.png?v=3" alt=""></span>曼陀羅課程</button>
     <button class="col" data-go="students"><span class="ph"><img src="img_icons/students.png?v=2" alt=""></span>學生作品</button>
-    <button class="col cx" data-go="goods#energy"><span class="ph"><img src="img_icons/healing.png?v=2" alt=""></span>療癒小物</button>
-    <button class="col" data-go="goods#art"><span class="ph"><img src="img_icons/art.png?v=2" alt=""></span>原創畫作</button>
+    <span class="col col-empty" aria-hidden="true"></span>
+    <span class="col col-empty" aria-hidden="true"></span>
   </div>
 
   <div class="band"><span data-icon="leaf"></span><p><small class="bk">Daily Words　每日能量小語</small><span id="dq">我值得被好好愛著。</span><small id="dd"></small></p></div>

@@ -2,8 +2,8 @@
 <html lang="zh-Hant"><head><meta charset="utf-8">
 <meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Kimi 點點曼陀羅｜零基礎班・創作研修班</title>
-<meta name="description" content="用繪畫創作，打造高質感生活。Kimi 點點曼陀羅零基礎班與進階創作研修班，全台小班教學，線上選場次報名。">
+<title>Kimi 點點曼陀羅｜零基礎入門・職人研修・開課陪跑</title>
+<meta name="description" content="用繪畫創作，打造高質感生活。Kimi 點點曼陀羅初階零基礎入門、兩日進階職人研修與開課陪跑計劃，全台小班教學，線上選場次報名。">
 <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css?v=1125d">
 <style>
@@ -857,6 +857,22 @@ body.dopen .fab{opacity:0;pointer-events:none}
 .dti b{font-size:14px;font-weight:600;color:var(--olive);letter-spacing:.04em}
 .wish{font-size:12.5px;line-height:1.7;color:var(--olive);margin:10px 0 2px}
 .wish a{white-space:nowrap;color:inherit;text-decoration:underline;text-underline-offset:3px}
+
+/* 2026-11-26 Kimi：課程階段標誌 萌芽／綻放／成林 */
+.stg{display:inline-flex;align-items:center;gap:3px;font-style:normal;font-family:'Noto Sans TC',sans-serif;font-size:10.5px;font-weight:500;letter-spacing:.12em;line-height:1;border-radius:99px;padding:3px 8px 3px 5px;white-space:nowrap;vertical-align:middle}
+.stg svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.stg-b{background:#E3E7CF;color:#55663A}
+.stg-t{background:#F1DDD2;color:#9A5A45}
+.stg-c{background:#3E4733;color:#F3EDE2}
+.drw-i .stg{margin-left:8px}
+.cbody h1 .stg{display:flex;width:max-content;margin:0 0 8px;font-size:11px}
+.cbody h1 .h1s{font-size:.72em;letter-spacing:.08em}
+.list .t .stg{align-self:flex-start;margin-bottom:5px}
+.cmpx-hd .stg{margin-bottom:5px;font-size:9.5px;padding:2px 6px 2px 4px}
+.cmpx-hd .stg svg{width:11px;height:11px}
+.cmpx-hd div:last-child .stg{background:#3E4733}
+.cop-hd .stg{margin-left:6px}
+.drw .stg-c{background:rgba(243,237,226,.18);color:#F3EDE2;box-shadow:inset 0 0 0 1px rgba(243,237,226,.45)}
 </style></head>
 <body><div class="app">
 
@@ -864,7 +880,7 @@ body.dopen .fab{opacity:0;pointer-events:none}
   <div class="hi"><b id="hiTxt">Hi，今天過得好嗎？</b><span>陪你從「畫畫」開始，創造自己喜歡的生活方式。</span></div>
   <div class="carw">
   <div class="car" id="car">
-    <div class="hero"><div class="tx"><span class="soon2">報名中</span><h2>零基礎班</h2><small>初階・Beginner Class</small><p style="font-size:12px;margin-top:8px;color:var(--olive2)">一個下午茶的時間<br>完成你的第一幅作品</p><button class="btn" data-go="course:beginner">立即報名</button></div><img data-src="img/mandala-beige.jpg" alt=""></div>
+    <div class="hero"><div class="tx"><span class="soon2">報名中</span><h2>零基礎入門</h2><small>初階班・Beginner Class</small><p style="font-size:12px;margin-top:8px;color:var(--olive2)">一個下午茶的時間<br>完成你的第一幅作品</p><button class="btn" data-go="course:beginner">立即報名</button></div><img data-src="img/mandala-beige.jpg" alt=""></div>
     <div class="hero"><div class="tx"><span class="soon2">即將登場</span><h2>能量蠟燭</h2><small>Energy Candle</small><p style="font-size:12px;margin-top:8px;color:var(--olive2)">手繪點點曼陀羅<br>點亮一盞療癒燭光</p><button class="csoon" data-soon>Coming Soon ...</button></div><img src="img_banner/energy-candle.jpg" alt="能量蠟燭" style="object-position:62% 55%"></div>
     <div class="hero"><div class="tx"><span class="soon2">即將登場</span><h2>塔羅牌占卜</h2><small>Tarot Reading</small><p style="font-size:12px;margin-top:8px;color:var(--olive2)">抽一張牌<br>聽聽內心的聲音</p><button class="csoon" data-soon>Coming Soon ...</button></div><img src="img_banner/tarot.jpg" alt="塔羅牌占卜" style="object-position:50% 60%"></div>
   </div>
@@ -897,15 +913,15 @@ body.dopen .fab{opacity:0;pointer-events:none}
   <div class="sh"><h3>Upcoming<i>近期開課</i></h3><button class="vmore" data-go="shop">全部課程<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button></div>
   <img class="upc-img" src="img_banner/upcoming.jpg" alt="學員完成的點點曼陀羅作品">
   <div class="upc" id="upc"></div>
-  <div class="sh"><h3>Advanced<i>創作研修班</i></h3></div>
+  <div class="sh"><h3>Advanced<i>職人研修</i></h3></div>
   <div class="tcard">
-    <img src="img_banner/teacher.jpg" alt="點點曼陀羅創作研修班" loading="lazy">
+    <img src="img_banner/teacher.jpg" alt="點點曼陀羅兩日進階班職人研修" loading="lazy">
     <div class="tx">
-      <span class="ey">進階・ADVANCED CLASS</span>
+      <span class="ey">兩日進階班・ADVANCED CLASS</span>
       <h3>想把作品畫得更美、更有質感嗎？</h3>
       <p>兩天實體小班，學會大幅構圖、多種材質與進階技法。不一定要當老師，喜歡畫畫就可以來。</p>
       <ul><li>每梯限定 6 人，材料全包</li><li>兩天完成 4 件不同材質的作品</li><li>想開課？加購 3 個月開課陪跑計劃</li></ul>
-      <p class="tc-more">想畫出更有質感的作品，可以來創作研修班；想開始自己開課，還有開課陪跑計劃陪你走。</p>
+      <p class="tc-more">想畫出更有質感的作品，可以來職人研修；想開始自己開課，還有開課陪跑計劃陪你走。</p>
       <div class="pr"><b>NT$26,800</b><small>可分期・兩日課程</small></div>
       <button class="btn" data-go="course:teacher">了解研修班</button>
     </div>
@@ -927,7 +943,7 @@ body.dopen .fab{opacity:0;pointer-events:none}
   <div class="fl"><span class="on" data-cf="all">全部</span><span data-cf="mandala">曼陀羅繪畫課程</span><span data-cf="other">其他課程</span></div>
   <div class="cmpx" id="cmp">
     <p class="cmpx-h">三種課程怎麼選？</p>
-    <div class="cmpx-hd"><div><small>初階</small><b>零基礎班</b></div><div><small>進階・兩日</small><b>創作研修班</b></div><div><small>進階・加購</small><b>開課陪跑計劃</b></div></div>
+    <div class="cmpx-hd"><div><i class="stg stg-b" data-stg="b"></i><small>初階班</small><b>零基礎入門</b></div><div><i class="stg stg-t" data-stg="t"></i><small>兩日進階班</small><b>職人研修</b></div><div><i class="stg stg-c" data-stg="c"></i><small>研修班加購</small><b>開課陪跑計劃</b></div></div>
     <p class="cmpx-k">適合誰</p><div class="cmpx-r"><span>沒畫過也可以</span><span>想畫出有質感的<br>大幅作品</span><span>想用這套教材開課</span></div>
     <p class="cmpx-k">上課時間</p><div class="cmpx-r"><span>3.5 小時<br>實體或線上</span><span>兩天<br>09:00–17:00</span><span>3 個月<br>一對一陪跑</span></div>
     <p class="cmpx-k">帶走什麼</p><div class="cmpx-r"><span>第一幅作品<br>＋工具大禮包</span><span>4 件不同<br>材質的作品</span><span>教材授權<br>＋結業證書</span></div>
@@ -936,8 +952,8 @@ body.dopen .fab{opacity:0;pointer-events:none}
     <p class="cmpx-n">🌿 報研修班，零基礎免費送；陪跑計劃在報名研修班時一起加購。</p>
   </div>
   <div class="list">
-    <button class="it" data-cat="mandala" data-go="course:beginner"><img data-src="img/mandala-beige.jpg" alt=""><div class="t"><small class="lvt">初階</small><b>零基礎班</b><span>沒畫過也沒關係，一個下午茶的時間，就能帶走第一幅屬於你的作品。實體或線上都能上。</span><div class="p"><em>NT$3,500</em><i class="more">看詳情<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></i></div></div></button>
-    <button class="it" data-cat="mandala" data-go="course:teacher"><img src="img_banner/teacher.jpg" alt=""><div class="t"><small class="lvt">進階</small><b>兩日創作研修班</b><span>兩天學會大幅構圖與多種材質，完成 4 件有質感的作品；想開課可加購陪跑計劃，可分期。</span><div class="p"><em>NT$26,800</em><i class="more">看詳情<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></i></div></div></button>
+    <button class="it" data-cat="mandala" data-go="course:beginner"><img data-src="img/mandala-beige.jpg" alt=""><div class="t"><i class="stg stg-b" data-stg="b"></i><b>初階班：零基礎入門</b><span>沒畫過也沒關係，一個下午茶的時間，就能帶走第一幅屬於你的作品。實體或線上都能上。</span><div class="p"><em>NT$3,500</em><i class="more">看詳情<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></i></div></div></button>
+    <button class="it" data-cat="mandala" data-go="course:teacher"><img src="img_banner/teacher.jpg" alt=""><div class="t"><i class="stg stg-t" data-stg="t"></i><b>兩日進階班：職人研修</b><span>兩天學會大幅構圖與多種材質，完成 4 件有質感的作品；想開課可加購陪跑計劃，可分期。</span><div class="p"><em>NT$26,800</em><i class="more">看詳情<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></i></div></div></button>
     <div class="cempty" data-cat="other" hidden><b>Coming Soon ...</b><p>其他主題課程正在籌備中，<br>開課時會第一時間公告。</p></div>
   </div>
 </section>
@@ -1210,7 +1226,7 @@ body.dopen .fab{opacity:0;pointer-events:none}
     <div class="ft-s"><a href="https://www.instagram.com/imikdots" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a><a href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener" aria-label="LINE 官方帳號"><b>LINE</b></a></div>
   </div>
   <div class="ft-l">
-    <div><h4>COURSES</h4><button data-go="course:beginner">初階零基礎班</button><button data-go="course:teacher">進階研修班（兩日）</button></div>
+    <div><h4>COURSES</h4><button data-go="course:beginner">初階班：零基礎入門</button><button data-go="course:teacher">兩日進階班：職人研修</button><button data-go="course:teacher#coach">開課陪跑計劃</button></div>
     <div><h4>ABOUT</h4><button data-go="about">關於 Kimi</button><button data-go="works">點點月刊</button><button data-go="students">學生作品</button></div>
     <div><h4>HELP</h4><button data-go="faq">常見問題</button><button data-go="shopinfo">購物說明</button><button data-go="contact">聯繫我們</button><button data-go="me">會員專區</button></div>
   </div>
@@ -1219,7 +1235,7 @@ body.dopen .fab{opacity:0;pointer-events:none}
 <div class="fab"><a class="f-ig" href="https://www.instagram.com/imikdots" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="#fff" stroke="none"/></svg></a><a class="f-line" href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener" aria-label="LINE 私訊 Kimi"><svg viewBox="0 0 24 24" fill="#fff"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a></div>
 </div>
 <script src="../data.js?v=1125a"></script>
-<script src="shared.js?v=1126w"></script>
+<script src="shared.js?v=1126x"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="sb-config.js?v=1123p"></script>
 <script src="member.js?v=1124d"></script>
@@ -1539,7 +1555,7 @@ function renderUpcoming() {
   if (!list.length) { el.innerHTML = '<p class="upc-none">新場次即將公布，歡迎先用 LINE 詢問 🌿</p>'; return; }
   el.innerHTML = list.map(function (x) {
     var s = x.s, p = s.date.split('-'), d = new Date(+p[0], +p[1] - 1, +p[2]), on = /線上/.test(s.location);
-    var name = x.k === 'teacher' ? '創作研修班' : (on ? '零基礎班・線上' : '零基礎班');
+    var name = x.k === 'teacher' ? '職人研修（兩日進階）' : (on ? '零基礎入門・線上' : '零基礎入門');
     var when = x.k === 'teacher' && s.endDate ? (+p[1]) + '/' + (+p[2]) + '–' + (+s.endDate.split('-')[2]) : '週' + W[d.getDay()];
     return '<button class="upc-i" data-go="course:' + x.k + '"><span class="upc-d"><small>' + (+p[1]) + '月</small><b>' + (+p[2]) + '</b></span>' +
       '<span class="upc-t"><b>' + name + '</b><small>' + s.location + '・' + when + '・' + s.time + '</small></span><i class="more">報名' + '<svg viewBox=\"0 0 24 24\"><path d=\"M9 5l7 7-7 7\"/></svg>' + '</i></button>';

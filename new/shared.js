@@ -35,8 +35,8 @@ var TEACHER_PAIN = [['畫了一陣子', '作品卻一直停在小卡片'], ['想
 // 零基礎優惠：三種學生
 // 2026-11-26 Kimi：精簡成一張表，放在研修班頁最前面
 var BASE_DEALS = [
-  ['上過 Kimi 的零基礎', '2 週內報名，學費全額折抵'],
   ['還沒上過零基礎', '一起報，零基礎免費'],
+  ['上過 Kimi 的零基礎', '2 週內報名，學費全額折抵'],
   ['在其他老師那裡上過', '送一堂線上零基礎回訓']
 ];
 // 加購：開課陪跑計劃（3 個月）
@@ -177,7 +177,10 @@ function renderCourse() {
   host.querySelectorAll('[data-chips]').forEach(function (e) { e.innerHTML = (c.chips || ['在家上課', '材料包寄到家', '時間彈性']).map(function (x) { return '<span>' + x + '</span>'; }).join(''); });
   host.querySelectorAll('[data-perks]').forEach(function (e) { e.innerHTML = (c.perks || ['材料包寄到家', '視訊一對一帶畫', '時間報名後用 LINE 約']).slice(0, 4).map(function (x) { return '<li>' + x + '</li>'; }).join(''); });
   var en = host.querySelector('[data-en]'); if (en) en.textContent = { beginner: 'BEGINNER CLASS', teacher: 'ADVANCED CLASS', online: 'ONLINE CLASS' }[S.k] || '';
-  var up = host.querySelector('[data-upn]'); if (up) { up.hidden = S.k === 'teacher'; up.innerHTML = '🌿 上完零基礎班 2 週內報名進階「創作職人研修班」，零基礎學費全額折抵　<button data-go="course:teacher">看研修班</button>'; }
+  var up = host.querySelector('[data-upn]'); if (up) { up.hidden = false; up.className = 'upn' + (S.k === 'teacher' ? ' big' : '');
+    // 2026-11-26 Kimi：研修班頁最上面放聳動標題，三種學生一行一句
+    up.innerHTML = S.k === 'teacher' ? '<b>報研修班，零基礎免費送</b>' + BASE_DEALS.map(function (r) { return '<span>' + r[0] + '？' + r[1] + '</span>'; }).join('')
+      : '🌿 上完零基礎班 2 週內報名進階「創作職人研修班」，零基礎學費全額折抵　<button data-go="course:teacher">看研修班</button>'; }
   var dt = host.querySelector('[data-detail]'); if (dt) dt.innerHTML = detailHtml(S.k);
   renderPick();
 }
@@ -190,8 +193,7 @@ function detailHtml(k) {
     '<div class="vtb"><div class="vtb-r vtb-h"><span></span><span>一般繪畫課</span><span>這堂課</span></div>' + b.compare.map(function (r) { return '<div class="vtb-r"><b>' + r[0] + '</b><span>' + r[1] + '</span><span>' + r[2] + '</span></div>'; }).join('') + '</div>';
   var n = 0, no = function () { n++; return (n < 10 ? '0' : '') + n + '　'; }, T = k === 'teacher';
   function gets(list, cls) { return '<ul class="gets' + (cls ? ' ' + cls : '') + '">' + list.map(function (g) { return '<li><b>' + g[0] + '</b><span>' + g[1] + '</span></li>'; }).join('') + '</ul>'; }
-  return (T ? '<section class="ds"><p class="dk">' + no() + '零基礎優惠</p><ul class="rows deal">' + BASE_DEALS.map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('') + '</ul></section>' : '') +
-    (T ? '<section class="ds"><p class="dk">' + no() + '你是不是也這樣？</p>' + gets(TEACHER_PAIN, 'pain') + '<blockquote class="pq">研修班要做的，<br>就是陪你把作品，一點一點畫得更美。</blockquote></section>' : '') +
+  return (T ? '<section class="ds"><p class="dk">' + no() + '你是不是也這樣？</p>' + gets(TEACHER_PAIN, 'pain') + '<blockquote class="pq">研修班要做的，<br>就是陪你把作品，一點一點畫得更美。</blockquote></section>' : '') +
     '<section class="ds"><p class="dk">' + no() + '課程資訊</p><ul class="rows">' + info.map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('') + '</ul></section>' +
     '<section class="ds"><p class="dk">' + no() + (T ? '不只學技法，更學會創作' : '並非臨摹，而是 0 到 1 獨立創作') + '</p>' + cmp + '</section>' +
     '<section class="ds"><p class="dk">' + no() + '課程內容</p>' + b.lessons.map(function (l, i) { return '<h4 class="lh"><span>主題' + '一二三四五六七八'[i] + '</span>' + l[0] + '</h4><ul class="dl">' + l[1].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>'; }).join('') + '</section>' +
@@ -219,7 +221,7 @@ function renderPick() {
   if (!S.city || cities.indexOf(S.city) < 0) S.city = cities[0] || null;
   var ce = document.querySelector('[data-cities]'), de = document.querySelector('[data-dates]');
   if (!ce) return;
-  if (S.k === 'online') { ce.innerHTML = '<span class="chip on">線上・時間另約</span>'; de.innerHTML = '<p class="hint">報名後小幫手會用 LINE 跟你約上課時間</p>'; S.sess = ONLINE_FLEX; return; }
+  if (S.k === 'online') { ce.innerHTML = '<span class="chip on">線上・時間另約</span>'; de.innerHTML = '<p class="hint">報名後小幫手會用 LINE 跟你約上課時間</p>'; S.sess = ONLINE_FLEX; renderTOpt(); return; }
   ce.innerHTML = cities.length ? cities.map(function (ct) { return '<button class="chip' + (ct === S.city ? ' on' : '') + '" data-city="' + ct + '">' + ct + '</button>'; }).join('') : '<p class="hint">目前沒有公告場次，歡迎私訊官方 LINE 開班</p>';
   var ds = L.filter(function (s) { return s.location === S.city; }).slice(0, 12);
   de.innerHTML = ds.map(function (s, i) { var p = s.date.split('-'); return '<button class="dt' + (S.sess === s ? ' on' : '') + '" data-si="' + i + '"><small>' + (+p[1]) + '月</small><b>' + (+p[2]) + (s.endDate ? '–' + (+s.endDate.split('-')[2]) : '') + '</b><span>' + (S.k === 'teacher' ? '兩日' : slotName(s.time)) + '</span></button>'; }).join('');
@@ -272,7 +274,7 @@ function tUseCode() {
 // 研修班報名選項：加購陪跑、零基礎在哪上（一起報的話再選一堂免費零基礎）
 function renderTOpt() {
   var h = document.querySelector('[data-topt]'); if (!h) return;
-  if (S.k !== 'teacher') { h.innerHTML = ''; return; }
+  if (S.k !== 'teacher') { renderUpsell(h); return; }
   function ob(a, v, on, t, sm) { return '<button class="box ob' + (on ? ' on' : '') + '" data-to="' + a + '" data-v="' + v + '"><span class="ob-t"><em>' + t + '</em>' + (sm ? '<small>' + sm + '</small>' : '') + '</span><span class="r"></span></button>'; }
   // 順序（2026-11-26 Kimi）：先問零基礎 → 一起報的選免費場次 → 最後才問加購陪跑
   var bh = tBaseHtml(ob), found = window.MEM && MEM.user && S.bc && S.bc.found;
@@ -305,6 +307,37 @@ function renderTOpt() {
   fc.querySelectorAll('[data-fc]').forEach(function (b) { b.onclick = function (ev) { ev.stopPropagation(); S.fCity = b.dataset.fc; S.fPick = 1; S.fSess = null; renderTOpt(); }; });
   fd.querySelectorAll('[data-fi]').forEach(function (b) { b.onclick = function (ev) { ev.stopPropagation(); S.fSess = ds[+b.dataset.fi]; renderTOpt(); }; });
 }
+// 零基礎班／線上課頁：加購研修班，零基礎這堂免費（2026-11-26 Kimi）
+function renderUpsell(h) {
+  function ob(a, v, on, t, sm) { return '<button class="box ob' + (on ? ' on' : '') + '" data-uo="' + a + '" data-v="' + v + '"><span class="ob-t"><em>' + t + '</em>' + (sm ? '<small>' + sm + '</small>' : '') + '</span><span class="r"></span></button>'; }
+  var tp = COURSES.teacher.price, html = '<p class="lbl">03　要不要加購研修班？</p>' +
+    ob('up', 1, S.uAdd === 1, '加購創作職人研修班', '這堂零基礎免費・只付研修班 ' + money(tp)) +
+    ob('up', 0, S.uAdd === 0, '先上零基礎就好', '上完 2 週內報研修班，學費一樣全額折抵');
+  var base = C(S.k).price, tot = base;
+  if (S.uAdd === 1) {
+    html += '<p class="lbl">04　選研修班場次</p><div class="chips" data-ucities></div><div class="dates" data-udates></div>' +
+      '<p class="lbl">05　加購開課陪跑計劃</p>' +
+      ob('add', 1, S.tAdd === 1, '一起加購開課陪跑計劃', '+NT$13,000・研修班＋陪跑合計 NT$39,800') +
+      ob('add', 0, S.tAdd === 0, '先上研修班就好', '之後想開課，還是可以加購（NT$15,800）');
+    tot = tp + (S.tAdd ? COACH.price : 0);
+    html += '<div class="tsum"><span>零基礎 <s>' + money(base) + '</s> 免費＋研修班 ' + money(tp) + (S.tAdd ? '＋陪跑 ' + money(COACH.price) : '') + '</span><b>' + money(tot) + '</b></div>';
+  }
+  h.innerHTML = html;
+  document.querySelectorAll('[data-pg="course"] .stk b').forEach(function (e) { e.textContent = S.uAdd === 1 ? money(tot) : C(S.k).priceText; });
+  h.querySelectorAll('[data-uo]').forEach(function (b) { b.onclick = function (ev) { ev.stopPropagation(); if (b.dataset.uo === 'up') S.uAdd = +b.dataset.v; else S.tAdd = +b.dataset.v; renderTOpt(); }; });
+  if (S.uAdd !== 1) return;
+  var lim = S.sess && S.sess.date, L = sessionsFor('teacher').filter(function (s) { return !lim || s.date > lim; }), cs = [];
+  L.forEach(function (s) { if (cs.indexOf(s.location) < 0) cs.push(s.location); });
+  if (!S.uCity || cs.indexOf(S.uCity) < 0) S.uCity = cs[0];
+  if (S.uSess && L.indexOf(S.uSess) < 0) S.uSess = null;
+  var fc = h.querySelector('[data-ucities]'), fd = h.querySelector('[data-udates]');
+  fc.innerHTML = cs.map(function (c) { return '<button class="chip' + (c === S.uCity ? ' on' : '') + '" data-uc="' + c + '">' + c + '</button>'; }).join('');
+  var ds = L.filter(function (s) { return s.location === S.uCity; }).slice(0, 12);
+  fd.innerHTML = ds.map(function (s, i) { var p = s.date.split('-'); return '<button class="dt' + (S.uSess === s ? ' on' : '') + '" data-ui="' + i + '"><small>' + (+p[1]) + '月</small><b>' + (+p[2]) + (s.endDate ? '–' + (+s.endDate.split('-')[2]) : '') + '</b><span>兩日</span></button>'; }).join('') ||
+    '<p class="hint">零基礎之後目前沒有公告的研修班場次，歡迎<a href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener">私訊官方 LINE</a> 預約下一梯</p>';
+  fc.querySelectorAll('[data-uc]').forEach(function (b) { b.onclick = function (ev) { ev.stopPropagation(); S.uCity = b.dataset.uc; S.uSess = null; renderTOpt(); }; });
+  fd.querySelectorAll('[data-ui]').forEach(function (b) { b.onclick = function (ev) { ev.stopPropagation(); S.uSess = ds[+b.dataset.ui]; renderTOpt(); }; });
+}
 function addToCart() {
   if (!S.sess) { toast('先選地區和場次喔'); var p = document.querySelector('[data-cities]'); if (p) window.scrollTo({ top: p.getBoundingClientRect().top + pageYOffset - 140, behavior: 'smooth' }); return; }
   var c = C(S.k);
@@ -316,6 +349,13 @@ function addToCart() {
     S.cart = S.cart.filter(function (x) { return x.k !== 'teacher' && !x.free; });
     S.cart.push({ k: 'teacher', s: S.sess, qty: 1, price: c.price + (S.tAdd ? COACH.price : 0), addon: S.tAdd, base: S.tBase, credit: S.tBase === 'kimi' ? (S.tCr || 0) : 0, code: S.tBase === 'kimi' ? S.tCode || null : null });
     if (S.tBase === 'none') S.cart.push({ k: S.fSess.flex ? 'online' : 'beginner', s: S.fSess, qty: 1, price: 0, free: 1 });
+  } else if (S.uAdd === 1) {
+    // 加購研修班：研修班＋這堂零基礎（贈送 0 元），跟研修班頁「還沒上過，想一起報」一樣
+    var um = !S.uSess ? '選一下研修班場次' : S.tAdd == null ? '要不要加購開課陪跑計劃，選一下喔' : '';
+    if (um) { toast(um); var uo = document.querySelector('[data-topt]'); if (uo) window.scrollTo({ top: uo.getBoundingClientRect().top + pageYOffset - 120, behavior: 'smooth' }); return; }
+    S.cart = S.cart.filter(function (x) { return x.k !== 'teacher' && !x.free && x.k !== S.k; });
+    S.cart.push({ k: 'teacher', s: S.uSess, qty: 1, price: C('teacher').price + (S.tAdd ? COACH.price : 0), addon: S.tAdd, base: 'none', credit: 0, code: null });
+    S.cart.push({ k: S.k, s: S.sess, qty: 1, price: 0, free: 1 });
   } else {
     S.cart = S.cart.filter(function (x) { return x.k !== S.k || x.free; });
     S.cart.push({ k: S.k, s: S.sess, qty: 1, price: c.price });

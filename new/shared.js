@@ -31,6 +31,8 @@ var NOTES = ['台中班、線上課 1 人就開班，時間可討論；台中以
   t.who = ['想一次完整學會進階技法', '想學會創作更大幅作品（如找圓心）', '想跳脫簡單構圖，讓作品更有層次', '想把畫畫得更美，做出有質感的作品', '不一定想當老師，喜歡畫畫就可以來', '單純喜歡 Kimi，想開心共度兩日'];
   t.compare = [['學習重點', '單一技法', '進階技法＋大幅構圖'], ['作品', '一堂一件小作品', '兩天完成 4 件不同材質作品'], ['材料', '要自己準備', '材料全包・顏料用到飽'], ['課後服務', '課程結束就結束', '終生問答服務']];
 })();
+// 零基礎班「你是不是也這樣？」（2026-11-26 Kimi，取自品牌根系 A｜零基礎班受眾的心聲與沒持續的原因）
+var BEGINNER_PAIN = [['每天都好累', '工作、家庭、小孩，好像只有自己不在裡面'], ['想到待辦就焦慮', '想留一段時間，只給自己'], ['好喜歡這種作品', '但總覺得「我不會畫畫」'], ['上過手作體驗課', '帶回一個成品，回家就畫不下去']];
 var TEACHER_PAIN = [['畫了一陣子', '作品卻一直停在小卡片'], ['想畫大幅作品', '不知道怎麼找圓心、分割'], ['構圖總是同心圓', '想讓作品更有層次'], ['想試不同材質', '木板、畫布、石膏都想畫']];
 // 零基礎優惠：三種學生
 // 2026-11-26 Kimi：精簡成一張表，放在研修班頁最前面
@@ -198,7 +200,7 @@ function detailHtml(k) {
     '<div class="vtb"><div class="vtb-r vtb-h"><span></span><span>一般繪畫課</span><span>這堂課</span></div>' + b.compare.map(function (r) { return '<div class="vtb-r"><b>' + r[0] + '</b><span>' + r[1] + '</span><span>' + r[2] + '</span></div>'; }).join('') + '</div>';
   var n = 0, no = function () { n++; return (n < 10 ? '0' : '') + n + '　'; }, T = k === 'teacher';
   function gets(list, cls) { return '<ul class="gets' + (cls ? ' ' + cls : '') + '">' + list.map(function (g) { return '<li><b>' + g[0] + '</b><span>' + g[1] + '</span></li>'; }).join('') + '</ul>'; }
-  return (T ? '<section class="ds"><p class="dk">' + no() + '你是不是也這樣？</p>' + gets(TEACHER_PAIN, 'pain') + '<blockquote class="pq">研修班要做的，<br>就是陪你把作品，一點一點畫得更美。</blockquote></section>' : '') +
+  return '<section class="ds"><p class="dk">' + no() + '你是不是也這樣？</p>' + gets(T ? TEACHER_PAIN : BEGINNER_PAIN, 'pain') + '<blockquote class="pq">' + (T ? '研修班要做的，<br>就是陪你把作品，一點一點畫得更美。' : '零基礎班要做的，<br>就是陪你留一段時間給自己，<br>畫出第一幅屬於你的作品。') + '</blockquote></section>' +
     '<section class="ds"><p class="dk">' + no() + '課程資訊</p><ul class="rows">' + info.map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('') + '</ul></section>' +
     '<section class="ds"><p class="dk">' + no() + (T ? '不只學技法，更學會創作' : '並非臨摹，而是 0 到 1 獨立創作') + '</p>' + cmp + '</section>' +
     '<section class="ds"><p class="dk">' + no() + '課程內容</p>' + b.lessons.map(function (l, i) { return '<h4 class="lh"><span>主題' + '一二三四五六七八'[i] + '</span>' + l[0] + '</h4><ul class="dl">' + l[1].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>'; }).join('') + '</section>' +

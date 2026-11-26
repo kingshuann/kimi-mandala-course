@@ -41,7 +41,7 @@ function cpnOpen() {
   if (!m) {
     m = document.createElement('div'); m.id = 'cpm'; m.className = 'cpm';
     m.innerHTML = '<div class="cpm-bg" data-cpx></div><div class="cpm-box"><button class="cpm-x" data-cpx aria-label="關閉">×</button><small>GIFT・研修班限定</small><h3>零基礎課程怎麼送？</h3>' +
-      CPN_HOW.map(function (r) { return '<div class="cpm-r"><p class="cpm-k">' + r[0] + '</p><b>' + r[1] + '</b><span>' + r[2] + '</span></div>'; }).join('') +
+      CPN_HOW.map(function (r, i) { return '<div class="cpm-r"><i class="cpm-n">' + (i + 1) + '</i><p class="cpm-k">' + r[0] + '</p><b>→ ' + r[1] + '</b><span>' + r[2] + '</span></div>'; }).join('') +
       '<button class="btn full" data-cpx>我知道了</button></div>';
     document.body.appendChild(m);
     m.addEventListener('click', function (ev) { if (ev.target.closest('[data-cpx]')) { ev.stopPropagation(); m.hidden = true; } });

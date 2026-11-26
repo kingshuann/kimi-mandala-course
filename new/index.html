@@ -616,6 +616,15 @@ img[src*="img_collab/"]{object-position:74% 50% !important}
 .gets span{display:block;margin-top:4px;font-size:13px;line-height:1.8;font-weight:400}
 .gets.pain{grid-template-columns:1fr 1fr;gap:8px}
 /* 研修班改版（2026-11-25）：報名選項、零基礎優惠、開課陪跑計劃 */
+/* 三階段：初階／進階／講師（2026-11-26 Kimi） */
+.lvt{display:inline-block;align-self:flex-start;font-size:10.5px;letter-spacing:.14em;color:var(--olive);border:1px solid var(--olive);border-radius:99px;padding:0 8px;margin-bottom:4px;line-height:1.7}
+.lv{display:grid;grid-template-columns:.9fr 1.3fr 1.15fr;gap:5px;margin:14px 0 4px}
+.lv button{text-align:left;border:1px solid var(--line);border-radius:12px;padding:8px 7px 7px;background:transparent;color:var(--muted);font:inherit;cursor:pointer}
+.lv button small{display:block;font-size:10.5px;letter-spacing:.14em}
+.lv button b{display:block;font-family:'Noto Serif TC',serif;font-weight:600;font-size:12px;letter-spacing:0;white-space:nowrap;margin:1px 0;color:var(--ink)}
+.lv button span{display:block;font-size:10.5px;line-height:1.5}
+.lv button.on{background:var(--olive);border-color:var(--olive);color:var(--cream)}
+.lv button.on b{color:var(--cream)}
 .upn{margin:8px 0 2px;font-size:12.5px;line-height:1.7;color:var(--olive);background:var(--card);border-radius:10px;padding:8px 12px}
 .upn button{text-decoration:underline;color:inherit;font-size:inherit}
 .upn.big{background:var(--olive);color:var(--cream);padding:14px 16px 12px;border-radius:14px;margin:12px 0 4px}
@@ -754,7 +763,7 @@ body.dopen .fab{opacity:0;pointer-events:none}
   <div class="hi"><b id="hiTxt">Hi，今天過得好嗎？</b><span>陪你從「畫畫」開始，創造自己喜歡的生活方式。</span></div>
   <div class="carw">
   <div class="car" id="car">
-    <div class="hero"><div class="tx"><span class="soon2">報名中</span><h2>零基礎班</h2><small>Beginner Class</small><p style="font-size:12px;margin-top:8px;color:var(--olive2)">一個下午茶的時間<br>完成你的第一幅作品</p><button class="btn" data-go="course:beginner">立即報名</button></div><img data-src="img/mandala-beige.jpg" alt=""></div>
+    <div class="hero"><div class="tx"><span class="soon2">報名中</span><h2>零基礎班</h2><small>初階・Beginner Class</small><p style="font-size:12px;margin-top:8px;color:var(--olive2)">一個下午茶的時間<br>完成你的第一幅作品</p><button class="btn" data-go="course:beginner">立即報名</button></div><img data-src="img/mandala-beige.jpg" alt=""></div>
     <div class="hero"><div class="tx"><span class="soon2">即將登場</span><h2>能量蠟燭</h2><small>Energy Candle</small><p style="font-size:12px;margin-top:8px;color:var(--olive2)">手繪點點曼陀羅<br>點亮一盞療癒燭光</p><button class="csoon" data-soon>Coming Soon ...</button></div><img src="img_banner/energy-candle.jpg" alt="能量蠟燭" style="object-position:62% 55%"></div>
     <div class="hero"><div class="tx"><span class="soon2">即將登場</span><h2>塔羅牌占卜</h2><small>Tarot Reading</small><p style="font-size:12px;margin-top:8px;color:var(--olive2)">抽一張牌<br>聽聽內心的聲音</p><button class="csoon" data-soon>Coming Soon ...</button></div><img src="img_banner/tarot.jpg" alt="塔羅牌占卜" style="object-position:50% 60%"></div>
   </div>
@@ -791,7 +800,7 @@ body.dopen .fab{opacity:0;pointer-events:none}
   <div class="tcard">
     <img src="img_banner/teacher.jpg" alt="點點曼陀羅創作職人研修班" loading="lazy">
     <div class="tx">
-      <span class="ey">ADVANCED CLASS</span>
+      <span class="ey">進階・ADVANCED CLASS</span>
       <h3>想把作品畫得更美、更有質感嗎？</h3>
       <p>兩天實體小班，學會大幅構圖、多種材質與進階技法。不一定要當老師，喜歡畫畫就可以來。</p>
       <ul><li>每梯限定 6 人，材料全包</li><li>兩天完成 4 件不同材質的作品</li><li>想開課？加購 3 個月開課陪跑計劃</li></ul>
@@ -816,16 +825,16 @@ body.dopen .fab{opacity:0;pointer-events:none}
   <div class="ttl"><span data-icon="leaf"></span><small class="ey">COURSES</small><h1>全部課程</h1><p>不需要繪畫基礎，跟著自己的感覺，一點一點完成屬於你的作品。</p></div>
   <div class="fl"><span class="on" data-cf="all">全部</span><span data-cf="mandala">曼陀羅繪畫課程</span><span data-cf="other">其他課程</span></div>
   <div class="list">
-    <button class="it" data-cat="mandala" data-go="course:beginner"><img data-src="img/mandala-beige.jpg" alt=""><div class="t"><b>零基礎班</b><span>沒畫過也沒關係，一個下午茶的時間，就能帶走第一幅屬於你的作品。</span><div class="p"><em>NT$3,500</em><i class="more">看詳情<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></i></div></div></button>
-    <button class="it" data-cat="mandala" data-go="course:teacher"><img src="img_banner/teacher.jpg" alt=""><div class="t"><b>創作職人研修班</b><span>兩天學會大幅構圖與多種材質，完成 4 件有質感的作品；想開課可加購陪跑計劃，可分期。</span><div class="p"><em>NT$26,800</em><i class="more">看詳情<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></i></div></div></button>
-    <button class="it" data-cat="mandala" data-go="course:online"><img data-src="img/work5.jpg" alt=""><div class="t"><b>線上課</b><span>材料包寄到家，跟著老師視訊上課，在家就能慢慢畫出自己的作品。</span><div class="p"><em>NT$3,333</em><i class="more">看詳情<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></i></div></div></button>
+    <button class="it" data-cat="mandala" data-go="course:beginner"><img data-src="img/mandala-beige.jpg" alt=""><div class="t"><small class="lvt">初階</small><b>零基礎班</b><span>沒畫過也沒關係，一個下午茶的時間，就能帶走第一幅屬於你的作品。</span><div class="p"><em>NT$3,500</em><i class="more">看詳情<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></i></div></div></button>
+    <button class="it" data-cat="mandala" data-go="course:teacher"><img src="img_banner/teacher.jpg" alt=""><div class="t"><small class="lvt">進階</small><b>創作職人研修班</b><span>兩天學會大幅構圖與多種材質，完成 4 件有質感的作品；想開課可加購陪跑計劃，可分期。</span><div class="p"><em>NT$26,800</em><i class="more">看詳情<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></i></div></div></button>
+    <button class="it" data-cat="mandala" data-go="course:online"><img data-src="img/work5.jpg" alt=""><div class="t"><small class="lvt">初階・線上</small><b>線上課</b><span>材料包寄到家，跟著老師視訊上課，在家就能慢慢畫出自己的作品。</span><div class="p"><em>NT$3,333</em><i class="more">看詳情<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></i></div></div></button>
     <div class="cempty" data-cat="other" hidden><b>Coming Soon ...</b><p>其他主題課程正在籌備中，<br>開課時會第一時間公告。</p></div>
   </div>
 </section>
 
 <section class="pg" data-pg="course"><div data-top="sub"></div>
   <div class="cimg"><img data-img alt=""><span class="tag" data-f="tag"></span></div>
-  <div class="cbody"><small class="ey" data-en></small><h1 data-f="short"></h1><p class="sub" data-f="sub"></p>
+  <div class="cbody"><small class="ey" data-en></small><h1 data-f="short"></h1><p class="sub" data-f="sub"></p><div class="lv" data-lv></div>
     <div class="pr"><b data-f="priceText"></b><s data-f="orig"></s></div><p class="upn" data-upn hidden></p>
     <div class="ck" data-chips></div><ul class="pk" data-perks></ul>
     <p class="lbl">01　選擇地區</p><div class="chips" data-cities></div>
@@ -1099,7 +1108,7 @@ body.dopen .fab{opacity:0;pointer-events:none}
 <div class="fab"><a class="f-ig" href="https://www.instagram.com/imikdots" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="#fff" stroke="none"/></svg></a><a class="f-line" href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener" aria-label="LINE 私訊 Kimi"><svg viewBox="0 0 24 24" fill="#fff"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a></div>
 </div>
 <script src="../data.js?v=1125a"></script>
-<script src="shared.js?v=1126c"></script>
+<script src="shared.js?v=1126d"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="sb-config.js?v=1123p"></script>
 <script src="member.js?v=1124d"></script>

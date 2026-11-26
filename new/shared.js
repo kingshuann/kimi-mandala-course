@@ -22,7 +22,7 @@ var NOTES = ['台中班、線上課 1 人就開班，時間可討論；台中以
 // 只改新網站：在這裡覆寫 data.js 的 COURSES.teacher，舊首頁不受影響
 (function () {
   var t = window.COURSES && COURSES.teacher; if (!t) return;
-  t.tag = '進階研修'; t.name = '點點曼陀羅・創作職人研修班'; t.short = '創作職人研修班';
+  t.tag = '進階'; t.name = '點點曼陀羅・創作職人研修班'; t.short = '創作職人研修班';
   t.sub = '兩天學會進階技法與大幅構圖，畫出有質感的作品';
   t.orig = ''; t.badges = ['🌱 進階創作', '可分期'];
   t.chips = ['4 件作品', '材料全包', '每梯限 6 人', '終身問答'];
@@ -41,6 +41,8 @@ var BASE_DEALS = [
 ];
 // 加購：開課陪跑計劃（3 個月）
 var COACH = { price: 13000, later: 15800 };
+// 三階段（2026-11-26 Kimi 定案）：名字不改，前面加初階／進階／講師
+var LEVELS = [['初階', '零基礎班', '開始畫', 'course:beginner'], ['進階', '創作職人研修班', '畫出質感', 'course:teacher'], ['講師', '開課陪跑計劃', '開始教', 'course:teacher#coach']];
 var COACH_FOR = ['想開課、想多一份斜槓收入', '已經是美業、瑜珈、身心靈、手作老師，想多一個課程項目'];
 var COACH_GETS = [
   ['完整教材授權', '可以用 Kimi 的教材和教案開課；教材更新時，也會拿到更新檔'],
@@ -64,6 +66,7 @@ var TEACHER_QA = [
 ];
 var TEACHER_COND = '報名條件：上過「零基礎課程」（任何老師的都可以）。還沒上過的話，可以零基礎＋研修班一起報，零基礎免費。';
 var EXTRA = { online: { key: 'online', short: '線上課', name: '點點曼陀羅・線上課', sub: '材料包寄到家，在家視訊上課', price: 3333, priceText: 'NT$3,333', orig: 'NT$3,980', img: 'img/work5.jpg', tag: '在家上課', hours: '3 小時 30 分鐘' } };
+(function () { if (window.COURSES && COURSES.beginner) COURSES.beginner.tag = '初階'; EXTRA.online.tag = '初階・線上'; })();
 function C(k) { return COURSES[k] || EXTRA[k]; }
 function money(n) { return 'NT$' + n.toLocaleString('en-US'); }
 
@@ -181,6 +184,7 @@ function renderCourse() {
     // 2026-11-26 Kimi：研修班頁最上面放聳動標題，三種學生一行一句
     up.innerHTML = S.k === 'teacher' ? '<b>報研修班，零基礎免費送</b>' + BASE_DEALS.map(function (r) { return '<span>' + r[0] + '？' + r[1] + '</span>'; }).join('')
       : '🌿 上完零基礎班 2 週內報名進階「創作職人研修班」，零基礎學費全額折抵　<button data-go="course:teacher">看研修班</button>'; }
+  var lv = host.querySelector('[data-lv]'); if (lv) lv.innerHTML = LEVELS.map(function (l, i) { return '<button data-go="' + l[3] + '" class="' + ((S.k === 'teacher' ? 1 : 0) === i ? 'on' : '') + '"><small>' + l[0] + '</small><b>' + l[1] + '</b><span>' + l[2] + '</span></button>'; }).join('');
   var dt = host.querySelector('[data-detail]'); if (dt) dt.innerHTML = detailHtml(S.k);
   renderPick();
 }
@@ -198,7 +202,7 @@ function detailHtml(k) {
     '<section class="ds"><p class="dk">' + no() + (T ? '不只學技法，更學會創作' : '並非臨摹，而是 0 到 1 獨立創作') + '</p>' + cmp + '</section>' +
     '<section class="ds"><p class="dk">' + no() + '課程內容</p>' + b.lessons.map(function (l, i) { return '<h4 class="lh"><span>主題' + '一二三四五六七八'[i] + '</span>' + l[0] + '</h4><ul class="dl">' + l[1].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>'; }).join('') + '</section>' +
     '<section class="ds"><p class="dk">' + no() + (T ? '附贈材料' : '工具大禮包') + '</p><ul class="dl">' + b.kit.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul><img class="fin" src="' + IMG + b.finalImg + '" alt="課程作品" loading="lazy"></section>' +
-    (T ? '<section class="ds" id="coach"><p class="dk">' + no() + '加購：開課陪跑計劃</p>' + coachHtml() + '</section>' : '') +
+    (T ? '<section class="ds" id="coach"><p class="dk">' + no() + '講師階段・加購：開課陪跑計劃</p>' + coachHtml() + '</section>' : '') +
     '<section class="ds"><p class="dk">' + no() + '誰適合這堂課？</p><ul class="dl">' + b.who.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul></section>' +
     '<section class="ds"><p class="dk">' + no() + '報名須知</p><h4 class="lh">攜帶物品</h4><p class="dp">' + (on ? '什麼都不用準備，材料包會寄到家！' : b.bring) + '</p><h4 class="lh">注意事項</h4><ol class="dl">' + NOTES.map(function (n) { return '<li>' + n + '</li>'; }).join('') + '</ol>' +
     (T ? '<p class="cond">🌿 ' + TEACHER_COND + '</p>' : '') + '</section>' +

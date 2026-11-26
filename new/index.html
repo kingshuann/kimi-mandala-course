@@ -908,10 +908,14 @@ body.dopen .fab{opacity:0;pointer-events:none}
 .cmp-link{display:flex;align-items:center;justify-content:space-between;width:calc(100% - 32px);margin:4px 16px 12px;padding:12px 16px;border-radius:14px;background:var(--card2);border:1px solid var(--line);font:inherit;color:var(--olive);cursor:pointer}
 .cmp-link span{font-family:'Noto Serif TC',serif;font-size:14.5px;letter-spacing:.1em}
 .cmp-link em{font-style:normal;font-size:12.5px;letter-spacing:.08em}
-.cmpo .cmpx{margin:0}
+.cmpo .cmpx{margin:0;padding:0;background:none;box-shadow:none}
+.cmpo-box{max-width:420px !important}
+/* 怎麼送彈窗：數字跟標題同一行、顏色淡一點，下面內容縮排 */
+.cpm-r{padding:10px 0 12px !important}
+.cpm-k .cpm-n{position:static !important;display:inline-block !important;width:24px;font-size:20px !important;color:rgba(88,98,74,.45) !important;vertical-align:-1px}
+.cpm-r>b,.cpm-r>span{padding-left:24px}
 /* 2026-11-27 Kimi：零基礎怎麼送彈窗，情況一二三改成大數字 1 2 3，內容縮排、不加框 */
-.cpm-r{padding:10px 0 12px 34px !important}
-.cpm-n{position:absolute;left:0;top:6px;margin:0 !important;font-family:'Marcellus','Noto Serif TC',serif !important;font-size:26px !important;letter-spacing:0 !important;line-height:1.2;color:var(--olive2) !important}
+.cpm-n{margin:0 !important;font-family:'Marcellus','Noto Serif TC',serif !important;letter-spacing:0 !important;line-height:1.2}
 .cfor2{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:8px}
 .cfor2 li{padding:12px 15px;border-radius:14px;background:var(--card);font-size:13.5px;line-height:1.75;color:#4A4D42}
 .cfor2 b{font-weight:700;color:var(--olive)}
@@ -1018,9 +1022,8 @@ body.dopen .fab{opacity:0;pointer-events:none}
   <div class="ttl"><span data-icon="leaf"></span><small class="ey">COURSES</small><h1>全部課程</h1><p>不需要繪畫基礎，跟著自己的感覺，一點一點完成屬於你的作品。</p></div>
   <div class="fl"><span class="on" data-cf="all">全部</span><span data-cf="mandala">曼陀羅繪畫課程</span><span data-cf="other">其他課程</span></div>
   <button class="cmp-link" data-cmpo><span>三種課程怎麼選？</span><em>看比較 ›</em></button>
-  <div class="cop cmpo" id="cmpo" hidden><div class="cop-hd"><button data-cmpx aria-label="返回">‹ 返回全部課程</button><span>三種課程怎麼選？</span></div><div class="cop-bd">
+  <div class="cpm cmpo" id="cmpo" hidden><div class="cpm-bg" data-cmpx></div><div class="cpm-box cmpo-box"><button class="cpm-x" data-cmpx aria-label="關閉">×</button><small>COMPARE・三種課程</small><h3>三種課程怎麼選？</h3>
   <div class="cmpx" id="cmp">
-    <p class="cmpx-h">三種課程怎麼選？</p>
     <div class="cmpx-hd"><div><i class="stg stg-b" data-stg="b"></i><small>初階班</small><b>零基礎入門</b></div><div><i class="stg stg-t" data-stg="t"></i><small>兩日進階班</small><b>職人研修</b></div><div><i class="stg stg-c" data-stg="c"></i><small>可單買・可加購</small><b>開課陪跑計劃</b></div></div>
     <p class="cmpx-k">適合誰</p><div class="cmpx-r"><span>沒畫過也可以</span><span>想畫出有質感的<br>大幅作品</span><span>想用這套教材開課</span></div>
     <p class="cmpx-k">上課時間</p><div class="cmpx-r"><span>3.5 小時<br>實體或線上</span><span>兩天<br>09:00–17:00</span><span>3 個月<br>一對一陪跑</span></div>
@@ -1315,7 +1318,7 @@ body.dopen .fab{opacity:0;pointer-events:none}
 <div class="fab"><a class="f-ig" href="https://www.instagram.com/imikdots" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="#fff" stroke="none"/></svg></a><a class="f-line" href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener" aria-label="LINE 私訊 Kimi"><svg viewBox="0 0 24 24" fill="#fff"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a></div>
 </div>
 <script src="../data.js?v=1125a"></script>
-<script src="shared.js?v=1127i"></script>
+<script src="shared.js?v=1127j"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="sb-config.js?v=1123p"></script>
 <script src="member.js?v=1124d"></script>

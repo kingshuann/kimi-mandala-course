@@ -287,7 +287,8 @@ function tUseCode() {
 // 研修班報名選項：加購陪跑、零基礎在哪上（一起報的話再選一堂免費零基礎）
 function renderTOpt() {
   var h = document.querySelector('[data-topt]'); if (!h) return;
-  if (S.k !== 'teacher') { renderUpsell(h); return; }
+  // 2026-11-26 Kimi：零基礎／線上頁不在報名時推研修班（參考國外賣課網站：大方案不塞在結帳），改到報名完成頁＋上完課的 LINE 追蹤；renderUpsell 先留著備用
+  if (S.k !== 'teacher') { S.uAdd = null; h.innerHTML = ''; document.querySelectorAll('[data-pg="course"] .stk b').forEach(function (e) { e.textContent = C(S.k).priceText; }); return; }
   function ob(a, v, on, t, sm) { return '<button class="box ob' + (on ? ' on' : '') + '" data-to="' + a + '" data-v="' + v + '"><span class="ob-t"><em>' + t + '</em>' + (sm ? '<small>' + sm + '</small>' : '') + '</span><span class="r"></span></button>'; }
   // 順序（2026-11-26 Kimi）：先問零基礎 → 一起報的選免費場次 → 最後才問加購陪跑
   var bh = tBaseHtml(ob), found = window.MEM && MEM.user && S.bc && S.bc.found;
@@ -629,6 +630,9 @@ document.addEventListener('DOMContentLoaded', function () {
           document.getElementById('dnList').innerHTML = courses.map(function (x) { return '<div><span>' + C(x.k).short + (x.free ? '（贈送）' : x.addon ? '＋陪跑計劃' : '') + '　' + (x.s && x.s.date ? dateLabel(x.s) + ' ' + (x.s.time || '') : '時間另約') + '</span><span>' + x.qty + ' 人</span></div>'; }).join('') +
             (ord && ord.discount ? '<div><span>會員首購優惠</span><span>− ' + money(ord.discount) + '</span></div>' : '') + (ord ? '<div><span>實付</span><span>' + money(ord.total) + '</span></div>' : '');
           document.getElementById('dnLine').hidden = false;
+          // 報名零基礎（沒報研修班）→ 完成頁邀請下一步：研修班
+          var du = document.getElementById('dnUp'), isB = courses.some(function (x) { return (x.k === 'beginner' || x.k === 'online') && !x.free; }), hasT = courses.some(function (x) { return x.k === 'teacher'; });
+          if (du) { du.hidden = !(isB && !hasT); du.innerHTML = '<small>NEXT STEP・進階</small><b>上完課，想把作品畫得更美？</b><p>上完零基礎 2 週內報名「創作職人研修班」，這堂零基礎的學費<b>全額折抵</b>。先好好享受這堂課，畫完再決定就好 🌿</p><button class="btn ghost full" data-go="course:teacher">看創作職人研修班</button>'; }
           var dp = document.getElementById('dnPay'); if (dp) dp.hidden = true; var dn = document.getElementById('dnNote'); if (dn) dn.hidden = true;
           trk('sign_up', { method: payNow, courses: courses.length });
           S.cart = []; S.l5 = ''; S.payPicked = 0; ckClear(); updateCount(); go('done');
@@ -640,6 +644,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var tot = document.querySelector('[data-total]').textContent;
       document.getElementById('dnNo').textContent = '訂單編號 ' + no;
       document.getElementById('dnList').innerHTML = S.cart.map(function (x) { return '<div><span>' + (x.prod ? x.prod.name + '（' + x.opt + '）' : C(x.k).short) + ' × ' + x.qty + '</span><span>' + money(x.price * x.qty) + '</span></div>'; }).join('') + '<div><span>合計（含運）</span><span>' + tot + '</span></div>';
+      var du2 = document.getElementById('dnUp'); if (du2) du2.hidden = true;
       S.cart = []; updateCount(); go('done');
     }
   });

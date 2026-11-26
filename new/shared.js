@@ -393,7 +393,19 @@ function tUseCode() {
 function renderTOpt() {
   var h = document.querySelector('[data-topt]'); if (!h) return;
   // 2026-11-26 Kimi：零基礎／線上頁不在報名時推兩日進階班（參考國外賣課網站：大方案不塞在結帳），改到報名完成頁＋上完課的 LINE 追蹤；renderUpsell 先留著備用
-  if (S.k !== 'teacher') { S.uAdd = null; h.innerHTML = ''; document.querySelectorAll('[data-pg="course"] .stk b').forEach(function (e) { e.textContent = C(S.k).priceText; }); return; }
+  if (S.k !== 'teacher') {
+    // 2026-11-27 Kimi：初階班加「03 選擇人數」，兩人以上同行每人 3,333（線上課本來就是 3,333）
+    S.uAdd = null; if (S.bqK !== S.k) { S.bqK = S.k; S.bq = 1; }
+    var on = S.k === 'online' || (S.sess && S.sess.flex), unit = on || S.bq >= 2 ? 3333 : C(S.k).price;
+    h.innerHTML = '<p class="lbl">03　選擇人數</p><div class="pq2"><button data-pq="-1" aria-label="少一位"' + (S.bq <= 1 ? ' disabled' : '') + '>−</button><b>' + S.bq + ' 人</b><button data-pq="1" aria-label="多一位"' + (S.bq >= 4 ? ' disabled' : '') + '>＋</button>' +
+      '<span>' + (on ? '線上課每人 NT$3,333' : S.bq >= 2 ? '同行優惠：每人 NT$3,333' : '兩人以上同行，每人 NT$3,333') + '</span></div>' +
+      (S.bq >= 2 ? '<div class="tled"><p><span>' + C(S.k).short + ' × ' + S.bq + ' 人</span><span>' + money(unit) + ' / 人</span></p><p class="tot"><span>合計</span><b>' + money(unit * S.bq) + '</b></p></div>' : '');
+    h.querySelectorAll('[data-pq]').forEach(function (b) { b.onclick = function (ev) { ev.stopPropagation(); S.bq = Math.max(1, Math.min(4, S.bq + (+b.dataset.pq))); renderTOpt(); }; });
+    document.querySelectorAll('[data-pg="course"] .stk b').forEach(function (e) { e.textContent = money(unit * S.bq); });
+    document.querySelectorAll('[data-pg="course"] .stk small').forEach(function (e) { e.textContent = S.bq >= 2 ? '／' + S.bq + ' 人' : '／人'; });
+    return;
+  }
+  document.querySelectorAll('[data-pg="course"] .stk small').forEach(function (e) { e.textContent = '／人'; });
   function ob(a, v, on, t, sm) { return '<button class="box ob' + (on ? ' on' : '') + '" data-to="' + a + '" data-v="' + v + '"><span class="ob-t"><em>' + t + '</em>' + (sm ? '<small>' + sm + '</small>' : '') + '</span><span class="r"></span></button>'; }
   // 順序（2026-11-26 Kimi）：先問零基礎 → 一起報的選免費場次 → 最後才問加購陪跑
   var bh = tBaseHtml(ob), found = window.MEM && MEM.user && S.bc && S.bc.found;
@@ -485,7 +497,7 @@ function addToCart() {
     S.cart.push({ k: S.k, s: S.sess, qty: 1, price: 0, free: 1 });
   } else {
     S.cart = S.cart.filter(function (x) { return x.k !== S.k || x.free; });
-    S.cart.push({ k: S.k, s: S.sess, qty: 1, price: c.price });
+    S.cart.push({ k: S.k, s: S.sess, qty: Math.max(1, Math.min(4, S.bq || 1)), price: c.price });
   }
   updateCount(); toast('已加入購物車 🌿'); setTimeout(function () { go('cart'); }, 500);
 }

@@ -33,10 +33,11 @@ var NOTES = ['台中班、線上課 1 人就開班，時間可討論；台中以
 })();
 var TEACHER_PAIN = [['畫了一陣子', '作品卻一直停在小卡片'], ['想畫大幅作品', '不知道怎麼找圓心、分割'], ['構圖總是同心圓', '想讓作品更有層次'], ['想試不同材質', '木板、畫布、石膏都想畫']];
 // 零基礎優惠：三種學生
+// 2026-11-26 Kimi：精簡成一張表，放在研修班頁最前面
 var BASE_DEALS = [
-  ['上過 Kimi 的零基礎班', '上完 2 週內報名研修班，零基礎學費全額折抵'],
-  ['完全沒上過零基礎', '零基礎＋研修班一起報，零基礎免費'],
-  ['在其他老師那邊上過', '贈送一堂「線上零基礎回訓」（價值 NT$3,000）；材料自備，課前會提供材料清單']
+  ['上過 Kimi 的零基礎', '2 週內報名，學費全額折抵'],
+  ['還沒上過零基礎', '一起報，零基礎免費'],
+  ['在其他老師那裡上過', '送一堂線上零基礎回訓']
 ];
 // 加購：開課陪跑計劃（3 個月）
 var COACH = { price: 13000, later: 15800 };
@@ -189,13 +190,13 @@ function detailHtml(k) {
     '<div class="vtb"><div class="vtb-r vtb-h"><span></span><span>一般繪畫課</span><span>這堂課</span></div>' + b.compare.map(function (r) { return '<div class="vtb-r"><b>' + r[0] + '</b><span>' + r[1] + '</span><span>' + r[2] + '</span></div>'; }).join('') + '</div>';
   var n = 0, no = function () { n++; return (n < 10 ? '0' : '') + n + '　'; }, T = k === 'teacher';
   function gets(list, cls) { return '<ul class="gets' + (cls ? ' ' + cls : '') + '">' + list.map(function (g) { return '<li><b>' + g[0] + '</b><span>' + g[1] + '</span></li>'; }).join('') + '</ul>'; }
-  return (T ? '<section class="ds"><p class="dk">' + no() + '你是不是也這樣？</p>' + gets(TEACHER_PAIN, 'pain') + '<blockquote class="pq">研修班要做的，<br>就是陪你把作品，一點一點畫得更美。</blockquote></section>' : '') +
+  return (T ? '<section class="ds"><p class="dk">' + no() + '零基礎優惠</p><ul class="rows deal">' + BASE_DEALS.map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('') + '</ul></section>' : '') +
+    (T ? '<section class="ds"><p class="dk">' + no() + '你是不是也這樣？</p>' + gets(TEACHER_PAIN, 'pain') + '<blockquote class="pq">研修班要做的，<br>就是陪你把作品，一點一點畫得更美。</blockquote></section>' : '') +
     '<section class="ds"><p class="dk">' + no() + '課程資訊</p><ul class="rows">' + info.map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('') + '</ul></section>' +
     '<section class="ds"><p class="dk">' + no() + (T ? '不只學技法，更學會創作' : '並非臨摹，而是 0 到 1 獨立創作') + '</p>' + cmp + '</section>' +
     '<section class="ds"><p class="dk">' + no() + '課程內容</p>' + b.lessons.map(function (l, i) { return '<h4 class="lh"><span>主題' + '一二三四五六七八'[i] + '</span>' + l[0] + '</h4><ul class="dl">' + l[1].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>'; }).join('') + '</section>' +
     '<section class="ds"><p class="dk">' + no() + (T ? '附贈材料' : '工具大禮包') + '</p><ul class="dl">' + b.kit.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul><img class="fin" src="' + IMG + b.finalImg + '" alt="課程作品" loading="lazy"></section>' +
-    (T ? '<section class="ds"><p class="dk">' + no() + '零基礎優惠</p>' + gets(BASE_DEALS, 'deal') + '<blockquote class="pq">不管你在哪裡學過零基礎，<br>都歡迎來研修班，<br>我們從同一個起點出發。</blockquote></section>' +
-      '<section class="ds" id="coach"><p class="dk">' + no() + '加購：開課陪跑計劃</p>' + coachHtml() + '</section>' : '') +
+    (T ? '<section class="ds" id="coach"><p class="dk">' + no() + '加購：開課陪跑計劃</p>' + coachHtml() + '</section>' : '') +
     '<section class="ds"><p class="dk">' + no() + '誰適合這堂課？</p><ul class="dl">' + b.who.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul></section>' +
     '<section class="ds"><p class="dk">' + no() + '報名須知</p><h4 class="lh">攜帶物品</h4><p class="dp">' + (on ? '什麼都不用準備，材料包會寄到家！' : b.bring) + '</p><h4 class="lh">注意事項</h4><ol class="dl">' + NOTES.map(function (n) { return '<li>' + n + '</li>'; }).join('') + '</ol>' +
     (T ? '<p class="cond">🌿 ' + TEACHER_COND + '</p>' : '') + '</section>' +

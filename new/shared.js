@@ -397,7 +397,7 @@ function renderTOpt() {
     // 2026-11-27 Kimi：初階班加「03 選擇人數」，兩人以上同行每人 3,333（線上課本來就是 3,333）
     S.uAdd = null; if (S.bqK !== S.k) { S.bqK = S.k; S.bq = 1; }
     var on = S.k === 'online' || (S.sess && S.sess.flex), unit = on || S.bq >= 2 ? 3333 : C(S.k).price;
-    h.innerHTML = '<p class="lbl">03　選擇人數</p><div class="pq2"><button data-pq="-1" aria-label="少一位"' + (S.bq <= 1 ? ' disabled' : '') + '>−</button><b>' + S.bq + ' 人</b><button data-pq="1" aria-label="多一位"' + (S.bq >= 4 ? ' disabled' : '') + '>＋</button>' +
+    h.innerHTML = '<p class="lbl">03　選擇人數</p><div class="pq2"><button data-pq="-1" aria-label="少一位"' + (S.bq <= 1 ? ' disabled' : '') + '><svg viewBox="0 0 24 24"><path d="M6 12h12"/></svg></button><b>' + S.bq + ' 人</b><button data-pq="1" aria-label="多一位"' + (S.bq >= 4 ? ' disabled' : '') + '><svg viewBox="0 0 24 24"><path d="M6 12h12M12 6v12"/></svg></button>' +
       '<span>' + (on ? '線上課每人 NT$3,333' : S.bq >= 2 ? '同行優惠：每人 NT$3,333' : '兩人以上同行，每人 NT$3,333') + '</span></div>' +
       (S.bq >= 2 ? '<div class="tled"><p><span>' + C(S.k).short + ' × ' + S.bq + ' 人</span><span>' + money(unit) + ' / 人</span></p><p class="tot"><span>合計</span><b>' + money(unit * S.bq) + '</b></p></div>' : '');
     h.querySelectorAll('[data-pq]').forEach(function (b) { b.onclick = function (ev) { ev.stopPropagation(); S.bq = Math.max(1, Math.min(4, S.bq + (+b.dataset.pq))); renderTOpt(); }; });

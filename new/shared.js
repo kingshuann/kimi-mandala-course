@@ -257,6 +257,8 @@ function coachOpen() {
     m = document.createElement('div'); m.id = 'cop'; m.className = 'cop'; document.body.appendChild(m);
     m.addEventListener('click', function (ev) {
       if (ev.target.closest('[data-copx]')) { ev.stopPropagation(); m.hidden = true; document.body.style.overflow = ''; }
+      else if (ev.target.closest('[data-cplan]')) { ev.stopPropagation(); S.cPlan = ev.target.closest('[data-cplan]').dataset.cplan; copRender(); }
+      else if (ev.target.closest('[data-cpick]')) { ev.stopPropagation(); toast('先選一個方案喔'); var px = m.querySelector('.cpx'); if (px) m.scrollTo({ top: px.offsetTop - 80, behavior: 'smooth' }); }
       else if (ev.target.closest('[data-copbuy]')) { ev.stopPropagation(); coachBuy(); }
       else if (ev.target.closest('[data-ccode]')) { ev.stopPropagation(); cUseCode(); }
       else if (ev.target.closest('[data-ccx]')) { ev.stopPropagation(); S.cCode = null; S.cCr = 0; copRender(); }
@@ -272,7 +274,8 @@ function copRender() {
   var m = document.getElementById('cop'); if (!m) return;
   var st = m.scrollTop, pay = EXTRA.coach.price - (S.cCr || 0), inT = S.k === 'teacher';
   m.innerHTML = '<div class="cop-hd"><button data-copx aria-label="返回">‹ 返回' + (inT ? '兩日進階班' : '') + '</button><span>開課陪跑計劃</span></div><div class="cop-bd">' + coachHtml() + '</div>' +
-    '<div class="cop-ft stk2"><div><b>' + money(pay) + '</b><small>' + (S.cCode ? '已用優惠碼' : '單買') + '</small></div><button class="btn" data-copbuy>單買，加入購物車</button></div>';
+    '<div class="cop-ft stk2"><div><b>' + (S.cPlan === 'add' ? '+' + money(COACH.price) : money(pay)) + '</b><small>' + (S.cPlan === 'add' ? '加購價' : S.cCode ? '已用優惠碼' : '單買') + '</small></div>' +
+    (S.cPlan === 'add' ? '<button class="btn" data-copadd>回兩日進階班一起報名</button>' : S.cPlan === 'single' ? '<button class="btn" data-copbuy>單買，加入購物車</button>' : '<button class="btn" data-cpick>選擇方案</button>') + '</div>';
   m.scrollTop = st;
   var ci = m.querySelector('#cCode'); if (ci) ci.onkeydown = function (ev) { if (ev.key === 'Enter') { ev.preventDefault(); cUseCode(); } };
 }
@@ -304,9 +307,10 @@ function coachHtml() {
     '<div class="ck"><span>3 個月</span><span>一對一 4 次</span><span>教材授權</span><span>結業證書</span></div>' +
     '<p class="cc-lead">如果你想用這套教材開課，陪跑計劃會給你完整授權，還有我一路陪你走到開課。</p>' +
     '<p class="cc-h">01　選擇方案</p>' +
-    '<div class="cpx"><div class="cpx-i hot"><div class="cpx-t"><em>加購價・省 NT$3,800</em><b>跟兩日進階班一起報名</b><span>兩日進階班＋陪跑合計 NT$39,800</span>' + (S.k === 'teacher' ? '<button class="cpx-a" data-copadd>回兩日進階班一起報名 ›</button>' : '') + '</div><div class="cpx-p"><s>NT$16,800</s><b>+NT$13,000</b></div></div>' +
-    '<div class="cpx-i"><div class="cpx-t"><em>原價</em><b>單買陪跑計劃</b><span>上過其他老師的課，或覺得自己已經有能力，只想學怎麼開課，都可以單獨購買，網站直接結帳</span></div><div class="cpx-p"><b>NT$16,800</b></div></div></div>' +
-    '<p class="tq">有優惠碼嗎？</p>' + codeBox +
+    '<div class="cpx"><button class="cpx-i' + (S.cPlan === 'add' ? ' on' : '') + '" data-cplan="add"><span class="cpx-r"></span><div class="cpx-t"><em class="pill">加購價・省 NT$3,800</em><b>跟兩日進階班一起報名</b><span>兩日進階班＋陪跑合計 NT$39,800</span></div><div class="cpx-p"><s>NT$16,800</s><b>+NT$13,000</b></div></button>' +
+    '<button class="cpx-i' + (S.cPlan === 'single' ? ' on' : '') + '" data-cplan="single"><span class="cpx-r"></span><div class="cpx-t"><em>原價</em><b>單買陪跑計劃</b><span>上過其他老師的課，或覺得自己已經有能力，只想學怎麼開課，都可以單獨購買</span></div><div class="cpx-p"><b>NT$16,800</b></div></button></div>' +
+    (S.cPlan === 'single' ? '<p class="tq">有優惠碼嗎？</p>' + codeBox : '') +
+
     '<p class="cc-h">02　適合這樣的你</p><ul class="cfor2">' + COACH_FOR.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>' +
     '<p class="cc-h">03　陪跑計劃包含</p><ol class="cc-list">' + COACH_GETS.map(function (g) { return '<li><b>' + g[0] + '</b><span>' + g[1] + '</span></li>'; }).join('') + '</ol>' +
     '<p class="cc-h">04　4 次一對一諮詢・每次 45 分鐘</p><ul class="cc-tl">' + COACH_STEPS.map(function (g) { return '<li><b>' + g[0] + '</b><span>' + g[1] + '</span></li>'; }).join('') + '</ul>' +

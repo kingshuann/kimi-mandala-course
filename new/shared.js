@@ -280,7 +280,7 @@ function renderPick() {
     de.innerHTML = '<p class="hint">材料包寄到家，報名後小幫手會用 LINE 跟你約上課時間</p>'; S.sess = ONLINE_FLEX; renderTOpt(); return; }
   ce.innerHTML = cities.length ? cities.map(function (ct) { return '<button class="chip' + (ct === S.city ? ' on' : '') + '" data-city="' + ct + '">' + ct + '</button>'; }).join('') : '<p class="hint">目前沒有公告場次，歡迎私訊官方 LINE 開班</p>';
   var ds = L.filter(function (s) { return s.location === S.city; }).slice(0, 12);
-  de.innerHTML = ds.map(function (s, i) { var p = s.date.split('-'); return '<button class="dt' + (s.endDate ? ' dt2' : '') + (S.sess === s ? ' on' : '') + '" data-si="' + i + '"><small>' + (+p[1]) + '月</small><b>' + (+p[2]) + (s.endDate ? '–' + (+s.endDate.split('-')[2]) : '') + '</b><span>' + (S.k === 'teacher' ? '兩日' : slotName(s.time)) + '</span></button>'; }).join('');
+  de.innerHTML = ds.map(function (s, i) { var p = s.date.split('-'); return '<button class="dt' + (s.endDate ? ' dt2' : '') + (S.sess === s ? ' on' : '') + '" data-si="' + i + '">' + (s.endDate ? dt2Html(s) : '<small>' + (+p[1]) + '月</small><b>' + (+p[2]) + '</b><span>' + (S.k === 'teacher' ? '兩日' : slotEmo(s.time)) + '</span>') + '</button>'; }).join('');
   de._list = ds;
   // 2026-11-26 Kimi：研修班場次少，格子旁補「這場的細節」，下面加「許願開班」
   var ow = de.parentNode && de.parentNode.querySelector('.wish'); if (ow) ow.remove();
@@ -408,7 +408,7 @@ function renderUpsell(h) {
   var fc = h.querySelector('[data-ucities]'), fd = h.querySelector('[data-udates]');
   fc.innerHTML = cs.map(function (c) { return '<button class="chip' + (c === S.uCity ? ' on' : '') + '" data-uc="' + c + '">' + c + '</button>'; }).join('');
   var ds = L.filter(function (s) { return s.location === S.uCity; }).slice(0, 12);
-  fd.innerHTML = ds.map(function (s, i) { var p = s.date.split('-'); return '<button class="dt' + (s.endDate ? ' dt2' : '') + (S.uSess === s ? ' on' : '') + '" data-ui="' + i + '"><small>' + (+p[1]) + '月</small><b>' + (+p[2]) + (s.endDate ? '–' + (+s.endDate.split('-')[2]) : '') + '</b><span>兩日</span></button>'; }).join('') ||
+  fd.innerHTML = ds.map(function (s, i) { var p = s.date.split('-'); return '<button class="dt' + (s.endDate ? ' dt2' : '') + (S.uSess === s ? ' on' : '') + '" data-ui="' + i + '">' + (s.endDate ? dt2Html(s) : '<small>' + (+p[1]) + '月</small><b>' + (+p[2]) + '</b><span>' + '兩日' + '</span>') + '</button>'; }).join('') ||
     '<p class="hint">零基礎之後目前沒有公告的研修班場次，歡迎<a href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener">私訊官方 LINE</a> 預約下一梯</p>';
   fc.querySelectorAll('[data-uc]').forEach(function (b) { b.onclick = function (ev) { ev.stopPropagation(); S.uCity = b.dataset.uc; S.uSess = null; renderTOpt(); }; });
   fd.querySelectorAll('[data-ui]').forEach(function (b) { b.onclick = function (ev) { ev.stopPropagation(); S.uSess = ds[+b.dataset.ui]; renderTOpt(); }; });
@@ -754,3 +754,12 @@ document.addEventListener('click', function (e) {
   function fill() { [].forEach.call(document.querySelectorAll('i[data-stg]'), function (e) { var k = e.getAttribute('data-stg'); e.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true">' + STG_SVG[k] + '</svg>' + STG_TXT[k]; e.removeAttribute('data-stg'); }); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fill); else fill();
 })();
+
+
+// 兩日場次格子：像兩個一般日期格接在一起「12月 23 週三 ～ 12月 24 週四」（2026-11-27 Kimi）
+function dt2Html(s) {
+  function one(d) { var p = d.split('-'), w = '日一二三四五六'[new Date(+p[0], +p[1] - 1, +p[2]).getDay()]; return '<em class="dd"><small>' + (+p[1]) + '月</small><b>' + (+p[2]) + '</b><span>週' + w + '</span></em>'; }
+  return one(s.date) + '<i class="dsep">～</i>' + one(s.endDate);
+}
+// 早午晚班前面加 emoji：☀️ 早班、🍵 午班、🌙 晚班（2026-11-27 Kimi；不動正式網站 data.js 的 slotName）
+function slotEmo(t) { var n = slotName(t); return ({ '早班': '☀️', '午班': '🍵', '晚班': '🌙' }[n] || '') + n; }

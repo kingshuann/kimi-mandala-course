@@ -822,7 +822,10 @@ body.dopen .fab{opacity:0;pointer-events:none}
 .zabt-cta .btn{width:100%}
 /* 2026-11-26 Kimi：班名前加初階／進階、兩日場次格子加寬、優惠改成雜誌左線樣式 */
 .cbody h1 .h1lv{display:inline-block;vertical-align:.28em;font-family:'Noto Sans TC',sans-serif;font-size:11px;font-weight:500;letter-spacing:.16em;color:var(--cream);background:var(--olive);border-radius:99px;padding:0 9px;line-height:1.9;margin-right:8px}
-.dt.dt2{flex-basis:84px}
+.dt.dt2,.dt.dt2.on{flex-basis:auto;display:flex;align-items:center;gap:4px;padding:0;background:none !important;border:0 !important;-webkit-backdrop-filter:none;backdrop-filter:none;color:inherit}
+.dt2 .dd{display:block;font-style:normal;width:58px;padding:7px 0;border-radius:14px;background:var(--card2);border:1px solid var(--line);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.dt2.on .dd{background:var(--olive);color:var(--cream);border-color:var(--olive)}
+.dt2 .dsep{font-style:normal;font-size:13px;color:var(--muted);padding:0 1px}
 .lvh[hidden],.lvh:empty{display:none !important}
 .drw-i i{border:0 !important;border-radius:0;padding:0 !important;margin-left:8px;font-family:'Noto Serif TC',serif;font-size:11px !important;letter-spacing:.12em;opacity:.8}
 .drw-i i:before{content:'— ';opacity:.6}
@@ -877,6 +880,9 @@ body.dopen .fab{opacity:0;pointer-events:none}
 .stg{display:none !important}
 /* 2026-11-27 Kimi：探索最後兩格先預留空位 */
 .col-empty{visibility:hidden}
+/* 2026-11-27 Kimi：課程頁「一般繪畫課 vs 這堂課」不要半邊深綠，改成淺色、這堂課用橄欖綠粗字＋淡綠底 */
+.vtb-r>span:nth-child(3){background:rgba(88,98,74,.08) !important;color:var(--olive) !important;font-weight:600 !important;border-top-color:rgba(74,79,58,.12) !important}
+.vtb-h>span:nth-child(3){color:var(--olive) !important;font-weight:700 !important}
 /* 2026-11-27 Kimi：陪跑獨立頁改成跟課程頁一樣的淺色樣式（不再用深綠大卡片） */
 .cop .cc{background:transparent;color:var(--ink);border-radius:0;padding:6px 4px 10px;margin:0}
 .cop .cc-ey{color:var(--olive2);opacity:1}
@@ -1258,7 +1264,7 @@ body.dopen .fab{opacity:0;pointer-events:none}
 <div class="fab"><a class="f-ig" href="https://www.instagram.com/imikdots" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="#fff" stroke="none"/></svg></a><a class="f-line" href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener" aria-label="LINE 私訊 Kimi"><svg viewBox="0 0 24 24" fill="#fff"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a></div>
 </div>
 <script src="../data.js?v=1125a"></script>
-<script src="shared.js?v=1126x"></script>
+<script src="shared.js?v=1127a"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="sb-config.js?v=1123p"></script>
 <script src="member.js?v=1124d"></script>

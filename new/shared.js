@@ -221,7 +221,7 @@ function renderCourse() {
     // 2026-11-26 Kimi：兩日進階班頁最上面放聳動標題，三種學生一行一句
     // 2026-11-26 Kimi：改成優惠券樣式，細節點「了解詳情」彈窗看
     up.innerHTML = S.k === 'teacher' ? '<div class="gft"><div class="gft-t"><small>BONUS・兩日進階班限定優惠</small><b>報兩日進階班，零基礎免費送</b></div><button data-cpn>了解詳情</button></div>'
-      : '🌿 已經想進修？<b>直接報兩日進階班，零基礎免費送</b>　<button data-go="course:teacher">看兩日進階班</button><small>想先上上看也可以，上完 2 週內報名，學費一樣全額折抵</small>'; }
+      : '🌿 想一次學到好？<b>直接報名初階班＋兩日進階班，初階班免費送</b>　<button data-go="course:teacher">看兩日進階班</button><small>想先上上看也可以，上完初階班 2 週內報名兩日進階班，學費一樣全額折抵</small>'; }
   // 2026-11-26 Kimi：初階／進階直接寫在班名前面，兩日進階班加「兩日」；線上併在零基礎班裡，標題一樣
   var h1 = host.querySelector('h1[data-f]'); if (h1) h1.innerHTML = S.k === 'teacher' ? stg('t') + '<span class="h1s">兩日進階班：</span>職人研修' : stg('b') + '<span class="h1s">初階班：</span>零基礎入門';
   var lh = host.querySelector('[data-lvh]'); if (lh) { lh.textContent = ''; lh.hidden = true; }

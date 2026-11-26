@@ -200,7 +200,7 @@ function detailHtml(k) {
     '<div class="vtb"><div class="vtb-r vtb-h"><span></span><span>一般繪畫課</span><span>這堂課</span></div>' + b.compare.map(function (r) { return '<div class="vtb-r"><b>' + r[0] + '</b><span>' + r[1] + '</span><span>' + r[2] + '</span></div>'; }).join('') + '</div>';
   var n = 0, no = function () { n++; return (n < 10 ? '0' : '') + n + '　'; }, T = k === 'teacher';
   function gets(list, cls) { return '<ul class="gets' + (cls ? ' ' + cls : '') + '">' + list.map(function (g) { return '<li><b>' + g[0] + '</b><span>' + g[1] + '</span></li>'; }).join('') + '</ul>'; }
-  return '<section class="ds"><p class="dk">' + no() + '你是不是也這樣？</p>' + gets(T ? TEACHER_PAIN : BEGINNER_PAIN, 'pain') + '<blockquote class="pq">' + (T ? '研修班要做的，<br>就是陪你把作品，一點一點畫得更美。' : '零基礎班要做的，<br>就是陪你留一段時間給自己，<br>畫出第一幅屬於你的作品。') + '</blockquote></section>' +
+  return '<section class="ds"><p class="dk">你是不是也這樣？</p>' + gets(T ? TEACHER_PAIN : BEGINNER_PAIN, 'pain') + '<blockquote class="pq">' + (T ? '研修班要做的，<br>就是陪你把作品，一點一點畫得更美。' : '零基礎班要做的，<br>就是陪你留一段時間給自己，<br>畫出第一幅屬於你的作品。') + '</blockquote></section>' +
     '<section class="ds"><p class="dk">' + no() + '課程資訊</p><ul class="rows">' + info.map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('') + '</ul></section>' +
     '<section class="ds"><p class="dk">' + no() + (T ? '不只學技法，更學會創作' : '並非臨摹，而是 0 到 1 獨立創作') + '</p>' + cmp + '</section>' +
     '<section class="ds"><p class="dk">' + no() + '課程內容</p>' + b.lessons.map(function (l, i) { return '<h4 class="lh"><span>主題' + '一二三四五六七八'[i] + '</span>' + l[0] + '</h4><ul class="dl">' + l[1].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>'; }).join('') + '</section>' +

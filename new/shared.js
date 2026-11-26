@@ -32,6 +32,22 @@ var NOTES = ['台中班、線上課 1 人就開班，時間可討論；台中以
   t.compare = [['學習重點', '單一技法', '進階技法＋大幅構圖'], ['作品', '一堂一件小作品', '兩天完成 4 件不同材質作品'], ['材料', '要自己準備', '材料全包・顏料用到飽'], ['課後服務', '課程結束就結束', '終生問答服務']];
 })();
 // 零基礎班「你是不是也這樣？」（2026-11-26 Kimi，取自品牌根系 A｜零基礎班受眾的心聲與沒持續的原因）
+// 研修班優惠券「了解詳情」彈窗：三種情況怎麼送（2026-11-26 Kimi）
+var CPN_HOW = [['還沒上過零基礎', '一起報名，零基礎免費', '報名研修班時，順便選一堂零基礎場次，先上零基礎、再上研修班。'],
+  ['上過 Kimi 的零基礎班', '學費全額折抵', '上完零基礎 2 週內報名研修班，登入會員系統會自動折抵（實體 NT$3,500／線上或兩人同行 NT$3,333）。'],
+  ['已報名其他老師的零基礎班', '送一堂線上零基礎回訓', '價值 NT$3,000，材料自備，課前提供材料清單，報名後小幫手用 LINE 跟你約時間。']];
+function cpnOpen() {
+  var m = document.getElementById('cpm');
+  if (!m) {
+    m = document.createElement('div'); m.id = 'cpm'; m.className = 'cpm';
+    m.innerHTML = '<div class="cpm-bg" data-cpx></div><div class="cpm-box"><button class="cpm-x" data-cpx aria-label="關閉">×</button><small>GIFT・研修班限定</small><h3>零基礎課程怎麼送？</h3>' +
+      CPN_HOW.map(function (r) { return '<div class="cpm-r"><p class="cpm-k">' + r[0] + '</p><b>' + r[1] + '</b><span>' + r[2] + '</span></div>'; }).join('') +
+      '<button class="btn full" data-cpx>我知道了</button></div>';
+    document.body.appendChild(m);
+    m.addEventListener('click', function (ev) { if (ev.target.closest('[data-cpx]')) { ev.stopPropagation(); m.hidden = true; } });
+  }
+  m.hidden = false;
+}
 var BEGINNER_PAIN = [['每天都好累', '工作、家庭、小孩，好像只有自己不在裡面'], ['想到待辦就焦慮', '想留一段時間，只給自己'], ['好喜歡這種作品', '但總覺得「我不會畫畫」'], ['上過手作體驗課', '帶回一個成品，回家就畫不下去']];
 var TEACHER_PAIN = [['畫了一陣子', '作品卻一直停在小卡片'], ['想畫大幅作品', '不知道怎麼找圓心、分割'], ['構圖總是同心圓', '想讓作品更有層次'], ['想試不同材質', '木板、畫布、石膏都想畫']];
 // 零基礎優惠：三種學生
@@ -39,7 +55,7 @@ var TEACHER_PAIN = [['畫了一陣子', '作品卻一直停在小卡片'], ['想
 var BASE_DEALS = [
   ['還沒上過零基礎', '一起報，零基礎免費'],
   ['上過 Kimi 的零基礎', '2 週內報名，學費全額折抵'],
-  ['在其他老師那裡上過', '送一堂線上零基礎回訓']
+  ['已報名其他老師的零基礎班', '送一堂線上零基礎回訓']
 ];
 // 加購：開課陪跑計劃（3 個月）
 var COACH = { price: 13000, later: 15800 };
@@ -59,7 +75,7 @@ var TEACHER_QA = [
   ['研修班一定要想當老師嗎？', '不用！研修班是給想把畫畫得更美、做出有質感大作品的人。想開課的話，再加購開課陪跑計劃就好。'],
   ['只上研修班，可以用學到的東西開課嗎？', '研修班是陪你把作品畫得更好，不包含教學授權。如果你想用這套教材開課，開課陪跑計劃會給你完整的教材授權，還有我一路陪你走到開課。'],
   ['上完研修班之後，還能加購陪跑計劃嗎？', '可以！上完研修班之後加購是 NT$15,800；報名研修班時一起加購是 NT$13,000，會比較划算。'],
-  ['我在其他老師那邊上過零基礎，可以報研修班嗎？', '可以！不管你在哪裡學過零基礎，都歡迎來研修班。我們會贈送一堂「線上零基礎回訓」（價值 NT$3,000），材料自備，課前會提供材料清單，讓大家從同一個起點出發。'],
+  ['已報名其他老師的零基礎班，可以報研修班嗎？', '可以！不管你在哪裡學過零基礎，都歡迎來研修班。我們會贈送一堂「線上零基礎回訓」（價值 NT$3,000），材料自備，課前會提供材料清單，讓大家從同一個起點出發。'],
   ['完全沒學過可以直接報名嗎？', '可以！零基礎＋研修班一起報，零基礎免費。報名時順便選一堂零基礎場次，先上完零基礎，再來上研修班。'],
   ['陪跑學員拿到的教材可以修改嗎？', '可以依照你的風格調整，用在自己的課程裡；教材檔案僅限本人使用，請勿轉賣或分享給他人。'],
   ['開課的材料要去哪裡買？', '陪跑計劃附有廠商資料，可以照清單自己買，也可以直接跟 Kimi 購買。'],
@@ -183,11 +199,14 @@ function renderCourse() {
   var en = host.querySelector('[data-en]'); if (en) en.textContent = { beginner: 'BEGINNER CLASS', teacher: 'ADVANCED CLASS', online: 'ONLINE CLASS' }[S.k] || '';
   var up = host.querySelector('[data-upn]'); if (up) { up.hidden = false; up.className = 'upn' + (S.k === 'teacher' ? ' big' : '');
     // 2026-11-26 Kimi：研修班頁最上面放聳動標題，三種學生一行一句
-    up.innerHTML = S.k === 'teacher' ? '<b>報研修班，零基礎免費送</b>' + BASE_DEALS.map(function (r) { return '<span>' + r[0] + '？' + r[1] + '</span>'; }).join('')
+    // 2026-11-26 Kimi：改成優惠券樣式，細節點「了解詳情」彈窗看
+    up.innerHTML = S.k === 'teacher' ? '<div class="cpn"><div class="cpn-l"><small>GIFT</small><b>贈</b></div><div class="cpn-r"><small>研修班限定優惠</small><b>報研修班，零基礎免費送</b><button data-cpn>了解詳情 ›</button></div></div>'
       : '🌿 上完零基礎班 2 週內報名進階「創作職人研修班」，零基礎學費全額折抵　<button data-go="course:teacher">看研修班</button>'; }
   if (S.k === 'online') { var h1 = host.querySelector('h1[data-f]'); if (h1) h1.textContent = COURSES.beginner.short; } // 線上併在零基礎班裡，標題一樣
   var lh = host.querySelector('[data-lvh]'); if (lh) lh.textContent = { beginner: '初階', online: '初階・線上', teacher: '進階' }[S.k] || '';
   var lv = host.querySelector('[data-lv]'); if (lv) lv.innerHTML = ''; // 2026-11-26 Kimi：課程頁先不放「看比較表」連結，比較表只在全部課程頁
+  if (up) up.className = S.k === 'teacher' ? 'upn cpw' : 'upn';
+  var cb = host.querySelector('[data-cpn]'); if (cb) cb.onclick = function (ev) { ev.stopPropagation(); cpnOpen(); };
   var dt = host.querySelector('[data-detail]'); if (dt) dt.innerHTML = detailHtml(S.k);
   renderPick();
 }
@@ -258,7 +277,7 @@ function tBaseHtml(ob) {
   // 選了「其他老師」才在選項正下方展開說明，左邊一條線（2026-11-26 Kimi）
   var oNote = S.tBase === 'other' ? '<p class="tsub">贈送一堂「線上零基礎回訓」（價值 NT$3,000）<br>材料自備，課前會提供材料清單<br>報名後小幫手會用 LINE 跟你約時間 🌿</p>' : '';
   if (!uid) return '<div class="tchk"><p>上過 Kimi 的零基礎班？<br>登入會員，系統會自動幫你查學費折抵 🌿</p><button class="btn ghost" data-login>登入／加入會員</button></div>' +
-    ob('base', 'other', S.tBase === 'other', '上過，在其他老師那裡上的', '送一堂線上零基礎回訓') + oNote + ob('base', 'none', S.tBase === 'none', '還沒上過，想一起報', '零基礎＋研修班一起報，零基礎免費');
+    ob('base', 'other', S.tBase === 'other', '已報名其他老師的零基礎班', '送一堂線上零基礎回訓') + oNote + ob('base', 'none', S.tBase === 'none', '還沒上過，想一起報', '零基礎＋研修班一起報，零基礎免費');
   if (!S.bc) return '<p class="hint">正在查你的零基礎紀錄…</p>';
   var b = S.bc, d = b.date ? (+b.date.split('-')[1]) + '/' + (+b.date.split('-')[2]) : '';
   if (b.found) {
@@ -269,7 +288,7 @@ function tBaseHtml(ob) {
     return '<div class="tok off">查到你 ' + d + ' 在' + b.location + '上過 Kimi 的零基礎班' + (b.used ? '，這堂已經折抵過研修班了' : '，已經超過 2 週，這次沒有自動折抵') + '。</div>';
   }
   S.tCodeHtml = '<p class="tq">有舊生優惠碼嗎？</p>' + codeBox + (S.tCode ? '' : '<p class="tch">在 Kimi 這裡上過零基礎但系統沒查到？' + line + '，Kimi 幫你查 🌿</p>');
-  return S.tCode ? '<div class="tok">✓ 已用舊生優惠碼折抵零基礎學費</div>' : ob('base', 'other', S.tBase === 'other', '上過，在其他老師那裡上的', '送一堂線上零基礎回訓') + oNote + ob('base', 'none', S.tBase === 'none', '還沒上過，想一起報', '零基礎＋研修班一起報，零基礎免費');
+  return S.tCode ? '<div class="tok">✓ 已用舊生優惠碼折抵零基礎學費</div>' : ob('base', 'other', S.tBase === 'other', '已報名其他老師的零基礎班', '送一堂線上零基礎回訓') + oNote + ob('base', 'none', S.tBase === 'none', '還沒上過，想一起報', '零基礎＋研修班一起報，零基礎免費');
 }
 function tLoadBC() {
   var uid = S.bcU;

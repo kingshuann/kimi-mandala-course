@@ -635,6 +635,31 @@ img[src*="img_collab/"]{object-position:74% 50% !important}
 /* 課程頁標題上方等級（2026-11-26 Kimi） */
 .lvh{display:inline-block;font-size:11px;letter-spacing:.16em;color:var(--cream);background:var(--olive);border-radius:99px;padding:1px 11px;margin:2px 0 8px;line-height:1.8}
 [data-pg="course"] .cimg .tag{display:none}
+/* 研修班優惠券＋了解詳情彈窗（2026-11-26 Kimi） */
+.upn.cpw{background:none;padding:0;margin:12px 0 6px}
+.cpn{position:relative;display:flex;align-items:stretch;background:var(--card2);border:1px solid var(--olive);border-radius:12px;overflow:visible}
+.cpn:before,.cpn:after{content:'';position:absolute;left:66px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:1px solid var(--olive);transform:translateX(-50%)}
+.cpn:before{top:-9px;clip-path:inset(50% 0 0 0)}
+.cpn:after{bottom:-9px;clip-path:inset(0 0 50% 0)}
+.cpn-l{width:66px;flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;border-right:1.5px dashed var(--olive);color:var(--olive)}
+.cpn-l small{font-family:'Marcellus',serif;font-size:9.5px;letter-spacing:.2em}
+.cpn-l b{font-family:'Noto Serif TC',serif;font-size:24px;line-height:1.2}
+.cpn-r{flex:1;padding:11px 14px 10px}
+.cpn-r small{display:block;font-size:10.5px;letter-spacing:.14em;color:var(--muted)}
+.cpn-r b{display:block;font-family:'Noto Serif TC',serif;font-weight:600;font-size:16.5px;letter-spacing:.06em;color:var(--olive);margin:2px 0 4px}
+.cpn-r button{font:inherit;font-size:12px;color:var(--olive);background:none;border:0;padding:0;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.cpm{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+.cpm[hidden]{display:none}
+.cpm-bg{position:absolute;inset:0;background:rgba(30,34,26,.45)}
+.cpm-box{position:relative;width:100%;max-width:380px;max-height:86vh;overflow:auto;background:var(--bg);border-radius:18px;padding:22px 20px 18px;animation:tsubIn .25s ease}
+.cpm-box>small{font-family:'Marcellus',serif;font-size:10.5px;letter-spacing:.22em;color:var(--olive2)}
+.cpm-box h3{font-family:'Noto Serif TC',serif;font-size:19px;letter-spacing:.08em;color:var(--olive);margin:4px 0 12px}
+.cpm-x{position:absolute;right:12px;top:8px;font-size:24px;color:var(--olive);background:none;border:0;cursor:pointer}
+.cpm-r{padding:10px 0 10px 12px;border-left:2px solid var(--olive);margin-bottom:10px}
+.cpm-k{font-size:11.5px;letter-spacing:.1em;color:var(--muted);margin:0}
+.cpm-r b{display:block;font-family:'Noto Serif TC',serif;font-size:15px;color:var(--olive);margin:1px 0 3px}
+.cpm-r span{display:block;font-size:12px;line-height:1.75;color:var(--ink)}
+.cpm-box .btn{margin-top:6px}
 /* 選項下方展開的說明：左邊一條線（2026-11-26 Kimi） */
 .tsub{margin:-2px 0 12px 16px;padding:3px 0 3px 12px;border-left:2px solid var(--olive);font-size:12.5px;line-height:1.85;color:var(--olive);animation:tsubIn .28s ease}
 @keyframes tsubIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
@@ -1080,7 +1105,7 @@ body.dopen .fab{opacity:0;pointer-events:none}
     <details><summary>有線上課嗎？</summary><p>有！選「線上課」填好報名資料送出，我們會用 LINE 跟你約上課時間。工具材料包會寄到家，上課時在家透過視訊跟著老師一起畫。線上課 1 人就開班，每人 NT$3,333，已含材料包與運費。</p></details>
     <details><summary>可以帶小朋友嗎？</summary><p>大人與小朋友同價，歡迎攜伴，但請家長協助照顧。</p></details>
     <details><summary>研修班可以分期嗎？</summary><p>可以，研修班提供中租分期，送出報名後小幫手會用 LINE 提供分期資訊。</p></details>
-    <details><summary>我在其他老師那邊上過零基礎，可以報研修班嗎？</summary><p>可以！不管你在哪裡學過零基礎，都歡迎來研修班，我們從同一個起點出發。我們會贈送一堂「線上零基礎回訓」（價值 NT$3,000），材料自備，課前會提供材料清單。</p></details>
+    <details><summary>已報名其他老師的零基礎班，可以報研修班嗎？</summary><p>可以！不管你在哪裡學過零基礎，都歡迎來研修班，我們從同一個起點出發。我們會贈送一堂「線上零基礎回訓」（價值 NT$3,000），材料自備，課前會提供材料清單。</p></details>
     <details><summary>只上研修班，可以用學到的東西開課嗎？</summary><p>研修班是陪你把作品畫得更好，不包含教學授權。如果你想用這套教材開課，開課陪跑計劃會給你完整的教材授權，還有我一路陪你走到開課。</p></details>
     <details><summary>上完研修班之後，還能加購陪跑計劃嗎？</summary><p>可以！上完研修班之後加購是 NT$15,800；報名研修班時一起加購是 NT$13,000，會比較划算。</p></details>
   </div>
@@ -1155,7 +1180,7 @@ body.dopen .fab{opacity:0;pointer-events:none}
 <div class="fab"><a class="f-ig" href="https://www.instagram.com/imikdots" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="#fff" stroke="none"/></svg></a><a class="f-line" href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener" aria-label="LINE 私訊 Kimi"><svg viewBox="0 0 24 24" fill="#fff"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a></div>
 </div>
 <script src="../data.js?v=1125a"></script>
-<script src="shared.js?v=1126p"></script>
+<script src="shared.js?v=1126q"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="sb-config.js?v=1123p"></script>
 <script src="member.js?v=1124d"></script>

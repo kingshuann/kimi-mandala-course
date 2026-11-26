@@ -183,6 +183,7 @@ function renderCourse() {
     // 2026-11-26 Kimi：研修班頁最上面放聳動標題，三種學生一行一句
     up.innerHTML = S.k === 'teacher' ? '<b>報研修班，零基礎免費送</b>' + BASE_DEALS.map(function (r) { return '<span>' + r[0] + '？' + r[1] + '</span>'; }).join('')
       : '🌿 上完零基礎班 2 週內報名進階「創作職人研修班」，零基礎學費全額折抵　<button data-go="course:teacher">看研修班</button>'; }
+  var lh = host.querySelector('[data-lvh]'); if (lh) lh.textContent = { beginner: '初階', online: '初階・線上', teacher: '進階' }[S.k] || '';
   var lv = host.querySelector('[data-lv]'); if (lv) lv.innerHTML = '<button class="lvk" data-go="shop#cmp">三種課程怎麼選？看比較表 →</button>';
   var dt = host.querySelector('[data-detail]'); if (dt) dt.innerHTML = detailHtml(S.k);
   renderPick();

@@ -820,6 +820,16 @@ body.dopen .fab{opacity:0;pointer-events:none}
 .hk-full .hk-n{display:none}
 .zabt-cta{display:flex;flex-direction:column;align-items:center;gap:12px;padding:30px 28px 6px}
 .zabt-cta .btn{width:100%}
+/* 2026-11-26 Kimi：班名前加初階／進階、兩日場次格子加寬、優惠改成雜誌左線樣式 */
+.cbody h1 .h1lv{display:inline-block;vertical-align:.28em;font-family:'Noto Sans TC',sans-serif;font-size:11px;font-weight:500;letter-spacing:.16em;color:var(--cream);background:var(--olive);border-radius:99px;padding:0 9px;line-height:1.9;margin-right:8px}
+.dt.dt2{flex-basis:84px}
+.gft{display:flex;align-items:center;gap:12px;border-left:2px solid var(--olive);padding:3px 0 3px 14px}
+.gft-t{flex:1;min-width:0}
+.gft-t small{display:block;font-size:10.5px;letter-spacing:.16em;color:var(--muted)}
+.gft-t b{display:block;font-family:'Noto Serif TC',serif;font-weight:600;font-size:17px;letter-spacing:.06em;color:var(--olive);margin-top:2px;line-height:1.45}
+.gft button{flex:none;font:inherit;font-size:12px;color:var(--olive);background:none;border:1px solid var(--olive);border-radius:99px;padding:5px 12px;cursor:pointer;text-decoration:none}
+.upn.upb b{font-weight:600}
+.upn.upb small{display:block;font-size:11.5px;color:var(--muted);margin-top:2px}
 </style></head>
 <body><div class="app">
 
@@ -890,7 +900,7 @@ body.dopen .fab{opacity:0;pointer-events:none}
   <div class="fl"><span class="on" data-cf="all">全部</span><span data-cf="mandala">曼陀羅繪畫課程</span><span data-cf="other">其他課程</span></div>
   <div class="cmpx" id="cmp">
     <p class="cmpx-h">三種課程怎麼選？</p>
-    <div class="cmpx-hd"><div><small>初階</small><b>零基礎班</b></div><div><small>進階</small><b>創作職人研修班</b></div><div><small>進階・加購</small><b>開課陪跑計劃</b></div></div>
+    <div class="cmpx-hd"><div><small>初階</small><b>零基礎班</b></div><div><small>進階・兩日</small><b>創作職人研修班</b></div><div><small>進階・加購</small><b>開課陪跑計劃</b></div></div>
     <p class="cmpx-k">適合誰</p><div class="cmpx-r"><span>沒畫過也可以</span><span>想畫出有質感的<br>大幅作品</span><span>想用這套教材開課</span></div>
     <p class="cmpx-k">上課時間</p><div class="cmpx-r"><span>3.5 小時<br>實體或線上</span><span>兩天<br>09:00–17:00</span><span>3 個月<br>一對一陪跑</span></div>
     <p class="cmpx-k">帶走什麼</p><div class="cmpx-r"><span>第一幅作品<br>＋工具大禮包</span><span>4 件不同<br>材質的作品</span><span>教材授權<br>＋結業證書</span></div>
@@ -900,7 +910,7 @@ body.dopen .fab{opacity:0;pointer-events:none}
   </div>
   <div class="list">
     <button class="it" data-cat="mandala" data-go="course:beginner"><img data-src="img/mandala-beige.jpg" alt=""><div class="t"><small class="lvt">初階</small><b>零基礎班</b><span>沒畫過也沒關係，一個下午茶的時間，就能帶走第一幅屬於你的作品。實體或線上都能上。</span><div class="p"><em>NT$3,500</em><i class="more">看詳情<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></i></div></div></button>
-    <button class="it" data-cat="mandala" data-go="course:teacher"><img src="img_banner/teacher.jpg" alt=""><div class="t"><small class="lvt">進階</small><b>創作職人研修班</b><span>兩天學會大幅構圖與多種材質，完成 4 件有質感的作品；想開課可加購陪跑計劃，可分期。</span><div class="p"><em>NT$26,800</em><i class="more">看詳情<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></i></div></div></button>
+    <button class="it" data-cat="mandala" data-go="course:teacher"><img src="img_banner/teacher.jpg" alt=""><div class="t"><small class="lvt">進階</small><b>兩日創作職人研修班</b><span>兩天學會大幅構圖與多種材質，完成 4 件有質感的作品；想開課可加購陪跑計劃，可分期。</span><div class="p"><em>NT$26,800</em><i class="more">看詳情<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></i></div></div></button>
     <div class="cempty" data-cat="other" hidden><b>Coming Soon ...</b><p>其他主題課程正在籌備中，<br>開課時會第一時間公告。</p></div>
   </div>
 </section>
@@ -1173,7 +1183,7 @@ body.dopen .fab{opacity:0;pointer-events:none}
     <div class="ft-s"><a href="https://www.instagram.com/imikdots" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a><a href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener" aria-label="LINE 官方帳號"><b>LINE</b></a></div>
   </div>
   <div class="ft-l">
-    <div><h4>COURSES</h4><button data-go="course:beginner">零基礎班</button><button data-go="course:teacher">研修班</button></div>
+    <div><h4>COURSES</h4><button data-go="course:beginner">初階零基礎班</button><button data-go="course:teacher">進階研修班（兩日）</button></div>
     <div><h4>ABOUT</h4><button data-go="about">關於 Kimi</button><button data-go="works">點點月刊</button><button data-go="students">學生作品</button></div>
     <div><h4>HELP</h4><button data-go="faq">常見問題</button><button data-go="shopinfo">購物說明</button><button data-go="contact">聯繫我們</button><button data-go="me">會員專區</button></div>
   </div>
@@ -1182,7 +1192,7 @@ body.dopen .fab{opacity:0;pointer-events:none}
 <div class="fab"><a class="f-ig" href="https://www.instagram.com/imikdots" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="#fff" stroke="none"/></svg></a><a class="f-line" href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener" aria-label="LINE 私訊 Kimi"><svg viewBox="0 0 24 24" fill="#fff"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a></div>
 </div>
 <script src="../data.js?v=1125a"></script>
-<script src="shared.js?v=1126t"></script>
+<script src="shared.js?v=1126u"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="sb-config.js?v=1123p"></script>
 <script src="member.js?v=1124d"></script>

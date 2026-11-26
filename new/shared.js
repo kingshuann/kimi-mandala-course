@@ -144,7 +144,7 @@ var SOCIAL = [
 function drawer() {
   // [連到哪, 英文小字, 名稱, 是否子項目, 即將推出]
   var it = [['home', 'HOME', '首頁'], ['about', 'ABOUT', '關於 Kimi'], ['works', 'JOURNAL', '點點月刊 <i>' + JOURNAL_ISSUE + '</i>'], ['shop', 'COURSES', '全部課程', 0, 0, 1],
-    ['course:beginner', '', '<em class="dlv">初階</em>零基礎班', 1], ['course:teacher', '', '<em class="dlv">進階</em>創作職人研修班', 1], ['', '', '主題課程', 1, 1],
+    ['course:beginner', '', '<em class="dlv">初階</em>零基礎班', 1], ['course:teacher', '', '<em class="dlv">進階</em>兩日創作職人研修班', 1], ['', '', '主題課程', 1, 1],
     ['students', 'WORKS', '學生作品'], ['goods#art', 'ART', '原創畫作'], ['goods', 'SHOP', '商店'], ['faq', 'Q&A', '常見問題'], ['contact', 'CONTACT', '聯繫我']];
   return '<div class="dbg" data-close></div><aside class="drw"><div class="drw-h"><span>MENU</span><button data-close aria-label="關閉">×</button></div>' +
     it.map(function (x, n) {
@@ -200,12 +200,13 @@ function renderCourse() {
   var up = host.querySelector('[data-upn]'); if (up) { up.hidden = false; up.className = 'upn' + (S.k === 'teacher' ? ' big' : '');
     // 2026-11-26 Kimi：研修班頁最上面放聳動標題，三種學生一行一句
     // 2026-11-26 Kimi：改成優惠券樣式，細節點「了解詳情」彈窗看
-    up.innerHTML = S.k === 'teacher' ? '<div class="cpn"><div class="cpn-l"><small>GIFT</small><b>贈</b></div><div class="cpn-r"><small>研修班限定優惠</small><b>報研修班，零基礎免費送</b><button data-cpn>了解詳情 ›</button></div></div>'
-      : '🌿 上完零基礎班 2 週內報名進階「創作職人研修班」，零基礎學費全額折抵　<button data-go="course:teacher">看研修班</button>'; }
-  if (S.k === 'online') { var h1 = host.querySelector('h1[data-f]'); if (h1) h1.textContent = COURSES.beginner.short; } // 線上併在零基礎班裡，標題一樣
-  var lh = host.querySelector('[data-lvh]'); if (lh) lh.textContent = { beginner: '初階', online: '初階・線上', teacher: '進階' }[S.k] || '';
+    up.innerHTML = S.k === 'teacher' ? '<div class="gft"><div class="gft-t"><small>GIFT・研修班限定優惠</small><b>報研修班，零基礎免費送</b></div><button data-cpn>了解詳情</button></div>'
+      : '🌿 已經想進修？<b>直接報研修班，零基礎免費送</b>　<button data-go="course:teacher">看研修班</button><small>想先上上看也可以，上完 2 週內報名，學費一樣全額折抵</small>'; }
+  // 2026-11-26 Kimi：初階／進階直接寫在班名前面，研修班加「兩日」；線上併在零基礎班裡，標題一樣
+  var h1 = host.querySelector('h1[data-f]'); if (h1) h1.innerHTML = S.k === 'teacher' ? '<small class="h1lv">進階</small>兩日創作職人研修班' : '<small class="h1lv">初階</small>零基礎班';
+  var lh = host.querySelector('[data-lvh]'); if (lh) { lh.textContent = ''; lh.hidden = true; }
   var lv = host.querySelector('[data-lv]'); if (lv) lv.innerHTML = ''; // 2026-11-26 Kimi：課程頁先不放「看比較表」連結，比較表只在全部課程頁
-  if (up) up.className = S.k === 'teacher' ? 'upn cpw' : 'upn';
+  if (up) up.className = S.k === 'teacher' ? 'upn cpw' : 'upn upb';
   var cb = host.querySelector('[data-cpn]'); if (cb) cb.onclick = function (ev) { ev.stopPropagation(); cpnOpen(); };
   var dt = host.querySelector('[data-detail]'); if (dt) dt.innerHTML = detailHtml(S.k);
   renderPick();
@@ -256,7 +257,7 @@ function renderPick() {
     de.innerHTML = '<p class="hint">材料包寄到家，報名後小幫手會用 LINE 跟你約上課時間</p>'; S.sess = ONLINE_FLEX; renderTOpt(); return; }
   ce.innerHTML = cities.length ? cities.map(function (ct) { return '<button class="chip' + (ct === S.city ? ' on' : '') + '" data-city="' + ct + '">' + ct + '</button>'; }).join('') : '<p class="hint">目前沒有公告場次，歡迎私訊官方 LINE 開班</p>';
   var ds = L.filter(function (s) { return s.location === S.city; }).slice(0, 12);
-  de.innerHTML = ds.map(function (s, i) { var p = s.date.split('-'); return '<button class="dt' + (S.sess === s ? ' on' : '') + '" data-si="' + i + '"><small>' + (+p[1]) + '月</small><b>' + (+p[2]) + (s.endDate ? '–' + (+s.endDate.split('-')[2]) : '') + '</b><span>' + (S.k === 'teacher' ? '兩日' : slotName(s.time)) + '</span></button>'; }).join('');
+  de.innerHTML = ds.map(function (s, i) { var p = s.date.split('-'); return '<button class="dt' + (s.endDate ? ' dt2' : '') + (S.sess === s ? ' on' : '') + '" data-si="' + i + '"><small>' + (+p[1]) + '月</small><b>' + (+p[2]) + (s.endDate ? '–' + (+s.endDate.split('-')[2]) : '') + '</b><span>' + (S.k === 'teacher' ? '兩日' : slotName(s.time)) + '</span></button>'; }).join('');
   de._list = ds;
   if (S.k === 'beginner') { ce.insertAdjacentHTML('beforeend', '<button class="chip" data-gon>視訊線上課</button>'); ce.querySelector('[data-gon]').onclick = function (ev) { ev.stopPropagation(); swap('online'); }; }
   // 直接綁在每顆按鈕上（不靠整頁的點擊判斷），第一個場次也點得到
@@ -271,8 +272,8 @@ function tBaseHtml(ob) {
   S.tCodeHtml = ''; // 優惠碼框放在總金額上面（2026-11-26 Kimi），這裡只決定要不要顯示
   var uid = window.MEM && MEM.user ? MEM.user.id : null;
   if (S.bcU !== uid) { S.bcU = uid; S.bc = null; if (S.tBase === 'kimi') { S.tBase = null; S.tCr = null; S.tCode = null; } if (uid) tLoadBC(); }
-  var codeBox = S.tCode ? '<div class="tok">✓ 已套用舊生優惠碼，折抵 ' + money(S.tCr || 0) + '<button data-tcx>取消</button></div>'
-    : '<div class="tcode"><input id="tCode" placeholder="輸入舊生優惠碼" autocomplete="off" autocapitalize="off"><button data-tcode>使用</button></div><p class="tcmsg" id="tCodeMsg"></p>';
+  var codeBox = S.tCode ? '<div class="tok">✓ 已套用優惠碼，折抵 ' + money(S.tCr || 0) + '<button data-tcx>取消</button></div>'
+    : '<div class="tcode"><input id="tCode" placeholder="輸入優惠碼" autocomplete="off" autocapitalize="off"><button data-tcode>使用</button></div><p class="tcmsg" id="tCodeMsg"></p>';
   var line = '<a href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener">私訊官方 LINE</a>';
   // 選了「其他老師」才在選項正下方展開說明，左邊一條線（2026-11-26 Kimi）
   var oNote = S.tBase === 'other' ? '<p class="tsub">贈送一堂「線上零基礎回訓」<br>材料自備，課前會提供材料清單<br>報名後小幫手會用 LINE 跟你約時間 🌿</p>' : '';
@@ -284,11 +285,11 @@ function tBaseHtml(ob) {
     S.tBase = 'kimi';
     if (b.credit) { S.tCr = b.credit; S.tCode = null; return '<div class="tok">✓ 查到你 ' + d + ' 在' + b.location + '上過 Kimi 的零基礎班，學費已折抵 ' + money(b.credit) + '</div>'; }
     if (!S.tCode) S.tCr = 0;
-    S.tCodeHtml = '<p class="tq">有舊生優惠碼嗎？</p>' + codeBox;
+    S.tCodeHtml = '<p class="tq">有優惠碼嗎？</p>' + codeBox;
     return '<div class="tok off">查到你 ' + d + ' 在' + b.location + '上過 Kimi 的零基礎班' + (b.used ? '，這堂已經折抵過研修班了' : '，已經超過 2 週，這次沒有自動折抵') + '。</div>';
   }
-  S.tCodeHtml = '<p class="tq">有舊生優惠碼嗎？</p>' + codeBox + (S.tCode ? '' : '<p class="tch">在 Kimi 這裡上過零基礎但系統沒查到？' + line + '，Kimi 幫你查 🌿</p>');
-  return S.tCode ? '<div class="tok">✓ 已用舊生優惠碼折抵零基礎學費</div>' : ob('base', 'other', S.tBase === 'other', '已報名其他老師的零基礎班', '送一堂線上零基礎回訓') + oNote + ob('base', 'none', S.tBase === 'none', '還沒上過，想一起報', '零基礎＋研修班一起報，零基礎免費');
+  S.tCodeHtml = '<p class="tq">有優惠碼嗎？</p>' + codeBox + (S.tCode ? '' : '<p class="tch">有任何疑問，可以直接' + line + '，Kimi 會親自回覆 🌿</p>');
+  return S.tCode ? '<div class="tok">✓ 已用優惠碼折抵零基礎學費</div>' : ob('base', 'other', S.tBase === 'other', '已報名其他老師的零基礎班', '送一堂線上零基礎回訓') + oNote + ob('base', 'none', S.tBase === 'none', '還沒上過，想一起報', '零基礎＋研修班一起報，零基礎免費');
 }
 function tLoadBC() {
   var uid = S.bcU;
@@ -370,7 +371,7 @@ function renderUpsell(h) {
   var fc = h.querySelector('[data-ucities]'), fd = h.querySelector('[data-udates]');
   fc.innerHTML = cs.map(function (c) { return '<button class="chip' + (c === S.uCity ? ' on' : '') + '" data-uc="' + c + '">' + c + '</button>'; }).join('');
   var ds = L.filter(function (s) { return s.location === S.uCity; }).slice(0, 12);
-  fd.innerHTML = ds.map(function (s, i) { var p = s.date.split('-'); return '<button class="dt' + (S.uSess === s ? ' on' : '') + '" data-ui="' + i + '"><small>' + (+p[1]) + '月</small><b>' + (+p[2]) + (s.endDate ? '–' + (+s.endDate.split('-')[2]) : '') + '</b><span>兩日</span></button>'; }).join('') ||
+  fd.innerHTML = ds.map(function (s, i) { var p = s.date.split('-'); return '<button class="dt' + (s.endDate ? ' dt2' : '') + (S.uSess === s ? ' on' : '') + '" data-ui="' + i + '"><small>' + (+p[1]) + '月</small><b>' + (+p[2]) + (s.endDate ? '–' + (+s.endDate.split('-')[2]) : '') + '</b><span>兩日</span></button>'; }).join('') ||
     '<p class="hint">零基礎之後目前沒有公告的研修班場次，歡迎<a href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener">私訊官方 LINE</a> 預約下一梯</p>';
   fc.querySelectorAll('[data-uc]').forEach(function (b) { b.onclick = function (ev) { ev.stopPropagation(); S.uCity = b.dataset.uc; S.uSess = null; renderTOpt(); }; });
   fd.querySelectorAll('[data-ui]').forEach(function (b) { b.onclick = function (ev) { ev.stopPropagation(); S.uSess = ds[+b.dataset.ui]; renderTOpt(); }; });

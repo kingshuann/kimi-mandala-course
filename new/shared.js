@@ -256,7 +256,7 @@ function coachOpen() {
 }
 // 兩日進階班頁裡的「開課陪跑計劃」區塊（深綠卡片）
 function coachHtml() {
-  return '<div class="cc"><small class="cc-ey">OPTIONAL ・ 3 MONTHS</small>' +
+  return '<div class="cc"><small class="cc-ey">TEACHING MENTORSHIP PROGRAM</small>' +
     '<h3>想開自己的課？<br>我陪你走到第一堂課</h3>' +
     '<p class="cc-lead">如果你想用這套教材開課，陪跑計劃會給你完整授權，還有我一路陪你走到開課。</p>' +
     '<div class="cc-pr"><div><small>報名兩日進階班時一起加購</small><b>+NT$13,000</b><span>兩日進階班＋陪跑合計 NT$39,800</span></div><div><small>上完兩日進階班之後加購</small><b>NT$15,800</b><span>私訊官方 LINE 加購</span></div></div>' +

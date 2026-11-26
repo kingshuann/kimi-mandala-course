@@ -255,8 +255,10 @@ function tBaseHtml(ob) {
   var codeBox = S.tCode ? '<div class="tok">✓ 已套用舊生優惠碼，折抵 ' + money(S.tCr || 0) + '<button data-tcx>取消</button></div>'
     : '<div class="tcode"><input id="tCode" placeholder="輸入舊生優惠碼" autocomplete="off" autocapitalize="off"><button data-tcode>使用</button></div><p class="tcmsg" id="tCodeMsg"></p>';
   var line = '<a href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener">私訊官方 LINE</a>';
+  // 選了「其他老師」才在選項正下方展開說明，左邊一條線（2026-11-26 Kimi）
+  var oNote = S.tBase === 'other' ? '<p class="tsub">贈送一堂「線上零基礎回訓」（價值 NT$3,000）<br>材料自備，課前會提供材料清單<br>報名後小幫手會用 LINE 跟你約時間 🌿</p>' : '';
   if (!uid) return '<div class="tchk"><p>上過 Kimi 的零基礎班？<br>登入會員，系統會自動幫你查學費折抵 🌿</p><button class="btn ghost" data-login>登入／加入會員</button></div>' +
-    ob('base', 'other', S.tBase === 'other', '上過，在其他老師那裡上的', '送一堂線上零基礎回訓') + ob('base', 'none', S.tBase === 'none', '還沒上過，想一起報', '零基礎＋研修班一起報，零基礎免費');
+    ob('base', 'other', S.tBase === 'other', '上過，在其他老師那裡上的', '送一堂線上零基礎回訓') + oNote + ob('base', 'none', S.tBase === 'none', '還沒上過，想一起報', '零基礎＋研修班一起報，零基礎免費');
   if (!S.bc) return '<p class="hint">正在查你的零基礎紀錄…</p>';
   var b = S.bc, d = b.date ? (+b.date.split('-')[1]) + '/' + (+b.date.split('-')[2]) : '';
   if (b.found) {
@@ -267,7 +269,7 @@ function tBaseHtml(ob) {
     return '<div class="tok off">查到你 ' + d + ' 在' + b.location + '上過 Kimi 的零基礎班' + (b.used ? '，這堂已經折抵過研修班了' : '，已經超過 2 週，這次沒有自動折抵') + '。</div>';
   }
   S.tCodeHtml = '<p class="tq">有舊生優惠碼嗎？</p>' + codeBox + (S.tCode ? '' : '<p class="tch">在 Kimi 這裡上過零基礎但系統沒查到？' + line + '，Kimi 幫你查 🌿</p>');
-  return S.tCode ? '<div class="tok">✓ 已用舊生優惠碼折抵零基礎學費</div>' : ob('base', 'other', S.tBase === 'other', '上過，在其他老師那裡上的', '送一堂線上零基礎回訓') + ob('base', 'none', S.tBase === 'none', '還沒上過，想一起報', '零基礎＋研修班一起報，零基礎免費');
+  return S.tCode ? '<div class="tok">✓ 已用舊生優惠碼折抵零基礎學費</div>' : ob('base', 'other', S.tBase === 'other', '上過，在其他老師那裡上的', '送一堂線上零基礎回訓') + oNote + ob('base', 'none', S.tBase === 'none', '還沒上過，想一起報', '零基礎＋研修班一起報，零基礎免費');
 }
 function tLoadBC() {
   var uid = S.bcU;
@@ -295,7 +297,6 @@ function renderTOpt() {
   // 順序（2026-11-26 Kimi）：先問零基礎 → 一起報的選免費場次 → 最後才問加購陪跑
   var bh = tBaseHtml(ob), found = window.MEM && MEM.user && S.bc && S.bc.found;
   var html = '<p class="lbl">03　' + (found ? '你的零基礎' : '你上過零基礎嗎？') + '</p>' + bh, n = 4;
-  if (S.tBase === 'other') html += '<p class="tnote">🌿 贈送一堂「線上零基礎回訓」（價值 NT$3,000）。材料自備，課前會提供材料清單，報名後小幫手會用 LINE 跟你約時間。</p>';
   if (S.tBase === 'none') html += '<p class="lbl">0' + (n++) + '　選一堂零基礎場次（免費）</p><div class="chips" data-fcities></div><div class="dates" data-fdates></div><p class="tnote">先上完零基礎，再來上研修班 🌿</p>';
   html += '<p class="lbl">0' + n + '　加購開課陪跑計劃</p>' +
     ob('add', 1, S.tAdd === 1, '一起加購開課陪跑計劃', '+NT$13,000・研修班＋陪跑合計 NT$39,800') +

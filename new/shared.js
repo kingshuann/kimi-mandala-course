@@ -259,8 +259,8 @@ function coachHtml() {
   return '<div class="cc"><small class="cc-ey">TEACHING MENTORSHIP PROGRAM</small>' +
     '<h3>想開自己的課？<br>我陪你走到第一堂課</h3>' +
     '<p class="cc-lead">如果你想用這套教材開課，陪跑計劃會給你完整授權，還有我一路陪你走到開課。</p>' +
-    '<div class="cpx"><div class="cpx-i hot"><div class="cpx-t"><em>加購優惠・省 NT$3,800</em><b>跟兩日進階班一起報名</b><span>兩日進階班＋陪跑合計 NT$39,800</span></div><div class="cpx-p"><s>NT$16,800</s><b>+NT$13,000</b></div></div>' +
-    '<div class="cpx-i"><div class="cpx-t"><em>單買陪跑計劃</em><b>已上過兩日進階班</b><span>上完課之後想開課，也可以單獨購買</span></div><div class="cpx-p"><b>NT$16,800</b></div></div></div>' +
+    '<div class="cpx"><div class="cpx-i hot"><div class="cpx-t"><em>加購價・省 NT$3,800</em><b>跟兩日進階班一起報名</b><span>兩日進階班＋陪跑合計 NT$39,800</span></div><div class="cpx-p"><s>NT$16,800</s><b>+NT$13,000</b></div></div>' +
+    '<div class="cpx-i"><div class="cpx-t"><em>原價</em><b>單買陪跑計劃</b><span>上過其他老師的課，或覺得自己已經有能力，只想學怎麼開課，都可以單獨購買</span></div><div class="cpx-p"><b>NT$16,800</b></div></div></div>' +
     '<p class="cc-h">適合這樣的你</p><ul class="cc-for">' + COACH_FOR.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>' +
     '<p class="cc-h">陪跑計劃包含</p><ol class="cc-list">' + COACH_GETS.map(function (g) { return '<li><b>' + g[0] + '</b><span>' + g[1] + '</span></li>'; }).join('') + '</ol>' +
     '<p class="cc-h">4 次一對一諮詢・每次 45 分鐘</p><ul class="cc-tl">' + COACH_STEPS.map(function (g) { return '<li><b>' + g[0] + '</b><span>' + g[1] + '</span></li>'; }).join('') + '</ul>' +

@@ -236,6 +236,30 @@ function renderCourse() {
   renderPick();
 }
 // 課程詳細介紹：內容取自舊網站（data.js 的 COURSES）
+// 初階班「關於課程」圖文版（2026-11-27 Kimi 參考 Hahow：緣起 → 痛點 → 特色 → 生活場景 → 課程資訊，照片穿插在文字裡）
+// 文案依 品牌/我的品牌根系.md；不把曼陀羅說成心理治療。照片在 img_class/（素材/2026-11-27_課程照片相機質感/初階班，同編號）
+function bnr(n, en, zh) { return '<div class="bnr"><img src="img_class/' + n + '.jpg" alt="" loading="lazy"><div><small>' + en + '</small><b>' + zh + '</b></div></div>'; }
+function aboutBeginner(b, info, gets) {
+  var ft = [
+    ['b01', '零基礎也畫得出來', '從怎麼拿筆、怎麼沾顏料、點出第一個圓點開始，一步一步帶你畫。不用會素描，也不需要美術底子，上完課你會發現：原來我也可以。'],
+    ['b11', '不是臨摹，是你自己的作品', '這堂課教的是點、線、配色與構圖的方法，不是照著一張圖抄。同一堂課，每個人畫出來都不一樣，因為那是你自己的作品。'],
+    ['b16', '帶走工具，回家繼續畫', '附贈工具大禮包（價值 $680），講義、工具筆和 10 件材料都讓你帶回家。很多手作課上完就結束了，這堂課希望你下課以後，還能自己繼續畫。']
+  ];
+  return bnr('b06', 'Background', '課程緣起') +
+    '<h4 class="stt">從「我不會畫畫」開始</h4>' +
+    '<p class="sp">我從小就被說不會畫畫、沒有創意。商管碩士畢業後進了廣告公司，後來創業做美業 8 年，每天都被工作追著跑。</p>' +
+    '<p class="sp">直到在最焦慮、最低潮的時候遇見點點曼陀羅。一個點、一個點畫下去，心慢慢安靜下來，我才發現，原來可以把注意力放回當下。</p>' +
+    '<p class="sp">一年內，我畫了超過 200 幅作品，也成為曼陀羅老師。所以我很確定：<b>零基礎，真的畫得出來。</b>現在，我想把這段安靜的時間帶給你。</p>' +
+    '<p class="dk dkc ab">你是不是也這樣？</p>' + gets(BEGINNER_PAIN, 'pain') + '<blockquote class="pq">零基礎班要做的，<br>就是陪你留一段時間給自己，<br>畫出第一幅屬於你的作品。</blockquote>' +
+    bnr('b13', 'Features', '課程特色') +
+    ft.map(function (f, i) { return '<div class="cft"><img src="img_class/' + f[0] + '.jpg" alt="" loading="lazy" data-zoom><h4 class="stt"><i>' + (i + 1) + '</i>' + f[1] + '</h4><p class="sp">' + f[2] + '</p></div>'; }).join('') +
+    '<div class="kitb"><b>工具大禮包內容</b><span>' + b.kit.join('・') + '</span></div>' +
+    bnr('b15', 'In Your Life', '把作品帶回生活') +
+    '<p class="sp">畫好的作品放在書桌、床頭或玄關，每天看到，都會想起那個只屬於自己的下午。也可以送給朋友，或畫在杯墊、石頭、蠟燭等不同材質上。</p>' +
+    '<p class="sp">不用每天畫很久。每週留 30 分鐘給自己，畫畫就會慢慢變成生活裡的小儀式。</p>' +
+    '<div class="pair2"><img src="img_class/b09.jpg" alt="" loading="lazy" data-zoom><img src="img_class/b12.jpg" alt="" loading="lazy" data-zoom></div>' +
+    '<p class="dk dkc ab">課程資訊</p><ul class="rows">' + info.map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('') + '</ul>';
+}
 function detailHtml(k) {
   var b = COURSES[k === 'teacher' ? 'teacher' : 'beginner'], on = k === 'online';
   var info = b.info.map(function (r) { return [r[0], r[1].replace(/<a[^>]*>|<\/a>/g, '')]; });
@@ -254,12 +278,12 @@ function detailHtml(k) {
   var tabs = [['ds-about', '關於課程'], ['ds-units', '課程單元'], ['ds-who', '上課須知']].concat(T ? [['ds-qa', '常見問題']] : []);
   return '<nav class="dtab">' + tabs.map(function (x, i) { return '<button data-dtab="' + x[0] + '"' + (i ? '' : ' class="on"') + '>' + x[1] + '</button>'; }).join('') + '</nav>' +
     // 2026-11-27 Kimi：課堂紀錄相簿（素材/2026-11-27_課程照片相機質感，只挑沒拍到臉的、調成相機質感），左右滑、點了放大
-    '<section class="ds clp" id="ds-about"><div class="clb">' +
+    '<section class="ds clp" id="ds-about"><div class="clb">' + (T ? '' +
       '<p class="dk dkc">課堂紀錄</p><div class="cgal">' + (T ? ['t02', 't09', 't01', 't10', 't04', 't03', 't06', 't11', 't05', 't07', 't08'] : ['b01', 'b09', 'b02', 'b10', 'b03', 'b11', 'b04', 'b12', 'b05', 'b13', 'b06', 'b14', 'b07', 'b15', 'b08', 'b16']).map(function (n) { return '<img src="img_class/' + n + '.jpg" alt="課堂紀錄" loading="lazy" data-zoom>'; }).join('') + '</div><p class="cgal-n">左右滑動看更多 →</p>' +
       '<p class="dk dkc">你是不是也這樣？</p>' + gets(T ? TEACHER_PAIN : BEGINNER_PAIN, 'pain') + '<blockquote class="pq">' + (T ? '兩日進階班要做的，<br>就是陪你把作品，一點一點畫得更美。' : '零基礎班要做的，<br>就是陪你留一段時間給自己，<br>畫出第一幅屬於你的作品。') + '</blockquote>' +
       '<p class="dk dkc ab">課程資訊</p><ul class="rows">' + info.map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('') + '</ul>' +
       '<p class="dk dkc ab">' + (T ? '不只學技法，更學會創作' : '並非臨摹，而是 0 到 1 獨立創作') + '</p>' + cmp +
-      '<p class="dk dkc ab">' + (T ? '附贈材料' : '工具大禮包') + '</p><ul class="dl">' + b.kit.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul><img class="fin" src="' + IMG + b.finalImg + '" alt="課程作品" loading="lazy">' +
+      '<p class="dk dkc ab">' + (T ? '附贈材料' : '工具大禮包') + '</p><ul class="dl">' + b.kit.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul><img class="fin" src="' + IMG + b.finalImg + '" alt="課程作品" loading="lazy">' : aboutBeginner(b, info, gets)) +
     '</div><button class="clm" data-clm>查看更多</button></section>' +
     '<section class="ds dcard" id="ds-units"><div class="uh"><b>課程單元</b><span>' + b.lessons.length + ' 大主題・' + nItems + ' 個重點</span><button data-uall>全部展開</button></div>' +
       b.lessons.map(function (l, i) { return '<div class="un' + (i ? '' : ' on') + '"><button class="un-h lh" data-un><span>主題' + '一二三四五六七八'[i] + '</span>' + l[0] + '<i></i></button><ul class="dl un-b">' + l[1].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul></div>'; }).join('') +

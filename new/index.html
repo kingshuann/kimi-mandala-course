@@ -166,6 +166,7 @@
 /* 2026-11-27 Kimi：三條橫幅改用光影桌面照片當背景（img_class/bnr-bg.jpg），各取不同位置，加深色漸層讓白字清楚 */
 .bnr2{background:#5A4636 url(img_class/bnr-bg.jpg) center/cover no-repeat}
 .bnr2::before{content:'';position:absolute;inset:0;z-index:0;background:linear-gradient(rgba(40,30,22,.42),rgba(40,30,22,.55))}
+.bnr2 .bi{display:none} /* 2026-11-27 Kimi：橫幅不放作品圓圈，只用背景照片 */
 .bnr2.c1{background-position:50% 18%}.bnr2.c2{background-position:50% 55%}.bnr2.c3{background-position:50% 85%}
 .bnr2 .bt{position:relative;z-index:2;margin-top:-6px}
 .bnr2 small{display:block;font-family:'Allura',cursive;font-size:27px;line-height:1;letter-spacing:.01em;opacity:.95;text-shadow:0 1px 6px rgba(0,0,0,.18)}

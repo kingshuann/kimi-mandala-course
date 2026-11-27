@@ -425,7 +425,7 @@ function detailHtml(k) {
       ir('注意事項', '<ol class="dl">' + NOTES.map(function (n) { return '<li>' + n + '</li>'; }).join('') + '</ol>') +
       (T ? ir('報名條件', '<p class="dp">' + TEACHER_COND + '</p>') : '') +
     '</div></section>' +
-    (1 ? '<section class="ds dcard" id="ds-qa"><div class="uh"><b>常見問題</b></div><div class="icard qac">' + /* 2026-11-28 Kimi：常見問題改成跟上課須知一樣的摺疊卡片 */ (T ? TEACHER_QA : BEGINNER_QA).map(function (q) { return ir(q[0], '<p class="qa-a">' + q[1] + '</p>', 0); }).join('') + '</div></section>' : '');
+    (1 ? '<section class="ds dcard" id="ds-qa"><div class="uh"><b>常見問題</b></div><div class="icard qac">' + /* 2026-11-28 Kimi：常見問題改成跟上課須知一樣的摺疊卡片 */ (T ? TEACHER_QA : BEGINNER_QA).map(function (q) { return ir('<em class="qk">Q</em>' + q[0], '<p class="qa-a"><em class="qk">A</em><span>' + q[1] + '</span></p>', 0); }).join('') + '</div></section>' : '');
 }
 // 陪跑計劃獨立頁（2026-11-26 Kimi：不放在兩日進階班頁下面，點「看陪跑計劃內容」才打開）
 function coachOpen() {

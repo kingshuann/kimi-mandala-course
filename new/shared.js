@@ -92,6 +92,17 @@ var TEACHER_QA = [
   ['開課的材料要去哪裡買？', '陪跑計劃附有廠商資料，可以照清單自己買，也可以直接跟 Kimi 購買。'],
   ['兩日進階班可以分期嗎？', '可以，兩日進階班提供中租分期，送出報名後小幫手會用 LINE 提供分期資訊。']
 ];
+// 2026-11-28 Kimi：初階班也要有常見問題（內容取自網站 FAQ 頁和課程資料，沒有新增規則）
+var BEGINNER_QA = [
+  ['完全沒畫過畫可以嗎？', '可以！零基礎課程就是為新手設計的，一個下午茶的時間完整教會基本功。'],
+  ['要帶什麼東西？', '什麼都不用帶，開心的來就可以囉！工具和材料都包含在工具大禮包裡，怕餓歡迎帶零食飲料～'],
+  ['兩個人一起報名有優惠嗎？', '有！兩人同行 NT$6,666，每人只要 NT$3,333。'],
+  ['人數不夠會開班嗎？', '台中班、線上課 1 人就開班，時間可討論；台中以外的縣市滿 3 人才開班。最晚於開課前一週通知，未成功開班全額退費，也可延期或轉讓。'],
+  ['臨時不能來怎麼辦？', '完成匯款後如因個人因素無法參加，可延期補課或轉讓他人，恕不退費。'],
+  ['有線上課嗎？', '有！選「視訊線上課」填好報名資料送出，我們會用 LINE 跟你約上課時間。工具材料包會寄到家，上課時在家透過視訊跟著老師一起畫。線上課 1 人就開班，每人 NT$3,333，已含材料包與運費。'],
+  ['可以帶小朋友嗎？', '大人與小朋友同價，歡迎攜伴，但請家長協助照顧。'],
+  ['上完想繼續學，有進階課嗎？', '有！上完初階班 2 週內報名兩日進階班，原價 NT$26,800，只要 NT$25,000；還沒上過的話，初階班和兩日進階班一起報名，初階班免費送。']
+];
 var TEACHER_COND = '報名條件：上過「零基礎課程」（任何老師的都可以）。還沒上過的話，可以零基礎＋兩日進階班一起報，零基礎免費。';
 var EXTRA = { online: { key: 'online', short: '線上課', name: '點點曼陀羅・線上課', sub: '材料包寄到家，在家視訊上課', price: 3333, priceText: 'NT$3,333', orig: 'NT$3,980', img: 'img/work5.jpg', tag: '在家上課', hours: '3 小時 30 分鐘' } };
 (function () { if (window.COURSES && COURSES.beginner) { COURSES.beginner.tag = '初階'; COURSES.beginner.short = '初階班：零基礎入門'; } EXTRA.online.tag = '初階・線上'; })();
@@ -394,7 +405,7 @@ function detailHtml(k) {
   // ④ 常見問題（兩日進階班）
   function ir(t, body, open) { return '<div class="ir' + (open ? ' on' : '') + '"><button class="ir-h" data-ir>' + t + '<i></i></button><div class="ir-b">' + body + '</div></div>'; }
   var nItems = b.lessons.reduce(function (a, l) { return a + l[1].length; }, 0);
-  var tabs = [['ds-about', '關於課程']].concat(T ? [] : [['ds-works', '學員作品']], [['ds-units', '課程單元'], ['ds-who', '上課須知']], T ? [['ds-qa', '常見問題']] : []);
+  var tabs = [['ds-about', '關於課程']].concat(T ? [] : [['ds-works', '學員作品']], [['ds-units', '課程單元'], ['ds-who', '上課須知']], [['ds-qa', '常見問題']]);
   return '<nav class="dtab">' + tabs.map(function (x, i) { return '<button data-dtab="' + x[0] + '"' + (i ? '' : ' class="on"') + '>' + x[1] + '</button>'; }).join('') + '</nav>' +
     // 2026-11-27 Kimi：課堂紀錄相簿（素材/2026-11-27_課程照片相機質感，只挑沒拍到臉的、調成相機質感），左右滑、點了放大
     '<section class="ds clp" id="ds-about"><div class="clb">' + (T ? aboutTeacher(b, info, gets, cmp) : aboutBeginner(b, info, gets)) +
@@ -414,7 +425,7 @@ function detailHtml(k) {
       ir('注意事項', '<ol class="dl">' + NOTES.map(function (n) { return '<li>' + n + '</li>'; }).join('') + '</ol>') +
       (T ? ir('報名條件', '<p class="dp">' + TEACHER_COND + '</p>') : '') +
     '</div></section>' +
-    (T ? '<section class="ds dcard" id="ds-qa"><div class="uh"><b>常見問題</b></div><div class="qa">' + TEACHER_QA.map(function (q, i) { return '<details' + (i ? '' : ' open') + '><summary>' + q[0] + '</summary><p>' + q[1] + '</p></details>'; }).join('') + '</div></section>' : '');
+    (1 ? '<section class="ds dcard" id="ds-qa"><div class="uh"><b>常見問題</b></div><div class="qa">' + (T ? TEACHER_QA : BEGINNER_QA).map(function (q, i) { return '<details' + (i ? '' : ' open') + '><summary>' + q[0] + '</summary><p>' + q[1] + '</p></details>'; }).join('') + '</div></section>' : '');
 }
 // 陪跑計劃獨立頁（2026-11-26 Kimi：不放在兩日進階班頁下面，點「看陪跑計劃內容」才打開）
 function coachOpen() {

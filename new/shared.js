@@ -305,11 +305,11 @@ var LINE_REVIEWS = [
   ['台中・零基礎班學員', '9/23（三）', ['真的很療癒。', '未來你有新的作品或才藝，如果我有喜歡的，也會繼續和您學習。'], 'bun'],
   ['新竹・零基礎班學員', '10/19（一）', ['我回到家了，今天的體驗我很喜歡', '等我明天多畫幾張再傳給老師'], 'boy'],
   ['高雄・線上零基礎班學員', '11/1（日）', ['老師今天謝謝您', '很療癒'], 'bob'],
-  // 舊版網站的學員評價（正式網站/data.js 的 REVIEWS，原文照搬；沒有日期）
-  ['台中・零基礎班學員', '', ['我才發現已經好久沒有把自己的時間排進生活裡了，原來陪伴自己可以這麼放鬆，完成之後又這麼有成就感！'], 'bob'],
-  ['台中・零基礎班學員', '', ['非常喜歡自己做的成品，沒想到我能這樣畫畫。我是容易緊張的人，沒想到整堂課開心又放鬆！'], 'long'],
-  ['桃園・零基礎班學員', '', ['謝謝老師今天的療癒時光，我已經買了好多顏料準備要開始大畫特畫啦！'], 'bun'],
-  ['高雄・零基礎班學員', '', ['美麗的老師！療癒的課程。很放鬆，真的有療癒到我。'], 'long']
+  // 舊版網站的學員評價（正式網站/data.js 的 REVIEWS，原文照搬）；日期與地區 2026-11-27 Kimi 更正
+  ['台中・零基礎班學員', '10/12（一）', ['我才發現已經好久沒有把自己的時間排進生活裡了，原來陪伴自己可以這麼放鬆，完成之後又這麼有成就感！'], 'bob'],
+  ['高雄・零基礎班學員', '8/22（六）', ['非常喜歡自己做的成品，沒想到我能這樣畫畫。我是容易緊張的人，沒想到整堂課開心又放鬆！'], 'long'],
+  ['高雄・零基礎班學員', '8/22（六）', ['謝謝老師今天的療癒時光，我已經買了好多顏料準備要開始大畫特畫啦！'], 'bun'],
+  ['台中・零基礎班學員', '5/16（六）', ['美麗的老師！療癒的課程。很放鬆，真的有療癒到我。'], 'long']
 ];
 function detailHtml(k) {
   var b = COURSES[k === 'teacher' ? 'teacher' : 'beginner'], on = k === 'online';
@@ -1002,3 +1002,11 @@ document.addEventListener('click', function (ev) {
   if (z) { if (!bx) { bx = document.createElement('div'); bx.id = 'zbox'; bx.className = 'zbox'; bx.innerHTML = '<img alt="">'; document.body.appendChild(bx); bx.addEventListener('click', function () { bx.hidden = true; }); } bx.querySelector('img').src = z.src; bx.hidden = false; }
 });
 
+// 2026-11-27 Kimi 更正舊評價地區（首頁評價用 data.js 的 REVIEWS；只在新網站這裡改，不動正式網站 data.js）
+(function () {
+  if (typeof REVIEWS === 'undefined' || !REVIEWS.forEach) return;
+  REVIEWS.forEach(function (r) {
+    if (/^非常喜歡自己做的成品|^謝謝老師今天的療癒時光/.test(r.text)) r.who = '高雄 零基礎班同學';
+    if (/^美麗的老師/.test(r.text)) r.who = '台中 零基礎班同學';
+  });
+})();

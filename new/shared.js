@@ -33,9 +33,9 @@ var NOTES = ['台中班、線上課 1 人就開班，時間可討論；台中以
 })();
 // 零基礎班「你是不是也這樣？」（2026-11-26 Kimi，取自品牌根系 A｜零基礎班受眾的心聲與沒持續的原因）
 // 兩日進階班優惠券「了解詳情」彈窗：三種情況怎麼送（2026-11-26 Kimi）
-// 2026-11-27 Kimi：上過零基礎再升級改成現折 1,800（對外寫「原價 26,800 只要 25,000」，不寫折多少；舊生優惠碼 stu1800）；一起報、升級兩條路都送兩日進階班課後複習影片＋30 日練習本
-var CPN_HOW = [['還沒上過零基礎', '一起報名，零基礎免費＋送課後複習影片＋30 日練習本', '報名兩日進階班時，順便選一堂零基礎場次，先上零基礎、再上兩日進階班。'],
-  ['上過 Kimi 的零基礎班', '原價 <s>NT$26,800</s>，只要 NT$25,000＋送課後複習影片＋30 日練習本', '上完零基礎 2 週內報名兩日進階班，登入會員，系統會自動折抵。'],
+// 2026-11-27 Kimi：上過零基礎再升級改成現折 1,800（對外寫「原價 26,800 只要 25,000」，不寫折多少；舊生優惠碼 stu1800）；課後複習影片＋30 日練習本只送 Kimi 自己的學生，網站不寫，Kimi 上完課當面宣傳（2026-11-27）
+var CPN_HOW = [['還沒上過零基礎', '一起報名，零基礎免費', '報名兩日進階班時，順便選一堂零基礎場次，先上零基礎、再上兩日進階班。'],
+  ['上過 Kimi 的零基礎班', '原價 <s>NT$26,800</s>，只要 NT$25,000', '上完零基礎 2 週內報名兩日進階班，登入會員，系統會自動折抵。'],
   ['已報名其他老師的零基礎班', '送一堂線上零基礎回訓', '材料自備，課前提供材料清單，報名後小幫手用 LINE 跟你約時間。']];
 function cpnOpen() {
   var m = document.getElementById('cpm');
@@ -86,8 +86,8 @@ var TEACHER_QA = [
   ['只上兩日進階班，可以用學到的東西開課嗎？', '兩日進階班是陪你把作品畫得更好，不包含教學授權。如果你想用這套教材開課，開課陪跑計劃會給你完整的教材授權，還有我一路陪你走到開課。'],
   ['上完兩日進階班之後，還能買陪跑計劃嗎？', '可以！陪跑計劃可以單獨購買，價格是 NT$16,800；報名兩日進階班時一起加購只要 NT$13,000，可以省下 NT$3,800。'],
   ['已報名其他老師的零基礎班，可以報兩日進階班嗎？', '可以！不管你在哪裡學過零基礎，都歡迎來兩日進階班。我們會贈送一堂「線上零基礎回訓」，材料自備，課前會提供材料清單，讓大家從同一個起點出發。'],
-  ['完全沒學過可以直接報名嗎？', '可以！零基礎＋兩日進階班一起報，零基礎免費，再送課後複習影片＋30 日練習本。報名時順便選一堂零基礎場次，先上完零基礎，再來上兩日進階班。'],
-  ['上過 Kimi 的零基礎，再報兩日進階班有優惠嗎？', '有！上完零基礎 2 週內報名兩日進階班，原價 NT$26,800，只要 NT$25,000，再送課後複習影片＋30 日練習本。登入會員，系統會自動幫你折抵。'],
+  ['完全沒學過可以直接報名嗎？', '可以！零基礎＋兩日進階班一起報，零基礎免費。報名時順便選一堂零基礎場次，先上完零基礎，再來上兩日進階班。'],
+  ['上過 Kimi 的零基礎，再報兩日進階班有優惠嗎？', '有！上完零基礎 2 週內報名兩日進階班，原價 NT$26,800，只要 NT$25,000。登入會員，系統會自動幫你折抵。'],
   ['陪跑學員拿到的教材可以修改嗎？', '可以依照你的風格調整，用在自己的課程裡；教材檔案僅限本人使用，請勿轉賣或分享給他人。'],
   ['開課的材料要去哪裡買？', '陪跑計劃附有廠商資料，可以照清單自己買，也可以直接跟 Kimi 購買。'],
   ['兩日進階班可以分期嗎？', '可以，兩日進階班提供中租分期，送出報名後小幫手會用 LINE 提供分期資訊。']
@@ -223,7 +223,7 @@ function renderCourse() {
     // 2026-11-26 Kimi：兩日進階班頁最上面放聳動標題，三種學生一行一句
     // 2026-11-26 Kimi：改成優惠券樣式，細節點「了解詳情」彈窗看
     up.innerHTML = S.k === 'teacher' ? '<div class="gft"><div class="gft-t"><small>BONUS・兩日進階班限定優惠</small><b>報兩日進階班，零基礎免費送</b></div><button data-cpn>了解詳情</button></div>'
-      : '🌿 想一次學到好？<b>直接報名初階班＋兩日進階班，初階班免費送</b>　<button data-go="course:teacher">看兩日進階班</button><small>想先上上看也可以，上完初階班 2 週內報名兩日進階班，原價 <s>NT$26,800</s> 只要 NT$25,000，一樣送課後複習影片＋30 日練習本</small>'; }
+      : '🌿 想一次學到好？<b>直接報名初階班＋兩日進階班，初階班免費送</b>　<button data-go="course:teacher">看兩日進階班</button><small>想先上上看也可以，上完初階班 2 週內報名兩日進階班，原價 <s>NT$26,800</s> 只要 NT$25,000</small>'; }
   // 2026-11-26 Kimi：初階／進階直接寫在班名前面，兩日進階班加「兩日」；線上併在零基礎班裡，標題一樣
   var h1 = host.querySelector('h1[data-f]'); if (h1) h1.innerHTML = S.k === 'teacher' ? stg('t') + '<span class="h1s">兩日進階班：</span>職人研修' : stg('b') + '<span class="h1s">初階班：</span>零基礎入門';
   var lh = host.querySelector('[data-lvh]'); if (lh) { lh.textContent = ''; lh.hidden = true; }
@@ -429,7 +429,6 @@ function renderTOpt() {
     (S.tAdd ? '<p><span>加購開課陪跑計劃</span><span>+' + money(COACH.price) + '</span></p>' : '') +
     (S.tBase === 'none' ? '<p><span>初階班：零基礎入門（一起報）</span><span><s>' + money(C('beginner').price) + '</s> 免費</span></p>' : '') +
     (cr ? '<p><span>上過零基礎・升級折抵</span><span>−' + money(cr) + '</span></p>' : '') +
-    (S.tBase === 'none' || cr ? '<p class="gf"><span>贈送：課後複習影片＋30 日練習本</span><span>免費</span></p>' : '') +
     '<p class="tot"><span>合計</span><b>' + money(tot) + '</b></p></div>';
   h.innerHTML = html;
   document.querySelectorAll('[data-pg="course"] .stk b').forEach(function (e) { e.textContent = money(tot); });
@@ -514,7 +513,7 @@ function tTag(x) {
   if (x.free) return '・兩日進階班贈送零基礎';
   if (x.k === 'coach') return '・單買陪跑' + (x.code ? '・優惠碼 ' + x.code + '（折 ' + x.credit + '）' : '');
   if (x.k !== 'teacher') return '';
-  return (x.addon ? '・加購陪跑' : '') + (x.base ? '・' + BASE_NAME[x.base] + (x.credit ? '（折抵 ' + x.credit + '）' : '') : '') + (x.code ? '・優惠碼 ' + x.code : '') + (x.base === 'none' || x.credit ? '・送課後複習影片＋30 日練習本' : '');
+  return (x.addon ? '・加購陪跑' : '') + (x.base ? '・' + BASE_NAME[x.base] + (x.credit ? '（折抵 ' + x.credit + '）' : '') : '') + (x.code ? '・優惠碼 ' + x.code : '');
 }
 var BASE_NAME = { kimi: '零基礎：Kimi 的零基礎班', other: '零基礎：其他老師（送線上回訓）', none: '零基礎：一起報' };
 function updateCount() { var n = S.cart.reduce(function (a, x) { return a + x.qty; }, 0); document.querySelectorAll('.cnt').forEach(function (e) { e.textContent = n || ''; }); }
@@ -767,7 +766,7 @@ document.addEventListener('DOMContentLoaded', function () {
           document.getElementById('dnLine').hidden = false;
           // 報名零基礎（沒報兩日進階班）→ 完成頁邀請下一步：兩日進階班
           var du = document.getElementById('dnUp'), isB = courses.some(function (x) { return (x.k === 'beginner' || x.k === 'online') && !x.free; }), hasT = courses.some(function (x) { return x.k === 'teacher'; });
-          if (du) { du.hidden = !(isB && !hasT); du.innerHTML = '<small>NEXT STEP・進階</small><b>上完課，想把作品畫得更美？</b><p>上完零基礎 2 週內報名「兩日進階班：職人研修」，兩日進階班原價 <s>NT$26,800</s>，<b>只要 NT$25,000</b>，再送課後複習影片＋30 日練習本。先好好享受這堂課，畫完再決定就好 🌿</p><button class="btn ghost full" data-go="course:teacher">看兩日進階班</button>'; }
+          if (du) { du.hidden = !(isB && !hasT); du.innerHTML = '<small>NEXT STEP・進階</small><b>上完課，想把作品畫得更美？</b><p>上完零基礎 2 週內報名「兩日進階班：職人研修」，兩日進階班原價 <s>NT$26,800</s>，<b>只要 NT$25,000</b>。先好好享受這堂課，畫完再決定就好 🌿</p><button class="btn ghost full" data-go="course:teacher">看兩日進階班</button>'; }
           var dp = document.getElementById('dnPay'); if (dp) dp.hidden = true; var dn = document.getElementById('dnNote'); if (dn) dn.hidden = true;
           trk('sign_up', { method: payNow, courses: courses.length });
           S.cart = []; S.l5 = ''; S.payPicked = 0; ckClear(); updateCount(); go('done');

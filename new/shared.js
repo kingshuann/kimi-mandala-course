@@ -242,11 +242,16 @@ function renderCourse() {
 function bnr(n, en, zh, c) { return '<div class="bnr2 ' + (c || 'c1') + '"><div class="bt"><small>' + en + '</small><b>' + zh + '</b></div><span class="bi"><img src="img_class/' + n + '.jpg" alt="" loading="lazy"></span></div>'; }
 // 課程特色總覽圖（2026-11-27 Kimi）：第二版改用 Higgsfield 生的桌面俯拍圖（img_class/fmap.jpg），4 個特色疊在 4 個角的小物旁邊
 // 左上工具＝1、右上木板畫布＝2、左下燭台＝3、右下禮物盒＝4
-// 2026-11-27 Kimi：兩堂課各一張專屬底圖（初階 fmap-beginner.jpg、兩日 fmap-teacher.jpg），小編號位置依圖調整
-function ftMap(kind, nodes) {
-  return '<div class="fmap2 ' + kind + '"><div class="fm2-img"><img src="img_class/fmap-' + kind + '.jpg" alt="課程特色總覽">' +
-    nodes.map(function (n, i) { return '<span class="fm2-dot d' + (i + 1) + '">' + (i + 1) + '</span>'; }).join('') + '</div><div class="fm2-g">' +
-    nodes.map(function (n, i) { return '<div class="fm2"><i>' + (i + 1) + '</i><div><b>' + n[0] + '</b><small>' + n[1] + '</small></div></div>'; }).join('') + '</div></div>';
+// 2026-11-27 Kimi 第三版：海報式菱形概念圖（Kimi 說 AI 圖太假、字要在圖上）
+// 深綠底＋金色細框，4 個特色＝4 張課堂照片裁成圓，上/右/左/下排成菱形，中間課名，金線相連；文字直接疊在圖上
+function ftMap(kind, nodes, center) {
+  var pos = [[50, 26], [81, 55], [19, 55], [50, 80]];
+  var lines = '<polygon points="50,26 81,55 50,80 19,55" fill="none" stroke="#C9AD72" stroke-width=".4"/>' + pos.map(function (p) { return '<line x1="50" y1="55" x2="' + p[0] + '" y2="' + p[1] + '" stroke="#C9AD72" stroke-width=".3" stroke-dasharray="1 1.2"/>'; }).join('');
+  return '<div class="fmap3"><span class="fm3-c tl"></span><span class="fm3-c tr"></span><span class="fm3-c bl"></span><span class="fm3-c br"></span>' +
+    '<p class="fm3-t"><small>' + (kind === 'teacher' ? 'Advanced Class' : 'Beginner Class') + '</small>你會帶走的 4 件事</p>' +
+    '<svg class="fm3-l" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">' + lines + '</svg>' +
+    '<div class="fm3-mid">' + center + '</div>' +
+    nodes.map(function (n, i) { return '<div class="fm3-n" style="left:' + pos[i][0] + '%;top:' + pos[i][1] + '%"><span class="fm3-ph"><img src="img_class/' + n[2] + '.jpg" alt=""></span><i>0' + (i + 1) + '</i><b>' + n[0] + '</b><small>' + n[1] + '</small></div>'; }).join('') + '</div>';
 }
 function aboutBeginner(b, info, gets) {
   var ft = [
@@ -255,14 +260,14 @@ function aboutBeginner(b, info, gets) {
     ['b16', '帶走工具，回家繼續畫', '附贈工具大禮包（價值 $680），講義、工具筆和 10 件材料都讓你帶回家。很多手作課上完就結束了，這堂課希望你下課以後，還能自己繼續畫。'],
     ['b15', '親手畫的禮物', '送禮最怕不知道對方需要什麼。親手畫一幅曼陀羅，朋友入厝、生日都送得出手，一點一點畫出來的心意，對方一看就懂。']
   ];
-  return bnr('b09', 'Background', '課程緣起', 'c1') +
+  return bnr('b09', 'Why Dot Mandala', '為什麼是點點曼陀羅', 'c1') +
     '<h4 class="stt">從「我不會畫畫」開始</h4>' +
     '<p class="sp">我從小就被說不會畫畫、沒有創意。商管碩士畢業後進了廣告公司，後來創業做美業 8 年，每天都被工作追著跑。</p>' +
     '<p class="sp">直到在最焦慮、最低潮的時候遇見點點曼陀羅。一個點、一個點畫下去，心慢慢安靜下來，我才發現，原來可以把注意力放回當下。</p>' +
     '<p class="sp">一年內，我畫了超過 200 幅作品，也成為曼陀羅老師。所以我很確定：<b>零基礎，真的畫得出來。</b>現在，我想把這段安靜的時間帶給你。</p>' +
     '<p class="dk dkc ab">你是不是也這樣？</p>' + gets(BEGINNER_PAIN, 'pain') + '<blockquote class="pq">零基礎班要做的，<br>就是陪你留一段時間給自己，<br>畫出第一幅屬於你的作品。</blockquote>' +
     bnr('b11', 'Features', '課程特色', 'c2') +
-    ftMap('beginner', [['零基礎也能畫', '一步一步帶你畫'], ['你自己的作品', '不是臨摹'], ['回家繼續畫', '工具大禮包帶回家'], ['親手畫的禮物', '送朋友最有心意']]) +
+    ftMap('beginner', [['零基礎也能畫', '一步一步帶你畫', 'b01'], ['你自己的作品', '不是臨摹', 'w02'], ['回家繼續畫', '工具大禮包帶回家', 'b16'], ['親手畫的禮物', '送朋友最有心意', 'b14']], '零基礎<br>點點曼陀羅') +
     ft.map(function (f, i) { return '<div class="cft"><img src="img_class/' + f[0] + '.jpg" alt="" loading="lazy" data-zoom><h4 class="stt"><i>' + (i + 1) + '</i>' + f[1] + '</h4><p class="sp">' + f[2] + '</p></div>'; }).join('') +
     '<div class="kitb"><b>工具大禮包內容</b><span>' + b.kit.join('・') + '</span></div>' +
     bnr('b14', 'In Your Life', '把作品帶回生活', 'c3') +
@@ -291,7 +296,7 @@ function aboutTeacher(b, info, gets, cmp) {
     '<p class="sp">兩日進階班，就是把這套方法完整教給你。<b>兩天，陪你把作品一點一點畫得更美。</b></p>' +
     '<p class="dk dkc ab">你是不是也這樣？</p>' + gets(TEACHER_PAIN, 'pain') + '<blockquote class="pq">兩日進階班要做的，<br>就是陪你把作品，一點一點畫得更美。</blockquote>' +
     bnr('t10', 'Features', '課程特色', 'c2') +
-    ftMap('teacher', [['大幅構圖', '找圓心・精準分割'], ['多元材質', '木板・畫布・石膏'], ['構圖層次', '告別同心圓'], ['送得出手的禮物', '入厝・生日・親手做']]) +
+    ftMap('teacher', [['大幅構圖', '找圓心・精準分割', 't05'], ['多元材質', '木板・畫布・石膏', 't08'], ['構圖層次', '告別同心圓', 't09'], ['送得出手的禮物', '入厝・生日・親手做', 't11']], '兩日進階<br>職人研修') +
     ft.map(function (f, i) { return '<div class="cft"><img src="img_class/' + f[0] + '.jpg" alt="" loading="lazy" data-zoom><h4 class="stt"><i>' + (i + 1) + '</i>' + f[1] + '</h4><p class="sp">' + f[2] + '</p></div>'; }).join('') +
     '<p class="dk dkc ab">跟一般繪畫課有什麼不同？</p>' + cmp +
     '<div class="kitb" style="margin-top:14px"><b>附贈材料</b><span>' + b.kit.join('・') + '</span></div>' +

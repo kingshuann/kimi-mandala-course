@@ -321,7 +321,7 @@ function aboutBeginner(b, info, gets) {
     '<p class="sp">送禮最難的，是不知道對方需要什麼。買了怕用不到，又怕對方心裡想：「怎麼會送這個？」想要有心、有誠意，卻常常不知道從哪裡下手。</p>' +
     '<p class="sp">曾經有一位同學來上課，就是為了親手畫一幅曼陀羅，送給剛搬新家的朋友當入厝禮。<b>一點一點畫出來的心意，對方一看就懂。</b></p>' +
     '<p class="sp">親手畫一份獨一無二的禮物，也是另一種生活裡的儀式感。</p>' +
-    '<div class="pair2"><img src="img_class/b09.jpg" alt="" loading="lazy" data-zoom><img src="img_class/b12.jpg" alt="" loading="lazy" data-zoom></div>' +
+    /* 2026-11-28 Kimi：這裡的兩張學員作品照拿掉 */
     '<p class="dk dkc ab">課程資訊</p><ul class="rows">' + info.map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('') + '</ul>';
 }
 // 兩日進階班「關於課程」圖文版（2026-11-27 Kimi，跟初階班同架構）。內容取自 COURSES.teacher 的單元／材料，照片 img_class/t01～t11

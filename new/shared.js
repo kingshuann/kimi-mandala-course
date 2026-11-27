@@ -167,7 +167,7 @@ function navbar() {
     '<button data-menu>' + navIcon('menu') + '<span>選單</span></button></nav>';
 }
 // 點點月刊目前是第幾期：每月出新一期時改這一行
-var JOURNAL_ISSUE = '12 月號';
+var JOURNAL_ISSUE = '2027.1 創刊'; // 2026-11-28 Kimi：1 月才發行創刊號
 // 底部列圖示：AI 統一風格（米色去背 PNG），沒有對應圖時用原本的線條
 var NAV_IMG = { home: 'nav_home', brush: 'nav_course', store: 'nav_store', menu: 'nav_menu' };
 function navIcon(k) { return NAV_IMG[k] ? '<img class="nav-ic" src="img_icons/' + NAV_IMG[k] + '.png?v=4" alt="">' : ICONS[k]; }

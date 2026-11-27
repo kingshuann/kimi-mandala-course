@@ -285,11 +285,26 @@ function aboutTeacher(b, info, gets, cmp) {
     '<p class="dk dkc ab">課程資訊</p><ul class="rows">' + info.map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('') + '</ul>';
 }
 // 2026-11-27 Kimi：做成 LINE 對話框的樣子。[署名, LINE 上的日期, [一個泡泡一則訊息]]；原本分開傳的訊息就分開放；頭像用預設圖，不放學員照片
+// 2026-11-27 Kimi：心得頭像改 Q 版小人（程式畫的，不是學員本人），4 種髮型
+function chibi(t) {
+  var bg = { long: '#F6DCCB', bun: '#DCE8D2', boy: '#D7E3F1', bob: '#F3E1EC' }[t] || '#EEE';
+  var hair = { long: '#6B4A3A', bun: '#4A3A33', boy: '#3E3633', bob: '#2F2A2A' }[t];
+  var back = t === 'long' ? '<path d="M8 22c0-9 5-14 12-14s12 5 12 14v12H8z" fill="' + hair + '"/>' : t === 'bob' ? '<path d="M8.5 22c0-8.5 5-13 11.5-13s11.5 4.5 11.5 13v6H8.5z" fill="' + hair + '"/>' : '';
+  var top = t === 'bun' ? '<circle cx="20" cy="7.5" r="4.2" fill="' + hair + '"/><path d="M9 21c0-7 4.8-11 11-11s11 4 11 11c-3-3.5-7-5-11-5s-8 1.5-11 5z" fill="' + hair + '"/>'
+    : t === 'boy' ? '<path d="M9 20c0-7 4.8-11 11-11s11 4 11 11c-1.5-2-3-3-4.5-3.5l-1 2-2-2.5-2 2.5-2-2.5-2 2.5-1.5-2.5C12 16.5 10.5 18 9 20z" fill="' + hair + '"/>'
+    : '<path d="M9 21c0-7 4.8-11 11-11s11 4 11 11c-2.5-1-5-3.5-6-5.5-2 2.5-7.5 4.5-16 5.5z" fill="' + hair + '"/>';
+  return '<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="' + bg + '"/>' + back +
+    '<ellipse cx="20" cy="23" rx="10.5" ry="10" fill="#FFE6D3"/>' + top +
+    '<ellipse cx="16" cy="24" rx="1.4" ry="1.8" fill="#3A2E2A"/><ellipse cx="24" cy="24" rx="1.4" ry="1.8" fill="#3A2E2A"/>' +
+    '<circle cx="16.5" cy="23.4" r=".5" fill="#FFF"/><circle cx="24.5" cy="23.4" r=".5" fill="#FFF"/>' +
+    '<ellipse cx="13.6" cy="27.3" rx="2" ry="1.2" fill="#F4A6A6" opacity=".6"/><ellipse cx="26.4" cy="27.3" rx="2" ry="1.2" fill="#F4A6A6" opacity=".6"/>' +
+    '<path d="M18.3 28.2q1.7 1.4 3.4 0" stroke="#B5655A" stroke-width=".9" fill="none" stroke-linecap="round"/></svg>';
+}
 var REVIEWS = [
-  ['台中・零基礎班學員', '7/30（四）', ['昨天心情不是很好，為了靜心隨手畫了一幅，覺得好神奇，真的有被療癒到']],
-  ['台中・零基礎班學員', '9/23（三）', ['真的很療癒。', '未來你有新的作品或才藝，如果我有喜歡的，也會繼續和您學習。']],
-  ['新竹・零基礎班學員', '10/19（一）', ['我回到家了，今天的體驗我很喜歡']],
-  ['高雄・線上零基礎班學員', '11/1（日）', ['老師今天謝謝您', '很療癒']]
+  ['台中・零基礎班學員', '7/30（四）', ['昨天心情不是很好，為了靜心隨手畫了一幅，覺得好神奇，真的有被療癒到'], 'long'],
+  ['台中・零基礎班學員', '9/23（三）', ['真的很療癒。', '未來你有新的作品或才藝，如果我有喜歡的，也會繼續和您學習。'], 'bun'],
+  ['新竹・零基礎班學員', '10/19（一）', ['我回到家了，今天的體驗我很喜歡'], 'boy'],
+  ['高雄・線上零基礎班學員', '11/1（日）', ['老師今天謝謝您', '很療癒'], 'bob']
 ];
 function detailHtml(k) {
   var b = COURSES[k === 'teacher' ? 'teacher' : 'beginner'], on = k === 'online';
@@ -316,7 +331,7 @@ function detailHtml(k) {
       [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18].map(function (i) { return '<img src="img_class/w' + (i < 10 ? '0' : '') + i + '.jpg" alt="學員作品" loading="lazy" data-zoom>'; }).join('') +
       '</div><button class="clm" data-wall>看更多作品</button>' +
       // 2026-11-27 Kimi：學員心得（取自官方 LINE，Kimi 決定不具名：只留原話＋地區，名字頭像都不放；清單在 素材/學員心得/2026-11-27_官方LINE心得候選.md）
-      '<div class="uh rv-h"><b>學員心得</b><span>來自 LINE 的真實回饋</span></div><div class="lchats">' + REVIEWS.map(function (r) { return '<div class="lcard"><div class="lhd"><i>‹</i><b>' + r[0] + '</b></div><div class="lbody"><span class="ldate">' + r[1] + '</span><div class="lc"><span class="lav"></span><div class="lcb">' + r[2].map(function (m, i) { return '<p class="lbub' + (i ? '' : ' t') + '">' + m + '</p>'; }).join('') + '</div></div></div></div>'; }).join('') + '</div><p class="cgal-n">左右滑動看更多 →</p></section>') +
+      '<div class="uh rv-h"><b>學員心得</b><span>來自 LINE 的真實回饋</span></div><div class="lchats">' + REVIEWS.map(function (r) { return '<div class="lcard"><div class="lhd"><i>‹</i><b>' + r[0] + '</b></div><div class="lbody"><span class="ldate">' + r[1] + '</span><div class="lc"><span class="lav">' + chibi(r[3]) + '</span><div class="lcb">' + r[2].map(function (m, i) { return '<p class="lbub' + (i ? '' : ' t') + '">' + m + '</p>'; }).join('') + '</div></div></div></div>'; }).join('') + '</div><p class="cgal-n">左右滑動看更多 →</p></section>') +
     '<section class="ds dcard" id="ds-units"><div class="uh"><b>課程單元</b><span>' + b.lessons.length + ' 大主題・' + nItems + ' 個重點</span><button data-uall>全部展開</button></div>' +
       b.lessons.map(function (l, i) { return '<div class="un' + (i ? '' : ' on') + '"><button class="un-h lh" data-un><span>主題' + '一二三四五六七八'[i] + '</span>' + l[0] + '<i></i></button><ul class="dl un-b">' + l[1].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul></div>'; }).join('') +
     '</section>' +

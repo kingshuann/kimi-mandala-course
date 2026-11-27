@@ -298,9 +298,9 @@ function aboutBeginner(b, info, gets) {
   return bnr('b09', 'Why Dot Mandala', '為什麼是點點曼陀羅', 'c1') +
     '<h4 class="stt">從「我不會畫畫」開始</h4>' +
     '<figure class="wrapfig"><img src="img_class/kimi-beauty.jpg" alt="Kimi 做美業的時候"></figure>' + // 2026-11-28 Kimi：雜誌風，照片在右、文字繞圖
-    '<p class="sp">我從小就被說不會畫畫、沒有創意。商管碩士畢業後進了廣告公司，後來創業做美業 8 年，每天都被工作追著跑。</p>' +
-    '<p class="sp">直到在最焦慮、最低潮的時候遇見點點曼陀羅。一個點、一個點畫下去，心慢慢安靜下來，我才發現，原來可以把注意力放回當下。</p>' +
-    '<p class="sp">一年內，我畫了超過 200 幅作品，也成為曼陀羅老師。所以我很確定：<b>零基礎，真的畫得出來。</b>現在，我想把這段安靜的時間帶給你。</p>' +
+    '<p class="sp">我從小被說不會畫畫、沒有創意，後來創業做美業 8 年，每天被工作追著跑。</p>' +
+    '<p class="sp">最低潮的時候，我遇見點點曼陀羅。一個點、一個點畫下去，心慢慢安靜下來。</p>' +
+    '<p class="sp">一年內我畫了 200 多幅，也成為曼陀羅老師。所以我很確定：<b>零基礎，真的畫得出來。</b></p>' +
     '<h4 class="stt" style="margin-top:30px;clear:both">你是不是也這樣？</h4>' + gets(BEGINNER_PAIN, 'pain') + '<blockquote class="pq">零基礎班要做的，<br>就是陪你留一段時間給自己，<br>畫出第一幅屬於你的作品。</blockquote>' +
     bnr('b11', 'Features', '課程特色', 'c2') +
     ftMap('beginner', [['零基礎也能畫', '完全沒有美術基礎，也可以完成自己的作品。', 'pen'], ['你自己的作品', '不是臨摹', 'easel'], ['回家繼續畫', '工具大禮包帶回家', 'kit'], ['親手畫的禮物', '送朋友最有心意', 'gift']], '零基礎<br>點點曼陀羅') +
@@ -412,7 +412,7 @@ function detailHtml(k) {
     '</div><button class="clm" data-clm>查看更多</button></section>' +
     // 2026-11-27 Kimi：學員作品牆（初階班／線上），先放 9 張，「看更多作品」展開到 18 張；照片 img_class/w01～w18（素材/2026-11-27_課程照片相機質感/學員作品牆）
     (T ? '' : '<section class="ds dcard" id="ds-works"><div class="uh"><b>學員作品</b><span>零基礎同學在課堂上完成的第一幅作品</span></div><div class="wall">' +
-      [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18].map(function (i) { return '<img src="img_class/w' + (i < 10 ? '0' : '') + i + '.jpg" alt="學員作品" loading="lazy" data-zoom>'; }).join('') +
+      [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18].map(function (i) { return '<img src="img_class/w' + (i < 10 ? '0' : '') + i + '.jpg?v=1201k" alt="學員作品" loading="lazy" data-zoom>'; }).join('') +
       '</div><button class="clm" data-wall>看更多作品</button>' +
       // 2026-11-27 Kimi：學員心得（取自官方 LINE，Kimi 決定不具名：只留原話＋地區，名字頭像都不放；清單在 素材/學員心得/2026-11-27_官方LINE心得候選.md）
       '<div class="uh rv-h"><b>學員心得</b><span>來自 LINE 的真實回饋</span></div><div class="lchats">' + lrSorted().map(function (r) { return '<div class="lcard"><div class="lhd"><i>‹</i><b>' + r[0] + '</b></div><div class="lbody">' + (r[1] ? '<span class="ldate">' + r[1] + '</span>' : '') + '<div class="lc"><span class="lav">' + chibi(r[3]) + '</span><div class="lcb">' + r[2].map(function (m, i) { return '<p class="lbub' + (i ? '' : ' t') + '">' + m + '</p>'; }).join('') + '</div></div></div></div>'; }).join('') + '</div><p class="cgal-n">左右滑動看更多 →</p></section>') +
@@ -1127,4 +1127,15 @@ document.addEventListener('click', function (ev) {
     if (/^非常喜歡自己做的成品|^謝謝老師今天的療癒時光/.test(r.text)) r.who = '高雄 零基礎班同學';
     if (/^美麗的老師/.test(r.text)) r.who = '台中 零基礎班同學';
   });
+})();
+
+// 2026-11-28 Kimi：常見問題頁分成「報名與上課／初階班／兩日進階班・陪跑」三類（題目沿用課程頁的 BEGINNER_QA、TEACHER_QA）
+(function () {
+  var q = document.querySelector('[data-pg="faq"] .qa'); if (!q || !window.BEGINNER_QA) return;
+  var COMMON = ['人數不夠會開班嗎？', '臨時不能來怎麼辦？', '有線上課嗎？', '可以帶小朋友嗎？'];
+  var com = BEGINNER_QA.filter(function (x) { return COMMON.indexOf(x[0]) >= 0; });
+  var beg = BEGINNER_QA.filter(function (x) { return COMMON.indexOf(x[0]) < 0; });
+  var tea = TEACHER_QA.concat([['兩日進階班要帶什麼？', '請自備「平頭筆」及「點珠筆」！']]);
+  function grp(t, L) { return '<p class="qag">' + t + '</p>' + L.map(function (x) { return '<details><summary>' + x[0] + '</summary><p>' + x[1] + '</p></details>'; }).join(''); }
+  q.innerHTML = grp('報名與上課', com) + grp('初階班', beg) + grp('兩日進階班・開課陪跑', tea);
 })();

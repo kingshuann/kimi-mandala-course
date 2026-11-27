@@ -299,11 +299,15 @@ function detailHtml(k) {
   // ④ 常見問題（兩日進階班）
   function ir(t, body, open) { return '<div class="ir' + (open ? ' on' : '') + '"><button class="ir-h" data-ir>' + t + '<i></i></button><div class="ir-b">' + body + '</div></div>'; }
   var nItems = b.lessons.reduce(function (a, l) { return a + l[1].length; }, 0);
-  var tabs = [['ds-about', '關於課程'], ['ds-units', '課程單元'], ['ds-who', '上課須知']].concat(T ? [['ds-qa', '常見問題']] : []);
+  var tabs = [['ds-about', '關於課程']].concat(T ? [] : [['ds-works', '學員作品']], [['ds-units', '課程單元'], ['ds-who', '上課須知']], T ? [['ds-qa', '常見問題']] : []);
   return '<nav class="dtab">' + tabs.map(function (x, i) { return '<button data-dtab="' + x[0] + '"' + (i ? '' : ' class="on"') + '>' + x[1] + '</button>'; }).join('') + '</nav>' +
     // 2026-11-27 Kimi：課堂紀錄相簿（素材/2026-11-27_課程照片相機質感，只挑沒拍到臉的、調成相機質感），左右滑、點了放大
     '<section class="ds clp" id="ds-about"><div class="clb">' + (T ? aboutTeacher(b, info, gets, cmp) : aboutBeginner(b, info, gets)) +
     '</div><button class="clm" data-clm>查看更多</button></section>' +
+    // 2026-11-27 Kimi：學員作品牆（初階班／線上），先放 9 張，「看更多作品」展開到 18 張；照片 img_class/w01～w18（素材/2026-11-27_課程照片相機質感/學員作品牆）
+    (T ? '' : '<section class="ds dcard" id="ds-works"><div class="uh"><b>學員作品</b><span>零基礎同學在課堂上完成的第一幅作品</span></div><div class="wall">' +
+      [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18].map(function (i) { return '<img src="img_class/w' + (i < 10 ? '0' : '') + i + '.jpg" alt="學員作品" loading="lazy" data-zoom>'; }).join('') +
+      '</div><button class="clm" data-wall>看更多作品</button></section>') +
     '<section class="ds dcard" id="ds-units"><div class="uh"><b>課程單元</b><span>' + b.lessons.length + ' 大主題・' + nItems + ' 個重點</span><button data-uall>全部展開</button></div>' +
       b.lessons.map(function (l, i) { return '<div class="un' + (i ? '' : ' on') + '"><button class="un-h lh" data-un><span>主題' + '一二三四五六七八'[i] + '</span>' + l[0] + '<i></i></button><ul class="dl un-b">' + l[1].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul></div>'; }).join('') +
     '</section>' +
@@ -925,6 +929,7 @@ function slotEmo(t) { var n = slotName(t); return ({ '早班': '☀️', '午班
   document.addEventListener('click', function (ev) {
     var a = ev.target.closest('[data-acc]'); if (a) { a.parentElement.classList.toggle('on'); return; }
     var r = ev.target.closest('[data-ir],[data-un]'); if (r) { r.parentElement.classList.toggle('on'); return; }
+    var wl = ev.target.closest('[data-wall]'); if (wl) { var wg = wl.previousElementSibling; wg.classList.toggle('all'); wl.textContent = wg.classList.contains('all') ? '收起' : '看更多作品'; if (!wg.classList.contains('all')) wl.parentElement.scrollIntoView({ block: 'start' }); return; }
     var ua = ev.target.closest('[data-uall]'); if (ua) { var us = ua.closest('section').querySelectorAll('.un'), all = [].every.call(us, function (u) { return u.classList.contains('on'); }); us.forEach(function (u) { u.classList.toggle('on', !all); }); ua.textContent = all ? '全部展開' : '全部收起'; return; }
     var m = ev.target.closest('[data-clm]'); if (m) { var c = m.parentElement; c.classList.toggle('open'); m.textContent = c.classList.contains('open') ? '收起' : '查看更多'; if (!c.classList.contains('open')) c.scrollIntoView({ block: 'start' }); return; }
     var t = ev.target.closest('[data-dtab]'); if (t) {

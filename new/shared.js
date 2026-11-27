@@ -419,7 +419,7 @@ function detailHtml(k) {
     '<section class="ds dcard" id="ds-units"><div class="uh"><b>課程單元</b><span>' + b.lessons.length + ' 大主題・' + nItems + ' 個重點</span><button data-uall>全部展開</button></div>' + /* 2026-11-28 Kimi：購買區上面已經有這四句，這裡拿掉 */
       b.lessons.map(function (l, i) { return '<div class="un' + (i ? '' : ' on') + '"><button class="un-h lh" data-un><span>主題' + '一二三四五六七八'[i] + '</span>' + l[0] + '<i></i></button><ul class="dl un-b">' + l[1].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul></div>'; }).join('') +
     '</section>' +
-    '<section class="ds dcard" id="ds-who"><div class="icard">' +
+    '<section class="ds dcard" id="ds-who"><div class="uh"><b>上課須知</b></div><div class="icard qac">' + /* 2026-11-28 Kimi：加標題，答案樣式跟常見問題一樣 */
       ir('誰適合這堂課？', '<ul class="gets pain who">' + b.who.map(function (x) { return '<li><b>' + x + '</b></li>'; }).join('') + '</ul>', 1) +
       ir('攜帶物品', '<p class="dp">' + (on ? '什麼都不用準備，材料包會寄到家！' : b.bring) + '</p>') +
       ir('注意事項', '<ol class="dl">' + NOTES.map(function (n) { return '<li>' + n + '</li>'; }).join('') + '</ol>') +

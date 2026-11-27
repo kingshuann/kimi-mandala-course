@@ -163,7 +163,10 @@
 /* 2026-11-27 Kimi：橫幅改成滿版（左右貼齊畫面）、置中手寫英文＋粗體中文，作品圖從下方露出一半（參考 Hahow 課程特色圖） */
 .bnr2{position:relative;display:flex;align-items:center;justify-content:center;height:112px;margin:34px -20px 20px;overflow:hidden;color:#FFF;text-align:center}
 .bnr2:first-child{margin-top:4px}
-.bnr2.c1{background:#5C6648}.bnr2.c2{background:#A87D5C}.bnr2.c3{background:#7A8560}
+/* 2026-11-27 Kimi：三條橫幅改用光影桌面照片當背景（img_class/bnr-bg.jpg），各取不同位置，加深色漸層讓白字清楚 */
+.bnr2{background:#5A4636 url(img_class/bnr-bg.jpg) center/cover no-repeat}
+.bnr2::before{content:'';position:absolute;inset:0;z-index:0;background:linear-gradient(rgba(40,30,22,.42),rgba(40,30,22,.55))}
+.bnr2.c1{background-position:50% 18%}.bnr2.c2{background-position:50% 55%}.bnr2.c3{background-position:50% 85%}
 .bnr2 .bt{position:relative;z-index:2;margin-top:-6px}
 .bnr2 small{display:block;font-family:'Allura',cursive;font-size:27px;line-height:1;letter-spacing:.01em;opacity:.95;text-shadow:0 1px 6px rgba(0,0,0,.18)}
 .bnr2 b{display:block;font-family:'Noto Serif TC',serif;font-size:25px;font-weight:700;letter-spacing:.16em;margin-top:2px;text-shadow:0 2px 10px rgba(0,0,0,.25)}

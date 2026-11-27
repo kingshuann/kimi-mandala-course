@@ -217,11 +217,11 @@ function sessionsFor(k) {
 // 2026-11-28 Kimi：四欄大數字（放在「課程單元」最上面）
 var HL4 = { teacher: [['4+1', '材質＋媒材'], ['3', '種構圖模板'], ['5', '種特殊構圖'], ['獨家', '找圓心方法']],
   beginner: [['3+3', '基礎＋變化'], ['9', '色顏料'], ['15cm', '當天帶回家'], ['10', '件課後作品']] };
-// 2026-11-28 Kimi：不要四顆方塊，改成一段話、數字放大加底色螢光筆（像雜誌導言）
+// 2026-11-28 Kimi：改回一開始的「— 條列」，關鍵字加螢光筆底線
 var HL4S = {
-  teacher: '兩天裡，你會練到 <b>4+1</b> 種材質與複合媒材、<b>3</b> 種筆刷構圖模板、<b>5</b> 種特殊構圖，還有 Kimi <b>獨家</b>的找圓心方法。',
-  beginner: '一個下午，你會學會 <b>3+3</b> 種基礎與變化圖形，用 <b>9</b> 色顏料配出自己的顏色，當天帶回一幅 <b>15cm</b> 作品，回家還能再畫 <b>10</b> 件。' };
-function hl4Html(k) { return HL4S[k] ? '<p class="uhs">' + HL4S[k] + '</p>' : ''; }
+  teacher: ['<b>4 種材質</b> + <b>1 種複合媒材</b>', '<b>3 種筆刷構圖模板</b>', '<b>5 種特殊構圖</b>', 'Kimi <b>獨家</b>找圓心方法'],
+  beginner: ['<b>3 種基礎</b> + <b>3 種變化圖形</b>', '用 <b>9 色顏料</b>配出自己的顏色', '當天帶回一幅 <b>15cm 作品</b>', '回家還能再畫 <b>10 件作品</b>'] };
+function hl4Html(k) { return HL4S[k] ? '<ul class="uhl2">' + HL4S[k].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>' : ''; }
 function renderCourse() {
   var c = C(S.k), host = document.querySelector('[data-pg="course"]'); if (!host) return;
   host.querySelectorAll('[data-f]').forEach(function (e) { var v = c[e.dataset.f]; if (v != null) e.textContent = v; });

@@ -214,14 +214,17 @@ function sessionsFor(k) {
   if (k === 'online') return [];
   return upcoming(SESSIONS[k] || []).filter(function (s) { return !isPrivate(s); });
 }
+// 2026-11-28 Kimi：四欄大數字（放在「課程單元」最上面）
+var HL4 = { teacher: [['4+1', '材質＋媒材'], ['3', '種構圖模板'], ['5', '種特殊構圖'], ['獨家', '找圓心方法']],
+  beginner: [['3+3', '基礎＋變化'], ['9', '色顏料'], ['15cm', '當天帶回家'], ['10', '件課後作品']] };
+function hl4Html(k) { var h = HL4[k]; return h ? '<ul class="pk hl4 uhl">' + h.map(function (x) { return '<li><b>' + x[0] + '</b><span>' + x[1] + '</span></li>'; }).join('') + '</ul>' : ''; }
 function renderCourse() {
   var c = C(S.k), host = document.querySelector('[data-pg="course"]'); if (!host) return;
   host.querySelectorAll('[data-f]').forEach(function (e) { var v = c[e.dataset.f]; if (v != null) e.textContent = v; });
   host.querySelectorAll('[data-img]').forEach(function (e) { e.src = S.k === 'teacher' ? 'img_banner/teacher-43.jpg' : S.k === 'online' ? IMG + 'img/work5.jpg' : 'img_banner/beginner-43.jpg'; /* 2026-11-27 Kimi：課程主圖改 4:3 橫式，AI 擴圖不裁畫作 */ });
   host.querySelectorAll('[data-chips]').forEach(function (e) { e.innerHTML = (c.chips || ['在家上課', '材料包寄到家', '時間彈性']).map(function (x) { return '<span>' + x + '</span>'; }).join(''); });
   // 2026-11-28 Kimi：課程標籤下面改成「大數字＋小字」四欄，講清楚學到什麼，不跟標籤重複
-  var HL = { teacher: [['4+1', '材質＋媒材'], ['3', '種構圖模板'], ['5', '種特殊構圖'], ['獨家', '找圓心方法']],
-    beginner: [['3+3', '基礎＋變化'], ['9', '色顏料'], ['15cm', '當天帶回家'], ['10', '件課後作品']] }[S.k];
+  var HL = HL4[S.k];
   host.querySelectorAll('[data-perks]').forEach(function (e) { e.classList.toggle('hl4', !!HL); if (HL) { e.innerHTML = HL.map(function (x) { return '<li><b>' + x[0] + '</b><span>' + x[1] + '</span></li>'; }).join(''); return; } e.innerHTML = (c.perks || ['材料包寄到家', '視訊一對一帶畫', '時間報名後用 LINE 約']).slice(0, 4).map(function (x) { return '<li>' + x + '</li>'; }).join(''); });
   var en = host.querySelector('[data-en]'); if (en) en.textContent = { beginner: 'BEGINNER CLASS', teacher: 'ADVANCED CLASS', online: 'ONLINE CLASS' }[S.k] || '';
   var up = host.querySelector('[data-upn]'); if (up) { up.hidden = false; up.className = 'upn' + (S.k === 'teacher' ? ' big' : '');
@@ -396,7 +399,7 @@ function detailHtml(k) {
       '</div><button class="clm" data-wall>看更多作品</button>' +
       // 2026-11-27 Kimi：學員心得（取自官方 LINE，Kimi 決定不具名：只留原話＋地區，名字頭像都不放；清單在 素材/學員心得/2026-11-27_官方LINE心得候選.md）
       '<div class="uh rv-h"><b>學員心得</b><span>來自 LINE 的真實回饋</span></div><div class="lchats">' + lrSorted().map(function (r) { return '<div class="lcard"><div class="lhd"><i>‹</i><b>' + r[0] + '</b></div><div class="lbody">' + (r[1] ? '<span class="ldate">' + r[1] + '</span>' : '') + '<div class="lc"><span class="lav">' + chibi(r[3]) + '</span><div class="lcb">' + r[2].map(function (m, i) { return '<p class="lbub' + (i ? '' : ' t') + '">' + m + '</p>'; }).join('') + '</div></div></div></div>'; }).join('') + '</div><p class="cgal-n">左右滑動看更多 →</p></section>') +
-    '<section class="ds dcard" id="ds-units"><div class="uh"><b>課程單元</b><span>' + b.lessons.length + ' 大主題・' + nItems + ' 個重點</span><button data-uall>全部展開</button></div>' +
+    '<section class="ds dcard" id="ds-units"><div class="uh"><b>課程單元</b><span>' + b.lessons.length + ' 大主題・' + nItems + ' 個重點</span><button data-uall>全部展開</button></div>' + hl4Html(T ? 'teacher' : 'beginner') +
       b.lessons.map(function (l, i) { return '<div class="un' + (i ? '' : ' on') + '"><button class="un-h lh" data-un><span>主題' + '一二三四五六七八'[i] + '</span>' + l[0] + '<i></i></button><ul class="dl un-b">' + l[1].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul></div>'; }).join('') +
     '</section>' +
     '<section class="ds dcard" id="ds-who"><div class="icard">' +
@@ -504,7 +507,7 @@ function renderPick() {
   // 2026-11-28 Kimi：月曆連結放在「選擇場次」標題的右上角
   var oc = de.parentNode && de.parentNode.querySelector('.calk'); if (oc) oc.remove();
   var allS = L.filter(function (s) { return s.location === S.city; }), lb = de.previousElementSibling;
-  if (allS.length && lb) { lb.insertAdjacentHTML('beforeend', '<button class="calk" data-calk>📅 完整月曆 ›</button>'); lb.querySelector('[data-calk]').onclick = function (ev) { ev.stopPropagation(); openCal(allS); }; }
+  if (allS.length && lb) { lb.insertAdjacentHTML('beforeend', '<button class="calk" data-calk>📅 查看完整課表 ›</button>'); lb.querySelector('[data-calk]').onclick = function (ev) { ev.stopPropagation(); openCal(allS); }; }
   if (S.k === 'beginner') { ce.insertAdjacentHTML('beforeend', '<button class="chip" data-gon>視訊線上課</button>'); ce.querySelector('[data-gon]').onclick = function (ev) { ev.stopPropagation(); swap('online'); }; }
   // 直接綁在每顆按鈕上（不靠整頁的點擊判斷），第一個場次也點得到
   ce.querySelectorAll('[data-city]').forEach(function (btn) { btn.onclick = function (ev) { ev.stopPropagation(); S.city = btn.dataset.city; S.sess = null; renderPick(); }; });

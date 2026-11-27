@@ -103,7 +103,9 @@ var STG_SVG = {
 };
 var STG_TXT = { b: '萌芽', t: '綻放', c: '成林' };
 function stg(k) { return '<span class="stg stg-' + k + '"><svg viewBox="0 0 24 24" aria-hidden="true">' + STG_SVG[k] + '</svg>' + STG_TXT[k] + '</span>'; }
-// 開課陪跑計劃單買（2026-11-27 Kimi）：原價 16,800，網站直接結帳；舊師資班學生可用優惠碼（資料庫 promo_codes，course = 'coach'）
+// 開課陪跑計劃單買（2026-11-27 Kimi）：原價 16,800，網站直接結帳。
+// 2026-11-27 Kimi：舊師資班學生只有 3 位，直接送陪跑（當實驗），不做優惠碼 → 陪跑頁先不顯示優惠碼欄；之後要開放改成 true（資料庫 promo_codes，course = 'coach'）
+var COACH_CODE = false;
 EXTRA.coach = { key: 'coach', short: '開課陪跑計劃', name: '點點曼陀羅・開課陪跑計劃', sub: '3 個月一對一陪跑', price: 16800, priceText: 'NT$16,800', img: 'img_banner/teacher.jpg', tag: '陪跑' };
 function C(k) { return COURSES[k] || EXTRA[k]; }
 function money(n) { return 'NT$' + n.toLocaleString('en-US'); }
@@ -311,7 +313,7 @@ function coachHtml() {
     '<p class="cc-h">01　選擇方案</p>' +
     '<div class="cpx"><button class="cpx-i' + (S.cPlan === 'add' ? ' on' : '') + '" data-cplan="add"><span class="cpx-r"></span><div class="cpx-t"><em class="pill">加購價・省 NT$3,800</em><b>跟兩日進階班一起報名</b><span>兩日進階班＋陪跑合計 NT$39,800</span></div><div class="cpx-p"><s>NT$16,800</s><b>+NT$13,000</b></div></button>' +
     '<button class="cpx-i' + (S.cPlan === 'single' ? ' on' : '') + '" data-cplan="single"><span class="cpx-r"></span><div class="cpx-t"><em>原價</em><b>單買陪跑計劃</b><span>上過其他老師的課，或覺得自己已經有能力，只想學怎麼開課，都可以單獨購買</span></div><div class="cpx-p"><b>NT$16,800</b></div></button></div>' +
-    (S.cPlan === 'single' ? '<p class="tq">有優惠碼嗎？</p>' + codeBox : '') +
+    (S.cPlan === 'single' && COACH_CODE ? '<p class="tq">有優惠碼嗎？</p>' + codeBox : '') +
 
     '<p class="cc-h">02　適合這樣的你</p><ul class="cfor2">' + COACH_FOR.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>' +
     '<p class="cc-h">03　陪跑計劃包含</p><ol class="cc-list">' + COACH_GETS.map(function (g) { return '<li><b>' + g[0] + '</b><span>' + g[1] + '</span></li>'; }).join('') + '</ol>' +

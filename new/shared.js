@@ -217,7 +217,7 @@ function sessionsFor(k) {
 function renderCourse() {
   var c = C(S.k), host = document.querySelector('[data-pg="course"]'); if (!host) return;
   host.querySelectorAll('[data-f]').forEach(function (e) { var v = c[e.dataset.f]; if (v != null) e.textContent = v; });
-  host.querySelectorAll('[data-img]').forEach(function (e) { e.src = S.k === 'teacher' ? 'img_banner/teacher.jpg' : IMG + (S.k === 'online' ? 'img/work5.jpg' : 'img/mandala-beige.jpg'); });
+  host.querySelectorAll('[data-img]').forEach(function (e) { e.src = S.k === 'teacher' ? 'img_banner/teacher-43.jpg' : S.k === 'online' ? IMG + 'img/work5.jpg' : 'img_banner/beginner-43.jpg'; /* 2026-11-27 Kimi：課程主圖改 4:3 橫式，AI 擴圖不裁畫作 */ });
   host.querySelectorAll('[data-chips]').forEach(function (e) { e.innerHTML = (c.chips || ['在家上課', '材料包寄到家', '時間彈性']).map(function (x) { return '<span>' + x + '</span>'; }).join(''); });
   host.querySelectorAll('[data-perks]').forEach(function (e) { e.innerHTML = (c.perks || ['材料包寄到家', '視訊一對一帶畫', '時間報名後用 LINE 約']).slice(0, 4).map(function (x) { return '<li>' + x + '</li>'; }).join(''); });
   var en = host.querySelector('[data-en]'); if (en) en.textContent = { beginner: 'BEGINNER CLASS', teacher: 'ADVANCED CLASS', online: 'ONLINE CLASS' }[S.k] || '';

@@ -284,6 +284,11 @@ function aboutTeacher(b, info, gets, cmp) {
     '<div class="pair2"><img src="img_class/t02.jpg" alt="" loading="lazy" data-zoom><img src="img_class/t07.jpg" alt="" loading="lazy" data-zoom></div>' +
     '<p class="dk dkc ab">課程資訊</p><ul class="rows">' + info.map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('') + '</ul>';
 }
+var REVIEWS = [
+  ['昨天心情不是很好，為了靜心隨手畫了一幅，覺得好神奇，<b>真的有被療癒到。</b>', '台中・零基礎班學員'],
+  ['真的很療癒。未來你有新的作品或才藝，<b>如果我有喜歡的，也會繼續和您學習。</b>', '台中・零基礎班學員'],
+  ['我回到新竹了，<b>今天的體驗我很喜歡。</b>', '新竹・零基礎班學員']
+];
 function detailHtml(k) {
   var b = COURSES[k === 'teacher' ? 'teacher' : 'beginner'], on = k === 'online';
   var info = b.info.map(function (r) { return [r[0], r[1].replace(/<a[^>]*>|<\/a>/g, '')]; });
@@ -307,7 +312,9 @@ function detailHtml(k) {
     // 2026-11-27 Kimi：學員作品牆（初階班／線上），先放 9 張，「看更多作品」展開到 18 張；照片 img_class/w01～w18（素材/2026-11-27_課程照片相機質感/學員作品牆）
     (T ? '' : '<section class="ds dcard" id="ds-works"><div class="uh"><b>學員作品</b><span>零基礎同學在課堂上完成的第一幅作品</span></div><div class="wall">' +
       [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18].map(function (i) { return '<img src="img_class/w' + (i < 10 ? '0' : '') + i + '.jpg" alt="學員作品" loading="lazy" data-zoom>'; }).join('') +
-      '</div><button class="clm" data-wall>看更多作品</button></section>') +
+      '</div><button class="clm" data-wall>看更多作品</button>' +
+      // 2026-11-27 Kimi：學員心得（取自官方 LINE，Kimi 決定不具名：只留原話＋地區，名字頭像都不放；清單在 素材/學員心得/2026-11-27_官方LINE心得候選.md）
+      '<div class="uh rv-h"><b>學員心得</b><span>來自 LINE 的真實回饋</span></div><div class="rvs">' + REVIEWS.map(function (r) { return '<figure class="rvq"><blockquote>' + r[0] + '</blockquote><figcaption>— ' + r[1] + '</figcaption></figure>'; }).join('') + '</div></section>') +
     '<section class="ds dcard" id="ds-units"><div class="uh"><b>課程單元</b><span>' + b.lessons.length + ' 大主題・' + nItems + ' 個重點</span><button data-uall>全部展開</button></div>' +
       b.lessons.map(function (l, i) { return '<div class="un' + (i ? '' : ' on') + '"><button class="un-h lh" data-un><span>主題' + '一二三四五六七八'[i] + '</span>' + l[0] + '<i></i></button><ul class="dl un-b">' + l[1].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul></div>'; }).join('') +
     '</section>' +

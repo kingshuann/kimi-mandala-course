@@ -348,11 +348,9 @@
 .ir-h{justify-content:space-between;padding:15px 16px;font-family:'Noto Serif TC',serif;font-size:15px;font-weight:600;letter-spacing:.06em}
 .ir-h i,.un-h i{flex:none;width:8px;height:8px;border-right:1.5px solid var(--olive2);border-bottom:1.5px solid var(--olive2);transform:rotate(45deg);margin:-4px 4px 0 auto;transition:transform .2s}
 .ir.on>.ir-h i,.un.on>.un-h i{transform:rotate(-135deg);margin-top:4px}
-/* 2026-11-28 Kimi：Q 跟 A 要分得出來 → 問題前面 Q、答案前面 A＋淡底、字比較細 */
-.qac .ir-h{display:flex;align-items:flex-start;gap:8px;text-align:left}
-.qac .qk{flex:none;font:400 17px/1.35 'Marcellus',serif;font-style:normal;color:var(--olive)}
-.qac .qa-a{display:flex;gap:8px;margin:0;padding:12px 14px;border-radius:10px;background:rgba(88,98,74,.07);font-family:'Noto Sans TC',sans-serif;font-weight:400;font-size:13.5px;line-height:1.8;color:#5A5648}
-.qac .qa-a .qk{color:#B5AA98}
+/* 2026-11-28 Kimi：Q 跟 A 用字體和顏色分：問題＝明體深綠粗字，答案＝黑體淡咖啡細字（不要 Q/A 字母和底色框） */
+.qac .ir-h{color:var(--olive);text-align:left}
+.qac .qa-a{margin:-4px 0 0;font-family:'Noto Sans TC',sans-serif;font-weight:400;font-size:13.5px;line-height:1.85;letter-spacing:.02em;color:#857867}
 .icard .ir .ir-b,.dcard .un .un-b{display:none}.icard .ir.on .ir-b{display:block;padding:0 16px 16px}.dcard .un.on .un-b{display:grid}
 .uh{display:flex;align-items:baseline;gap:8px;margin:6px 2px 12px}
 .uh b{font-family:'Noto Serif TC',serif;font-size:17px;letter-spacing:.1em;color:var(--olive);font-weight:600}
@@ -1040,7 +1038,9 @@ img[src*="img_collab/"]{object-position:74% 50% !important}
 .gets.pain.who{gap:2px}
 .gets.pain.who li{padding:6px 4px 6px 22px;border-bottom:0}
 .gets.pain.who li::before{content:'✓';display:block;left:4px;top:7px;width:auto;height:auto;border:0;font-size:12px;line-height:20px;color:var(--olive2)}
-.gets.pain.who b{font-size:14px;font-weight:500}
+/* 2026-11-28 Kimi：誰適合的字體跟攜帶物品、注意事項一樣 */
+.gets.pain.who b{font-family:'Noto Sans TC',sans-serif !important;font-size:13px !important;font-weight:500 !important;letter-spacing:normal !important;color:#4A4D42 !important}
+.gets.pain.who li{font-size:13px}
 .pq{margin:18px 0 4px;padding:4px 0 4px 16px;border-left:3px solid #3E4733;text-align:left;font-family:'Noto Serif TC',serif;font-size:15px;font-weight:500;line-height:1.9;letter-spacing:.06em;color:#3E4733}
 /* 2026-11-28 Kimi：金句不要左邊那條線 → 置中，上下各一排小點點（呼應點點曼陀羅） */
 .pq{border-left:0;padding:6px 8px;text-align:center;margin:22px 0 8px;font-size:15.5px}
@@ -1638,7 +1638,7 @@ body.dopen .fab{opacity:0;pointer-events:none}
 <div class="fab"><a class="f-ig" href="https://www.instagram.com/imikdots" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="#fff" stroke="none"/></svg></a><a class="f-line" href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener" aria-label="LINE 私訊 Kimi"><svg viewBox="0 0 24 24" fill="#fff"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a></div>
 </div>
 <script src="../data.js?v=1125a"></script>
-<script src="shared.js?v=1201b"></script>
+<script src="shared.js?v=1201c"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="sb-config.js?v=1123p"></script>
 <script src="member.js?v=1124d"></script>

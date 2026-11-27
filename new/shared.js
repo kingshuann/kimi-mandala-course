@@ -1007,6 +1007,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // 選單：全部課程預設收起，點一下展開／收起
 document.addEventListener('click', function (e) {
+  // 2026-11-28 Kimi：整行（箭頭以外）點了都跳到全部課程，只有箭頭負責展開
+  var row0 = e.target.closest('.drw-acc');
+  if (row0 && !e.target.closest('[data-acc]') && !e.target.closest('.drw-acc-t')) { row0.querySelector('.drw-acc-t').click(); return; }
   var t = e.target.closest('[data-acc]'); if (!t) return;
   var row = t.closest('.drw-acc') || t, open = row.classList.toggle('open'); t.setAttribute('aria-expanded', open);
 });

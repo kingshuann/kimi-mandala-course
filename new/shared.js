@@ -300,9 +300,16 @@ function chibi(t) {
     '<ellipse cx="13.6" cy="27.3" rx="2" ry="1.2" fill="#F4A6A6" opacity=".6"/><ellipse cx="26.4" cy="27.3" rx="2" ry="1.2" fill="#F4A6A6" opacity=".6"/>' +
     '<path d="M18.3 28.2q1.7 1.4 3.4 0" stroke="#B5655A" stroke-width=".9" fill="none" stroke-linecap="round"/></svg>';
 }
+// 依日期排序：最新的在前面（2026-11-27 Kimi）；同一天的照原本順序
+function lrSorted() {
+  function key(r) { var m = (r[1] || '').match(/(\d+)\/(\d+)/); return m ? (+m[1]) * 100 + (+m[2]) : -1; }
+  return LINE_REVIEWS.map(function (r, i) { return [r, i]; }).sort(function (a, b) { return key(b[0]) - key(a[0]) || a[1] - b[1]; }).map(function (x) { return x[0]; });
+}
 var LINE_REVIEWS = [
-  // 2026-11-27 Kimi 提供截圖（10/31 台北班），Kimi 指定原文分三段，一段一個泡泡
-  ['台北・零基礎班學員', '10/31（六）', ['由衷感謝金老師的用心教導！在金老師的帶領下，我們學習繪畫曼陀羅，不僅收穫了豐富的繪畫知識與技巧，更在每一次的創作過程中，體驗到內心的平靜與美好。', '金老師細心、耐心的引導，讓我們能夠自在地探索色彩與線條，從中發現自己的創造力，也獲得許多意想不到的收穫。', '非常感謝金老師的專業與熱忱，讓這段學習旅程充滿意義與感動。遇見金老師，學習曼陀羅，真的是一件非常幸福的事！'], 'bun'],
+  // 2026-11-27 Kimi 提供截圖（10/31 台北班），Kimi 指定原文分三段，做成三張卡並排
+  ['台北・零基礎班學員', '10/31（六）', ['由衷感謝金老師的用心教導！在金老師的帶領下，我們學習繪畫曼陀羅，不僅收穫了豐富的繪畫知識與技巧，更在每一次的創作過程中，體驗到內心的平靜與美好。'], 'bun'],
+  ['台北・零基礎班學員', '10/31（六）', ['金老師細心、耐心的引導，讓我們能夠自在地探索色彩與線條，從中發現自己的創造力，也獲得許多意想不到的收穫。'], 'bun'],
+  ['台北・零基礎班學員', '10/31（六）', ['非常感謝金老師的專業與熱忱，讓這段學習旅程充滿意義與感動。遇見金老師，學習曼陀羅，真的是一件非常幸福的事！'], 'bun'],
   ['台中・零基礎班學員', '7/30（四）', ['昨天心情不是很好，為了靜心隨手畫了一幅，覺得好神奇，真的有被療癒到'], 'long'],
   ['台中・零基礎班學員', '9/23（三）', ['真的很療癒。', '未來你有新的作品或才藝，如果我有喜歡的，也會繼續和您學習。'], 'bun'],
   ['新竹・零基礎班學員', '10/19（一）', ['我回到家了，今天的體驗我很喜歡', '等我明天多畫幾張再傳給老師'], 'boy'],
@@ -338,7 +345,7 @@ function detailHtml(k) {
       [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18].map(function (i) { return '<img src="img_class/w' + (i < 10 ? '0' : '') + i + '.jpg" alt="學員作品" loading="lazy" data-zoom>'; }).join('') +
       '</div><button class="clm" data-wall>看更多作品</button>' +
       // 2026-11-27 Kimi：學員心得（取自官方 LINE，Kimi 決定不具名：只留原話＋地區，名字頭像都不放；清單在 素材/學員心得/2026-11-27_官方LINE心得候選.md）
-      '<div class="uh rv-h"><b>學員心得</b><span>來自 LINE 的真實回饋</span></div><div class="lchats">' + LINE_REVIEWS.map(function (r) { return '<div class="lcard"><div class="lhd"><i>‹</i><b>' + r[0] + '</b></div><div class="lbody">' + (r[1] ? '<span class="ldate">' + r[1] + '</span>' : '') + '<div class="lc"><span class="lav">' + chibi(r[3]) + '</span><div class="lcb">' + r[2].map(function (m, i) { return '<p class="lbub' + (i ? '' : ' t') + '">' + m + '</p>'; }).join('') + '</div></div></div></div>'; }).join('') + '</div><p class="cgal-n">左右滑動看更多 →</p></section>') +
+      '<div class="uh rv-h"><b>學員心得</b><span>來自 LINE 的真實回饋</span></div><div class="lchats">' + lrSorted().map(function (r) { return '<div class="lcard"><div class="lhd"><i>‹</i><b>' + r[0] + '</b></div><div class="lbody">' + (r[1] ? '<span class="ldate">' + r[1] + '</span>' : '') + '<div class="lc"><span class="lav">' + chibi(r[3]) + '</span><div class="lcb">' + r[2].map(function (m, i) { return '<p class="lbub' + (i ? '' : ' t') + '">' + m + '</p>'; }).join('') + '</div></div></div></div>'; }).join('') + '</div><p class="cgal-n">左右滑動看更多 →</p></section>') +
     '<section class="ds dcard" id="ds-units"><div class="uh"><b>課程單元</b><span>' + b.lessons.length + ' 大主題・' + nItems + ' 個重點</span><button data-uall>全部展開</button></div>' +
       b.lessons.map(function (l, i) { return '<div class="un' + (i ? '' : ' on') + '"><button class="un-h lh" data-un><span>主題' + '一二三四五六七八'[i] + '</span>' + l[0] + '<i></i></button><ul class="dl un-b">' + l[1].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul></div>'; }).join('') +
     '</section>' +

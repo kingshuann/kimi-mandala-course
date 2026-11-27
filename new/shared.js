@@ -301,7 +301,7 @@ function aboutBeginner(b, info, gets) {
     '<figure class="wrapfig"><img src="img_class/kimi-beauty.jpg" alt="Kimi 做美業的時候"></figure>' + // 2026-11-28 Kimi：雜誌風，照片在右、文字繞圖
     '<p class="sp">我從小被說不會畫畫、沒有創意，後來創業做美業 8 年，每天被工作追著跑。</p>' +
     '<p class="sp">最低潮的時候，我遇見點點曼陀羅。一個點、一個點畫下去，心慢慢安靜下來。</p>' +
-    '<p class="sp">一年內我畫了 200 多幅，也成為曼陀羅老師。所以我很確定：<b>零基礎，真的畫得出來。</b></p>' +
+    '<p class="sp" style="clear:both">一年內我畫了 200 多幅，也成為曼陀羅老師。所以我很確定：<b>零基礎，真的畫得出來。</b></p>' +
     '<h4 class="stt" style="margin-top:30px;clear:both">你是不是也這樣？</h4>' + gets(BEGINNER_PAIN, 'pain') + '<blockquote class="pq">初階班要做的，<br>就是陪你留一段時間給自己，<br>畫出第一幅屬於你的作品。</blockquote>' +
     bnr('b11', 'Features', '課程特色', 'c2') +
     ftMap('beginner', [['零基礎也能畫', '完全沒有美術基礎，也可以完成自己的作品。', 'pen'], ['你自己的作品', '不是臨摹', 'easel'], ['回家繼續畫', '工具大禮包帶回家', 'kit'], ['親手畫的禮物', '送朋友最有心意', 'gift']], '初階班<br>點點曼陀羅') +

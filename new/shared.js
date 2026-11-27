@@ -243,7 +243,7 @@ function bnr(n, en, zh, c) { return '<div class="bnr2 ' + (c || 'c1') + '"><div 
 // 課程特色總覽圖（2026-11-27 Kimi）：第二版改用 Higgsfield 生的桌面俯拍圖（img_class/fmap.jpg），4 個特色疊在 4 個角的小物旁邊
 // 左上工具＝1、右上木板畫布＝2、左下燭台＝3、右下禮物盒＝4
 function ftMap(center, nodes) {
-  return '<div class="fmap2"><div class="fm2-img"><img src="img_class/fmap.jpg" alt="課程特色總覽">' +
+  return '<div class="fmap2"><div class="fm2-img"><img src="img_class/fmap-b.jpg" alt="課程特色總覽">' +
     nodes.map(function (n, i) { return '<span class="fm2-dot d' + (i + 1) + '">' + (i + 1) + '</span>'; }).join('') + '</div><div class="fm2-g">' +
     nodes.map(function (n, i) { return '<div class="fm2"><i>' + (i + 1) + '</i><div><b>' + n[0] + '</b><small>' + n[1] + '</small></div></div>'; }).join('') + '</div></div>';
 }

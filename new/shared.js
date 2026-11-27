@@ -531,11 +531,15 @@ function openCal(list) {
       cells += has ? '<button class="cd has' + (pick === key ? ' on' : '') + '" data-cd="' + key + '">' + d + '<i>' + has + '場</i></button>' : '<span class="cd">' + d + '</span>';
     }
     var day = pick ? list.filter(function (s) { return s.date === pick; }) : [];
-    var lastM = list[list.length - 1].date.slice(0, 7), firstM = list[0].date.slice(0, 7);
+    // 2026-11-28 Kimi：左右箭頭要能點 → 從這個月起，至少能往後看 3 個月（場次更晚就看到最後一場）
+    var now = new Date(), fm = function (y, m) { var d = new Date(y, m, 1); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2); };
+    var firstM = fm(now.getFullYear(), now.getMonth()), lastM = list[list.length - 1].date.slice(0, 7), minLast = fm(now.getFullYear(), now.getMonth() + 3);
+    if (lastM < minLast) lastM = minLast;
+    var mHas = list.some(function (s) { return s.date.slice(0, 7) === ym; });
     ov.innerHTML = '<div class="calb"><button class="calx" data-cx>×</button><p class="calt">' + (S.city || '') + '・開課月曆</p>' +
       '<div class="calm"><button data-cm="-1"' + (ym <= firstM ? ' disabled' : '') + '>‹</button><b>' + Y + ' 年 ' + (M + 1) + ' 月</b><button data-cm="1"' + (ym >= lastM ? ' disabled' : '') + '>›</button></div>' +
       '<div class="calg"><em>日</em><em>一</em><em>二</em><em>三</em><em>四</em><em>五</em><em>六</em>' + cells + '</div>' +
-      (pick ? '<div class="cals"><p>' + (+pick.split('-')[1]) + '/' + (+pick.split('-')[2]) + ' 的場次</p>' + day.map(function (s) { return '<button data-cs="' + list.indexOf(s) + '">' + (S.k === 'teacher' ? '兩日 09:00–17:00' : slotEmo(s.time) + (s.time ? '　' + s.time : '')) + '<span>選這場 ›</span></button>'; }).join('') + '</div>' : '<p class="calh">點有標示的日期，看當天場次</p>') + '</div>';
+      (!mHas ? '<p class="calh">這個月還沒有公告場次，歡迎<a href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener">私訊官方 LINE</a> 詢問 🌿</p>' : pick ? '<div class="cals"><p>' + (+pick.split('-')[1]) + '/' + (+pick.split('-')[2]) + ' 的場次</p>' + day.map(function (s) { return '<button data-cs="' + list.indexOf(s) + '">' + (S.k === 'teacher' ? '兩日 09:00–17:00' : slotEmo(s.time) + (s.time ? '　' + s.time : '')) + '<span>選這場 ›</span></button>'; }).join('') + '</div>' : '<p class="calh">點有標示的日期，看當天場次</p>') + '</div>';
   }
   ov.onclick = function (ev) {
     ev.stopPropagation(); var t = ev.target.closest('button');

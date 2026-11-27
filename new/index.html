@@ -226,6 +226,13 @@
 .pz .pz-t b{display:block;margin:0;font-size:16px;letter-spacing:.04em}
 .pz .pz-t small{display:block;margin-top:4px;font-size:12.5px;color:#7A6A58}
 .pz .pz-ic{display:none}
+/* 2026-11-28 Kimi：田字格大標放在數字右邊；數字改橄欖綠（標準色沒有磚橘） */
+.pz .pz-t{display:grid !important;grid-template-columns:auto 1fr;column-gap:7px;align-items:center}
+.pz .pz-tx{display:contents !important}
+.pz .pz-t i{grid-column:1;grid-row:1;margin:0 !important;font-size:24px !important;color:var(--olive) !important}
+.pz .pz-t b{font-size:15px !important;letter-spacing:.02em !important;white-space:nowrap}
+.pz .pz-t b{grid-column:2;grid-row:1}
+.pz .pz-t small{grid-column:1 / -1;grid-row:2;margin-top:8px !important}
 .pz-ic{color:#5A4636;position:relative;z-index:3}
 .pz-ic svg{width:40px;height:40px;display:block}
 .pz-t i{font:400 13px/1 'Marcellus',serif;font-style:normal;color:#B07A55;letter-spacing:.14em;margin-top:6px;position:relative;z-index:3}
@@ -1017,6 +1024,15 @@ img[src*="img_collab/"]{object-position:74% 50% !important}
 .gets.pain li::before{content:'✓';position:absolute;left:4px;top:14px;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--olive2);color:var(--olive2);font-size:12px;font-weight:700;line-height:20px;text-align:center}
 .gets.pain b{font-size:15px;letter-spacing:.05em;color:var(--ink)}
 .gets.pain span{margin-top:2px;font-size:13px;line-height:1.7;color:#7A6A58}
+/* 2026-11-28 Kimi：「上完課你會帶走」「誰適合這堂課」跟上面的勾選清單統一 */
+.tkh{background:none;border:0;border-radius:0;padding:0;box-shadow:none;margin:26px 0 10px;color:inherit}
+.tkh .stt{margin-bottom:2px}
+.gets.pain.tkl li::before{content:attr(data-n);font:400 13px/20px 'Marcellus',serif;font-weight:400}
+.gets.pain.who{margin:0}
+/* 2026-11-28 Kimi：誰適合這堂課不要打勾，只留虛線分隔 */
+.gets.pain.who li{padding:11px 4px}
+.gets.pain.who li::before{content:none;display:none}
+.gets.pain.who b{font-size:14px;font-weight:500}
 .pq{margin:18px 0 4px;padding:4px 0 4px 16px;border-left:3px solid #3E4733;text-align:left;font-family:'Noto Serif TC',serif;font-size:15px;font-weight:500;line-height:1.9;letter-spacing:.06em;color:#3E4733}
 /* 2026-11-28 Kimi：金句不要左邊那條線 → 置中，上下各一排小點點（呼應點點曼陀羅） */
 .pq{border-left:0;padding:6px 8px;text-align:center;margin:22px 0 8px;font-size:15.5px}
@@ -1614,7 +1630,7 @@ body.dopen .fab{opacity:0;pointer-events:none}
 <div class="fab"><a class="f-ig" href="https://www.instagram.com/imikdots" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="#fff" stroke="none"/></svg></a><a class="f-line" href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener" aria-label="LINE 私訊 Kimi"><svg viewBox="0 0 24 24" fill="#fff"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a></div>
 </div>
 <script src="../data.js?v=1125a"></script>
-<script src="shared.js?v=1130x"></script>
+<script src="shared.js?v=1130y"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="sb-config.js?v=1123p"></script>
 <script src="member.js?v=1124d"></script>

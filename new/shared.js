@@ -273,8 +273,9 @@ function ftMap(kind, nodes, center) {
 }
 // 2026-11-27 Kimi：「上完課，你會帶走」（課後收穫，跟課程特色分開）；放在特色細節之後、把作品帶回生活之前
 function takeHome(kind, rows) {
-  return '<div class="tkh"><div class="fm5-hd"><span>' + (kind === 'teacher' ? 'ADVANCED' : 'BEGINNER') + ' ・ TAKE HOME</span><b>上完課，你會帶走</b><i>What you take home</i></div>' +
-    rows.map(function (r, i) { return '<div class="tkh-r"><i>0' + (i + 1) + '</i><div><b>' + r[0] + '</b><small>' + r[1] + '</small></div></div>'; }).join('') + '</div>';
+  // 2026-11-28 Kimi：跟「你是不是也這樣？」「誰適合這堂課」同一套樣式（圓圈＋虛線分隔），拿掉白卡和英文
+  return '<div class="tkh"><p class="stt">上完課，你會帶走</p><ul class="gets pain tkl">' +
+    rows.map(function (r, i) { return '<li data-n="' + (i + 1) + '"><b>' + r[0] + '</b><span>' + r[1] + '</span></li>'; }).join('') + '</ul></div>';
 }
 function aboutBeginner(b, info, gets) {
   var ft = [
@@ -408,7 +409,7 @@ function detailHtml(k) {
       b.lessons.map(function (l, i) { return '<div class="un' + (i ? '' : ' on') + '"><button class="un-h lh" data-un><span>主題' + '一二三四五六七八'[i] + '</span>' + l[0] + '<i></i></button><ul class="dl un-b">' + l[1].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul></div>'; }).join('') +
     '</section>' +
     '<section class="ds dcard" id="ds-who"><div class="icard">' +
-      ir('誰適合這堂課？', '<ul class="dl">' + b.who.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>', 1) +
+      ir('誰適合這堂課？', '<ul class="gets pain who">' + b.who.map(function (x) { return '<li><b>' + x + '</b></li>'; }).join('') + '</ul>', 1) +
       ir('攜帶物品', '<p class="dp">' + (on ? '什麼都不用準備，材料包會寄到家！' : b.bring) + '</p>') +
       ir('注意事項', '<ol class="dl">' + NOTES.map(function (n) { return '<li>' + n + '</li>'; }).join('') + '</ol>') +
       (T ? ir('報名條件', '<p class="dp">' + TEACHER_COND + '</p>') : '') +

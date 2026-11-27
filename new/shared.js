@@ -238,23 +238,24 @@ function renderCourse() {
 // 課程詳細介紹：內容取自舊網站（data.js 的 COURSES）
 // 初階班「關於課程」圖文版（2026-11-27 Kimi 參考 Hahow：緣起 → 痛點 → 特色 → 生活場景 → 課程資訊，照片穿插在文字裡）
 // 文案依 品牌/我的品牌根系.md；不把曼陀羅說成心理治療。照片在 img_class/（素材/2026-11-27_課程照片相機質感/初階班，同編號）
-function bnr(n, en, zh) { return '<div class="bnr"><img src="img_class/' + n + '.jpg" alt="" loading="lazy"><div><small>' + en + '</small><b>' + zh + '</b></div></div>'; }
+// 2026-11-27 Kimi：橫幅改扁的（參考 Hahow），純色底＋點點紋，文字清楚，旁邊只放一小張圓形作品圖點綴
+function bnr(n, en, zh, c) { return '<div class="bnr2 ' + (c || 'c1') + '"><div class="bt"><small>' + en + '</small><b>' + zh + '</b></div><span class="bi"><img src="img_class/' + n + '.jpg" alt="" loading="lazy"></span></div>'; }
 function aboutBeginner(b, info, gets) {
   var ft = [
     ['b01', '零基礎也畫得出來', '從怎麼拿筆、怎麼沾顏料、點出第一個圓點開始，一步一步帶你畫。不用會素描，也不需要美術底子，上完課你會發現：原來我也可以。'],
     ['b11', '不是臨摹，是你自己的作品', '這堂課教的是點、線、配色與構圖的方法，不是照著一張圖抄。同一堂課，每個人畫出來都不一樣，因為那是你自己的作品。'],
     ['b16', '帶走工具，回家繼續畫', '附贈工具大禮包（價值 $680），講義、工具筆和 10 件材料都讓你帶回家。很多手作課上完就結束了，這堂課希望你下課以後，還能自己繼續畫。']
   ];
-  return bnr('b06', 'Background', '課程緣起') +
+  return bnr('b09', 'Background', '課程緣起', 'c1') +
     '<h4 class="stt">從「我不會畫畫」開始</h4>' +
     '<p class="sp">我從小就被說不會畫畫、沒有創意。商管碩士畢業後進了廣告公司，後來創業做美業 8 年，每天都被工作追著跑。</p>' +
     '<p class="sp">直到在最焦慮、最低潮的時候遇見點點曼陀羅。一個點、一個點畫下去，心慢慢安靜下來，我才發現，原來可以把注意力放回當下。</p>' +
     '<p class="sp">一年內，我畫了超過 200 幅作品，也成為曼陀羅老師。所以我很確定：<b>零基礎，真的畫得出來。</b>現在，我想把這段安靜的時間帶給你。</p>' +
     '<p class="dk dkc ab">你是不是也這樣？</p>' + gets(BEGINNER_PAIN, 'pain') + '<blockquote class="pq">零基礎班要做的，<br>就是陪你留一段時間給自己，<br>畫出第一幅屬於你的作品。</blockquote>' +
-    bnr('b13', 'Features', '課程特色') +
+    bnr('b11', 'Features', '課程特色', 'c2') +
     ft.map(function (f, i) { return '<div class="cft"><img src="img_class/' + f[0] + '.jpg" alt="" loading="lazy" data-zoom><h4 class="stt"><i>' + (i + 1) + '</i>' + f[1] + '</h4><p class="sp">' + f[2] + '</p></div>'; }).join('') +
     '<div class="kitb"><b>工具大禮包內容</b><span>' + b.kit.join('・') + '</span></div>' +
-    bnr('b15', 'In Your Life', '把作品帶回生活') +
+    bnr('b14', 'In Your Life', '把作品帶回生活', 'c3') +
     '<p class="sp">畫好的作品放在書桌、床頭或玄關，每天看到，都會想起那個只屬於自己的下午。也可以送給朋友，或畫在杯墊、石頭、蠟燭等不同材質上。</p>' +
     '<p class="sp">不用每天畫很久。每週留 30 分鐘給自己，畫畫就會慢慢變成生活裡的小儀式。</p>' +
     '<div class="pair2"><img src="img_class/b09.jpg" alt="" loading="lazy" data-zoom><img src="img_class/b12.jpg" alt="" loading="lazy" data-zoom></div>' +

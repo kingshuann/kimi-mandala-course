@@ -419,6 +419,7 @@
 .txt{padding:18px 20px 0;display:grid;gap:10px;font-size:13.5px;line-height:1.9;color:#4A4D42}
 .nws{display:grid;gap:10px;padding:6px 16px}
 .nw{display:block;width:100%;background:var(--card);border-radius:14px;padding:14px 16px}
+.nw.nw-hot{border:1px solid var(--olive2)} /* 2026-11-28 Kimi：改版活動消息 */
 .nw small{font-size:11px;letter-spacing:.14em;color:var(--olive2)}
 .nw b{display:block;font-family:'Noto Serif TC',serif;font-weight:600;font-size:16px;letter-spacing:.1em;margin:4px 0 2px}
 .nw span{font-size:12.5px;color:var(--muted)}
@@ -1570,6 +1571,7 @@ body.dopen .fab{opacity:0;pointer-events:none}
 <section class="pg" data-pg="news"><div data-top="sub"></div>
   <div class="ttl"><span data-icon="leaf"></span><small class="ey">NEWS</small><h1>最新消息</h1><p>課程、新服務與活動，都會先在這裡公告。</p></div>
   <div class="nws">
+    <button class="nw nw-hot" data-login><small>2026.11　活動</small><b>網站全新改版！註冊會員送 NT$100 折價券</b><span>12/31 前註冊會員，即享 NT$100 折價券，可折抵第一筆訂單，使用期限到 2027/3/31。</span></button>
     <button class="nw" data-go="shop"><small>2026.11　課程</small><b>初階班全台開班中</b><span>台中、桃園等地近期都有場次，1 人也能報名線上課。</span></button>
     <button class="nw" data-soon><small>即將登場　好物</small><b>能量蠟燭</b><span>手繪點點曼陀羅燭台，點亮一盞療癒燭光。</span></button>
     <button class="nw" data-soon><small>即將登場　服務</small><b>塔羅牌占卜</b><span>抽一張牌，聽聽內心的聲音。</span></button>

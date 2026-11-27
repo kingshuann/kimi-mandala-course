@@ -73,9 +73,9 @@
 .pk{margin:16px 0 0;list-style:none;display:grid;gap:6px;font-size:13px}
 .pk li::before{content:'—';color:var(--olive2);margin-right:8px}
 /* 2026-11-28 Kimi：課程亮點改四欄大數字（細直線分隔） */
-.pk.hl4{grid-template-columns:repeat(4,1fr);gap:0;margin-top:18px;border-top:1px solid #CDBFA8;border-bottom:1px solid #CDBFA8}
-.pk.hl4 li{text-align:center;padding:12px 2px 11px}
-.pk.hl4 li+li{border-left:1px solid #CDBFA8}
+.pk.hl4{grid-template-columns:repeat(4,1fr);gap:6px;margin-top:16px}
+.pk.hl4 li{text-align:center;padding:12px 2px 11px;background:var(--card2);border:1px solid var(--line);border-radius:14px}
+/* 2026-11-28 Kimi：拿掉磚橘色和格線，改成跟網站其他卡片一樣的淺底圓角小卡、數字用橄欖綠 */
 .pk.hl4 li::before{display:none}
 /* 2026-11-28 Kimi：查看完整月曆 */
 .calk{display:block;margin:10px 0 0;padding:0;background:none;border:0;font:inherit;font-size:13px;letter-spacing:.06em;color:var(--olive);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
@@ -98,8 +98,8 @@
 .cals p{font-size:13px;font-weight:700;color:var(--ink);margin:0 0 8px}
 .cals button{display:flex;justify-content:space-between;align-items:center;width:100%;margin-bottom:6px;padding:11px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card2);font:inherit;font-size:13.5px;color:var(--ink);cursor:pointer}
 .cals button span{font-size:12px;color:var(--olive)}
-.pk.hl4 b{display:block;font:400 26px/1.1 'Marcellus','Noto Serif TC',serif;color:#B07A55;white-space:nowrap}
-.pk.hl4 span{display:block;margin-top:5px;font-size:11.5px;line-height:1.45;color:var(--ink);letter-spacing:.02em}
+.pk.hl4 b{display:block;font:400 24px/1.1 'Marcellus','Noto Serif TC',serif;color:var(--olive);white-space:nowrap}
+.pk.hl4 span{display:block;margin-top:5px;font-size:11px;line-height:1.45;color:var(--muted);letter-spacing:.02em}
 .lbl{font-family:'Marcellus';font-size:11px;letter-spacing:.2em;margin:20px 0 9px;color:var(--olive2)}
 .lbl.stp{display:flex;align-items:center;gap:9px;font-family:'Noto Serif TC',serif;font-size:16px;font-weight:600;letter-spacing:.08em;color:var(--ink);margin:28px 0 12px}
 .lbl.stp i{flex:none;width:22px;height:22px;border-radius:50%;background:var(--olive);color:#F3EDE2;font:500 12px/22px 'Marcellus',serif;letter-spacing:0;text-align:center;font-style:normal}

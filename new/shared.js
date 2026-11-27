@@ -227,13 +227,13 @@ function renderCourse() {
   var up = host.querySelector('[data-upn]'); if (up) { up.hidden = false; up.className = 'upn' + (S.k === 'teacher' ? ' big' : '');
     // 2026-11-26 Kimi：兩日進階班頁最上面放聳動標題，三種學生一行一句
     // 2026-11-26 Kimi：改成優惠券樣式，細節點「了解詳情」彈窗看
-    up.innerHTML = S.k === 'teacher' ? '<div class="gft"><div class="gft-t"><small>BONUS・兩日進階班限定優惠</small><b>報兩日進階班，零基礎免費送</b></div><button data-cpn>了解詳情</button></div>'
+    up.innerHTML = S.k === 'teacher' ? '📚 報<em class="upk">兩日進階班</em>，<button class="upk" data-go="course:beginner">初階班</button>免費送<small>上完初階班 2 週內再報，只要 NT$25,000・<button data-cpn>了解詳情 ›</button></small>' /* 2026-11-28 Kimi：改成跟初階班一樣的淡底提示框 */
       : '📚 <em class="upk">初階班</em>和<button class="upk" data-go="course:teacher">兩日進階班</button>一起報名，初階班免費送<small>上完初階班 2 週內再報，兩日進階班只要 NT$25,000</small>'; }
   // 2026-11-26 Kimi：初階／進階直接寫在班名前面，兩日進階班加「兩日」；線上併在零基礎班裡，標題一樣
   var h1 = host.querySelector('h1[data-f]'); if (h1) h1.innerHTML = S.k === 'teacher' ? stg('t') + '<span class="h1s">兩日進階班：</span>職人研修' : stg('b') + '<span class="h1s">初階班：</span>零基礎入門';
   var lh = host.querySelector('[data-lvh]'); if (lh) { lh.textContent = ''; lh.hidden = true; }
   var lv = host.querySelector('[data-lv]'); if (lv) lv.innerHTML = ''; // 2026-11-26 Kimi：課程頁先不放「看比較表」連結，比較表只在全部課程頁
-  if (up) up.className = S.k === 'teacher' ? 'upn cpw' : 'upn upb';
+  if (up) up.className = 'upn upb';
   var cb = host.querySelector('[data-cpn]'); if (cb) cb.onclick = function (ev) { ev.stopPropagation(); cpnOpen(); };
   var dt = host.querySelector('[data-detail]'); if (dt) dt.innerHTML = detailHtml(S.k);
   renderPick();

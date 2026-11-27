@@ -1982,7 +1982,7 @@ document.addEventListener('DOMContentLoaded', renderUpcoming);
 // 結帳頁：購物車有課程時才顯示「報名資料」
 (function () { var r = window.renderCart; if (!r) return; window.renderCart = function () { r.apply(this, arguments); var f = document.querySelector('[data-signform]'); if (f) f.style.display = S.cart.some(function (x) { return !x.prod; }) ? '' : 'none'; }; })();
 </script>
-<script src="shop-live.js?v=1125a"></script>
+<script src="shop-live.js?v=1128a"></script>
 <script>
 // 點點月刊：go('issue:1') 顯示第 1 期（之後新增一期就多一個 data-issue）
 (function () { var g0 = go; go = function (p, f) { g0(p, f); if (S.page !== 'issue') return; var n = (String(p).split('#')[0].split(':')[1]) || '1'; document.querySelectorAll('[data-issue]').forEach(function (z) { z.hidden = z.dataset.issue !== n; }); }; })();

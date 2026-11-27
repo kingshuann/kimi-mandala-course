@@ -18,7 +18,9 @@
       .then(function (r) { if (!r.ok) throw 0; return r.json(); })
       .then(function (rows) {
         if (!Array.isArray(rows) || !rows.length) return;
-        PRODUCTS = rows.map(mapP);
+        // 2026-11-28 Kimi：〈森林呼吸〉〈星夜〉不是 Kimi 的作品，先不顯示（後台跑 10_原創畫作整理.sql 下架後這行可留著）
+        var HIDE = ['art-forest', 'art-night'];
+        PRODUCTS = rows.filter(function (r) { return HIDE.indexOf(r.id) < 0; }).map(mapP);
         // 購物車裡的商品換成最新資料（價錢、庫存）
         S.cart.forEach(function (x) { if (x.prod) { var n = PRODUCTS.filter(function (p) { return p.id === x.prod.id; })[0]; if (n) x.prod = n; } });
         var on = document.querySelector('.sp-tabs [data-sp].on');

@@ -383,7 +383,7 @@ var LINE_REVIEWS = [
   ['台中・零基礎班學員', '7/30（四）', ['昨天心情不是很好，為了靜心隨手畫了一幅，覺得好神奇，真的有被療癒到'], 'long'],
   ['台中・零基礎班學員', '9/23（三）', ['真的很療癒。', '未來你有新的作品或才藝，如果我有喜歡的，也會繼續和您學習。'], 'bun'],
   ['新竹・零基礎班學員', '10/19（一）', ['我回到家了，今天的體驗我很喜歡', '等我明天多畫幾張再傳給老師'], 'boy'],
-  ['高雄・線上零基礎班學員', '11/1（日）', ['老師今天謝謝您', '很療癒', '想問老師兩日進階班的課程內容是會教哪些進階技法呢？'], 'bob'],
+  ['零基礎班學員', '11/1（日）', ['老師今天謝謝您', '很療癒', '想問老師兩日進階班的課程內容是會教哪些進階技法呢？'], 'bob'],
   // 舊版網站的學員評價（正式網站/data.js 的 REVIEWS，原文照搬）；日期與地區 2026-11-27 Kimi 更正
   ['台中・零基礎班學員', '10/12（一）', ['我才發現已經好久沒有把自己的時間排進生活裡了，原來陪伴自己可以這麼放鬆，完成之後又這麼有成就感！'], 'bob'],
   ['高雄・零基礎班學員', '8/22（六）', ['非常喜歡自己做的成品，沒想到我能這樣畫畫。我是容易緊張的人，沒想到整堂課開心又放鬆！'], 'long'],
@@ -412,7 +412,7 @@ function detailHtml(k) {
     '</div><button class="clm" data-clm>查看更多</button></section>' +
     // 2026-11-27 Kimi：學員作品牆（初階班／線上），先放 9 張，「看更多作品」展開到 18 張；照片 img_class/w01～w18（素材/2026-11-27_課程照片相機質感/學員作品牆）
     (T ? '' : '<section class="ds dcard" id="ds-works"><div class="uh"><b>學員作品</b><span>零基礎同學在課堂上完成的第一幅作品</span></div><div class="wall">' +
-      [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18].map(function (i) { return '<img src="img_class/w' + (i < 10 ? '0' : '') + i + '.jpg?v=1201k" alt="學員作品" loading="lazy" data-zoom>'; }).join('') +
+      [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18].map(function (i) { return '<img src="img_class/w' + (i < 10 ? '0' : '') + i + '.jpg?v=1201m" alt="學員作品" loading="lazy" data-zoom>'; }).join('') +
       '</div><button class="clm" data-wall>看更多作品</button>' +
       // 2026-11-27 Kimi：學員心得（取自官方 LINE，Kimi 決定不具名：只留原話＋地區，名字頭像都不放；清單在 素材/學員心得/2026-11-27_官方LINE心得候選.md）
       '<div class="uh rv-h"><b>學員心得</b><span>來自 LINE 的真實回饋</span></div><div class="lchats">' + lrSorted().map(function (r) { return '<div class="lcard"><div class="lhd"><i>‹</i><b>' + r[0] + '</b></div><div class="lbody">' + (r[1] ? '<span class="ldate">' + r[1] + '</span>' : '') + '<div class="lc"><span class="lav">' + chibi(r[3]) + '</span><div class="lcb">' + r[2].map(function (m, i) { return '<p class="lbub' + (i ? '' : ' t') + '">' + m + '</p>'; }).join('') + '</div></div></div></div>'; }).join('') + '</div><p class="cgal-n">左右滑動看更多 →</p></section>') +

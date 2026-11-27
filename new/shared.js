@@ -244,15 +244,19 @@ function detailHtml(k) {
     '<div class="vtb"><div class="vtb-r vtb-h"><span></span><span>一般繪畫課</span><span>這堂課</span></div>' + b.compare.map(function (r) { return '<div class="vtb-r"><b>' + r[0] + '</b><span>' + r[1] + '</span><span>' + r[2] + '</span></div>'; }).join('') + '</div>';
   var n = 0, no = function () { n++; return (n < 10 ? '0' : '') + n + '　'; }, T = k === 'teacher';
   function gets(list, cls) { return '<ul class="gets' + (cls ? ' ' + cls : '') + '">' + list.map(function (g) { return '<li><b>' + g[0] + '</b><span>' + g[1] + '</span></li>'; }).join('') + '</ul>'; }
-  return '<section class="ds"><p class="dk dkc">你是不是也這樣？</p>' + gets(T ? TEACHER_PAIN : BEGINNER_PAIN, 'pain') + '<blockquote class="pq">' + (T ? '兩日進階班要做的，<br>就是陪你把作品，一點一點畫得更美。' : '零基礎班要做的，<br>就是陪你留一段時間給自己，<br>畫出第一幅屬於你的作品。') + '</blockquote></section>' +
-    '<section class="ds"><p class="dk">' + no() + '課程資訊</p><ul class="rows">' + info.map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('') + '</ul></section>' +
+  // 2026-11-27 Kimi（參考 Hahow）：上方固定分頁籤；課程內容先收一半（查看更多）；大禮包、適合誰、須知、常見問題做成點了才展開
+  function acc(id, t, body) { return '<section class="ds acc" id="' + id + '"><button class="dk dka" data-acc>' + t + '<i></i></button><div class="acb">' + body + '</div></section>'; }
+  var tabs = [['ds-intro', '課程介紹'], ['ds-info', '課程內容'], ['ds-who', '適合誰'], ['ds-note', '報名須知']].concat(T ? [['ds-qa', '常見問題']] : []);
+  return '<nav class="dtab">' + tabs.map(function (x, i) { return '<button data-dtab="' + x[0] + '"' + (i ? '' : ' class="on"') + '>' + x[1] + '</button>'; }).join('') + '</nav>' +
+    '<section class="ds" id="ds-intro"><p class="dk dkc">你是不是也這樣？</p>' + gets(T ? TEACHER_PAIN : BEGINNER_PAIN, 'pain') + '<blockquote class="pq">' + (T ? '兩日進階班要做的，<br>就是陪你把作品，一點一點畫得更美。' : '零基礎班要做的，<br>就是陪你留一段時間給自己，<br>畫出第一幅屬於你的作品。') + '</blockquote></section>' +
+    '<section class="ds" id="ds-info"><p class="dk">' + no() + '課程資訊</p><ul class="rows">' + info.map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('') + '</ul></section>' +
     '<section class="ds"><p class="dk">' + no() + (T ? '不只學技法，更學會創作' : '並非臨摹，而是 0 到 1 獨立創作') + '</p>' + cmp + '</section>' +
-    '<section class="ds"><p class="dk">' + no() + '課程內容</p>' + b.lessons.map(function (l, i) { return '<h4 class="lh"><span>主題' + '一二三四五六七八'[i] + '</span>' + l[0] + '</h4><ul class="dl">' + l[1].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>'; }).join('') + '</section>' +
-    '<section class="ds"><p class="dk">' + no() + (T ? '附贈材料' : '工具大禮包') + '</p><ul class="dl">' + b.kit.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul><img class="fin" src="' + IMG + b.finalImg + '" alt="課程作品" loading="lazy"></section>' +
-    '<section class="ds"><p class="dk">' + no() + '誰適合這堂課？</p><ul class="dl">' + b.who.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul></section>' +
-    '<section class="ds"><p class="dk">' + no() + '報名須知</p><h4 class="lh">攜帶物品</h4><p class="dp">' + (on ? '什麼都不用準備，材料包會寄到家！' : b.bring) + '</p><h4 class="lh">注意事項</h4><ol class="dl">' + NOTES.map(function (n) { return '<li>' + n + '</li>'; }).join('') + '</ol>' +
-    (T ? '<p class="cond">🌿 ' + TEACHER_COND + '</p>' : '') + '</section>' +
-    (T ? '<section class="ds"><p class="dk">' + no() + '兩日進階班常見問題</p><div class="qa">' + TEACHER_QA.map(function (q, i) { return '<details' + (i ? '' : ' open') + '><summary>' + q[0] + '</summary><p>' + q[1] + '</p></details>'; }).join('') + '</div></section>' : '');
+    '<section class="ds clp" id="ds-lesson"><p class="dk">' + no() + '課程內容</p><div class="clb">' + b.lessons.map(function (l, i) { return '<h4 class="lh"><span>主題' + '一二三四五六七八'[i] + '</span>' + l[0] + '</h4><ul class="dl">' + l[1].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>'; }).join('') + '</div><button class="clm" data-clm>查看更多</button></section>' +
+    acc('ds-kit', no() + (T ? '附贈材料' : '工具大禮包'), '<ul class="dl">' + b.kit.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul><img class="fin" src="' + IMG + b.finalImg + '" alt="課程作品" loading="lazy">') +
+    acc('ds-who', no() + '誰適合這堂課？', '<ul class="dl">' + b.who.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>') +
+    acc('ds-note', no() + '報名須知', '<h4 class="lh">攜帶物品</h4><p class="dp">' + (on ? '什麼都不用準備，材料包會寄到家！' : b.bring) + '</p><h4 class="lh">注意事項</h4><ol class="dl">' + NOTES.map(function (n) { return '<li>' + n + '</li>'; }).join('') + '</ol>' +
+    (T ? '<p class="cond">🌿 ' + TEACHER_COND + '</p>' : '')) +
+    (T ? acc('ds-qa', no() + '兩日進階班常見問題', '<div class="qa">' + TEACHER_QA.map(function (q, i) { return '<details' + (i ? '' : ' open') + '><summary>' + q[0] + '</summary><p>' + q[1] + '</p></details>'; }).join('') + '</div>') : '');
 }
 // 陪跑計劃獨立頁（2026-11-26 Kimi：不放在兩日進階班頁下面，點「看陪跑計劃內容」才打開）
 function coachOpen() {
@@ -856,4 +860,29 @@ function slotEmo(t) { var n = slotName(t); return ({ '早班': '☀️', '午班
     }, true);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+
+// 課程頁：分頁籤、展開／收合（2026-11-27 Kimi，參考 Hahow）
+(function () {
+  function dtOn(id) { document.querySelectorAll('.dtab button').forEach(function (b) { b.classList.toggle('on', b.dataset.dtab === id); }); }
+  document.addEventListener('click', function (ev) {
+    var a = ev.target.closest('[data-acc]'); if (a) { a.parentElement.classList.toggle('on'); return; }
+    var m = ev.target.closest('[data-clm]'); if (m) { var c = m.parentElement; c.classList.toggle('open'); m.textContent = c.classList.contains('open') ? '收起' : '查看更多'; if (!c.classList.contains('open')) c.scrollIntoView({ block: 'start' }); return; }
+    var t = ev.target.closest('[data-dtab]'); if (t) {
+      var sec = document.getElementById(t.dataset.dtab); if (!sec) return;
+      if (sec.classList.contains('acc')) sec.classList.add('on');
+      var nav = t.parentElement, y = sec.getBoundingClientRect().top + window.scrollY - 64 - nav.offsetHeight - 6;
+      window.scrollTo({ top: y, behavior: 'smooth' }); dtOn(t.dataset.dtab);
+    }
+  });
+  var tick = 0;
+  window.addEventListener('scroll', function () {
+    if (tick) return; tick = 1;
+    requestAnimationFrame(function () {
+      tick = 0; var nav = document.querySelector('[data-pg="course"]:not([hidden]) .dtab'); if (!nav || !nav.offsetParent) return;
+      var lim = 64 + nav.offsetHeight + 20, cur = null;
+      nav.querySelectorAll('[data-dtab]').forEach(function (b) { var e = document.getElementById(b.dataset.dtab); if (e && e.getBoundingClientRect().top <= lim) cur = b.dataset.dtab; });
+      if (cur) dtOn(cur); else dtOn(nav.querySelector('[data-dtab]').dataset.dtab);
+    });
+  }, { passive: true });
 })();

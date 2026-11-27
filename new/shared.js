@@ -261,6 +261,29 @@ function aboutBeginner(b, info, gets) {
     '<div class="pair2"><img src="img_class/b09.jpg" alt="" loading="lazy" data-zoom><img src="img_class/b12.jpg" alt="" loading="lazy" data-zoom></div>' +
     '<p class="dk dkc ab">課程資訊</p><ul class="rows">' + info.map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('') + '</ul>';
 }
+// 兩日進階班「關於課程」圖文版（2026-11-27 Kimi，跟初階班同架構）。內容取自 COURSES.teacher 的單元／材料，照片 img_class/t01～t11
+function aboutTeacher(b, info, gets, cmp) {
+  var ft = [
+    ['t05', '學會大幅構圖', '獨家找圓心方法，加上直尺、模具尺、量角器精準分割畫面，搭配繪畫轉盤與大圓規，從 15 公分的小卡片，一路畫到 30 公分的圓形畫布。'],
+    ['t08', '多元材質與立體創作', '卡紙、木板、畫布、石膏、竹板，每種材質的打稿、底色和顏料附著方法都不一樣。課堂上會帶你畫立體石膏燭台，也學會用環氧樹脂保護作品。'],
+    ['t06', '告別同心圓，構圖更有層次', '3 種筆刷構圖模板、5 種特殊構圖實作，再加上配色層次的練習，讓作品不再只是一圈一圈往外畫，而是有深度、有自己的風格。']
+  ];
+  return bnr('t09', 'Background', '課程緣起', 'c1') +
+    '<h4 class="stt">從小卡片，到掛在牆上的作品</h4>' +
+    '<p class="sp">很多同學上完零基礎後，會一直畫 15 公分的小卡片。越畫越熟，卻開始卡住：想畫大一點，不知道圓心怎麼找、畫面怎麼分割；構圖來來去去，總是同心圓。</p>' +
+    '<p class="sp">我自己也走過這一段。一年內畫了超過 200 幅作品，從卡紙畫到木板、畫布和石頭，才慢慢整理出一套方法。</p>' +
+    '<p class="sp">兩日進階班，就是把這套方法完整教給你。<b>兩天，陪你把作品一點一點畫得更美。</b></p>' +
+    '<p class="dk dkc ab">你是不是也這樣？</p>' + gets(TEACHER_PAIN, 'pain') + '<blockquote class="pq">兩日進階班要做的，<br>就是陪你把作品，一點一點畫得更美。</blockquote>' +
+    bnr('t10', 'Features', '課程特色', 'c2') +
+    ft.map(function (f, i) { return '<div class="cft"><img src="img_class/' + f[0] + '.jpg" alt="" loading="lazy" data-zoom><h4 class="stt"><i>' + (i + 1) + '</i>' + f[1] + '</h4><p class="sp">' + f[2] + '</p></div>'; }).join('') +
+    '<p class="dk dkc ab">跟一般繪畫課有什麼不同？</p>' + cmp +
+    '<div class="kitb" style="margin-top:14px"><b>附贈材料</b><span>' + b.kit.join('・') + '</span></div>' +
+    bnr('t11', 'In Your Life', '把作品帶回生活', 'c3') +
+    '<p class="sp">兩天完成 4 件作品：15 公分厚木板、竹製杯墊、立體石膏燭台，還有一幅 30 公分含框的圓形畫布。掛在客廳或臥室，就是家裡最有溫度的一幅畫；燭台點上蠟燭，就是只屬於你的安靜角落。</p>' +
+    '<p class="sp">想再往前走一步，學會的技法也能延伸到更多材質，慢慢發展出自己的作品。想開自己的課，可以再加購「開課陪跑計劃」。</p>' +
+    '<div class="pair2"><img src="img_class/t02.jpg" alt="" loading="lazy" data-zoom><img src="img_class/t07.jpg" alt="" loading="lazy" data-zoom></div>' +
+    '<p class="dk dkc ab">課程資訊</p><ul class="rows">' + info.map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('') + '</ul>';
+}
 function detailHtml(k) {
   var b = COURSES[k === 'teacher' ? 'teacher' : 'beginner'], on = k === 'online';
   var info = b.info.map(function (r) { return [r[0], r[1].replace(/<a[^>]*>|<\/a>/g, '')]; });
@@ -279,12 +302,7 @@ function detailHtml(k) {
   var tabs = [['ds-about', '關於課程'], ['ds-units', '課程單元'], ['ds-who', '上課須知']].concat(T ? [['ds-qa', '常見問題']] : []);
   return '<nav class="dtab">' + tabs.map(function (x, i) { return '<button data-dtab="' + x[0] + '"' + (i ? '' : ' class="on"') + '>' + x[1] + '</button>'; }).join('') + '</nav>' +
     // 2026-11-27 Kimi：課堂紀錄相簿（素材/2026-11-27_課程照片相機質感，只挑沒拍到臉的、調成相機質感），左右滑、點了放大
-    '<section class="ds clp" id="ds-about"><div class="clb">' + (T ? '' +
-      '<p class="dk dkc">課堂紀錄</p><div class="cgal">' + (T ? ['t02', 't09', 't01', 't10', 't04', 't03', 't06', 't11', 't05', 't07', 't08'] : ['b01', 'b09', 'b02', 'b10', 'b03', 'b11', 'b04', 'b12', 'b05', 'b13', 'b06', 'b14', 'b07', 'b15', 'b08', 'b16']).map(function (n) { return '<img src="img_class/' + n + '.jpg" alt="課堂紀錄" loading="lazy" data-zoom>'; }).join('') + '</div><p class="cgal-n">左右滑動看更多 →</p>' +
-      '<p class="dk dkc">你是不是也這樣？</p>' + gets(T ? TEACHER_PAIN : BEGINNER_PAIN, 'pain') + '<blockquote class="pq">' + (T ? '兩日進階班要做的，<br>就是陪你把作品，一點一點畫得更美。' : '零基礎班要做的，<br>就是陪你留一段時間給自己，<br>畫出第一幅屬於你的作品。') + '</blockquote>' +
-      '<p class="dk dkc ab">課程資訊</p><ul class="rows">' + info.map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('') + '</ul>' +
-      '<p class="dk dkc ab">' + (T ? '不只學技法，更學會創作' : '並非臨摹，而是 0 到 1 獨立創作') + '</p>' + cmp +
-      '<p class="dk dkc ab">' + (T ? '附贈材料' : '工具大禮包') + '</p><ul class="dl">' + b.kit.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul><img class="fin" src="' + IMG + b.finalImg + '" alt="課程作品" loading="lazy">' : aboutBeginner(b, info, gets)) +
+    '<section class="ds clp" id="ds-about"><div class="clb">' + (T ? aboutTeacher(b, info, gets, cmp) : aboutBeginner(b, info, gets)) +
     '</div><button class="clm" data-clm>查看更多</button></section>' +
     '<section class="ds dcard" id="ds-units"><div class="uh"><b>課程單元</b><span>' + b.lessons.length + ' 大主題・' + nItems + ' 個重點</span><button data-uall>全部展開</button></div>' +
       b.lessons.map(function (l, i) { return '<div class="un' + (i ? '' : ' on') + '"><button class="un-h lh" data-un><span>主題' + '一二三四五六七八'[i] + '</span>' + l[0] + '<i></i></button><ul class="dl un-b">' + l[1].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul></div>'; }).join('') +

@@ -229,7 +229,8 @@ function renderCourse() {
   host.querySelectorAll('[data-chips]').forEach(function (e) { e.innerHTML = (c.chips || ['在家上課', '材料包寄到家', '時間彈性']).map(function (x) { return '<span>' + x + '</span>'; }).join(''); });
   // 2026-11-28 Kimi：課程標籤下面改成「大數字＋小字」四欄，講清楚學到什麼，不跟標籤重複
   var HL = HL4[S.k];
-  host.querySelectorAll('[data-perks]').forEach(function (e) { e.classList.toggle('hl4', !!HL); if (HL) { e.innerHTML = HL.map(function (x) { return '<li><b>' + x[0] + '</b><span>' + x[1] + '</span></li>'; }).join(''); return; } e.innerHTML = (c.perks || ['材料包寄到家', '視訊一對一帶畫', '時間報名後用 LINE 約']).slice(0, 4).map(function (x) { return '<li>' + x + '</li>'; }).join(''); });
+  // 2026-11-28 Kimi：價格優惠下面（選擇地區上面）也放課程單元那四句重點
+  host.querySelectorAll('[data-perks]').forEach(function (e) { var HS = HL4S[S.k]; e.className = 'pk' + (HS ? ' uhl2' : ''); if (HS) { e.innerHTML = HS.map(function (x) { return '<li>' + x + '</li>'; }).join(''); return; } e.innerHTML = (c.perks || ['材料包寄到家', '視訊一對一帶畫', '時間報名後用 LINE 約']).slice(0, 4).map(function (x) { return '<li>' + x + '</li>'; }).join(''); });
   var en = host.querySelector('[data-en]'); if (en) en.textContent = { beginner: 'BEGINNER CLASS', teacher: 'ADVANCED CLASS', online: 'ONLINE CLASS' }[S.k] || '';
   var up = host.querySelector('[data-upn]'); if (up) { up.hidden = false; up.className = 'upn' + (S.k === 'teacher' ? ' big' : '');
     // 2026-11-26 Kimi：兩日進階班頁最上面放聳動標題，三種學生一行一句

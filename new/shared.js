@@ -283,14 +283,16 @@ function aboutBeginner(b, info, gets) {
     ft.map(function (f, i) { return '<div class="cft"><img src="img_class/' + f[0] + '.jpg" alt="" loading="lazy" data-zoom><h4 class="stt"><i>' + (i + 1) + '</i>' + f[1] + '</h4><p class="sp">' + f[2] + '</p></div>'; }).join('') +
     takeHome('beginner', [['一幅 15cm 的曼陀羅作品', '課堂上親手完成，放上木質小畫架就能展示'], ['工具大禮包（價值 $680）', b.kit.join('・')], ['回家還能完成 10 件作品', '材料都帶回家，下課以後還能繼續畫'], ['獨立創作的能力', '學會點、線、配色與構圖的方法，不用再照著圖臨摹']]) +
     bnr('b14', 'In Your Life', '把作品帶回生活', 'c3') +
-    '<p class="sp">畫好的作品放在書桌、床頭或玄關，每天看到，都會想起那個只屬於自己的下午。也可以送給朋友，或畫在杯墊、石頭、蠟燭等不同材質上。</p>' +
-    '<p class="sp">不用每天畫很久。每週留 30 分鐘給自己，畫畫就會慢慢變成生活裡的小儀式。</p>' +
+    // 2026-11-28 Kimi：改寫成「建立生活儀式感、創造自己想要的生活方式」
+    '<p class="sp">這不只是一堂畫畫課。</p>' +
+    '<p class="sp">畫好的作品放在書桌、床頭或玄關，每天看到，都會想起那個只屬於自己的下午。每週留一段時間給自己，一個點、一個點畫下去，畫畫會慢慢變成生活裡的<b>小儀式</b>。</p>' +
+    '<p class="sp">更重要的是，你會發現：<b>你有能力，親手創造自己想要的生活方式。</b>把自己的創意和感受，畫進每天會用到、會看到的地方，讓生活一點一點，變成你喜歡的樣子。</p>' +
     // 2026-11-27 Kimi 的送禮故事
     '<h4 class="stt">親手畫出最有誠意的禮物</h4>' +
     // 2026-11-28 Kimi：同一個圖案畫在筆記本、書籤、馬克杯上（AI 生成準備包裝的禮物），三張並排
-    '<div class="trio"><img src="img_class/gift-notebook.jpg" alt="筆記本禮物" loading="lazy"><img src="img_class/gift-bookmark.jpg" alt="書籤禮物" loading="lazy"><img src="img_class/gift-mug.jpg" alt="馬克杯禮物" loading="lazy"></div>' +
+    '<div class="trio"><img src="img_class/gift-notebook.jpg" alt="筆記本禮物" loading="lazy"><img src="img_class/gift-bookmark2.jpg" alt="書籤禮物" loading="lazy"><img src="img_class/gift-mug2.jpg" alt="馬克杯禮物" loading="lazy"></div>' +
     '<p class="sp">送禮最難的，是不知道對方需要什麼。買了怕用不到，又怕對方心裡想：「怎麼會送這個？」想要有心、有誠意，卻常常不知道從哪裡下手。</p>' +
-    '<p class="sp">我有一位朋友在新北買了房子，我畫了一幅曼陀羅當作入厝禮；身邊好朋友過生日，我也常常送上自己的作品。<b>一點一點畫出來的心意，對方一看就懂。</b></p>' +
+    '<p class="sp">曾經有一位同學來上課，就是為了親手畫一幅曼陀羅，送給剛搬新家的朋友當入厝禮。<b>一點一點畫出來的心意，對方一看就懂。</b></p>' +
     '<p class="sp">親手畫一份獨一無二的禮物，也是另一種生活裡的儀式感。</p>' +
     '<div class="pair2"><img src="img_class/b09.jpg" alt="" loading="lazy" data-zoom><img src="img_class/b12.jpg" alt="" loading="lazy" data-zoom></div>' +
     '<p class="dk dkc ab">課程資訊</p><ul class="rows">' + info.map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('') + '</ul>';

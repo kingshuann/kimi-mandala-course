@@ -284,8 +284,8 @@ function aboutBeginner(b, info, gets) {
     takeHome('beginner', [['一幅 15cm 的曼陀羅作品', '課堂上親手完成，放上木質小畫架就能展示'], ['工具大禮包（價值 $680）', b.kit.join('・')], ['回家還能完成 10 件作品', '材料都帶回家，下課以後還能繼續畫'], ['獨立創作的能力', '學會點、線、配色與構圖的方法，不用再照著圖臨摹']]) +
     bnr('b14', 'In Your Life', '把作品帶回生活', 'c3') +
     // 2026-11-28 Kimi：改寫成「建立生活儀式感、創造自己想要的生活方式」
-    // 2026-11-28 Kimi：作品掛在玄關、客廳的情境圖（AI 生成，用 Kimi 兩幅原作）
-    '<div class="pair2"><img src="img_class/home-entry3.jpg" alt="作品掛在玄關" loading="lazy"><img src="img_class/home-living3.jpg" alt="作品掛在客廳" loading="lazy"></div>' +
+    // 2026-11-28 Kimi：初階班 15cm 黑卡紙作品放在玄關小畫架、書桌（AI 生成）；大畫掛牆的兩張移到兩日進階班
+    '<div class="pair2"><img src="img_class/card-entry.jpg" alt="15cm 作品放在玄關小畫架" loading="lazy"><img src="img_class/card-desk.jpg" alt="15cm 作品放在書桌" loading="lazy"></div>' +
     '<h4 class="stt">這不只是一堂畫畫課，而是生活儀式感</h4>' +
     '<p class="sp">畫好的作品放在書桌、床頭或玄關，每天看到，都會想起那個只屬於自己的下午。每週留一段時間給自己，一個點、一個點畫下去，畫畫會慢慢變成生活裡的<b>小儀式</b>。</p>' +
     '<p class="sp">更重要的是，你會發現：<b>你有能力，親手創造自己想要的生活方式。</b>把自己的創意和感受，畫進每天會用到、會看到的地方，讓生活一點一點，變成你喜歡的樣子。</p>' +
@@ -319,6 +319,7 @@ function aboutTeacher(b, info, gets, cmp) {
     '<p class="dk dkc ab">跟一般繪畫課有什麼不同？</p>' + cmp +
     takeHome('teacher', [['4 件不同材質的作品', '15cm 厚木板・竹製杯墊・立體石膏燭台・30cm 圓形畫布含框'], ['完整材料包＋獨家講義與練習本', b.kit.join('・')], ['大幅構圖的完整方法', '找圓心、精準分割、筆刷構圖模板與特殊構圖，回家也能自己畫大作品'], ['學員社群＋終身問答', '加入學員社群交流分享，之後創作遇到問題隨時可以問']]) +
     bnr('t11', 'In Your Life', '把作品帶回生活', 'c3') +
+    '<div class="pair2"><img src="img_class/home-entry3.jpg" alt="作品掛在玄關" loading="lazy"><img src="img_class/home-living3.jpg" alt="作品掛在客廳" loading="lazy"></div>' + // 2026-11-28 從初階班移過來
     '<p class="sp">兩天完成 4 件作品：15 公分厚木板、竹製杯墊、立體石膏燭台，還有一幅 30 公分含框的圓形畫布。掛在客廳或臥室，就是家裡最有溫度的一幅畫；燭台點上蠟燭，就是只屬於你的安靜角落。</p>' +
     // 2026-11-27 Kimi 的送禮故事（綠色大作品那位同學 → 照片 t04）
     '<h4 class="stt">把創作變成送得出手的禮物</h4>' +

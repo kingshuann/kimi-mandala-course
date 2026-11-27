@@ -242,16 +242,23 @@ function renderCourse() {
 function bnr(n, en, zh, c) { return '<div class="bnr2 ' + (c || 'c1') + '"><div class="bt"><small>' + en + '</small><b>' + zh + '</b></div><span class="bi"><img src="img_class/' + n + '.jpg" alt="" loading="lazy"></span></div>'; }
 // 課程特色總覽圖（2026-11-27 Kimi）：第二版改用 Higgsfield 生的桌面俯拍圖（img_class/fmap.jpg），4 個特色疊在 4 個角的小物旁邊
 // 左上工具＝1、右上木板畫布＝2、左下燭台＝3、右下禮物盒＝4
-// 2026-11-27 Kimi 第三版：海報式菱形概念圖（Kimi 說 AI 圖太假、字要在圖上）
-// 深綠底＋金色細框，4 個特色＝4 張課堂照片裁成圓，上/右/左/下排成菱形，中間課名，金線相連；文字直接疊在圖上
+// 2026-11-27 Kimi 第四版：雜誌風／簡報插圖風（淺米白底、細線條手繪圖示，不用照片、不要深綠神秘感）
+var FT_ICON = {
+  pen: '<path d="M14 34 L30 18" /><path d="M30 18 l3 -3" stroke-width="3"/><circle cx="12" cy="36" r="1.6" fill="currentColor"/><circle cx="16" cy="40" r="2.2" fill="currentColor" stroke="none"/><circle cx="22" cy="41" r="1.6" fill="currentColor" stroke="none"/><circle cx="27" cy="39" r="1.1" fill="currentColor" stroke="none"/>',
+  easel: '<circle cx="24" cy="19" r="10"/><circle cx="24" cy="19" r="2"/><circle cx="24" cy="12.5" r="1.2" fill="currentColor"/><circle cx="24" cy="25.5" r="1.2" fill="currentColor"/><circle cx="17.5" cy="19" r="1.2" fill="currentColor"/><circle cx="30.5" cy="19" r="1.2" fill="currentColor"/><path d="M17 29 l-4 12 M31 29 l4 12 M24 29 v9 M14 33 h20"/>',
+  kit: '<rect x="9" y="17" width="30" height="22" rx="3"/><path d="M19 17 v-4 h10 v4"/><circle cx="17" cy="25" r="2.6"/><circle cx="24" cy="25" r="2.6"/><circle cx="31" cy="25" r="2.6"/><circle cx="17" cy="32" r="2.6"/><circle cx="24" cy="32" r="2.6"/><circle cx="31" cy="32" r="2.6"/>',
+  gift: '<rect x="10" y="21" width="28" height="18" rx="2"/><rect x="8" y="16" width="32" height="6" rx="1.5"/><path d="M24 16 v23"/><path d="M24 16 c-3 -7 -11 -6 -8 -1 c1.5 2 5 1.5 8 1 z M24 16 c3 -7 11 -6 8 -1 c-1.5 2 -5 1.5 -8 1 z"/>',
+  compass: '<circle cx="24" cy="10" r="2.5"/><path d="M23 12 L15 38 M25 12 L33 38"/><path d="M14 30 q10 8 20 0" stroke-dasharray="2 2"/><path d="M9 42 h30" /><path d="M12 42 v-3 M18 42 v-2 M24 42 v-3 M30 42 v-2 M36 42 v-3"/>',
+  layers: '<rect x="8" y="13" width="20" height="20" rx="2"/><circle cx="31" cy="28" r="9"/><circle cx="31" cy="28" r="4"/><path d="M15 36 h10 v6 h-10 z"/><path d="M20 36 c-2 -3 2 -4 0 -7"/>',
+  petal: '<circle cx="24" cy="24" r="3"/><path d="M24 21 c-3 -6 -3 -10 0 -14 c3 4 3 8 0 14"/><path d="M27 24 c6 -3 10 -3 14 0 c-4 3 -8 3 -14 0"/><path d="M24 27 c3 6 3 10 0 14 c-3 -4 -3 -8 0 -14"/><path d="M21 24 c-6 3 -10 3 -14 0 c4 -3 8 -3 14 0"/><circle cx="24" cy="24" r="15" stroke-dasharray="1 3"/>'
+};
 function ftMap(kind, nodes, center) {
-  var pos = [[50, 26], [81, 55], [19, 55], [50, 80]];
-  var lines = '<polygon points="50,26 81,55 50,80 19,55" fill="none" stroke="#C9AD72" stroke-width=".4"/>' + pos.map(function (p) { return '<line x1="50" y1="55" x2="' + p[0] + '" y2="' + p[1] + '" stroke="#C9AD72" stroke-width=".3" stroke-dasharray="1 1.2"/>'; }).join('');
-  return '<div class="fmap3"><span class="fm3-c tl"></span><span class="fm3-c tr"></span><span class="fm3-c bl"></span><span class="fm3-c br"></span>' +
-    '<p class="fm3-t"><small>' + (kind === 'teacher' ? 'Advanced Class' : 'Beginner Class') + '</small>你會帶走的 4 件事</p>' +
-    '<svg class="fm3-l" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">' + lines + '</svg>' +
-    '<div class="fm3-mid">' + center + '</div>' +
-    nodes.map(function (n, i) { return '<div class="fm3-n" style="left:' + pos[i][0] + '%;top:' + pos[i][1] + '%"><span class="fm3-ph"><img src="img_class/' + n[2] + '.jpg" alt=""></span><i>0' + (i + 1) + '</i><b>' + n[0] + '</b><small>' + n[1] + '</small></div>'; }).join('') + '</div>';
+  var pos = [[50, 27], [80, 54], [20, 54], [50, 80]];
+  var lines = '<polygon points="50,27 80,54 50,80 20,54" fill="none" stroke="#C8B8A2" stroke-width=".35" stroke-dasharray="1.2 1.2"/>';
+  return '<div class="fmap4"><div class="fm4-hd"><span>' + (kind === 'teacher' ? 'ADVANCED' : 'BEGINNER') + ' ・ VOL.01</span><b>你會帶走的 <em>4</em> 件事</b><i>What you will take home</i></div>' +
+    '<svg class="fm4-l" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">' + lines + '</svg>' +
+    '<div class="fm4-mid">' + center + '</div>' +
+    nodes.map(function (n, i) { return '<div class="fm4-n" style="left:' + pos[i][0] + '%;top:' + pos[i][1] + '%"><span class="fm4-ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' + FT_ICON[n[2]] + '</svg></span><i>0' + (i + 1) + '</i><b>' + n[0] + '</b><small>' + n[1] + '</small></div>'; }).join('') + '</div>';
 }
 function aboutBeginner(b, info, gets) {
   var ft = [
@@ -267,7 +274,7 @@ function aboutBeginner(b, info, gets) {
     '<p class="sp">一年內，我畫了超過 200 幅作品，也成為曼陀羅老師。所以我很確定：<b>零基礎，真的畫得出來。</b>現在，我想把這段安靜的時間帶給你。</p>' +
     '<p class="dk dkc ab">你是不是也這樣？</p>' + gets(BEGINNER_PAIN, 'pain') + '<blockquote class="pq">零基礎班要做的，<br>就是陪你留一段時間給自己，<br>畫出第一幅屬於你的作品。</blockquote>' +
     bnr('b11', 'Features', '課程特色', 'c2') +
-    ftMap('beginner', [['零基礎也能畫', '一步一步帶你畫', 'b01'], ['你自己的作品', '不是臨摹', 'w02'], ['回家繼續畫', '工具大禮包帶回家', 'b16'], ['親手畫的禮物', '送朋友最有心意', 'b14']], '零基礎<br>點點曼陀羅') +
+    ftMap('beginner', [['零基礎也能畫', '一步一步帶你畫', 'pen'], ['你自己的作品', '不是臨摹', 'easel'], ['回家繼續畫', '工具大禮包帶回家', 'kit'], ['親手畫的禮物', '送朋友最有心意', 'gift']], '零基礎<br>點點曼陀羅') +
     ft.map(function (f, i) { return '<div class="cft"><img src="img_class/' + f[0] + '.jpg" alt="" loading="lazy" data-zoom><h4 class="stt"><i>' + (i + 1) + '</i>' + f[1] + '</h4><p class="sp">' + f[2] + '</p></div>'; }).join('') +
     '<div class="kitb"><b>工具大禮包內容</b><span>' + b.kit.join('・') + '</span></div>' +
     bnr('b14', 'In Your Life', '把作品帶回生活', 'c3') +
@@ -296,7 +303,7 @@ function aboutTeacher(b, info, gets, cmp) {
     '<p class="sp">兩日進階班，就是把這套方法完整教給你。<b>兩天，陪你把作品一點一點畫得更美。</b></p>' +
     '<p class="dk dkc ab">你是不是也這樣？</p>' + gets(TEACHER_PAIN, 'pain') + '<blockquote class="pq">兩日進階班要做的，<br>就是陪你把作品，一點一點畫得更美。</blockquote>' +
     bnr('t10', 'Features', '課程特色', 'c2') +
-    ftMap('teacher', [['大幅構圖', '找圓心・精準分割', 't05'], ['多元材質', '木板・畫布・石膏', 't08'], ['構圖層次', '告別同心圓', 't09'], ['送得出手的禮物', '入厝・生日・親手做', 't11']], '兩日進階<br>職人研修') +
+    ftMap('teacher', [['大幅構圖', '找圓心・精準分割', 'compass'], ['多元材質', '木板・畫布・石膏', 'layers'], ['構圖層次', '告別同心圓', 'petal'], ['送得出手的禮物', '入厝・生日・親手做', 'gift']], '兩日進階<br>職人研修') +
     ft.map(function (f, i) { return '<div class="cft"><img src="img_class/' + f[0] + '.jpg" alt="" loading="lazy" data-zoom><h4 class="stt"><i>' + (i + 1) + '</i>' + f[1] + '</h4><p class="sp">' + f[2] + '</p></div>'; }).join('') +
     '<p class="dk dkc ab">跟一般繪畫課有什麼不同？</p>' + cmp +
     '<div class="kitb" style="margin-top:14px"><b>附贈材料</b><span>' + b.kit.join('・') + '</span></div>' +

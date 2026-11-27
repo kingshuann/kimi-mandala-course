@@ -290,7 +290,7 @@ function aboutBeginner(b, info, gets) {
     // 2026-11-27 Kimi 的送禮故事
     '<h4 class="stt">親手畫出最有誠意的禮物</h4>' +
     // 2026-11-28 Kimi：同一個圖案畫在筆記本、書籤、馬克杯上（AI 生成準備包裝的禮物），三張並排
-    '<div class="trio"><img src="img_class/gift-notebook.jpg" alt="筆記本禮物" loading="lazy"><img src="img_class/gift-bookmark4.jpg" alt="書籤禮物" loading="lazy"><img src="img_class/gift-mug3.jpg" alt="馬克杯禮物" loading="lazy"></div>' +
+    '<div class="trio"><img src="img_class/gift-bookmark4.jpg" alt="書籤禮物" loading="lazy"><img src="img_class/gift-notebook.jpg" alt="筆記本禮物" loading="lazy"><img src="img_class/gift-mug3.jpg" alt="馬克杯禮物" loading="lazy"></div>' +
     '<p class="sp">送禮最難的，是不知道對方需要什麼。買了怕用不到，又怕對方心裡想：「怎麼會送這個？」想要有心、有誠意，卻常常不知道從哪裡下手。</p>' +
     '<p class="sp">曾經有一位同學來上課，就是為了親手畫一幅曼陀羅，送給剛搬新家的朋友當入厝禮。<b>一點一點畫出來的心意，對方一看就懂。</b></p>' +
     '<p class="sp">親手畫一份獨一無二的禮物，也是另一種生活裡的儀式感。</p>' +

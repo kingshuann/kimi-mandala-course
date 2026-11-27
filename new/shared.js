@@ -255,7 +255,7 @@ var FT_ICON = {
 function ftMap(kind, nodes, center) {
   var pos = [[50, 27], [80, 54], [20, 54], [50, 80]];
   var lines = '<polygon points="50,27 80,54 50,80 20,54" fill="none" stroke="#C8B8A2" stroke-width=".35" stroke-dasharray="1.2 1.2"/>';
-  return '<div class="fmap4"><div class="fm4-hd"><span>' + (kind === 'teacher' ? 'ADVANCED' : 'BEGINNER') + ' ・ VOL.01</span><b>你會帶走的 <em>4</em> 件事</b><i>What you will take home</i></div>' +
+  return '<div class="fmap4"><div class="fm4-hd"><span>' + (kind === 'teacher' ? 'ADVANCED' : 'BEGINNER') + ' ・ VOL.01</span><b>這堂課的 <em>4</em> 個特色</b><i>Course Features</i></div>' +
     '<svg class="fm4-l" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">' + lines + '</svg>' +
     '<div class="fm4-mid">' + center + '</div>' +
     nodes.map(function (n, i) { return '<div class="fm4-n" style="left:' + pos[i][0] + '%;top:' + pos[i][1] + '%"><span class="fm4-ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' + FT_ICON[n[2]] + '</svg></span><i>0' + (i + 1) + '</i><b>' + n[0] + '</b><small>' + n[1] + '</small></div>'; }).join('') + '</div>';

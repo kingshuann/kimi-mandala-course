@@ -220,7 +220,7 @@ var HL4 = { teacher: [['4+1', '材質＋媒材'], ['3', '種構圖模板'], ['5'
 // 2026-11-28 Kimi：改回一開始的「— 條列」，關鍵字加螢光筆底線
 var HL4S = {
   teacher: ['<b>4 種材質</b> + <b>1 種複合媒材</b>', '<b>3 種筆刷構圖模板</b>', '<b>5 種特殊構圖</b>', 'Kimi <b>獨家</b>找圓心方法'],
-  beginner: ['<b>3 種基礎</b> + <b>3 種變化圖形</b>', '用 <b>9 色顏料</b>配出自己的顏色', '當天帶回一幅 <b>15cm 作品</b>', '回家還能再畫 <b>10 件作品</b>'] };
+  beginner: ['<b>6 個基礎與變化圖形</b>可靈活運用', '<b>9 色顏料</b>配出自己的顏色', '<b>15 cm 作品</b>當天就能完成', '<b>10 件作品</b>，回家還能繼續畫'] };
 function hl4Html(k) { return HL4S[k] ? '<ul class="uhl2">' + HL4S[k].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>' : ''; }
 function renderCourse() {
   var c = C(S.k), host = document.querySelector('[data-pg="course"]'); if (!host) return;

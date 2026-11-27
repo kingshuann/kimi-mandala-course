@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Kimi 點點曼陀羅｜零基礎入門・職人研修・開課陪跑</title>
 <meta name="description" content="用繪畫創作，打造高質感生活。Kimi 點點曼陀羅初階零基礎入門、兩日進階職人研修與開課陪跑計劃，全台小班教學，線上選場次報名。">
-<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Allura&family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css?v=1125d">
 <style>
 /* A 版：MOYA 經典 — 奶茶米底、深橄欖綠導覽列、米色卡片、大寫細字標題 */
@@ -113,7 +113,7 @@
 .clp .clb::after{content:'';position:absolute;left:0;right:0;bottom:0;height:90px;background:linear-gradient(rgba(238,230,216,0),var(--bg))}
 .clp.open .clb{max-height:none}.clp.open .clb::after{display:none}
 .clm{display:block;margin:6px auto 14px;font:inherit;font-size:13px;letter-spacing:.1em;color:var(--olive);background:none;border:1px solid var(--olive);border-radius:99px;padding:8px 26px;cursor:pointer}
-.clp .clb{max-height:560px}
+.clp .clb{max-height:560px;margin:0 -20px;padding:0 20px}
 /* 2026-11-27 Kimi：初階班「關於課程」圖文版（參考 Hahow） */
 .bnr{position:relative;margin:28px -20px 18px;aspect-ratio:16/9;overflow:hidden}
 .bnr:first-child{margin-top:4px}
@@ -133,13 +133,14 @@
 .kitb b{display:block;font-size:13px;color:var(--olive);margin-bottom:2px}
 .pair2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0 6px}
 .pair2 img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:10px;cursor:zoom-in}
-.bnr2{position:relative;display:flex;align-items:center;height:92px;margin:30px 0 18px;padding:0 20px;border-radius:12px;overflow:hidden;color:#F7F2E8;background-image:radial-gradient(rgba(255,255,255,.10) 1.4px,transparent 1.6px);background-size:13px 13px}
-.bnr2:first-child{margin-top:6px}
-.bnr2.c1{background-color:#4A5440}.bnr2.c2{background-color:#9A7558}.bnr2.c3{background-color:#6F7B55}
-.bnr2 .bt{position:relative;z-index:1}
-.bnr2 small{display:block;font-family:'Marcellus',serif;font-style:italic;font-size:14px;letter-spacing:.12em;opacity:.85}
-.bnr2 b{display:block;font-family:'Noto Serif TC',serif;font-size:22px;font-weight:600;letter-spacing:.2em;margin-top:2px}
-.bnr2 .bi{position:absolute;right:-18px;top:50%;width:118px;height:118px;transform:translateY(-50%);border-radius:50%;overflow:hidden;border:3px solid rgba(247,242,232,.55);box-shadow:0 4px 14px rgba(0,0,0,.18)}
+/* 2026-11-27 Kimi：橫幅改成滿版（左右貼齊畫面）、置中手寫英文＋粗體中文，作品圖從下方露出一半（參考 Hahow 課程特色圖） */
+.bnr2{position:relative;display:flex;align-items:center;justify-content:center;height:112px;margin:34px -20px 20px;overflow:hidden;color:#FFF;text-align:center}
+.bnr2:first-child{margin-top:4px}
+.bnr2.c1{background:#5C6648}.bnr2.c2{background:#A87D5C}.bnr2.c3{background:#7A8560}
+.bnr2 .bt{position:relative;z-index:2;margin-top:-6px}
+.bnr2 small{display:block;font-family:'Allura',cursive;font-size:27px;line-height:1;letter-spacing:.01em;opacity:.95;text-shadow:0 1px 6px rgba(0,0,0,.18)}
+.bnr2 b{display:block;font-family:'Noto Serif TC',serif;font-size:25px;font-weight:700;letter-spacing:.16em;margin-top:2px;text-shadow:0 2px 10px rgba(0,0,0,.25)}
+.bnr2 .bi{position:absolute;left:50%;bottom:-74px;width:120px;height:120px;transform:translateX(-50%);border-radius:50%;overflow:hidden;z-index:1;opacity:.9}
 .bnr2 .bi img{width:100%;height:100%;object-fit:cover;object-position:50% 42%;display:block}
 .cgal{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -20px;padding:0 20px 4px;scrollbar-width:none}
 .cgal::-webkit-scrollbar{display:none}

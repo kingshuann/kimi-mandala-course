@@ -1024,6 +1024,7 @@ function slotEmo(t) { var n = slotName(t); return ({ '早班': '☀️', '午班
 
 // 課堂紀錄相簿：點照片放大（2026-11-27 Kimi）
 document.addEventListener('click', function (ev) {
+  if (!window.ZOOM_ON) return; // 2026-11-27 Kimi：圖片先不要點了放大，要開回來把 ZOOM_ON 設成 true
   var z = ev.target.closest('[data-zoom]');
   var bx = document.getElementById('zbox');
   if (z) { if (!bx) { bx = document.createElement('div'); bx.id = 'zbox'; bx.className = 'zbox'; bx.innerHTML = '<img alt="">'; document.body.appendChild(bx); bx.addEventListener('click', function () { bx.hidden = true; }); } bx.querySelector('img').src = z.src; bx.hidden = false; }

@@ -293,7 +293,7 @@ function aboutBeginner(b, info, gets) {
     ['b01-natural', '零基礎也畫得出來', '從怎麼拿筆、怎麼沾顏料、點出第一個圓點開始，一步一步帶你畫。不用會素描，也不需要美術底子，上完課你會發現：原來我也可以。'],
     ['easel-natural', '不是臨摹，是你自己的作品', '這堂課教的是點、線、配色與構圖的方法，不是照著一張圖抄。同一堂課，每個人畫出來都不一樣，因為那是你自己的作品。'],
     ['kit-natural', '帶走工具，回家繼續畫', '報名即贈送<em class="hlk">工具大禮包</em>！講義、工具筆、顏料和 10 件材料都讓你帶回家。很多手作課上完就結束了，這堂課希望你下課以後，還能自己繼續畫。'],
-    ['gift-friends-natural', '親手畫的禮物', '送禮最怕不知道對方需要什麼。親手畫一幅曼陀羅，朋友入厝、生日都送得出手，一點一點畫出來的心意，對方一看就懂。']
+    ['gift-friends-natural', '親手畫的禮物', '親手畫一幅曼陀羅，朋友入厝、生日都送得出手，一點一點畫出來的心意，對方一看就懂。']
   ];
   return bnr('b09', 'Why Dot Mandala', '為什麼是點點曼陀羅', 'c1') +
     '<h4 class="stt">從「我不會畫畫」開始</h4>' +
@@ -304,7 +304,7 @@ function aboutBeginner(b, info, gets) {
     '<h4 class="stt" style="margin-top:30px;clear:both">你是不是也這樣？</h4>' + gets(BEGINNER_PAIN, 'pain') + '<blockquote class="pq">零基礎班要做的，<br>就是陪你留一段時間給自己，<br>畫出第一幅屬於你的作品。</blockquote>' +
     bnr('b11', 'Features', '課程特色', 'c2') +
     ftMap('beginner', [['零基礎也能畫', '完全沒有美術基礎，也可以完成自己的作品。', 'pen'], ['你自己的作品', '不是臨摹', 'easel'], ['回家繼續畫', '工具大禮包帶回家', 'kit'], ['親手畫的禮物', '送朋友最有心意', 'gift']], '零基礎<br>點點曼陀羅') +
-    ft.map(function (f, i) { return '<div class="cft"><img src="img_class/' + f[0] + '.jpg" alt="" loading="lazy" data-zoom><h4 class="stt"><i>' + (i + 1) + '</i>' + f[1] + '</h4><p class="sp">' + f[2] + '</p></div>'; }).join('') +
+    ft.map(function (f, i) { return '<div class="cft"><img src="img_class/' + f[0] + '.jpg" alt="" loading="lazy" data-zoom><h4 class="stt"><i>0' + (i + 1) + '</i>' + f[1] + '</h4><p class="sp">' + f[2] + '</p></div>'; }).join('') +
     takeHome('beginner', [['一幅 15cm 的曼陀羅作品', '課堂上親手完成，放上木質小畫架就能展示'], ['工具大禮包（價值 $680）', b.kit.join('・')], ['回家還能完成 10 件作品', '材料都帶回家，下課以後還能繼續畫'], ['獨立創作的能力', '學會點、線、配色與構圖的方法，不用再照著圖臨摹']]) +
     bnr('b14', 'In Your Life', '把作品帶回生活', 'c3') +
     // 2026-11-28 Kimi：改寫成「建立生活儀式感、創造自己想要的生活方式」
@@ -339,7 +339,7 @@ function aboutTeacher(b, info, gets, cmp) {
     '<h4 class="stt" style="margin-top:30px;clear:both">你是不是也這樣？</h4>' + gets(TEACHER_PAIN, 'pain') + '<blockquote class="pq">兩日進階班要做的，<br>就是陪你把作品，一點一點畫得更美。</blockquote>' +
     bnr('t10', 'Features', '課程特色', 'c2') +
     ftMap('teacher', [['大幅構圖', '找圓心・精準分割', 'compass'], ['多元材質', '木板・畫布・石膏', 'layers'], ['構圖層次', '告別同心圓', 'petal'], ['送得出手的禮物', '入厝・生日・親手做', 'gift']], '兩日進階<br>職人研修') +
-    ft.map(function (f, i) { return '<div class="cft"><img src="img_class/' + f[0] + '.jpg" alt="" loading="lazy" data-zoom><h4 class="stt"><i>' + (i + 1) + '</i>' + f[1] + '</h4><p class="sp">' + f[2] + '</p></div>'; }).join('') +
+    ft.map(function (f, i) { return '<div class="cft"><img src="img_class/' + f[0] + '.jpg" alt="" loading="lazy" data-zoom><h4 class="stt"><i>0' + (i + 1) + '</i>' + f[1] + '</h4><p class="sp">' + f[2] + '</p></div>'; }).join('') +
     '<p class="dk dkc ab">跟一般繪畫課有什麼不同？</p>' + cmp +
     takeHome('teacher', [['4 件不同材質的作品', '15cm 厚木板・竹製杯墊・立體石膏燭台・30cm 圓形畫布含框'], ['完整材料包＋獨家講義與練習本', b.kit.join('・')], ['大幅構圖的完整方法', '找圓心、精準分割、筆刷構圖模板與特殊構圖，回家也能自己畫大作品'], ['學員社群＋終身問答', '加入學員社群交流分享，之後創作遇到問題隨時可以問']]) +
     bnr('t11', 'In Your Life', '把作品帶回生活', 'c3') +

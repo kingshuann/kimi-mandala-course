@@ -501,9 +501,10 @@ function renderPick() {
     de.insertAdjacentHTML('afterend', '<p class="wish">🌿 想在其他縣市上？滿 3 人就能開班，<a href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener">私訊官方 LINE 許願開班 ›</a></p>');
   }
   // 2026-11-28 Kimi：場次下面加「查看完整月曆」，點了跳出整個月的行事曆
+  // 2026-11-28 Kimi：月曆連結放在「選擇場次」標題的右上角
   var oc = de.parentNode && de.parentNode.querySelector('.calk'); if (oc) oc.remove();
-  var allS = L.filter(function (s) { return s.location === S.city; });
-  if (allS.length) { de.insertAdjacentHTML('afterend', '<button class="calk" data-calk>📅 查看完整月曆 ›</button>'); de.parentNode.querySelector('[data-calk]').onclick = function (ev) { ev.stopPropagation(); openCal(allS); }; }
+  var allS = L.filter(function (s) { return s.location === S.city; }), lb = de.previousElementSibling;
+  if (allS.length && lb) { lb.insertAdjacentHTML('beforeend', '<button class="calk" data-calk>📅 完整月曆 ›</button>'); lb.querySelector('[data-calk]').onclick = function (ev) { ev.stopPropagation(); openCal(allS); }; }
   if (S.k === 'beginner') { ce.insertAdjacentHTML('beforeend', '<button class="chip" data-gon>視訊線上課</button>'); ce.querySelector('[data-gon]').onclick = function (ev) { ev.stopPropagation(); swap('online'); }; }
   // 直接綁在每顆按鈕上（不靠整頁的點擊判斷），第一個場次也點得到
   ce.querySelectorAll('[data-city]').forEach(function (btn) { btn.onclick = function (ev) { ev.stopPropagation(); S.city = btn.dataset.city; S.sess = null; renderPick(); }; });

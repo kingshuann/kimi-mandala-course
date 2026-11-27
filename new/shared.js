@@ -244,19 +244,31 @@ function detailHtml(k) {
     '<div class="vtb"><div class="vtb-r vtb-h"><span></span><span>一般繪畫課</span><span>這堂課</span></div>' + b.compare.map(function (r) { return '<div class="vtb-r"><b>' + r[0] + '</b><span>' + r[1] + '</span><span>' + r[2] + '</span></div>'; }).join('') + '</div>';
   var n = 0, no = function () { n++; return (n < 10 ? '0' : '') + n + '　'; }, T = k === 'teacher';
   function gets(list, cls) { return '<ul class="gets' + (cls ? ' ' + cls : '') + '">' + list.map(function (g) { return '<li><b>' + g[0] + '</b><span>' + g[1] + '</span></li>'; }).join('') + '</ul>'; }
-  // 2026-11-27 Kimi（參考 Hahow）：上方固定分頁籤；課程內容先收一半（查看更多）；大禮包、適合誰、須知、常見問題做成點了才展開
-  function acc(id, t, body) { return '<section class="ds acc" id="' + id + '"><button class="dk dka" data-acc>' + t + '<i></i></button><div class="acb">' + body + '</div></section>'; }
-  var tabs = [['ds-intro', '課程介紹'], ['ds-info', '課程內容'], ['ds-who', '適合誰'], ['ds-note', '報名須知']].concat(T ? [['ds-qa', '常見問題']] : []);
+  // 2026-11-27 Kimi（參考 Hahow，第二版）：拿掉 01～07 編號，分成四區
+  // ① 關於課程：痛點、課程資訊、創作比較、工具大禮包一起收合（查看更多），之後照片也放這裡
+  // ② 上課須知：一張卡片，誰適合／攜帶物品／注意事項，點了才展開
+  // ③ 課程單元：一個主題一條，點了展開，可全部展開
+  // ④ 常見問題（兩日進階班）
+  function ir(t, body, open) { return '<div class="ir' + (open ? ' on' : '') + '"><button class="ir-h" data-ir>' + t + '<i></i></button><div class="ir-b">' + body + '</div></div>'; }
+  var nItems = b.lessons.reduce(function (a, l) { return a + l[1].length; }, 0);
+  var tabs = [['ds-about', '關於課程'], ['ds-who', '上課須知'], ['ds-units', '課程單元']].concat(T ? [['ds-qa', '常見問題']] : []);
   return '<nav class="dtab">' + tabs.map(function (x, i) { return '<button data-dtab="' + x[0] + '"' + (i ? '' : ' class="on"') + '>' + x[1] + '</button>'; }).join('') + '</nav>' +
-    '<section class="ds" id="ds-intro"><p class="dk dkc">你是不是也這樣？</p>' + gets(T ? TEACHER_PAIN : BEGINNER_PAIN, 'pain') + '<blockquote class="pq">' + (T ? '兩日進階班要做的，<br>就是陪你把作品，一點一點畫得更美。' : '零基礎班要做的，<br>就是陪你留一段時間給自己，<br>畫出第一幅屬於你的作品。') + '</blockquote></section>' +
-    '<section class="ds" id="ds-info"><p class="dk">' + no() + '課程資訊</p><ul class="rows">' + info.map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('') + '</ul></section>' +
-    '<section class="ds"><p class="dk">' + no() + (T ? '不只學技法，更學會創作' : '並非臨摹，而是 0 到 1 獨立創作') + '</p>' + cmp + '</section>' +
-    '<section class="ds clp" id="ds-lesson"><p class="dk">' + no() + '課程內容</p><div class="clb">' + b.lessons.map(function (l, i) { return '<h4 class="lh"><span>主題' + '一二三四五六七八'[i] + '</span>' + l[0] + '</h4><ul class="dl">' + l[1].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>'; }).join('') + '</div><button class="clm" data-clm>查看更多</button></section>' +
-    acc('ds-kit', no() + (T ? '附贈材料' : '工具大禮包'), '<ul class="dl">' + b.kit.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul><img class="fin" src="' + IMG + b.finalImg + '" alt="課程作品" loading="lazy">') +
-    acc('ds-who', no() + '誰適合這堂課？', '<ul class="dl">' + b.who.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>') +
-    acc('ds-note', no() + '報名須知', '<h4 class="lh">攜帶物品</h4><p class="dp">' + (on ? '什麼都不用準備，材料包會寄到家！' : b.bring) + '</p><h4 class="lh">注意事項</h4><ol class="dl">' + NOTES.map(function (n) { return '<li>' + n + '</li>'; }).join('') + '</ol>' +
-    (T ? '<p class="cond">🌿 ' + TEACHER_COND + '</p>' : '')) +
-    (T ? acc('ds-qa', no() + '兩日進階班常見問題', '<div class="qa">' + TEACHER_QA.map(function (q, i) { return '<details' + (i ? '' : ' open') + '><summary>' + q[0] + '</summary><p>' + q[1] + '</p></details>'; }).join('') + '</div>') : '');
+    '<section class="ds clp" id="ds-about"><div class="clb">' +
+      '<p class="dk dkc">你是不是也這樣？</p>' + gets(T ? TEACHER_PAIN : BEGINNER_PAIN, 'pain') + '<blockquote class="pq">' + (T ? '兩日進階班要做的，<br>就是陪你把作品，一點一點畫得更美。' : '零基礎班要做的，<br>就是陪你留一段時間給自己，<br>畫出第一幅屬於你的作品。') + '</blockquote>' +
+      '<p class="dk dkc ab">課程資訊</p><ul class="rows">' + info.map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('') + '</ul>' +
+      '<p class="dk dkc ab">' + (T ? '不只學技法，更學會創作' : '並非臨摹，而是 0 到 1 獨立創作') + '</p>' + cmp +
+      '<p class="dk dkc ab">' + (T ? '附贈材料' : '工具大禮包') + '</p><ul class="dl">' + b.kit.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul><img class="fin" src="' + IMG + b.finalImg + '" alt="課程作品" loading="lazy">' +
+    '</div><button class="clm" data-clm>查看更多</button></section>' +
+    '<section class="ds dcard" id="ds-who"><div class="icard">' +
+      ir('誰適合這堂課？', '<ul class="dl">' + b.who.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>', 1) +
+      ir('攜帶物品', '<p class="dp">' + (on ? '什麼都不用準備，材料包會寄到家！' : b.bring) + '</p>') +
+      ir('注意事項', '<ol class="dl">' + NOTES.map(function (n) { return '<li>' + n + '</li>'; }).join('') + '</ol>') +
+      (T ? ir('報名條件', '<p class="dp">' + TEACHER_COND + '</p>') : '') +
+    '</div></section>' +
+    '<section class="ds dcard" id="ds-units"><div class="uh"><b>課程單元</b><span>' + b.lessons.length + ' 大主題・' + nItems + ' 個重點</span><button data-uall>全部展開</button></div>' +
+      b.lessons.map(function (l, i) { return '<div class="un' + (i ? '' : ' on') + '"><button class="un-h" data-un><em>' + (i + 1) + '</em><span>' + l[0] + '</span><i></i></button><ul class="dl un-b">' + l[1].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul></div>'; }).join('') +
+    '</section>' +
+    (T ? '<section class="ds dcard" id="ds-qa"><div class="uh"><b>常見問題</b></div><div class="qa">' + TEACHER_QA.map(function (q, i) { return '<details' + (i ? '' : ' open') + '><summary>' + q[0] + '</summary><p>' + q[1] + '</p></details>'; }).join('') + '</div></section>' : '');
 }
 // 陪跑計劃獨立頁（2026-11-26 Kimi：不放在兩日進階班頁下面，點「看陪跑計劃內容」才打開）
 function coachOpen() {
@@ -867,6 +879,8 @@ function slotEmo(t) { var n = slotName(t); return ({ '早班': '☀️', '午班
   function dtOn(id) { document.querySelectorAll('.dtab button').forEach(function (b) { b.classList.toggle('on', b.dataset.dtab === id); }); }
   document.addEventListener('click', function (ev) {
     var a = ev.target.closest('[data-acc]'); if (a) { a.parentElement.classList.toggle('on'); return; }
+    var r = ev.target.closest('[data-ir],[data-un]'); if (r) { r.parentElement.classList.toggle('on'); return; }
+    var ua = ev.target.closest('[data-uall]'); if (ua) { var us = ua.closest('section').querySelectorAll('.un'), all = [].every.call(us, function (u) { return u.classList.contains('on'); }); us.forEach(function (u) { u.classList.toggle('on', !all); }); ua.textContent = all ? '全部展開' : '全部收起'; return; }
     var m = ev.target.closest('[data-clm]'); if (m) { var c = m.parentElement; c.classList.toggle('open'); m.textContent = c.classList.contains('open') ? '收起' : '查看更多'; if (!c.classList.contains('open')) c.scrollIntoView({ block: 'start' }); return; }
     var t = ev.target.closest('[data-dtab]'); if (t) {
       var sec = document.getElementById(t.dataset.dtab); if (!sec) return;

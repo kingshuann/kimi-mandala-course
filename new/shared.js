@@ -285,7 +285,7 @@ function ftMap(kind, nodes, center) {
 // 2026-11-27 Kimi：「上完課，你會帶走」（課後收穫，跟課程特色分開）；放在特色細節之後、把作品帶回生活之前
 function takeHome(kind, rows) {
   // 2026-11-28 Kimi：跟「你是不是也這樣？」「誰適合這堂課」同一套樣式（圓圈＋虛線分隔），拿掉白卡和英文
-  return '<div class="tkh"><p class="stt">上完課，你會帶走</p><ul class="gets pain tkl">' +
+  return '<div class="tkh"><div class="uh"><b>上完課，你會帶走</b></div><ul class="gets pain tkl">' +
     rows.map(function (r, i) { return '<li data-n="' + (i + 1) + '"><b>' + r[0] + '</b><span>' + r[1] + '</span></li>'; }).join('') + '</ul></div>';
 }
 function aboutBeginner(b, info, gets) {

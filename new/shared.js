@@ -324,10 +324,10 @@ function aboutTeacher(b, info, gets, cmp) {
     // 2026-11-27 Kimi 的送禮故事（綠色大作品那位同學 → 照片 t04）
     '<h4 class="stt">把創作變成送得出手的禮物</h4>' +
     '<p class="sp">課堂上有位同學，畫完那幅綠色的大作品就決定：要把它送給剛搬新家的朋友，當作入厝禮。</p>' +
-    '<div class="cft"><img src="img_class/t04.jpg" alt="" loading="lazy" data-zoom></div>' +
+    '<div class="cft"><img src="img_class/t4n.jpg" alt="" loading="lazy" data-zoom></div>' +
     '<p class="sp">送禮最怕不知道對方需要什麼、買了又用不到。學會在不同材質上創作之後，你不一定只能送畫：杯墊、燭台，甚至馬克杯、筆記本，都可以放上你自己的創作。<b>親手做的心意，就是最有誠意的禮物。</b></p>' +
     '<p class="sp">想再往前走一步，學會的技法也能延伸到更多材質，慢慢發展出自己的作品。想開自己的課，可以再加購「開課陪跑計劃」。</p>' +
-    '<div class="pair2"><img src="img_class/t02.jpg" alt="" loading="lazy" data-zoom><img src="img_class/t07.jpg" alt="" loading="lazy" data-zoom></div>' +
+    '<div class="pair2 sq"><img src="img_class/t2n.jpg" alt="" loading="lazy"><img src="img_class/t7n.jpg" alt="" loading="lazy"></div>' +
     '<p class="dk dkc ab">課程資訊</p><ul class="rows">' + info.map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('') + '</ul>';
 }
 // 2026-11-27 Kimi：做成 LINE 對話框的樣子（變數叫 LINE_REVIEWS，不要叫 REVIEWS，那是 data.js 首頁評價用的）。[署名, LINE 上的日期, [一個泡泡一則訊息]]；原本分開傳的訊息就分開放；頭像用預設圖，不放學員照片

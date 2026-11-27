@@ -242,8 +242,9 @@ function renderCourse() {
 function bnr(n, en, zh, c) { return '<div class="bnr2 ' + (c || 'c1') + '"><div class="bt"><small>' + en + '</small><b>' + zh + '</b></div><span class="bi"><img src="img_class/' + n + '.jpg" alt="" loading="lazy"></span></div>'; }
 // 課程特色總覽圖（2026-11-27 Kimi）：第二版改用 Higgsfield 生的桌面俯拍圖（img_class/fmap.jpg），4 個特色疊在 4 個角的小物旁邊
 // 左上工具＝1、右上木板畫布＝2、左下燭台＝3、右下禮物盒＝4
-function ftMap(center, nodes) {
-  return '<div class="fmap2"><div class="fm2-img"><img src="img_class/fmap-b.jpg" alt="課程特色總覽">' +
+// 2026-11-27 Kimi：兩堂課各一張專屬底圖（初階 fmap-beginner.jpg、兩日 fmap-teacher.jpg），小編號位置依圖調整
+function ftMap(kind, nodes) {
+  return '<div class="fmap2 ' + kind + '"><div class="fm2-img"><img src="img_class/fmap-' + kind + '.jpg" alt="課程特色總覽">' +
     nodes.map(function (n, i) { return '<span class="fm2-dot d' + (i + 1) + '">' + (i + 1) + '</span>'; }).join('') + '</div><div class="fm2-g">' +
     nodes.map(function (n, i) { return '<div class="fm2"><i>' + (i + 1) + '</i><div><b>' + n[0] + '</b><small>' + n[1] + '</small></div></div>'; }).join('') + '</div></div>';
 }
@@ -261,7 +262,7 @@ function aboutBeginner(b, info, gets) {
     '<p class="sp">一年內，我畫了超過 200 幅作品，也成為曼陀羅老師。所以我很確定：<b>零基礎，真的畫得出來。</b>現在，我想把這段安靜的時間帶給你。</p>' +
     '<p class="dk dkc ab">你是不是也這樣？</p>' + gets(BEGINNER_PAIN, 'pain') + '<blockquote class="pq">零基礎班要做的，<br>就是陪你留一段時間給自己，<br>畫出第一幅屬於你的作品。</blockquote>' +
     bnr('b11', 'Features', '課程特色', 'c2') +
-    ftMap('', [['零基礎也能畫', '一步一步帶你畫'], ['你自己的作品', '不是臨摹'], ['回家繼續畫', '工具大禮包帶回家'], ['親手畫的禮物', '送朋友最有心意']]) +
+    ftMap('beginner', [['零基礎也能畫', '一步一步帶你畫'], ['你自己的作品', '不是臨摹'], ['回家繼續畫', '工具大禮包帶回家'], ['親手畫的禮物', '送朋友最有心意']]) +
     ft.map(function (f, i) { return '<div class="cft"><img src="img_class/' + f[0] + '.jpg" alt="" loading="lazy" data-zoom><h4 class="stt"><i>' + (i + 1) + '</i>' + f[1] + '</h4><p class="sp">' + f[2] + '</p></div>'; }).join('') +
     '<div class="kitb"><b>工具大禮包內容</b><span>' + b.kit.join('・') + '</span></div>' +
     bnr('b14', 'In Your Life', '把作品帶回生活', 'c3') +
@@ -290,7 +291,7 @@ function aboutTeacher(b, info, gets, cmp) {
     '<p class="sp">兩日進階班，就是把這套方法完整教給你。<b>兩天，陪你把作品一點一點畫得更美。</b></p>' +
     '<p class="dk dkc ab">你是不是也這樣？</p>' + gets(TEACHER_PAIN, 'pain') + '<blockquote class="pq">兩日進階班要做的，<br>就是陪你把作品，一點一點畫得更美。</blockquote>' +
     bnr('t10', 'Features', '課程特色', 'c2') +
-    ftMap('', [['大幅構圖', '找圓心・精準分割'], ['多元材質', '木板・畫布・石膏'], ['構圖層次', '告別同心圓'], ['送得出手的禮物', '入厝・生日・親手做']]) +
+    ftMap('teacher', [['大幅構圖', '找圓心・精準分割'], ['多元材質', '木板・畫布・石膏'], ['構圖層次', '告別同心圓'], ['送得出手的禮物', '入厝・生日・親手做']]) +
     ft.map(function (f, i) { return '<div class="cft"><img src="img_class/' + f[0] + '.jpg" alt="" loading="lazy" data-zoom><h4 class="stt"><i>' + (i + 1) + '</i>' + f[1] + '</h4><p class="sp">' + f[2] + '</p></div>'; }).join('') +
     '<p class="dk dkc ab">跟一般繪畫課有什麼不同？</p>' + cmp +
     '<div class="kitb" style="margin-top:14px"><b>附贈材料</b><span>' + b.kit.join('・') + '</span></div>' +

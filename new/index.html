@@ -151,22 +151,12 @@
 .fm5-hd i{display:block;margin-top:6px;font:400 10.5px/1 'Marcellus',serif;font-style:normal;letter-spacing:.22em;text-transform:uppercase;color:#9A7558}
 .fm5-cap{text-align:center;font-family:'Noto Serif TC',serif;font-size:13.5px;letter-spacing:.14em;color:#8C7B68;margin:0 0 16px}
 .fm5-cap::before,.fm5-cap::after{content:'';display:inline-block;width:22px;height:1px;background:#C8B8A2;vertical-align:middle;margin:0 10px}
-/* 2026-11-28 Kimi：拼圖立體＋空隙（每塊獨立圓角＋陰影高光；凸片橫跨空隙，卡進隔壁的凹槽） */
-.pz{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:2px 2px 6px}
-.pz-t{position:relative;aspect-ratio:1/1.02;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10px 8px;border-radius:10px;box-shadow:0 6px 14px rgba(70,50,30,.16),0 1px 2px rgba(70,50,30,.12),inset 0 1px 0 rgba(255,255,255,.65),inset 0 -3px 6px rgba(70,50,30,.06)}
-.pz-t.t1,.pz-t.t4{background:#F0E5D3}.pz-t.t2,.pz-t.t3{background:#E2D2B8}
-.pz-t::before,.pz-t::after{content:'';position:absolute;z-index:2}
-/* 凸片：從自己的邊伸出、跨過 12px 空隙、伸進隔壁 14px */
-.pz-t.t1::after,.pz-t.t4::after{width:40px;height:26px;border-radius:13px;top:calc(50% - 13px)}
-.pz-t.t1::after{right:-28px;background:#F0E5D3;box-shadow:2px 2px 4px rgba(70,50,30,.14)}
-.pz-t.t4::after{left:-28px;background:#F0E5D3;box-shadow:-1px 2px 4px rgba(70,50,30,.14)}
-.pz-t.t1::before,.pz-t.t2::after{width:26px;height:40px;border-radius:13px;left:calc(50% - 13px);bottom:-28px;box-shadow:1px 2px 4px rgba(70,50,30,.14)}
-.pz-t.t1::before{background:#F0E5D3}.pz-t.t2::after{background:#E2D2B8}
-/* 凹槽：隔壁那塊挖一個比凸片大一圈的洞（用頁面底色），凸片就像卡在裡面 */
-.pz-t.t2::before{width:34px;height:34px;border-radius:50%;left:-16px;top:calc(50% - 17px);background:var(--bg);z-index:1}
-.pz-t.t3::before{width:34px;height:34px;border-radius:50%;top:-16px;left:calc(50% - 17px);background:var(--bg);z-index:1}
-.pz-t.t3::after{width:34px;height:34px;border-radius:50%;right:-16px;top:calc(50% - 17px);background:var(--bg);z-index:1}
-.pz-t.t4::before{width:34px;height:34px;border-radius:50%;top:-16px;left:calc(50% - 17px);background:var(--bg);z-index:1}
+/* 2026-11-28 Kimi：拼圖立體＋空隙（第二版：SVG 真拼圖輪廓） */
+.pz{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:4px 18px 26px 4px}
+.pz-t{position:relative;aspect-ratio:1/1.02;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10px 8px}
+.pz-s{position:absolute;inset:0;width:100%;height:100%;overflow:visible;z-index:0;filter:drop-shadow(0 5px 6px rgba(70,50,30,.18)) drop-shadow(0 1px 1px rgba(70,50,30,.14))}
+.pz-s path{stroke:rgba(255,255,255,.7);stroke-width:1.2;vector-effect:non-scaling-stroke;stroke-linejoin:round}
+.pz-t.t1 path,.pz-t.t4 path{fill:#F0E5D3}.pz-t.t2 path,.pz-t.t3 path{fill:#E2D2B8}
 .pz-ic{color:#5A4636;position:relative;z-index:3}
 .pz-ic svg{width:40px;height:40px;display:block}
 .pz-t i{font:400 13px/1 'Marcellus',serif;font-style:normal;color:#B07A55;letter-spacing:.14em;margin-top:6px;position:relative;z-index:3}
@@ -952,6 +942,12 @@ img[src*="img_collab/"]{object-position:74% 50% !important}
 .gets.pain b{font-size:14px;letter-spacing:.04em}
 .gets.pain span{font-size:12px;line-height:1.6;margin-top:3px}
 .pq{margin:18px 0 4px;padding:4px 0 4px 16px;border-left:3px solid #3E4733;text-align:left;font-family:'Noto Serif TC',serif;font-size:15px;font-weight:500;line-height:1.9;letter-spacing:.06em;color:#3E4733}
+/* 2026-11-28 Kimi：金句不要左邊那條線 → 置中，上下各一排小點點（呼應點點曼陀羅） */
+.pq{border-left:0;padding:6px 8px;text-align:center;margin:22px 0 8px;font-size:15.5px}
+.pq::before,.pq::after{content:'• • •';display:block;font-size:9px;letter-spacing:.6em;color:#B9A27A;line-height:1;margin:2px 0 12px;padding-left:.6em}
+.pq::after{margin:12px 0 2px}
+/* 課名／重點特別標示（明體粗＋淡金螢光底線），和初階班頁提示同款 */
+.hlk{font-style:normal;font-family:'Noto Serif TC',serif;font-weight:700;color:var(--olive);padding:0 3px;margin:0 2px;background:linear-gradient(transparent 58%,rgba(201,173,114,.45) 58%)}
 .ft-pv{color:var(--cream);font-size:10.5px;letter-spacing:.08em;text-decoration:underline;opacity:.9}
 .ft-c{margin-top:24px;padding-top:16px;border-top:1px solid rgba(243,237,226,.18);text-align:center;font-size:10.5px;letter-spacing:.08em;opacity:.6;line-height:1.9;font-weight:400}
 /* 右下角懸浮 LINE＋IG（2026-11-24） */
@@ -1537,7 +1533,7 @@ body.dopen .fab{opacity:0;pointer-events:none}
 <div class="fab"><a class="f-ig" href="https://www.instagram.com/imikdots" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="#fff" stroke="none"/></svg></a><a class="f-line" href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener" aria-label="LINE 私訊 Kimi"><svg viewBox="0 0 24 24" fill="#fff"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a></div>
 </div>
 <script src="../data.js?v=1125a"></script>
-<script src="shared.js?v=1129g"></script>
+<script src="shared.js?v=1129h"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="sb-config.js?v=1123p"></script>
 <script src="member.js?v=1124d"></script>

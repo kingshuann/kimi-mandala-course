@@ -253,9 +253,11 @@ var FT_ICON = {
   petal: '<circle cx="24" cy="24" r="3"/><path d="M24 21 c-3 -6 -3 -10 0 -14 c3 4 3 8 0 14"/><path d="M27 24 c6 -3 10 -3 14 0 c-4 3 -8 3 -14 0"/><path d="M24 27 c3 6 3 10 0 14 c-3 -4 -3 -8 0 -14"/><path d="M21 24 c-6 3 -10 3 -14 0 c4 -3 8 -3 14 0"/><circle cx="24" cy="24" r="15" stroke-dasharray="1 3"/>'
 };
 // 2026-11-27 Kimi 第五版：四大拼圖（2×2 拼圖塊，深淺交錯，凸出的圓扣拼在一起；中間小圓放課名）
+// 2026-11-28 Kimi：拼圖片改成真的拼圖輪廓（凸片有脖子＋圓頭，對面有放大一點的凹口，片與片之間留空隙）
+var PZ_PATH = ["M0,0 L 100,0 L 100,36 C 100,40 104,42 108,40 C 115,36 123,40 123,50 C 123,60 115,64 108,60 C 104,58 100,60 100,64 L 100,100 L 64,100 C 60,100 58,104 60,108 C 64,115 60,123 50,123 C 40,123 36,115 40,108 C 42,104 40,100 36,100 L 0,100 L 0,0 Z", "M0,0 L 100,0 L 100,100 L 64,100 C 60,100 58,104 60,108 C 64,115 60,123 50,123 C 40,123 36,115 40,108 C 42,104 40,100 36,100 L 0,100 L -0,65.96 C -0,61.4 4.4,59.12 8.8,61.4 C 16.5,65.96 25.3,61.4 25.3,50 C 25.3,38.6 16.5,34.04 8.8,38.6 C 4.4,40.88 -0,38.6 -0,34.04 L 0,0 Z", "M0,0 L 34.04,-0 C 38.6,-0 40.88,4.4 38.6,8.8 C 34.04,16.5 38.6,25.3 50,25.3 C 61.4,25.3 65.96,16.5 61.4,8.8 C 59.12,4.4 61.4,-0 65.96,-0 L 100,0 L 100,34.04 C 100,38.6 95.6,40.88 91.2,38.6 C 83.5,34.04 74.7,38.6 74.7,50 C 74.7,61.4 83.5,65.96 91.2,61.4 C 95.6,59.12 100,61.4 100,65.96 L 100,100 L 0,100 L 0,0 Z", "M0,0 L 34.04,-0 C 38.6,-0 40.88,4.4 38.6,8.8 C 34.04,16.5 38.6,25.3 50,25.3 C 61.4,25.3 65.96,16.5 61.4,8.8 C 59.12,4.4 61.4,-0 65.96,-0 L 100,0 L 100,100 L 0,100 L 0,64 C 0,60 -4,58 -8,60 C -15,64 -23,60 -23,50 C -23,40 -15,36 -8,40 C -4,42 0,40 0,36 L 0,0 Z"];
 function ftMap(kind, nodes, center) {
   return '<div class="fmap5"><p class="fm5-cap">四個特色，拼成一堂完整的課</p>' + // 2026-11-28 Kimi：上方已有「課程特色」橫幅，拿掉重複的大標題
-    '<div class="pz">' + nodes.map(function (n, i) { return '<div class="pz-t t' + (i + 1) + '"><span class="pz-ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' + FT_ICON[n[2]] + '</svg></span><i>0' + (i + 1) + '</i><b>' + n[0] + '</b><small>' + n[1] + '</small></div>'; }).join('') +
+    '<div class="pz">' + nodes.map(function (n, i) { return '<div class="pz-t t' + (i + 1) + '"><svg class="pz-s" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="' + PZ_PATH[i] + '"/></svg><span class="pz-ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' + FT_ICON[n[2]] + '</svg></span><i>0' + (i + 1) + '</i><b>' + n[0] + '</b><small>' + n[1] + '</small></div>'; }).join('') +
     '<div class="pz-mid">' + center + '</div></div></div>';
 }
 // 2026-11-27 Kimi：「上完課，你會帶走」（課後收穫，跟課程特色分開）；放在特色細節之後、把作品帶回生活之前
@@ -267,7 +269,7 @@ function aboutBeginner(b, info, gets) {
   var ft = [
     ['b01', '零基礎也畫得出來', '從怎麼拿筆、怎麼沾顏料、點出第一個圓點開始，一步一步帶你畫。不用會素描，也不需要美術底子，上完課你會發現：原來我也可以。'],
     ['b11', '不是臨摹，是你自己的作品', '這堂課教的是點、線、配色與構圖的方法，不是照著一張圖抄。同一堂課，每個人畫出來都不一樣，因為那是你自己的作品。'],
-    ['b16', '帶走工具，回家繼續畫', '附贈工具大禮包（價值 $680），講義、工具筆和 10 件材料都讓你帶回家。很多手作課上完就結束了，這堂課希望你下課以後，還能自己繼續畫。'],
+    ['b16', '帶走工具，回家繼續畫', '報名即贈送<em class="hlk">工具大禮包</em>！講義、工具筆、顏料和 10 件材料都讓你帶回家。很多手作課上完就結束了，這堂課希望你下課以後，還能自己繼續畫。'],
     ['b15', '親手畫的禮物', '送禮最怕不知道對方需要什麼。親手畫一幅曼陀羅，朋友入厝、生日都送得出手，一點一點畫出來的心意，對方一看就懂。']
   ];
   return bnr('b09', 'Why Dot Mandala', '為什麼是點點曼陀羅', 'c1') +
@@ -275,7 +277,7 @@ function aboutBeginner(b, info, gets) {
     '<p class="sp">我從小就被說不會畫畫、沒有創意。商管碩士畢業後進了廣告公司，後來創業做美業 8 年，每天都被工作追著跑。</p>' +
     '<p class="sp">直到在最焦慮、最低潮的時候遇見點點曼陀羅。一個點、一個點畫下去，心慢慢安靜下來，我才發現，原來可以把注意力放回當下。</p>' +
     '<p class="sp">一年內，我畫了超過 200 幅作品，也成為曼陀羅老師。所以我很確定：<b>零基礎，真的畫得出來。</b>現在，我想把這段安靜的時間帶給你。</p>' +
-    '<p class="dk ab">你是不是也這樣？</p>' + gets(BEGINNER_PAIN, 'pain') + '<blockquote class="pq">零基礎班要做的，<br>就是陪你留一段時間給自己，<br>畫出第一幅屬於你的作品。</blockquote>' +
+    '<h4 class="stt" style="margin-top:30px">你是不是也這樣？</h4>' + gets(BEGINNER_PAIN, 'pain') + '<blockquote class="pq">零基礎班要做的，<br>就是陪你留一段時間給自己，<br>畫出第一幅屬於你的作品。</blockquote>' +
     bnr('b11', 'Features', '課程特色', 'c2') +
     ftMap('beginner', [['零基礎也能畫', '一步一步帶你畫', 'pen'], ['你自己的作品', '不是臨摹', 'easel'], ['回家繼續畫', '工具大禮包帶回家', 'kit'], ['親手畫的禮物', '送朋友最有心意', 'gift']], '零基礎<br>點點曼陀羅') +
     ft.map(function (f, i) { return '<div class="cft"><img src="img_class/' + f[0] + '.jpg" alt="" loading="lazy" data-zoom><h4 class="stt"><i>' + (i + 1) + '</i>' + f[1] + '</h4><p class="sp">' + f[2] + '</p></div>'; }).join('') +
@@ -304,7 +306,7 @@ function aboutTeacher(b, info, gets, cmp) {
     '<p class="sp">很多同學上完零基礎後，會一直畫 15 公分的小卡片。越畫越熟，卻開始卡住：想畫大一點，不知道圓心怎麼找、畫面怎麼分割；構圖來來去去，總是同心圓。</p>' +
     '<p class="sp">我自己也走過這一段。一年內畫了超過 200 幅作品，從卡紙畫到木板、畫布和石頭，才慢慢整理出一套方法。</p>' +
     '<p class="sp">兩日進階班，就是把這套方法完整教給你。<b>兩天，陪你把作品一點一點畫得更美。</b></p>' +
-    '<p class="dk ab">你是不是也這樣？</p>' + gets(TEACHER_PAIN, 'pain') + '<blockquote class="pq">兩日進階班要做的，<br>就是陪你把作品，一點一點畫得更美。</blockquote>' +
+    '<h4 class="stt" style="margin-top:30px">你是不是也這樣？</h4>' + gets(TEACHER_PAIN, 'pain') + '<blockquote class="pq">兩日進階班要做的，<br>就是陪你把作品，一點一點畫得更美。</blockquote>' +
     bnr('t10', 'Features', '課程特色', 'c2') +
     ftMap('teacher', [['大幅構圖', '找圓心・精準分割', 'compass'], ['多元材質', '木板・畫布・石膏', 'layers'], ['構圖層次', '告別同心圓', 'petal'], ['送得出手的禮物', '入厝・生日・親手做', 'gift']], '兩日進階<br>職人研修') +
     ft.map(function (f, i) { return '<div class="cft"><img src="img_class/' + f[0] + '.jpg" alt="" loading="lazy" data-zoom><h4 class="stt"><i>' + (i + 1) + '</i>' + f[1] + '</h4><p class="sp">' + f[2] + '</p></div>'; }).join('') +

@@ -220,8 +220,8 @@ function renderCourse() {
   host.querySelectorAll('[data-img]').forEach(function (e) { e.src = S.k === 'teacher' ? 'img_banner/teacher-43.jpg' : S.k === 'online' ? IMG + 'img/work5.jpg' : 'img_banner/beginner-43.jpg'; /* 2026-11-27 Kimi：課程主圖改 4:3 橫式，AI 擴圖不裁畫作 */ });
   host.querySelectorAll('[data-chips]').forEach(function (e) { e.innerHTML = (c.chips || ['在家上課', '材料包寄到家', '時間彈性']).map(function (x) { return '<span>' + x + '</span>'; }).join(''); });
   // 2026-11-28 Kimi：課程標籤下面改成「大數字＋小字」四欄，講清楚學到什麼，不跟標籤重複
-  var HL = { teacher: [['4+1', '種材質<br>＋複合媒材'], ['3', '種筆刷<br>構圖模板'], ['5', '種特殊<br>構圖'], ['獨家', '找圓心<br>方法']],
-    beginner: [['3+3', '種基礎與<br>變化圖形'], ['9', '色顏料<br>自己配色'], ['15cm', '作品當天<br>帶回家'], ['10', '件作品<br>回家繼續畫']] }[S.k];
+  var HL = { teacher: [['4+1', '材質＋媒材'], ['3', '種構圖模板'], ['5', '種特殊構圖'], ['獨家', '找圓心方法']],
+    beginner: [['3+3', '基礎＋變化'], ['9', '色顏料'], ['15cm', '當天帶回家'], ['10', '件課後作品']] }[S.k];
   host.querySelectorAll('[data-perks]').forEach(function (e) { e.classList.toggle('hl4', !!HL); if (HL) { e.innerHTML = HL.map(function (x) { return '<li><b>' + x[0] + '</b><span>' + x[1] + '</span></li>'; }).join(''); return; } e.innerHTML = (c.perks || ['材料包寄到家', '視訊一對一帶畫', '時間報名後用 LINE 約']).slice(0, 4).map(function (x) { return '<li>' + x + '</li>'; }).join(''); });
   var en = host.querySelector('[data-en]'); if (en) en.textContent = { beginner: 'BEGINNER CLASS', teacher: 'ADVANCED CLASS', online: 'ONLINE CLASS' }[S.k] || '';
   var up = host.querySelector('[data-upn]'); if (up) { up.hidden = false; up.className = 'upn' + (S.k === 'teacher' ? ' big' : '');

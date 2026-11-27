@@ -368,7 +368,7 @@ var LINE_REVIEWS = [
 ];
 function detailHtml(k) {
   var b = COURSES[k === 'teacher' ? 'teacher' : 'beginner'], on = k === 'online';
-  var info = b.info.map(function (r) { return [r[0], r[1].replace(/<a[^>]*>|<\/a>/g, '')]; });
+  var info = b.info.filter(function (r) { return !(k !== 'teacher' && r[0] === '餐點'); }).map(function (r) { return [r[0], r[1].replace(/<a[^>]*>|<\/a>/g, '')]; }); // 2026-11-28 Kimi：初階班課程資訊拿掉「餐點」
   if (on) info = [['課程時長', '3 小時 30 分鐘（時間報名後用 LINE 約）'], ['上課方式', '在家視訊，老師一步步帶畫'], ['材料', '工具材料包寄到家（含運費）'], ['開班', '1 人就開班']].concat(info.filter(function (r) { return r[0] === '課程內容'; }));
   var cmp = b.compare.length === 1 ? '<p class="dp"><b>' + b.compare[0][0] + '：</b>' + b.compare[0][2] + '</p>' :
     '<div class="vtb"><div class="vtb-r vtb-h"><span></span><span>一般繪畫課</span><span>這堂課</span></div>' + b.compare.map(function (r) { return '<div class="vtb-r"><b>' + r[0] + '</b><span>' + r[1] + '</span><span>' + r[2] + '</span></div>'; }).join('') + '</div>';

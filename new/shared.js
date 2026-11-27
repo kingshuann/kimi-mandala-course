@@ -219,7 +219,10 @@ function renderCourse() {
   host.querySelectorAll('[data-f]').forEach(function (e) { var v = c[e.dataset.f]; if (v != null) e.textContent = v; });
   host.querySelectorAll('[data-img]').forEach(function (e) { e.src = S.k === 'teacher' ? 'img_banner/teacher-43.jpg' : S.k === 'online' ? IMG + 'img/work5.jpg' : 'img_banner/beginner-43.jpg'; /* 2026-11-27 Kimi：課程主圖改 4:3 橫式，AI 擴圖不裁畫作 */ });
   host.querySelectorAll('[data-chips]').forEach(function (e) { e.innerHTML = (c.chips || ['在家上課', '材料包寄到家', '時間彈性']).map(function (x) { return '<span>' + x + '</span>'; }).join(''); });
-  host.querySelectorAll('[data-perks]').forEach(function (e) { e.innerHTML = (c.perks || ['材料包寄到家', '視訊一對一帶畫', '時間報名後用 LINE 約']).slice(0, 4).map(function (x) { return '<li>' + x + '</li>'; }).join(''); });
+  // 2026-11-28 Kimi：課程標籤下面改成「大數字＋小字」四欄，講清楚學到什麼，不跟標籤重複
+  var HL = { teacher: [['4+1', '種材質<br>＋複合媒材'], ['3', '種筆刷<br>構圖模板'], ['5', '種特殊<br>構圖'], ['獨家', '找圓心<br>方法']],
+    beginner: [['3+3', '種基礎與<br>變化圖形'], ['9', '色顏料<br>自己配色'], ['15cm', '作品當天<br>帶回家'], ['10', '件作品<br>回家繼續畫']] }[S.k];
+  host.querySelectorAll('[data-perks]').forEach(function (e) { e.classList.toggle('hl4', !!HL); if (HL) { e.innerHTML = HL.map(function (x) { return '<li><b>' + x[0] + '</b><span>' + x[1] + '</span></li>'; }).join(''); return; } e.innerHTML = (c.perks || ['材料包寄到家', '視訊一對一帶畫', '時間報名後用 LINE 約']).slice(0, 4).map(function (x) { return '<li>' + x + '</li>'; }).join(''); });
   var en = host.querySelector('[data-en]'); if (en) en.textContent = { beginner: 'BEGINNER CLASS', teacher: 'ADVANCED CLASS', online: 'ONLINE CLASS' }[S.k] || '';
   var up = host.querySelector('[data-upn]'); if (up) { up.hidden = false; up.className = 'upn' + (S.k === 'teacher' ? ' big' : '');
     // 2026-11-26 Kimi：兩日進階班頁最上面放聳動標題，三種學生一行一句
@@ -280,7 +283,7 @@ function aboutBeginner(b, info, gets) {
     '<p class="sp">一年內，我畫了超過 200 幅作品，也成為曼陀羅老師。所以我很確定：<b>零基礎，真的畫得出來。</b>現在，我想把這段安靜的時間帶給你。</p>' +
     '<h4 class="stt" style="margin-top:30px;clear:both">你是不是也這樣？</h4>' + gets(BEGINNER_PAIN, 'pain') + '<blockquote class="pq">零基礎班要做的，<br>就是陪你留一段時間給自己，<br>畫出第一幅屬於你的作品。</blockquote>' +
     bnr('b11', 'Features', '課程特色', 'c2') +
-    ftMap('beginner', [['零基礎也能畫', '一步一步帶你畫', 'pen'], ['你自己的作品', '不是臨摹', 'easel'], ['回家繼續畫', '工具大禮包帶回家', 'kit'], ['親手畫的禮物', '送朋友最有心意', 'gift']], '零基礎<br>點點曼陀羅') +
+    ftMap('beginner', [['零基礎也能畫', '完全沒有美術基礎，也可以完成自己的作品。', 'pen'], ['你自己的作品', '不是臨摹', 'easel'], ['回家繼續畫', '工具大禮包帶回家', 'kit'], ['親手畫的禮物', '送朋友最有心意', 'gift']], '零基礎<br>點點曼陀羅') +
     ft.map(function (f, i) { return '<div class="cft"><img src="img_class/' + f[0] + '.jpg" alt="" loading="lazy" data-zoom><h4 class="stt"><i>' + (i + 1) + '</i>' + f[1] + '</h4><p class="sp">' + f[2] + '</p></div>'; }).join('') +
     takeHome('beginner', [['一幅 15cm 的曼陀羅作品', '課堂上親手完成，放上木質小畫架就能展示'], ['工具大禮包（價值 $680）', b.kit.join('・')], ['回家還能完成 10 件作品', '材料都帶回家，下課以後還能繼續畫'], ['獨立創作的能力', '學會點、線、配色與構圖的方法，不用再照著圖臨摹']]) +
     bnr('b14', 'In Your Life', '把作品帶回生活', 'c3') +
@@ -497,11 +500,43 @@ function renderPick() {
     }
     de.insertAdjacentHTML('afterend', '<p class="wish">🌿 想在其他縣市上？滿 3 人就能開班，<a href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener">私訊官方 LINE 許願開班 ›</a></p>');
   }
+  // 2026-11-28 Kimi：場次下面加「查看完整月曆」，點了跳出整個月的行事曆
+  var oc = de.parentNode && de.parentNode.querySelector('.calk'); if (oc) oc.remove();
+  var allS = L.filter(function (s) { return s.location === S.city; });
+  if (allS.length) { de.insertAdjacentHTML('afterend', '<button class="calk" data-calk>📅 查看完整月曆 ›</button>'); de.parentNode.querySelector('[data-calk]').onclick = function (ev) { ev.stopPropagation(); openCal(allS); }; }
   if (S.k === 'beginner') { ce.insertAdjacentHTML('beforeend', '<button class="chip" data-gon>視訊線上課</button>'); ce.querySelector('[data-gon]').onclick = function (ev) { ev.stopPropagation(); swap('online'); }; }
   // 直接綁在每顆按鈕上（不靠整頁的點擊判斷），第一個場次也點得到
   ce.querySelectorAll('[data-city]').forEach(function (btn) { btn.onclick = function (ev) { ev.stopPropagation(); S.city = btn.dataset.city; S.sess = null; renderPick(); }; });
   de.querySelectorAll('[data-si]').forEach(function (btn) { btn.onclick = function (ev) { ev.stopPropagation(); S.sess = ds[+btn.dataset.si]; renderPick(); trk('select_session', { course: S.k, city: S.city }); }; });
   renderTOpt();
+}
+// 2026-11-28 Kimi：月曆彈窗（整個月的開課時間，點日期看場次、點場次直接選）
+function openCal(list) {
+  var first = list[0].date.split('-'), Y = +first[0], M = +first[1] - 1, pick = null;
+  var ov = document.createElement('div'); ov.className = 'calo';
+  function draw() {
+    var d0 = new Date(Y, M, 1), n = new Date(Y, M + 1, 0).getDate(), pad = d0.getDay(), cells = '', ym = Y + '-' + ('0' + (M + 1)).slice(-2);
+    for (var i = 0; i < pad; i++) cells += '<span></span>';
+    for (var d = 1; d <= n; d++) {
+      var key = ym + '-' + ('0' + d).slice(-2), has = list.filter(function (s) { return s.date === key; }).length;
+      cells += has ? '<button class="cd has' + (pick === key ? ' on' : '') + '" data-cd="' + key + '">' + d + '<i>' + has + '場</i></button>' : '<span class="cd">' + d + '</span>';
+    }
+    var day = pick ? list.filter(function (s) { return s.date === pick; }) : [];
+    var lastM = list[list.length - 1].date.slice(0, 7), firstM = list[0].date.slice(0, 7);
+    ov.innerHTML = '<div class="calb"><button class="calx" data-cx>×</button><p class="calt">' + (S.city || '') + '・開課月曆</p>' +
+      '<div class="calm"><button data-cm="-1"' + (ym <= firstM ? ' disabled' : '') + '>‹</button><b>' + Y + ' 年 ' + (M + 1) + ' 月</b><button data-cm="1"' + (ym >= lastM ? ' disabled' : '') + '>›</button></div>' +
+      '<div class="calg"><em>日</em><em>一</em><em>二</em><em>三</em><em>四</em><em>五</em><em>六</em>' + cells + '</div>' +
+      (pick ? '<div class="cals"><p>' + (+pick.split('-')[1]) + '/' + (+pick.split('-')[2]) + ' 的場次</p>' + day.map(function (s) { return '<button data-cs="' + list.indexOf(s) + '">' + (S.k === 'teacher' ? '兩日 09:00–17:00' : slotEmo(s.time) + (s.time ? '　' + s.time : '')) + '<span>選這場 ›</span></button>'; }).join('') + '</div>' : '<p class="calh">點有標示的日期，看當天場次</p>') + '</div>';
+  }
+  ov.onclick = function (ev) {
+    ev.stopPropagation(); var t = ev.target.closest('button');
+    if (ev.target === ov || (t && t.hasAttribute('data-cx'))) { ov.remove(); return; }
+    if (!t) return;
+    if (t.dataset.cm) { M += +t.dataset.cm; if (M < 0) { M = 11; Y--; } if (M > 11) { M = 0; Y++; } pick = null; draw(); }
+    else if (t.dataset.cd) { pick = t.dataset.cd; draw(); }
+    else if (t.dataset.cs) { S.sess = list[+t.dataset.cs]; ov.remove(); renderPick(); trk('select_session', { course: S.k, city: S.city, from: 'calendar' }); }
+  };
+  draw(); document.body.appendChild(ov);
 }
 // 兩日進階班「零基礎在哪上」：登入會員自動查折抵（2026-11-25 Kimi 定案）
 // 查到 2 週內上過 Kimi 的零基礎 → 自動折抵；查到但超過 2 週 → 不折；查不到 → 只顯示其他老師／一起報

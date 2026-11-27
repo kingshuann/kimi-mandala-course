@@ -251,7 +251,7 @@ function detailHtml(k) {
   // ④ 常見問題（兩日進階班）
   function ir(t, body, open) { return '<div class="ir' + (open ? ' on' : '') + '"><button class="ir-h" data-ir>' + t + '<i></i></button><div class="ir-b">' + body + '</div></div>'; }
   var nItems = b.lessons.reduce(function (a, l) { return a + l[1].length; }, 0);
-  var tabs = [['ds-about', '關於課程'], ['ds-who', '上課須知'], ['ds-units', '課程單元']].concat(T ? [['ds-qa', '常見問題']] : []);
+  var tabs = [['ds-about', '關於課程'], ['ds-units', '課程單元'], ['ds-who', '上課須知']].concat(T ? [['ds-qa', '常見問題']] : []);
   return '<nav class="dtab">' + tabs.map(function (x, i) { return '<button data-dtab="' + x[0] + '"' + (i ? '' : ' class="on"') + '>' + x[1] + '</button>'; }).join('') + '</nav>' +
     // 2026-11-27 Kimi：課堂紀錄相簿（素材/2026-11-27_課程照片相機質感，只挑沒拍到臉的、調成相機質感），左右滑、點了放大
     '<section class="ds clp" id="ds-about"><div class="clb">' +
@@ -261,15 +261,15 @@ function detailHtml(k) {
       '<p class="dk dkc ab">' + (T ? '不只學技法，更學會創作' : '並非臨摹，而是 0 到 1 獨立創作') + '</p>' + cmp +
       '<p class="dk dkc ab">' + (T ? '附贈材料' : '工具大禮包') + '</p><ul class="dl">' + b.kit.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul><img class="fin" src="' + IMG + b.finalImg + '" alt="課程作品" loading="lazy">' +
     '</div><button class="clm" data-clm>查看更多</button></section>' +
+    '<section class="ds dcard" id="ds-units"><div class="uh"><b>課程單元</b><span>' + b.lessons.length + ' 大主題・' + nItems + ' 個重點</span><button data-uall>全部展開</button></div>' +
+      b.lessons.map(function (l, i) { return '<div class="un' + (i ? '' : ' on') + '"><button class="un-h lh" data-un><span>主題' + '一二三四五六七八'[i] + '</span>' + l[0] + '<i></i></button><ul class="dl un-b">' + l[1].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul></div>'; }).join('') +
+    '</section>' +
     '<section class="ds dcard" id="ds-who"><div class="icard">' +
       ir('誰適合這堂課？', '<ul class="dl">' + b.who.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>', 1) +
       ir('攜帶物品', '<p class="dp">' + (on ? '什麼都不用準備，材料包會寄到家！' : b.bring) + '</p>') +
       ir('注意事項', '<ol class="dl">' + NOTES.map(function (n) { return '<li>' + n + '</li>'; }).join('') + '</ol>') +
       (T ? ir('報名條件', '<p class="dp">' + TEACHER_COND + '</p>') : '') +
     '</div></section>' +
-    '<section class="ds dcard" id="ds-units"><div class="uh"><b>課程單元</b><span>' + b.lessons.length + ' 大主題・' + nItems + ' 個重點</span><button data-uall>全部展開</button></div>' +
-      b.lessons.map(function (l, i) { return '<div class="un' + (i ? '' : ' on') + '"><button class="un-h lh" data-un><span>主題' + '一二三四五六七八'[i] + '</span>' + l[0] + '<i></i></button><ul class="dl un-b">' + l[1].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul></div>'; }).join('') +
-    '</section>' +
     (T ? '<section class="ds dcard" id="ds-qa"><div class="uh"><b>常見問題</b></div><div class="qa">' + TEACHER_QA.map(function (q, i) { return '<details' + (i ? '' : ' open') + '><summary>' + q[0] + '</summary><p>' + q[1] + '</p></details>'; }).join('') + '</div></section>' : '');
 }
 // 陪跑計劃獨立頁（2026-11-26 Kimi：不放在兩日進階班頁下面，點「看陪跑計劃內容」才打開）

@@ -285,7 +285,7 @@ function aboutBeginner(b, info, gets) {
     bnr('b14', 'In Your Life', '把作品帶回生活', 'c3') +
     // 2026-11-28 Kimi：改寫成「建立生活儀式感、創造自己想要的生活方式」
     // 2026-11-28 Kimi：初階班 15cm 黑卡紙作品放在玄關小畫架、書桌（AI 生成）；大畫掛牆的兩張移到兩日進階班
-    '<div class="pair2"><img src="img_class/card-entry.jpg" alt="15cm 作品放在玄關小畫架" loading="lazy"><img src="img_class/card-desk.jpg" alt="15cm 作品放在書桌" loading="lazy"></div>' +
+    '<div class="pair2"><img src="img_class/card-entry2.jpg" alt="15cm 作品放在玄關小畫架" loading="lazy"><img src="img_class/card-desk2.jpg" alt="15cm 作品放在書桌" loading="lazy"></div>' +
     '<h4 class="stt">這不只是一堂畫畫課，而是生活儀式感</h4>' +
     '<p class="sp">畫好的作品放在書桌、床頭或玄關，每天看到，都會想起那個只屬於自己的下午。每週留一段時間給自己，一個點、一個點畫下去，畫畫會慢慢變成生活裡的<b>小儀式</b>。</p>' +
     '<p class="sp">更重要的是，你會發現：<b>你有能力，親手創造自己想要的生活方式。</b>把自己的創意和感受，畫進每天會用到、會看到的地方，讓生活一點一點，變成你喜歡的樣子。</p>' +

@@ -67,7 +67,9 @@
 /* 2026-11-28 Kimi：課程頁標籤改成一行「✓ 文字」，不要格線分欄 */
 [data-pg="course"] .cbody .ck{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:14px}
 [data-pg="course"] .cbody .ck span{background:none;border-radius:0;padding:0;font-size:13.5px;font-weight:500;letter-spacing:.04em;color:var(--ink);white-space:nowrap}
-[data-pg="course"] .cbody .ck span::before{content:'✓';margin-right:5px;color:#B07A55;font-weight:700}
+/* 2026-11-28 Kimi：課程標籤改成跟「主題一」一樣的深綠小膠囊 */
+[data-pg="course"] .cbody .ck{gap:6px 6px}
+[data-pg="course"] .cbody .ck span{background:var(--olive2);color:var(--cream);border-radius:5px;padding:3px 8px;font-size:12px;letter-spacing:.05em}
 .pk{margin:16px 0 0;list-style:none;display:grid;gap:6px;font-size:13px}
 .pk li::before{content:'—';color:var(--olive2);margin-right:8px}
 .lbl{font-family:'Marcellus';font-size:11px;letter-spacing:.2em;margin:20px 0 9px;color:var(--olive2)}

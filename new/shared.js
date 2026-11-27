@@ -422,7 +422,7 @@ function detailHtml(k) {
     '<section class="ds dcard" id="ds-who"><div class="uh"><b>上課須知</b></div><div class="icard qac">' + /* 2026-11-28 Kimi：加標題，答案樣式跟常見問題一樣 */
       ir('誰適合這堂課？', '<ul class="gets pain who">' + b.who.map(function (x) { return '<li><b>' + x + '</b></li>'; }).join('') + '</ul>', 1) +
       ir('攜帶物品', '<p class="dp">' + (on ? '什麼都不用準備，材料包會寄到家！' : b.bring) + '</p>') +
-      ir('注意事項', '<ol class="dl">' + NOTES.map(function (n) { return '<li>' + n + '</li>'; }).join('') + '</ol>') +
+      ir('注意事項', '<ul class="dl">' + NOTES.map(function (n) { return '<li>' + n + '</li>'; }).join('') + '</ul>') /* 2026-11-28 Kimi：注意事項改點點，不用數字 */ +
       (T ? ir('報名條件', '<p class="dp">' + TEACHER_COND + '</p>') : '') +
     '</div></section>' +
     (1 ? '<section class="ds dcard" id="ds-qa"><div class="uh"><b>常見問題</b></div><div class="icard qac">' + /* 2026-11-28 Kimi：常見問題改成跟上課須知一樣的摺疊卡片 */ (T ? TEACHER_QA : BEGINNER_QA).map(function (q) { return ir(q[0], '<p class="qa-a">' + q[1] + '</p>', 0); }).join('') + '</div></section>' : '');

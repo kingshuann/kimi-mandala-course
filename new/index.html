@@ -149,22 +149,30 @@
 .fm5-hd b{display:block;font-family:'Noto Serif TC',serif;font-size:19px;font-weight:600;letter-spacing:.16em;margin-top:8px}
 .fm5-hd b em{font-style:normal;font-family:'Marcellus',serif;font-size:26px;color:#B07A55;margin:0 2px}
 .fm5-hd i{display:block;margin-top:6px;font:400 10.5px/1 'Marcellus',serif;font-style:normal;letter-spacing:.22em;text-transform:uppercase;color:#9A7558}
-.pz{position:relative;display:grid;grid-template-columns:1fr 1fr}
-.pz-t{position:relative;aspect-ratio:1/1.02;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10px 8px}
+.fm5-cap{text-align:center;font-family:'Noto Serif TC',serif;font-size:13.5px;letter-spacing:.14em;color:#8C7B68;margin:0 0 16px}
+.fm5-cap::before,.fm5-cap::after{content:'';display:inline-block;width:22px;height:1px;background:#C8B8A2;vertical-align:middle;margin:0 10px}
+/* 2026-11-28 Kimi：拼圖立體＋空隙（每塊獨立圓角＋陰影高光；凸片橫跨空隙，卡進隔壁的凹槽） */
+.pz{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:2px 2px 6px}
+.pz-t{position:relative;aspect-ratio:1/1.02;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10px 8px;border-radius:10px;box-shadow:0 6px 14px rgba(70,50,30,.16),0 1px 2px rgba(70,50,30,.12),inset 0 1px 0 rgba(255,255,255,.65),inset 0 -3px 6px rgba(70,50,30,.06)}
 .pz-t.t1,.pz-t.t4{background:#F0E5D3}.pz-t.t2,.pz-t.t3{background:#E2D2B8}
-.pz-t.t1{border-radius:10px 0 0 0}.pz-t.t2{border-radius:0 10px 0 0}.pz-t.t3{border-radius:0 0 0 10px}.pz-t.t4{border-radius:0 0 10px 0}
-.pz-t::before,.pz-t::after{content:'';position:absolute;width:30px;height:30px;border-radius:50%;z-index:2}
-.pz-t.t1::after{right:-15px;top:calc(50% - 15px);background:#F0E5D3}
-.pz-t.t1::before{bottom:-15px;left:calc(50% - 15px);background:#F0E5D3}
-.pz-t.t2::after{bottom:-15px;left:calc(50% - 15px);background:#E2D2B8}
-.pz-t.t4::after{left:-15px;top:calc(50% - 15px);background:#F0E5D3}
-.pz-t.t2::before,.pz-t.t3::before,.pz-t.t3::after,.pz-t.t4::before{display:none}
+.pz-t::before,.pz-t::after{content:'';position:absolute;z-index:2}
+/* 凸片：從自己的邊伸出、跨過 12px 空隙、伸進隔壁 14px */
+.pz-t.t1::after,.pz-t.t4::after{width:40px;height:26px;border-radius:13px;top:calc(50% - 13px)}
+.pz-t.t1::after{right:-28px;background:#F0E5D3;box-shadow:2px 2px 4px rgba(70,50,30,.14)}
+.pz-t.t4::after{left:-28px;background:#F0E5D3;box-shadow:-1px 2px 4px rgba(70,50,30,.14)}
+.pz-t.t1::before,.pz-t.t2::after{width:26px;height:40px;border-radius:13px;left:calc(50% - 13px);bottom:-28px;box-shadow:1px 2px 4px rgba(70,50,30,.14)}
+.pz-t.t1::before{background:#F0E5D3}.pz-t.t2::after{background:#E2D2B8}
+/* 凹槽：隔壁那塊挖一個比凸片大一圈的洞（用頁面底色），凸片就像卡在裡面 */
+.pz-t.t2::before{width:34px;height:34px;border-radius:50%;left:-16px;top:calc(50% - 17px);background:var(--bg);z-index:1}
+.pz-t.t3::before{width:34px;height:34px;border-radius:50%;top:-16px;left:calc(50% - 17px);background:var(--bg);z-index:1}
+.pz-t.t3::after{width:34px;height:34px;border-radius:50%;right:-16px;top:calc(50% - 17px);background:var(--bg);z-index:1}
+.pz-t.t4::before{width:34px;height:34px;border-radius:50%;top:-16px;left:calc(50% - 17px);background:var(--bg);z-index:1}
 .pz-ic{color:#5A4636;position:relative;z-index:3}
 .pz-ic svg{width:40px;height:40px;display:block}
 .pz-t i{font:400 13px/1 'Marcellus',serif;font-style:normal;color:#B07A55;letter-spacing:.14em;margin-top:6px;position:relative;z-index:3}
 .pz-t b{font-family:'Noto Serif TC',serif;font-size:14.5px;font-weight:600;letter-spacing:.04em;margin-top:4px;position:relative;z-index:3}
 .pz-t small{font-size:11px;color:#7A6A58;margin-top:2px;position:relative;z-index:3}
-.pz-mid{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:4;width:62px;height:62px;border-radius:50%;background:#FBF8F2;border:1px solid #3B3228;display:flex;align-items:center;justify-content:center;text-align:center;font-family:'Noto Serif TC',serif;font-size:10.5px;font-weight:600;line-height:1.45;letter-spacing:.04em;box-shadow:0 0 0 4px #FBF8F2}
+.pz-mid{position:absolute;left:50%;top:calc(50% - 2px);transform:translate(-50%,-50%);z-index:5;width:62px;height:62px;border-radius:50%;background:#FBF8F2;border:1px solid #3B3228;display:flex;align-items:center;justify-content:center;text-align:center;font-family:'Noto Serif TC',serif;font-size:10.5px;font-weight:600;line-height:1.45;letter-spacing:.04em;box-shadow:0 0 0 4px #FBF8F2}
 /* 第四版：雜誌風／簡報插圖風 */
 .fmap4{position:relative;aspect-ratio:1/1.5;margin:4px 0 26px;background:#FBF8F2;border:1px solid #E6DCCB;border-radius:4px;color:#3B3228;box-shadow:0 2px 12px rgba(80,60,40,.06)}
 .fm4-hd{position:absolute;left:7%;right:7%;top:4.5%;border-bottom:1px solid #3B3228;padding-bottom:10px}
@@ -1529,7 +1537,7 @@ body.dopen .fab{opacity:0;pointer-events:none}
 <div class="fab"><a class="f-ig" href="https://www.instagram.com/imikdots" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="#fff" stroke="none"/></svg></a><a class="f-line" href="https://lin.ee/5rqtuQw" target="_blank" rel="noopener" aria-label="LINE 私訊 Kimi"><svg viewBox="0 0 24 24" fill="#fff"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a></div>
 </div>
 <script src="../data.js?v=1125a"></script>
-<script src="shared.js?v=1129f"></script>
+<script src="shared.js?v=1129g"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="sb-config.js?v=1123p"></script>
 <script src="member.js?v=1124d"></script>

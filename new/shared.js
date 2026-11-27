@@ -254,7 +254,7 @@ var FT_ICON = {
 };
 // 2026-11-27 Kimi 第五版：四大拼圖（2×2 拼圖塊，深淺交錯，凸出的圓扣拼在一起；中間小圓放課名）
 function ftMap(kind, nodes, center) {
-  return '<div class="fmap5"><div class="fm5-hd"><span>' + (kind === 'teacher' ? 'ADVANCED' : 'BEGINNER') + ' ・ VOL.01</span><b>這堂課的 <em>4</em> 個特色</b><i>Course Features</i></div>' +
+  return '<div class="fmap5"><p class="fm5-cap">四個特色，拼成一堂完整的課</p>' + // 2026-11-28 Kimi：上方已有「課程特色」橫幅，拿掉重複的大標題
     '<div class="pz">' + nodes.map(function (n, i) { return '<div class="pz-t t' + (i + 1) + '"><span class="pz-ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' + FT_ICON[n[2]] + '</svg></span><i>0' + (i + 1) + '</i><b>' + n[0] + '</b><small>' + n[1] + '</small></div>'; }).join('') +
     '<div class="pz-mid">' + center + '</div></div></div>';
 }

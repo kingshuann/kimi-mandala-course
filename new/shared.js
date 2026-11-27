@@ -253,7 +253,9 @@ function detailHtml(k) {
   var nItems = b.lessons.reduce(function (a, l) { return a + l[1].length; }, 0);
   var tabs = [['ds-about', '關於課程'], ['ds-who', '上課須知'], ['ds-units', '課程單元']].concat(T ? [['ds-qa', '常見問題']] : []);
   return '<nav class="dtab">' + tabs.map(function (x, i) { return '<button data-dtab="' + x[0] + '"' + (i ? '' : ' class="on"') + '>' + x[1] + '</button>'; }).join('') + '</nav>' +
+    // 2026-11-27 Kimi：課堂紀錄相簿（素材/2026-11-27_課程照片相機質感，只挑沒拍到臉的、調成相機質感），左右滑、點了放大
     '<section class="ds clp" id="ds-about"><div class="clb">' +
+      '<p class="dk dkc">課堂紀錄</p><div class="cgal">' + (T ? ['t02', 't09', 't01', 't10', 't04', 't03', 't06', 't11', 't05', 't07', 't08'] : ['b01', 'b09', 'b02', 'b10', 'b03', 'b11', 'b04', 'b12', 'b05', 'b13', 'b06', 'b14', 'b07', 'b15', 'b08', 'b16']).map(function (n) { return '<img src="img_class/' + n + '.jpg" alt="課堂紀錄" loading="lazy" data-zoom>'; }).join('') + '</div><p class="cgal-n">左右滑動看更多 →</p>' +
       '<p class="dk dkc">你是不是也這樣？</p>' + gets(T ? TEACHER_PAIN : BEGINNER_PAIN, 'pain') + '<blockquote class="pq">' + (T ? '兩日進階班要做的，<br>就是陪你把作品，一點一點畫得更美。' : '零基礎班要做的，<br>就是陪你留一段時間給自己，<br>畫出第一幅屬於你的作品。') + '</blockquote>' +
       '<p class="dk dkc ab">課程資訊</p><ul class="rows">' + info.map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('') + '</ul>' +
       '<p class="dk dkc ab">' + (T ? '不只學技法，更學會創作' : '並非臨摹，而是 0 到 1 獨立創作') + '</p>' + cmp +
@@ -915,4 +917,11 @@ function slotEmo(t) { var n = slotName(t); return ({ '早班': '☀️', '午班
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
 })();
+
+// 課堂紀錄相簿：點照片放大（2026-11-27 Kimi）
+document.addEventListener('click', function (ev) {
+  var z = ev.target.closest('[data-zoom]');
+  var bx = document.getElementById('zbox');
+  if (z) { if (!bx) { bx = document.createElement('div'); bx.id = 'zbox'; bx.className = 'zbox'; bx.innerHTML = '<img alt="">'; document.body.appendChild(bx); bx.addEventListener('click', function () { bx.hidden = true; }); } bx.querySelector('img').src = z.src; bx.hidden = false; }
+});
 

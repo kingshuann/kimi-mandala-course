@@ -284,7 +284,7 @@ function aboutTeacher(b, info, gets, cmp) {
     '<div class="pair2"><img src="img_class/t02.jpg" alt="" loading="lazy" data-zoom><img src="img_class/t07.jpg" alt="" loading="lazy" data-zoom></div>' +
     '<p class="dk dkc ab">課程資訊</p><ul class="rows">' + info.map(function (r) { return '<li><span>' + r[0] + '</span><span>' + r[1] + '</span></li>'; }).join('') + '</ul>';
 }
-// 2026-11-27 Kimi：做成 LINE 對話框的樣子。[署名, LINE 上的日期, [一個泡泡一則訊息]]；原本分開傳的訊息就分開放；頭像用預設圖，不放學員照片
+// 2026-11-27 Kimi：做成 LINE 對話框的樣子（變數叫 LINE_REVIEWS，不要叫 REVIEWS，那是 data.js 首頁評價用的）。[署名, LINE 上的日期, [一個泡泡一則訊息]]；原本分開傳的訊息就分開放；頭像用預設圖，不放學員照片
 // 2026-11-27 Kimi：心得頭像改 Q 版小人（程式畫的，不是學員本人），4 種髮型
 function chibi(t) {
   var bg = { long: '#F6DCCB', bun: '#DCE8D2', boy: '#D7E3F1', bob: '#F3E1EC' }[t] || '#EEE';
@@ -300,11 +300,16 @@ function chibi(t) {
     '<ellipse cx="13.6" cy="27.3" rx="2" ry="1.2" fill="#F4A6A6" opacity=".6"/><ellipse cx="26.4" cy="27.3" rx="2" ry="1.2" fill="#F4A6A6" opacity=".6"/>' +
     '<path d="M18.3 28.2q1.7 1.4 3.4 0" stroke="#B5655A" stroke-width=".9" fill="none" stroke-linecap="round"/></svg>';
 }
-var REVIEWS = [
+var LINE_REVIEWS = [
   ['台中・零基礎班學員', '7/30（四）', ['昨天心情不是很好，為了靜心隨手畫了一幅，覺得好神奇，真的有被療癒到'], 'long'],
   ['台中・零基礎班學員', '9/23（三）', ['真的很療癒。', '未來你有新的作品或才藝，如果我有喜歡的，也會繼續和您學習。'], 'bun'],
   ['新竹・零基礎班學員', '10/19（一）', ['我回到家了，今天的體驗我很喜歡', '等我明天多畫幾張再傳給老師'], 'boy'],
-  ['高雄・線上零基礎班學員', '11/1（日）', ['老師今天謝謝您', '很療癒'], 'bob']
+  ['高雄・線上零基礎班學員', '11/1（日）', ['老師今天謝謝您', '很療癒'], 'bob'],
+  // 舊版網站的學員評價（正式網站/data.js 的 REVIEWS，原文照搬；沒有日期）
+  ['台中・零基礎班學員', '', ['我才發現已經好久沒有把自己的時間排進生活裡了，原來陪伴自己可以這麼放鬆，完成之後又這麼有成就感！'], 'bob'],
+  ['台中・零基礎班學員', '', ['非常喜歡自己做的成品，沒想到我能這樣畫畫。我是容易緊張的人，沒想到整堂課開心又放鬆！'], 'long'],
+  ['桃園・零基礎班學員', '', ['謝謝老師今天的療癒時光，我已經買了好多顏料準備要開始大畫特畫啦！'], 'bun'],
+  ['高雄・零基礎班學員', '', ['美麗的老師！療癒的課程。很放鬆，真的有療癒到我。'], 'long']
 ];
 function detailHtml(k) {
   var b = COURSES[k === 'teacher' ? 'teacher' : 'beginner'], on = k === 'online';
@@ -331,7 +336,7 @@ function detailHtml(k) {
       [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18].map(function (i) { return '<img src="img_class/w' + (i < 10 ? '0' : '') + i + '.jpg" alt="學員作品" loading="lazy" data-zoom>'; }).join('') +
       '</div><button class="clm" data-wall>看更多作品</button>' +
       // 2026-11-27 Kimi：學員心得（取自官方 LINE，Kimi 決定不具名：只留原話＋地區，名字頭像都不放；清單在 素材/學員心得/2026-11-27_官方LINE心得候選.md）
-      '<div class="uh rv-h"><b>學員心得</b><span>來自 LINE 的真實回饋</span></div><div class="lchats">' + REVIEWS.map(function (r) { return '<div class="lcard"><div class="lhd"><i>‹</i><b>' + r[0] + '</b></div><div class="lbody"><span class="ldate">' + r[1] + '</span><div class="lc"><span class="lav">' + chibi(r[3]) + '</span><div class="lcb">' + r[2].map(function (m, i) { return '<p class="lbub' + (i ? '' : ' t') + '">' + m + '</p>'; }).join('') + '</div></div></div></div>'; }).join('') + '</div><p class="cgal-n">左右滑動看更多 →</p></section>') +
+      '<div class="uh rv-h"><b>學員心得</b><span>來自 LINE 的真實回饋</span></div><div class="lchats">' + LINE_REVIEWS.map(function (r) { return '<div class="lcard"><div class="lhd"><i>‹</i><b>' + r[0] + '</b></div><div class="lbody">' + (r[1] ? '<span class="ldate">' + r[1] + '</span>' : '') + '<div class="lc"><span class="lav">' + chibi(r[3]) + '</span><div class="lcb">' + r[2].map(function (m, i) { return '<p class="lbub' + (i ? '' : ' t') + '">' + m + '</p>'; }).join('') + '</div></div></div></div>'; }).join('') + '</div><p class="cgal-n">左右滑動看更多 →</p></section>') +
     '<section class="ds dcard" id="ds-units"><div class="uh"><b>課程單元</b><span>' + b.lessons.length + ' 大主題・' + nItems + ' 個重點</span><button data-uall>全部展開</button></div>' +
       b.lessons.map(function (l, i) { return '<div class="un' + (i ? '' : ' on') + '"><button class="un-h lh" data-un><span>主題' + '一二三四五六七八'[i] + '</span>' + l[0] + '<i></i></button><ul class="dl un-b">' + l[1].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul></div>'; }).join('') +
     '</section>' +

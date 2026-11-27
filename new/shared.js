@@ -286,8 +286,9 @@ function aboutBeginner(b, info, gets) {
     '<p class="sp">畫好的作品放在書桌、床頭或玄關，每天看到，都會想起那個只屬於自己的下午。也可以送給朋友，或畫在杯墊、石頭、蠟燭等不同材質上。</p>' +
     '<p class="sp">不用每天畫很久。每週留 30 分鐘給自己，畫畫就會慢慢變成生活裡的小儀式。</p>' +
     // 2026-11-27 Kimi 的送禮故事
-    '<h4 class="stt">送一幅畫，是最有誠意的禮物</h4>' +
-    '<div class="cft"><img src="img_class/gift-notebook.jpg" alt="親手畫的筆記本禮物" loading="lazy"></div>' + // 2026-11-28 Kimi 畫的筆記本，AI 生成準備包裝成禮物
+    '<h4 class="stt">親手畫出最有誠意的禮物</h4>' +
+    // 2026-11-28 Kimi：同一個圖案畫在筆記本、書籤、馬克杯上（AI 生成準備包裝的禮物），三張並排
+    '<div class="trio"><img src="img_class/gift-notebook.jpg" alt="筆記本禮物" loading="lazy"><img src="img_class/gift-bookmark.jpg" alt="書籤禮物" loading="lazy"><img src="img_class/gift-mug.jpg" alt="馬克杯禮物" loading="lazy"></div>' +
     '<p class="sp">送禮最難的，是不知道對方需要什麼。買了怕用不到，又怕對方心裡想：「怎麼會送這個？」想要有心、有誠意，卻常常不知道從哪裡下手。</p>' +
     '<p class="sp">我有一位朋友在新北買了房子，我畫了一幅曼陀羅當作入厝禮；身邊好朋友過生日，我也常常送上自己的作品。<b>一點一點畫出來的心意，對方一看就懂。</b></p>' +
     '<p class="sp">親手畫一份獨一無二的禮物，也是另一種生活裡的儀式感。</p>' +

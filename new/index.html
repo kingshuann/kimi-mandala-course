@@ -1027,7 +1027,9 @@ img[src*="img_collab/"]{object-position:74% 50% !important}
 /* 2026-11-28 Kimi：「上完課你會帶走」「誰適合這堂課」跟上面的勾選清單統一 */
 .tkh{background:none;border:0;border-radius:0;padding:0;box-shadow:none;margin:26px 0 10px;color:inherit}
 .tkh .stt{margin-bottom:2px}
-.gets.pain.tkl li::before{content:attr(data-n);font:400 13px/20px 'Marcellus',serif;font-weight:400}
+/* 2026-11-28 Kimi：數字太搶戲 → 拿掉圓圈，改成淡色小數字 */
+.gets.pain.tkl li{padding-left:30px}
+.gets.pain.tkl li::before{content:'0' attr(data-n);border:0;width:auto;height:auto;top:15px;left:2px;font:400 13px/1.4 'Marcellus',serif;letter-spacing:.04em;color:#B5AA98}
 .gets.pain.who{margin:0}
 /* 2026-11-28 Kimi：誰適合這堂課不要打勾，只留虛線分隔 */
 .gets.pain.who li{padding:11px 4px}

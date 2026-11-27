@@ -274,7 +274,7 @@ function aboutBeginner(b, info, gets) {
   ];
   return bnr('b09', 'Why Dot Mandala', '為什麼是點點曼陀羅', 'c1') +
     '<h4 class="stt">從「我不會畫畫」開始</h4>' +
-    '<figure class="wrapfig"><img src="img_class/kimi-beauty.jpg" alt="Kimi 做美業的時候"><figcaption>美業創業 8 年的我</figcaption></figure>' + // 2026-11-28 Kimi：雜誌風，照片在右、文字繞圖
+    '<figure class="wrapfig"><img src="img_class/kimi-beauty.jpg" alt="Kimi 做美業的時候"></figure>' + // 2026-11-28 Kimi：雜誌風，照片在右、文字繞圖
     '<p class="sp">我從小就被說不會畫畫、沒有創意。商管碩士畢業後進了廣告公司，後來創業做美業 8 年，每天都被工作追著跑。</p>' +
     '<p class="sp">直到在最焦慮、最低潮的時候遇見點點曼陀羅。一個點、一個點畫下去，心慢慢安靜下來，我才發現，原來可以把注意力放回當下。</p>' +
     '<p class="sp">一年內，我畫了超過 200 幅作品，也成為曼陀羅老師。所以我很確定：<b>零基礎，真的畫得出來。</b>現在，我想把這段安靜的時間帶給你。</p>' +

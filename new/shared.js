@@ -1052,6 +1052,7 @@ function slotEmo(t) { var n = slotName(t); return ({ '早班': '☀️', '午班
 // 初階班不含下午茶了（2026-11-27 Kimi；不動正式網站 data.js）
 (function () { var b = window.COURSES && COURSES.beginner; if (!b) return;
   if (b.chips) b.chips = b.chips.filter(function (x) { return x.indexOf('下午茶') < 0; });
+  b.chips = ['新手友善', '贈送工具大禮包', '10 件作品', '終生問答']; // 2026-11-28 Kimi：初階班標籤改這四個
   if (b.perks) b.perks = b.perks.filter(function (x) { return x.indexOf('含下午茶') < 0; }); })();
 // 「三種課程怎麼選？」改成點了才彈出來的頁面（2026-11-27 Kimi：全部課程頁一進來只看到乾淨的課程）
 (function () {

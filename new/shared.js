@@ -252,13 +252,16 @@ var FT_ICON = {
   layers: '<rect x="8" y="13" width="20" height="20" rx="2"/><circle cx="31" cy="28" r="9"/><circle cx="31" cy="28" r="4"/><path d="M15 36 h10 v6 h-10 z"/><path d="M20 36 c-2 -3 2 -4 0 -7"/>',
   petal: '<circle cx="24" cy="24" r="3"/><path d="M24 21 c-3 -6 -3 -10 0 -14 c3 4 3 8 0 14"/><path d="M27 24 c6 -3 10 -3 14 0 c-4 3 -8 3 -14 0"/><path d="M24 27 c3 6 3 10 0 14 c-3 -4 -3 -8 0 -14"/><path d="M21 24 c-6 3 -10 3 -14 0 c4 -3 8 -3 14 0"/><circle cx="24" cy="24" r="15" stroke-dasharray="1 3"/>'
 };
+// 2026-11-27 Kimi 第五版：四大拼圖（2×2 拼圖塊，深淺交錯，凸出的圓扣拼在一起；中間小圓放課名）
 function ftMap(kind, nodes, center) {
-  var pos = [[50, 27], [80, 54], [20, 54], [50, 80]];
-  var lines = '<polygon points="50,27 80,54 50,80 20,54" fill="none" stroke="#C8B8A2" stroke-width=".35" stroke-dasharray="1.2 1.2"/>';
-  return '<div class="fmap4"><div class="fm4-hd"><span>' + (kind === 'teacher' ? 'ADVANCED' : 'BEGINNER') + ' ・ VOL.01</span><b>這堂課的 <em>4</em> 個特色</b><i>Course Features</i></div>' +
-    '<svg class="fm4-l" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">' + lines + '</svg>' +
-    '<div class="fm4-mid">' + center + '</div>' +
-    nodes.map(function (n, i) { return '<div class="fm4-n" style="left:' + pos[i][0] + '%;top:' + pos[i][1] + '%"><span class="fm4-ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' + FT_ICON[n[2]] + '</svg></span><i>0' + (i + 1) + '</i><b>' + n[0] + '</b><small>' + n[1] + '</small></div>'; }).join('') + '</div>';
+  return '<div class="fmap5"><div class="fm5-hd"><span>' + (kind === 'teacher' ? 'ADVANCED' : 'BEGINNER') + ' ・ VOL.01</span><b>這堂課的 <em>4</em> 個特色</b><i>Course Features</i></div>' +
+    '<div class="pz">' + nodes.map(function (n, i) { return '<div class="pz-t t' + (i + 1) + '"><span class="pz-ic"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' + FT_ICON[n[2]] + '</svg></span><i>0' + (i + 1) + '</i><b>' + n[0] + '</b><small>' + n[1] + '</small></div>'; }).join('') +
+    '<div class="pz-mid">' + center + '</div></div></div>';
+}
+// 2026-11-27 Kimi：「上完課，你會帶走」（課後收穫，跟課程特色分開）；放在特色細節之後、把作品帶回生活之前
+function takeHome(kind, rows) {
+  return '<div class="tkh"><div class="fm5-hd"><span>' + (kind === 'teacher' ? 'ADVANCED' : 'BEGINNER') + ' ・ TAKE HOME</span><b>上完課，你會帶走</b><i>What you take home</i></div>' +
+    rows.map(function (r, i) { return '<div class="tkh-r"><i>0' + (i + 1) + '</i><div><b>' + r[0] + '</b><small>' + r[1] + '</small></div></div>'; }).join('') + '</div>';
 }
 function aboutBeginner(b, info, gets) {
   var ft = [
@@ -276,7 +279,7 @@ function aboutBeginner(b, info, gets) {
     bnr('b11', 'Features', '課程特色', 'c2') +
     ftMap('beginner', [['零基礎也能畫', '一步一步帶你畫', 'pen'], ['你自己的作品', '不是臨摹', 'easel'], ['回家繼續畫', '工具大禮包帶回家', 'kit'], ['親手畫的禮物', '送朋友最有心意', 'gift']], '零基礎<br>點點曼陀羅') +
     ft.map(function (f, i) { return '<div class="cft"><img src="img_class/' + f[0] + '.jpg" alt="" loading="lazy" data-zoom><h4 class="stt"><i>' + (i + 1) + '</i>' + f[1] + '</h4><p class="sp">' + f[2] + '</p></div>'; }).join('') +
-    '<div class="kitb"><b>工具大禮包內容</b><span>' + b.kit.join('・') + '</span></div>' +
+    takeHome('beginner', [['一幅 15cm 的曼陀羅作品', '課堂上親手完成，放上木質小畫架就能展示'], ['工具大禮包（價值 $680）', b.kit.join('・')], ['回家還能完成 10 件作品', '材料都帶回家，下課以後還能繼續畫'], ['獨立創作的能力', '學會點、線、配色與構圖的方法，不用再照著圖臨摹']]) +
     bnr('b14', 'In Your Life', '把作品帶回生活', 'c3') +
     '<p class="sp">畫好的作品放在書桌、床頭或玄關，每天看到，都會想起那個只屬於自己的下午。也可以送給朋友，或畫在杯墊、石頭、蠟燭等不同材質上。</p>' +
     '<p class="sp">不用每天畫很久。每週留 30 分鐘給自己，畫畫就會慢慢變成生活裡的小儀式。</p>' +
@@ -306,7 +309,7 @@ function aboutTeacher(b, info, gets, cmp) {
     ftMap('teacher', [['大幅構圖', '找圓心・精準分割', 'compass'], ['多元材質', '木板・畫布・石膏', 'layers'], ['構圖層次', '告別同心圓', 'petal'], ['送得出手的禮物', '入厝・生日・親手做', 'gift']], '兩日進階<br>職人研修') +
     ft.map(function (f, i) { return '<div class="cft"><img src="img_class/' + f[0] + '.jpg" alt="" loading="lazy" data-zoom><h4 class="stt"><i>' + (i + 1) + '</i>' + f[1] + '</h4><p class="sp">' + f[2] + '</p></div>'; }).join('') +
     '<p class="dk dkc ab">跟一般繪畫課有什麼不同？</p>' + cmp +
-    '<div class="kitb" style="margin-top:14px"><b>附贈材料</b><span>' + b.kit.join('・') + '</span></div>' +
+    takeHome('teacher', [['4 件不同材質的作品', '15cm 厚木板・竹製杯墊・立體石膏燭台・30cm 圓形畫布含框'], ['完整材料包＋獨家講義與練習本', b.kit.join('・')], ['大幅構圖的完整方法', '找圓心、精準分割、筆刷構圖模板與特殊構圖，回家也能自己畫大作品'], ['學員社群＋終身問答', '加入學員社群交流分享，之後創作遇到問題隨時可以問']]) +
     bnr('t11', 'In Your Life', '把作品帶回生活', 'c3') +
     '<p class="sp">兩天完成 4 件作品：15 公分厚木板、竹製杯墊、立體石膏燭台，還有一幅 30 公分含框的圓形畫布。掛在客廳或臥室，就是家裡最有溫度的一幅畫；燭台點上蠟燭，就是只屬於你的安靜角落。</p>' +
     // 2026-11-27 Kimi 的送禮故事（綠色大作品那位同學 → 照片 t04）

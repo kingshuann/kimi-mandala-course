@@ -1182,6 +1182,11 @@ body.dopen .fab{opacity:0;pointer-events:none}
 /* 2026-11-27 Kimi：課程頁「一般繪畫課 vs 這堂課」不要半邊深綠，改成淺色、這堂課用橄欖綠粗字＋淡綠底 */
 .vtb-r>span:nth-child(3){background:rgba(88,98,74,.08) !important;color:var(--olive) !important;font-weight:600 !important;border-top-color:rgba(74,79,58,.12) !important}
 .vtb-h>span:nth-child(3){color:var(--olive) !important;font-weight:700 !important}
+/* 2026-11-28 Kimi：比較表只畫線、不要底色 */
+.vtb{background:none !important;border-radius:0 !important;border-top:1px solid #CDBFA8;border-bottom:1px solid #CDBFA8;-webkit-backdrop-filter:none;backdrop-filter:none}
+.vtb-r+.vtb-r>*{border-top:1px solid #CDBFA8 !important}
+.vtb-r>span:nth-child(3){background:none !important}
+.vtb-r>b{padding-left:4px}
 /* 2026-11-27 Kimi：陪跑獨立頁改成跟課程頁一樣的淺色樣式（不再用深綠大卡片） */
 .cop .cc{background:transparent;color:var(--ink);border-radius:0;padding:6px 4px 10px;margin:0}
 .cop .cc-ey{color:var(--olive2);opacity:1}

@@ -900,3 +900,19 @@ function slotEmo(t) { var n = slotName(t); return ({ '早班': '☀️', '午班
     });
   }, { passive: true });
 })();
+
+// 課程頁報名步驟標題（01 選擇地區…）：數字做成深綠圓圈、標題放大加深，主次比較清楚（2026-11-27 Kimi）
+(function () {
+  function fix(root) {
+    root.querySelectorAll('.lbl:not(.stp)').forEach(function (p) {
+      var m = p.textContent.match(/^0?(\d+)　(.*)$/); if (!m) return;
+      p.classList.add('stp'); p.innerHTML = '<i>' + m[1] + '</i><span>' + p.innerHTML.replace(/^0?\d+　/, '') + '</span>';
+    });
+  }
+  function start() {
+    var pg = document.querySelector('[data-pg="course"]'); if (!pg) return;
+    fix(pg); new MutationObserver(function () { fix(pg); }).observe(pg, { childList: true, subtree: true });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+})();
+

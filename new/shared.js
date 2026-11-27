@@ -286,10 +286,10 @@ function aboutTeacher(b, info, gets, cmp) {
 }
 // 2026-11-27 Kimi：做成 LINE 對話框的樣子。[署名, LINE 上的日期, [一個泡泡一則訊息]]；原本分開傳的訊息就分開放；頭像用預設圖，不放學員照片
 var REVIEWS = [
-  ['台中・零基礎班學員', '7/30', ['昨天心情不是很好，為了靜心隨手畫了一幅，覺得好神奇，真的有被療癒到']],
-  ['台中・零基礎班學員', '9/23', ['真的很療癒。', '未來你有新的作品或才藝，如果我有喜歡的，也會繼續和您學習。']],
-  ['新竹・零基礎班學員', '10/19', ['我回到家了，今天的體驗我很喜歡']],
-  ['高雄・線上零基礎班學員', '11/1', ['老師今天謝謝您', '很療癒']]
+  ['台中・零基礎班學員', '7/30（四）', ['昨天心情不是很好，為了靜心隨手畫了一幅，覺得好神奇，真的有被療癒到']],
+  ['台中・零基礎班學員', '9/23（三）', ['真的很療癒。', '未來你有新的作品或才藝，如果我有喜歡的，也會繼續和您學習。']],
+  ['新竹・零基礎班學員', '10/19（一）', ['我回到家了，今天的體驗我很喜歡']],
+  ['高雄・線上零基礎班學員', '11/1（日）', ['老師今天謝謝您', '很療癒']]
 ];
 function detailHtml(k) {
   var b = COURSES[k === 'teacher' ? 'teacher' : 'beginner'], on = k === 'online';
@@ -316,7 +316,7 @@ function detailHtml(k) {
       [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18].map(function (i) { return '<img src="img_class/w' + (i < 10 ? '0' : '') + i + '.jpg" alt="學員作品" loading="lazy" data-zoom>'; }).join('') +
       '</div><button class="clm" data-wall>看更多作品</button>' +
       // 2026-11-27 Kimi：學員心得（取自官方 LINE，Kimi 決定不具名：只留原話＋地區，名字頭像都不放；清單在 素材/學員心得/2026-11-27_官方LINE心得候選.md）
-      '<div class="uh rv-h"><b>學員心得</b><span>來自 LINE 的真實回饋</span></div><div class="lchat">' + REVIEWS.map(function (r) { return '<div class="lc"><span class="lav"></span><div class="lcb"><small>' + r[0] + '</small>' + r[2].map(function (m, i) { return '<div class="lbr"><p class="lbub' + (i ? '' : ' t') + '">' + m + '</p>' + (i === r[2].length - 1 ? '<time>' + r[1] + '</time>' : '') + '</div>'; }).join('') + '</div></div>'; }).join('') + '</div></section>') +
+      '<div class="uh rv-h"><b>學員心得</b><span>來自 LINE 的真實回饋</span></div><div class="lchats">' + REVIEWS.map(function (r) { return '<div class="lcard"><div class="lhd"><i>‹</i><b>' + r[0] + '</b></div><div class="lbody"><span class="ldate">' + r[1] + '</span><div class="lc"><span class="lav"></span><div class="lcb">' + r[2].map(function (m, i) { return '<p class="lbub' + (i ? '' : ' t') + '">' + m + '</p>'; }).join('') + '</div></div></div></div>'; }).join('') + '</div><p class="cgal-n">左右滑動看更多 →</p></section>') +
     '<section class="ds dcard" id="ds-units"><div class="uh"><b>課程單元</b><span>' + b.lessons.length + ' 大主題・' + nItems + ' 個重點</span><button data-uall>全部展開</button></div>' +
       b.lessons.map(function (l, i) { return '<div class="un' + (i ? '' : ' on') + '"><button class="un-h lh" data-un><span>主題' + '一二三四五六七八'[i] + '</span>' + l[0] + '<i></i></button><ul class="dl un-b">' + l[1].map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul></div>'; }).join('') +
     '</section>' +

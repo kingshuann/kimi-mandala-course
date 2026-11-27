@@ -217,7 +217,11 @@ function sessionsFor(k) {
 // 2026-11-28 Kimi：四欄大數字（放在「課程單元」最上面）
 var HL4 = { teacher: [['4+1', '材質＋媒材'], ['3', '種構圖模板'], ['5', '種特殊構圖'], ['獨家', '找圓心方法']],
   beginner: [['3+3', '基礎＋變化'], ['9', '色顏料'], ['15cm', '當天帶回家'], ['10', '件課後作品']] };
-function hl4Html(k) { var h = HL4[k]; return h ? '<ul class="pk hl4 uhl">' + h.map(function (x) { return '<li><b>' + x[0] + '</b><span>' + x[1] + '</span></li>'; }).join('') + '</ul>' : ''; }
+// 2026-11-28 Kimi：不要四顆方塊，改成一段話、數字放大加底色螢光筆（像雜誌導言）
+var HL4S = {
+  teacher: '兩天裡，你會練到 <b>4+1</b> 種材質與複合媒材、<b>3</b> 種筆刷構圖模板、<b>5</b> 種特殊構圖，還有 Kimi <b>獨家</b>的找圓心方法。',
+  beginner: '一個下午，你會學會 <b>3+3</b> 種基礎與變化圖形，用 <b>9</b> 色顏料配出自己的顏色，當天帶回一幅 <b>15cm</b> 作品，回家還能再畫 <b>10</b> 件。' };
+function hl4Html(k) { return HL4S[k] ? '<p class="uhs">' + HL4S[k] + '</p>' : ''; }
 function renderCourse() {
   var c = C(S.k), host = document.querySelector('[data-pg="course"]'); if (!host) return;
   host.querySelectorAll('[data-f]').forEach(function (e) { var v = c[e.dataset.f]; if (v != null) e.textContent = v; });

@@ -304,7 +304,7 @@ function aboutBeginner(b, info, gets) {
     '<p class="sp" style="clear:both">一年內我畫了 200 多幅，也成為曼陀羅老師。所以我很確定：<b>零基礎，真的畫得出來。</b></p>' +
     '<h4 class="stt" style="margin-top:30px;clear:both">你是不是也這樣？</h4>' + gets(BEGINNER_PAIN, 'pain') + '<blockquote class="pq">初階班要做的，<br>就是陪你留一段時間給自己，<br>畫出第一幅屬於你的作品。</blockquote>' +
     bnr('b11', 'Features', '課程特色', 'c2') +
-    ftMap('beginner', [['零基礎也能畫', '我敢保證！即便完全沒有美術基礎，也可以完成作品。', 'pen'], ['獨創作品', '不是按照模板臨摹，而是獨立創作出自己的原創作品', 'easel'], ['回家繼續畫', '工具大禮包帶回家還能再畫 10 個作品', 'kit'], ['親手畫的禮物', '可應用在馬克杯、筆記本、書籤等，療癒自己、送禮都適用', 'gift']], '初階班<br>點點曼陀羅') +
+    ftMap('beginner', [['零基礎也能畫', '我敢保證！即便完全沒有美術基礎，也可以完成<span style="white-space:nowrap">作品。</span>', 'pen'], ['獨創作品', '不是按照模板臨摹，而是獨立創作出自己的原創<span style="white-space:nowrap">作品</span>', 'easel'], ['回家繼續畫', '工具大禮包帶回家還能再畫 10 個作品', 'kit'], ['親手畫的禮物', '可應用在馬克杯、筆記本、書籤等，療癒自己、送禮都適用', 'gift']], '初階班<br>點點曼陀羅') +
     ft.map(function (f, i) { return '<div class="cft"><img src="img_class/' + f[0] + '.jpg" alt="" loading="lazy" data-zoom><h4 class="stt"><i>0' + (i + 1) + '</i>' + f[1] + '</h4><p class="sp">' + f[2] + '</p></div>'; }).join('') +
     takeHome('beginner', [['一幅 15cm 的曼陀羅作品', '課堂上親手完成，放上木質小畫架就能展示'], ['工具大禮包（價值 $680）', b.kit.join('・')], ['回家還能完成 10 件作品', '材料都帶回家，下課以後還能繼續畫'], ['獨立創作的能力', '學會點、線、配色與構圖的方法，不用再照著圖臨摹']]) +
     bnr('b14', 'In Your Life', '把作品帶回生活', 'c3') +
